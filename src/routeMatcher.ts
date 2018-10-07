@@ -18,8 +18,8 @@ export const routeMatchesPath = (path: string) => (route: string) => {
     .filter(r => !!r)
   if (segments.length !== routeSegments.length) return false
   const misMatch = segments.find((segment, i) => {
-    if (segment.indexOf(':') === 0) return false
     const route = routeSegments[i]
+    if (route.indexOf(':') === 0) return false
     return route !== segment
   })
   return !misMatch

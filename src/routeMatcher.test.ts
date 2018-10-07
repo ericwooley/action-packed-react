@@ -1,4 +1,8 @@
-import { routeMatchesPath, getVariablesForRoute } from './routeMatcher'
+import {
+  routeMatchesPath,
+  getVariablesForRoute,
+  routeMatcher
+} from './routeMatcher'
 
 describe('routeMatcher', () => {
   describe('routeMatchesPath', () => {
@@ -9,7 +13,7 @@ describe('routeMatcher', () => {
       expect(routeMatchesPath('/home/test///')('/home/test')).toBeTruthy()
     })
     it('should match a path with variables', () => {
-      expect(routeMatchesPath('/home/:test')('/home/test')).toBeTruthy()
+      expect(routeMatchesPath('/home/test')('/home/:test')).toBeTruthy()
     })
     it('should not match a path that is too long', () => {
       expect(routeMatchesPath('/home/test')('/home/test/12')).toBeFalsy()
@@ -49,6 +53,18 @@ describe('routeMatcher', () => {
     })
     it('should throw an error on segment size mismatch', () => {
       expect(() => getVariablesForRoute('/home', '/home/:id')).toThrow()
+    })
+  })
+  describe('routeMatchesPath', () => {
+    it('should find all paths that match', () => {
+      const routeMap = {
+        '/test/123': '',
+        '/test/:id': '',
+        '/test/home': '',
+        '/home/123': ''
+      }
+      const matches = routeMatcher(routeMap, { pathname: '/test/123' })
+      expect(matches).toEqual(['/test/123', '/test/:id'])
     })
   })
 })
