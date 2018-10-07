@@ -1,7 +1,7 @@
 import { createStore, combineReducers, Reducer } from 'redux'
 import { Connect } from 'react-redux'
 import { History } from 'history'
-import { ReactNode } from 'react'
+import { ReactNode, ReactElement, SFC } from 'react'
 export interface IHaveType {
   type: string
 }
@@ -20,13 +20,13 @@ export interface IOptions<T, Keys extends keyof T, BaseState> {
 }
 
 export interface IRouteOptions<T> {
-  component: ReactNode
+  component: React.ComponentType
   saga: AsyncIterableIterator<any>
   reducer: Reducer<T>
 }
 
 export interface IRouteOptionsCreator<T> {
-  (connectComponent: Connect): IRouteOptions<T>
+  (connectComponent: Connect): Promise<IRouteOptions<T>>
 }
 
 export interface IRoutesMap {
