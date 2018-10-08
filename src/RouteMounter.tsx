@@ -3,11 +3,12 @@ import { IRoutesMap } from './fe'
 import { IRouteState } from './routeReducer'
 import { routeMatchesPath } from './routeMatcher'
 import { connect } from 'react-redux'
-
-export class PathMatcher extends React.PureComponent<{
+import ReactDOM from 'react-dom'
+interface IPathMatcherProps {
   routeMap: IRoutesMap
   route: IRouteState
-}> {
+}
+export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
   routeChildren: JSX.Element = <Loading key="loading" />
   buildChildren = async () => {
     const routes = Object.keys(this.props.routeMap)
@@ -46,5 +47,30 @@ export class PathMatcher extends React.PureComponent<{
 export class Loading extends React.PureComponent {
   render() {
     return <span>Loading...</span>
+  }
+}
+
+export const mount = (el: HTMLElement, initialProps: IPathMatcherProps) => {
+  let routeMap = initialProps.routeMap
+  let route = initialProps.route
+  class RouteListener extends React.Component<any> {
+    render() {
+      return <PathMatcher routeMap={routeMap} route={route} />
+    }
+  }
+  let listener: RouteListener | null = null
+  ReactDOM.render(
+    <RouteListener
+      ref={rl => {
+        listener = rl
+      }}
+    />,
+    el
+  )
+  return {
+    updateRouteMap: (rm: IRoutesMap) => {
+      routeMap = rm
+      if (listener) listener.forceUpdate()
+    }
   }
 }

@@ -120,11 +120,13 @@
     "@types/history": "^4.7.0",
     "@types/jsdom": "^11.12.0",
     "@types/react": "^16.4.15",
+    "@types/react-dom": "^16.0.8",
     "@types/react-redux": "^6.0.9",
     "@types/redux": "^3.6.0",
     "history": "^4.7.2",
     "jsdom": "^12.1.0",
     "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0"
   }
