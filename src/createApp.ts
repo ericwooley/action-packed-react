@@ -55,7 +55,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
   history,
   render
 }: IOptions<R>) {
-  const emitter = telegraph<EVENTS>()
+  const emitter: Telegraph.Emitter<EVENTS> = telegraph()
   const reducer = Object.assign(reducerBase, initialReducers)
   const store = createStore(combineReducers(reducer), initialState)
   type IInitialState = BareBonesState & ReducerToState<R>

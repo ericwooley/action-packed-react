@@ -3,11 +3,10 @@ import { IRoutesMap, BareBonesState, EVENTS } from './createApp'
 import { routeMatchesPath } from './routeMatcher'
 import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
-import { Emitter } from 'telegraph-events'
 interface IPathMatcherProps {
   routeMap: IRoutesMap
   pathname: string
-  emitter: Emitter<EVENTS>
+  emitter: Telegraph.Emitter<EVENTS>
 }
 export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
   routeMap: IRoutesMap
@@ -75,7 +74,7 @@ export const mount = (
   render: IRender, // typeof ReactDOM.render
   options: {
     onMount?: () => any
-    emitter: Emitter<EVENTS>
+    emitter: Telegraph.Emitter<EVENTS>
   }
 ) => {
   let routeMap = initialProps.routeMap
