@@ -2,8 +2,9 @@ import * as React from 'react'
 import { IRoutesMap } from './fe'
 import { IRouteState } from './routeReducer'
 import { routeMatchesPath } from './routeMatcher'
-import { connect } from 'react-redux'
+import { connect, Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
+import { Store } from 'redux'
 interface IPathMatcherProps {
   routeMap: IRoutesMap
   route: IRouteState
@@ -25,7 +26,7 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
     const routePacks = matchingRoutes.map(r => this.props.routeMap[r])
     // preload pack
     const loadedPacks = await Promise.all(
-      routePacks.map(routePack => routePack(connect))
+      routePacks.map(routePack => routePack(connect as any))
     )
     this.routeChildren = loadedPacks.reduce(
       (children: JSX.Element | null, pack, index) => {
@@ -50,12 +51,20 @@ export class Loading extends React.PureComponent {
   }
 }
 
-export const mount = (el: HTMLElement, initialProps: IPathMatcherProps) => {
+export const mount = (
+  el: HTMLElement,
+  initialProps: IPathMatcherProps,
+  store: Store
+) => {
   let routeMap = initialProps.routeMap
   let route = initialProps.route
   class RouteListener extends React.Component<any> {
     render() {
-      return <PathMatcher routeMap={routeMap} route={route} />
+      return (
+        <Provider store={store}>
+          <PathMatcher routeMap={routeMap} route={route} />
+        </Provider>
+      )
     }
   }
   let listener: RouteListener | null = null

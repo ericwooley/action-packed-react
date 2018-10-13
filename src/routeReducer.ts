@@ -20,6 +20,6 @@ export const updateHistory = createActionPack<IRouteState, IRouteState>(
   })
 )
 
-export const reducer = createReducerFromActionPack(initialState, [
+export const historyReducer = createReducerFromActionPack(initialState, [
   updateHistory
 ])

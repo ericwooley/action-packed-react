@@ -1,61 +1,100 @@
 import { createStore, combineReducers, Reducer } from 'redux'
-import { Connect } from 'react-redux'
 import { History } from 'history'
-import { ReactNode, ReactElement, SFC } from 'react'
+import { mount } from './RouteMounter'
+import { historyReducer } from './routeReducer'
+import { connect } from 'react-redux'
+
 export interface IHaveType {
   type: string
 }
 
 export interface IReducerBundle<SubState> {
   initialState: SubState
-  reducer: (action: IHaveType, state: SubState) => SubState
-  handlers: { [k: string]: (action: IHaveType, state: SubState) => SubState }
+  reducer: (state: SubState, action: IHaveType) => SubState
+  handlers: { [k: string]: (state: SubState, action: IHaveType) => SubState }
 }
 
-export interface IOptions<T, Keys extends keyof T, BaseState> {
-  initialState?: BaseState
-  initialReducers: { [k in Keys]: IReducerBundle<any>[] }
+export interface IOptions<
+  R extends { [key: string]: Reducer<any> },
+  State extends ReducerToState<R> = ReducerToState<R>
+> {
+  initialState: State
+  initialReducers: R
   history: History
   rootEl: HTMLElement
 }
 
-export interface IRouteOptions<T> {
-  component: React.ComponentType
-  saga: AsyncIterableIterator<any>
-  reducer: Reducer<T>
+export interface IRouteOptions<T extends ReducerObj> {
+  component: React.ComponentType<any>
+  saga?: AsyncIterableIterator<any>
+  reducer: T
+  initialState?: ReducerToState<T>
 }
 
-export interface IRouteOptionsCreator<T> {
-  (connectComponent: Connect): Promise<IRouteOptions<T>>
+export interface IRouteOptionsCreator<
+  AdditionalState extends ReducerObj,
+  ParentState extends ReducerObj
+> {
+  (): Promise<IRouteOptions<AdditionalState & Partial<ParentState>>>
 }
 
 export interface IRoutesMap {
-  [k: string]: IRouteOptionsCreator<any>
+  [k: string]: IRouteOptionsCreator<any, any>
 }
-export function init<T, Keys extends keyof T, BaseState>({
+export function init<R extends { [key: string]: Reducer }>({
   initialState,
   initialReducers,
-  history
-}: IOptions<T, Keys, BaseState>) {
-  const store = createStore(
-    combineReducers({
-      _history: () => ({})
-    }),
-    initialState || {}
-  )
-  const routesMap: IRoutesMap = {}
-  const createSubRoute = <ISubState>(parentRoute: string) => (
+  history,
+  rootEl
+}: IOptions<R>) {
+  const reducerBase = { _history: historyReducer }
+  const reducer = Object.assign(reducerBase, initialReducers)
+  const store = createStore(combineReducers(reducer), initialState)
+  type IInitialState = ReducerToState<typeof reducerBase> & ReducerToState<R>
+  const routeMap: IRoutesMap = {}
+
+  const createSubRoute = <IParentState extends ReducerObj>(
+    parentRoute: string
+  ) => <ISubState extends ReducerObj>(
     route: string,
-    routeOptions: IRouteOptionsCreator<ISubState>
+    routeCreator: IRouteOptionsCreator<ISubState, IParentState>
   ) => {
     const combinedRoute = [parentRoute, route].join('/')
-    routesMap[combinedRoute] = routeOptions
+    routeMap[combinedRoute] = routeCreator
+    type CompleteState = ReducerToState<ISubState> & IParentState
     return {
-      createSubRoute: createSubRoute(combinedRoute)
+      connect: <T, OwnProps, H>(
+        mapStateToProps: (state: CompleteState, ownProps: OwnProps) => T,
+        handlers: H
+      ) =>
+        connect(
+          mapStateToProps,
+          handlers
+        ),
+      createSubRoute: createSubRoute<CompleteState>(combinedRoute)
     }
   }
+
   const unlisten = history.listen((location, action) => {
     //
   })
-  return { createSubRoute: createSubRoute(''), store }
+  return {
+    init: () =>
+      mount(
+        rootEl,
+        {
+          routeMap,
+          route: store.getState()._history
+        },
+        store
+      ),
+    createSubRoute: createSubRoute<IInitialState>(''),
+    store
+  }
 }
+
+export type ReducerObj = { [key: string]: Reducer<any, any> }
+export type ReducerToState<T extends ReducerObj> = {
+  [K in keyof T]: ReturnType<T[K]>
+}
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
