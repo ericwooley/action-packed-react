@@ -1,11 +1,11 @@
 {
-  "name": "fe",
+  "name": "action-packed-react",
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "main": "dist/fe.umd.js",
-  "module": "dist/fe.es5.js",
-  "typings": "dist/types/fe.d.ts",
+  "main": "dist/createApp.umd.js",
+  "module": "dist/createApp.es5.js",
+  "typings": "dist/types/createApp.d.ts",
   "files": [
     "dist"
   ],
@@ -133,7 +133,8 @@
     "react": "^16.5.2",
     "react-dom": "16",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "telegraph-events": "^1.0.3"
   },
   "husky": {
     "hooks": {

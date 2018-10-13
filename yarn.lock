@@ -7705,6 +7705,11 @@ tar@^4, tar@^4.4.3, tar@^4.4.6:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
+telegraph-events@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/telegraph-events/-/telegraph-events-1.0.3.tgz#2a2befce1779e7c5cb8864bd25a7e584e07b435f"
+  integrity sha1-Kivvzhd558XLiGS9JaflhOB7Q18=
+
 term-size@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/term-size/-/term-size-1.2.0.tgz#458b83887f288fc56d6fffbfad262e26638efa69"

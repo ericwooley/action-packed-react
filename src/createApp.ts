@@ -3,6 +3,7 @@ import { History } from 'history'
 import { mount, IRender } from './RouteMounter'
 import { routeReducer, updateHistory } from './routeReducer'
 import { connect } from 'react-redux'
+import * as telegraph from 'telegraph-events'
 
 export interface IHaveType {
   type: string
@@ -45,17 +46,25 @@ export interface IRoutesMap {
 }
 const reducerBase = { _route: routeReducer }
 export type BareBonesState = ReducerToState<typeof reducerBase>
-export function defineApp<R extends { [key: string]: Reducer }>({
+export enum EVENTS {
+  ROUTE_MAP_UPDATE = 'ROUTE_MAP_UPDATE'
+}
+export function createApp<R extends { [key: string]: Reducer }>({
   initialState,
   initialReducers,
   history,
   render
 }: IOptions<R>) {
+  const emitter = telegraph<EVENTS>()
   const reducer = Object.assign(reducerBase, initialReducers)
   const store = createStore(combineReducers(reducer), initialState)
   type IInitialState = BareBonesState & ReducerToState<R>
   const routeMap: IRoutesMap = {}
-
+  let updateReactMounter = {
+    updateRouteMap: (routes: IRoutesMap) => {
+      // nothing to do here
+    }
+  }
   const createSubRoute = <IParentState extends ReducerObj>(parentRoute: string) => <
     ISubState extends ReducerObj
   >(
@@ -64,9 +73,11 @@ export function defineApp<R extends { [key: string]: Reducer }>({
   ) => {
     const combinedRoute = [parentRoute, route].join('/')
     routeMap[combinedRoute] = routeCreator
+    emitter.emit(EVENTS.ROUTE_MAP_UPDATE, routeMap)
     type CompleteState = ReducerToState<ISubState> & IParentState
     return {
       getState: () => (store.getState() as any) as CompleteState,
+      baseSelector: (s: CompleteState) => s,
       connect: <T, OwnProps, H>(
         mapStateToProps: (state: CompleteState, ownProps: OwnProps) => T,
         handlers?: H
@@ -91,6 +102,7 @@ export function defineApp<R extends { [key: string]: Reducer }>({
       })
     )
   })
+
   return {
     init: () =>
       new Promise(r => {
@@ -101,7 +113,8 @@ export function defineApp<R extends { [key: string]: Reducer }>({
           store,
           render,
           {
-            onMount: r
+            onMount: r,
+            emitter
           }
         )
       }),

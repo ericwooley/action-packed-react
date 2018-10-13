@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { defineApp } from './fe'
+import { createApp } from './createApp'
 import { createMemoryHistory } from 'history'
 import { mount, render } from 'enzyme'
 import { Provider } from 'react-redux'
@@ -20,7 +20,7 @@ class ProductSearchComponent extends React.Component<{
   }
 }
 describe('the wooley way fe', () => {
-  let app = defineApp({
+  let app = createApp({
     initialState: {
       str: '',
       num: 15

@@ -13,7 +13,7 @@
     "declarationDir": "dist/types",
     "outDir": "dist/lib",
     "jsx": "react",
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types", "types"]
   },
-  "include": ["src", "setupTests.ts"]
+  "include": ["src", "setupTests.ts", "types"]
 }
