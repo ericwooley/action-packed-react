@@ -4,7 +4,7 @@ import { createMemoryHistory } from 'history'
 import { mount, render } from 'enzyme'
 import { Provider } from 'react-redux'
 class ProductsComponent extends React.Component<{
-  products: { type: string }[]
+  productsLen: number
   test: string
   onClick: () => any
 }> {
@@ -34,7 +34,6 @@ describe('the wooley way fe', () => {
   })
   beforeEach(async () => {
     await app.init()
-    console.log('done mounting')
   })
   it('should be setup', () => {
     expect(app).toBeTruthy()
@@ -45,44 +44,44 @@ describe('the wooley way fe', () => {
         component: ProductsComponent,
         // saga: function* ProductsSaga(): any {},
         reducer: {
-          products: (
-            state: Array<{ type: string }> = [],
-            action: { type: string }
-          ) => [...state, action]
+          products: (state: Array<{ type: string }> = [], action: { type: string }) => [
+            ...state,
+            action
+          ]
         }
       }))
-    let products: ReturnType<typeof createProducts>
-    beforeEach(() => {
-      products = createProducts()
-    })
-    it('should create Products', () => {
-      expect(products).toBeTruthy()
-      expect(products.connect).toBeTruthy()
-      expect(products.createSubRoute).toBeTruthy()
-      expect(products.getState).toBeTruthy()
-    })
+    describe('without route matching', () => {
+      let products: ReturnType<typeof createProducts>
+      beforeEach(() => {
+        products = createProducts()
+      })
+      it('should create Products', () => {
+        expect(products).toBeTruthy()
+        expect(products.connect).toBeTruthy()
+        expect(products.createSubRoute).toBeTruthy()
+        expect(products.getState).toBeTruthy()
+      })
 
-    it('should connect Products', () => {
-      const ConnectedProducts = products.connect(
-        state => ({
-          products: state.products
-        }),
-        {
-          onClick: () => console.log('click')
-        }
-      )(ProductsComponent)
-
-      render(
-        <Provider store={app.store}>
-          <ConnectedProducts test="" />
-        </Provider>
-      )
-    })
-    it('should create a sub route', () => {
-      // should not error
-      const productSearch = products.createSubRoute(
-        'search/:terms',
-        async () => ({
+      it('should connect Products', () => {
+        const ConnectedProducts = products.connect(
+          state => ({
+            productsLen: state.products.length
+          }),
+          {
+            onClick: () => console.log('click')
+          }
+        )(ProductsComponent)
+        expect(() =>
+          render(
+            <Provider store={app.store}>
+              <ConnectedProducts test="" />
+            </Provider>
+          )
+        ).toThrowErrorMatchingInlineSnapshot(`"Cannot read property 'length' of undefined"`)
+      })
+      it('should create a sub route', () => {
+        // should not error
+        const productSearch = products.createSubRoute('search/:terms', async () => ({
           component: ProductSearchComponent,
           // saga: function* ProductsSearchSaga(): any {},
           reducer: {
@@ -95,16 +94,18 @@ describe('the wooley way fe', () => {
               test: action.payload
             })
           }
-        })
-      )
-      const ConnectedProductSearch = productSearch.connect(state => ({
-        title: state.productSearch.test
-      }))(ProductSearchComponent)
-      render(
-        <Provider store={app.store}>
-          <ConnectedProductSearch />
-        </Provider>
-      )
+        }))
+        const ConnectedProductSearch = productSearch.connect(state => ({
+          title: state.productSearch.test
+        }))(ProductSearchComponent)
+        expect(() =>
+          render(
+            <Provider store={app.store}>
+              <ConnectedProductSearch />
+            </Provider>
+          )
+        ).toThrowErrorMatchingInlineSnapshot(`"Cannot read property 'test' of undefined"`)
+      })
     })
   })
 })
