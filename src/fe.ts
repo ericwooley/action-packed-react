@@ -63,9 +63,10 @@ export function init<R extends { [key: string]: Reducer }>({
     routeMap[combinedRoute] = routeCreator
     type CompleteState = ReducerToState<ISubState> & IParentState
     return {
+      getState: () => (store.getState() as any) as CompleteState,
       connect: <T, OwnProps, H>(
         mapStateToProps: (state: CompleteState, ownProps: OwnProps) => T,
-        handlers: H
+        handlers?: H
       ) =>
         connect(
           mapStateToProps,

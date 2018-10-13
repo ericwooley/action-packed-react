@@ -13,17 +13,6 @@ const dom = new JSDOM(
       </body>
     </html>`
 )
-class HomeComponent extends React.Component<any> {
-  render() {
-    return <h1>HomeComponent</h1>
-  }
-}
-
-class ProfileComponent extends React.Component<any> {
-  render() {
-    return <h1>ProfileComponent</h1>
-  }
-}
 class ProductsComponent extends React.Component<{
   products: { type: string }[]
   test: string
@@ -77,7 +66,7 @@ describe('the wooley way fe', () => {
       }
     )(ProductsComponent)
     // should not error
-    render(<ConnectedProducts test="" />, {} as any)
+    render(<ConnectedProducts test="" />, rootEl)
     const productSearch = products.createSubRoute(
       'search/:terms',
       async () => ({
@@ -95,12 +84,9 @@ describe('the wooley way fe', () => {
         }
       })
     )
-    const ConnectedProductSearch = productSearch.connect(
-      state => ({
-        title: state.productSearch.test
-      }),
-      {}
-    )(ProductSearchComponent)
-    render(<ConnectedProductSearch />, {} as any)
+    const ConnectedProductSearch = productSearch.connect(state => ({
+      title: state.productSearch.test
+    }))(ProductSearchComponent)
+    render(<ConnectedProductSearch />, rootEl)
   })
 })
