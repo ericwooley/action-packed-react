@@ -1,25 +1,36 @@
 import { createReducerFromActionPack, createActionPack } from './createReducer'
+import { Action } from 'history'
 
-export interface IRouteState {
+export interface IRouteStatus {
   pathname: string
   search: string
   hash: string
+  action: Action
+  key?: string
+  state?: any
+}
+export interface IRouteState extends IRouteStatus {
+  history: IRouteStatus[]
 }
 
-const initialState: IRouteState = {
+export const initialState: IRouteState = {
+  history: [],
   pathname: '',
   search: '',
-  hash: ''
+  hash: '',
+  action: 'PUSH'
 }
 
-export const updateHistory = createActionPack<IRouteState, IRouteState>(
+export const updateHistory = createActionPack<IRouteState, IRouteStatus>(
   '@TWW/updateLocation',
-  (state, action) => ({
-    ...state,
-    ...action.payload
-  })
+  (state, action) => {
+    const { history, ...restState } = state
+    return {
+      ...state,
+      history: [...state.history, restState],
+      ...action.payload
+    }
+  }
 )
 
-export const historyReducer = createReducerFromActionPack(initialState, [
-  updateHistory
-])
+export const routeReducer = createReducerFromActionPack(initialState, [updateHistory])

@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`route reducer updateHistory should handle @TWW/updateLocation 1`] = `
+Object {
+  "action": "POP",
+  "hash": "hash",
+  "history": Array [
+    Object {
+      "action": "PUSH",
+      "hash": "",
+      "pathname": "",
+      "search": "",
+    },
+  ],
+  "key": "key",
+  "pathname": "pathname",
+  "search": "search",
+  "state": "state",
+}
+`;
+
+exports[`route reducer updateHistory should handle multiple @TWW/updateLocation 1`] = `
+Object {
+  "action": "POP",
+  "hash": "hash",
+  "history": Array [
+    Object {
+      "action": "PUSH",
+      "hash": "",
+      "pathname": "",
+      "search": "",
+    },
+    Object {
+      "action": "POP",
+      "hash": "hash",
+      "key": "key",
+      "pathname": "pathname",
+      "search": "search",
+      "state": "state",
+    },
+    Object {
+      "action": "POP",
+      "hash": "hash",
+      "key": "key",
+      "pathname": "pathname",
+      "search": "search",
+      "state": "state",
+    },
+    Object {
+      "action": "POP",
+      "hash": "hash",
+      "key": "key",
+      "pathname": "pathname",
+      "search": "search",
+      "state": "state",
+    },
+  ],
+  "key": "key",
+  "pathname": "pathname",
+  "search": "search",
+  "state": "state",
+}
+`;

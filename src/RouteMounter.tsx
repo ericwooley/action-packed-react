@@ -1,19 +1,17 @@
 import * as React from 'react'
-import { IRoutesMap } from './fe'
-import { IRouteState } from './routeReducer'
+import { IRoutesMap, BareBonesState } from './fe'
 import { routeMatchesPath } from './routeMatcher'
-import { connect, Provider } from 'react-redux'
-import ReactDOM from 'react-dom'
+import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
 interface IPathMatcherProps {
   routeMap: IRoutesMap
-  route: IRouteState
+  pathname: string
 }
 export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
   routeChildren: JSX.Element = <Loading key="loading" />
   buildChildren = async () => {
     const routes = Object.keys(this.props.routeMap)
-    const route = this.props.route.pathname
+    const route = this.props.pathname
     const matchingRoutes = routes
       .filter(routeMatchesPath(route))
       .sort((a, b) => {
@@ -26,7 +24,7 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
     const routePacks = matchingRoutes.map(r => this.props.routeMap[r])
     // preload pack
     const loadedPacks = await Promise.all(
-      routePacks.map(routePack => routePack(connect as any))
+      routePacks.map(routePack => routePack())
     )
     this.routeChildren = loadedPacks.reduce(
       (children: JSX.Element | null, pack, index) => {
@@ -45,41 +43,71 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
   }
 }
 
+const ConnectedPathMatcher = connect(
+  (state: BareBonesState) => ({
+    pathname: state._route.pathname
+  }),
+  {}
+)(PathMatcher)
+
 export class Loading extends React.PureComponent {
   render() {
     return <span>Loading...</span>
   }
 }
 
-export const mount = (
-  el: HTMLElement,
-  initialProps: IPathMatcherProps,
+export interface IRender {
+  (c: React.ReactElement<any>): any
+}
+
+class RouteListener extends React.Component<{
   store: Store
+  routeMap: IRoutesMap
+}> {
+  routeMap: IRoutesMap
+
+  constructor(props: any, state: any) {
+    super(props, state)
+    this.routeMap = this.props.routeMap
+  }
+  updateRouteMap = (routeMap: IRoutesMap) => {
+    this.routeMap = routeMap
+    this.forceUpdate()
+  }
+  render() {
+    return (
+      <Provider store={this.props.store}>
+        <ConnectedPathMatcher routeMap={this.routeMap} />
+      </Provider>
+    )
+  }
+}
+export const mount = (
+  initialProps: { routeMap: IRoutesMap },
+  store: Store,
+  render: IRender, // typeof ReactDOM.render
+  options: {
+    el?: HTMLElement
+    onMount?: (jsxEl: RouteListener) => any
+  } = {}
 ) => {
   let routeMap = initialProps.routeMap
-  let route = initialProps.route
-  class RouteListener extends React.Component<any> {
-    render() {
-      return (
-        <Provider store={store}>
-          <PathMatcher routeMap={routeMap} route={route} />
-        </Provider>
-      )
-    }
-  }
-  let listener: RouteListener | null = null
-  ReactDOM.render(
+  const { onMount = (c?: RouteListener) => null, el } = options
+  const comp: React.ReactElement<any> = (
     <RouteListener
+      store={store}
+      routeMap={routeMap}
       ref={rl => {
-        listener = rl
+        if (rl) {
+          onMount(rl)
+        }
       }}
-    />,
-    el
+    />
   )
+  render(comp)
   return {
-    updateRouteMap: (rm: IRoutesMap) => {
-      routeMap = rm
-      if (listener) listener.forceUpdate()
+    updateRouteMap: (newRouteMap: IRoutesMap) => {
+      routeMap = newRouteMap
     }
   }
 }

@@ -1,7 +1,7 @@
 import { createStore, combineReducers, Reducer } from 'redux'
 import { History } from 'history'
-import { mount } from './RouteMounter'
-import { historyReducer } from './routeReducer'
+import { mount, IRender } from './RouteMounter'
+import { routeReducer, updateHistory } from './routeReducer'
 import { connect } from 'react-redux'
 
 export interface IHaveType {
@@ -21,7 +21,9 @@ export interface IOptions<
   initialState: State
   initialReducers: R
   history: History
-  rootEl: HTMLElement
+  rootEl?: HTMLElement
+  onMount?: () => any
+  render: IRender
 }
 
 export interface IRouteOptions<T extends ReducerObj> {
@@ -41,21 +43,22 @@ export interface IRouteOptionsCreator<
 export interface IRoutesMap {
   [k: string]: IRouteOptionsCreator<any, any>
 }
-export function init<R extends { [key: string]: Reducer }>({
+const reducerBase = { _route: routeReducer }
+export type BareBonesState = ReducerToState<typeof reducerBase>
+export function defineApp<R extends { [key: string]: Reducer }>({
   initialState,
   initialReducers,
   history,
-  rootEl
+  render
 }: IOptions<R>) {
-  const reducerBase = { _history: historyReducer }
   const reducer = Object.assign(reducerBase, initialReducers)
   const store = createStore(combineReducers(reducer), initialState)
-  type IInitialState = ReducerToState<typeof reducerBase> & ReducerToState<R>
+  type IInitialState = BareBonesState & ReducerToState<R>
   const routeMap: IRoutesMap = {}
 
-  const createSubRoute = <IParentState extends ReducerObj>(
-    parentRoute: string
-  ) => <ISubState extends ReducerObj>(
+  const createSubRoute = <IParentState extends ReducerObj>(parentRoute: string) => <
+    ISubState extends ReducerObj
+  >(
     route: string,
     routeCreator: IRouteOptionsCreator<ISubState, IParentState>
   ) => {
@@ -77,25 +80,36 @@ export function init<R extends { [key: string]: Reducer }>({
   }
 
   const unlisten = history.listen((location, action) => {
-    //
+    store.dispatch(
+      updateHistory({
+        pathname: location.pathname,
+        hash: location.hash,
+        search: location.search,
+        action,
+        state: location.state,
+        key: location.key
+      })
+    )
   })
   return {
     init: () =>
-      mount(
-        rootEl,
-        {
-          routeMap,
-          route: store.getState()._history
-        },
-        store
-      ),
+      new Promise(r => {
+        mount(
+          {
+            routeMap
+          },
+          store,
+          render,
+          {
+            onMount: r
+          }
+        )
+      }),
     createSubRoute: createSubRoute<IInitialState>(''),
     store
   }
 }
 
 export type ReducerObj = { [key: string]: Reducer<any, any> }
-export type ReducerToState<T extends ReducerObj> = {
-  [K in keyof T]: ReturnType<T[K]>
-}
+export type ReducerToState<T extends ReducerObj> = { [K in keyof T]: ReturnType<T[K]> }
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>

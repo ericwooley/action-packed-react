@@ -1,18 +1,8 @@
 import * as React from 'react'
-import { init } from './fe'
-import { JSDOM } from 'jsdom'
+import { defineApp } from './fe'
 import { createMemoryHistory } from 'history'
-import { render } from 'react-dom'
-const dom = new JSDOM(
-  `<!DOCTYPE html>
-    <html>
-      <body>
-        <div id="root">
-          JS not supported
-        </div>
-      </body>
-    </html>`
-)
+import { mount, render } from 'enzyme'
+import { Provider } from 'react-redux'
 class ProductsComponent extends React.Component<{
   products: { type: string }[]
   test: string
@@ -30,63 +20,91 @@ class ProductSearchComponent extends React.Component<{
   }
 }
 describe('the wooley way fe', () => {
-  it('should look like this', () => {
-    const rootEl = dom.window.document.getElementById('root')
-    if (!rootEl) throw new Error('Could not create root')
-    const app = init({
-      initialState: {
-        str: '',
-        num: 15
-      },
-      initialReducers: {
-        str: () => 'test',
-        num: () => 12
-      },
-      history: createMemoryHistory(),
-      rootEl
+  let app = defineApp({
+    initialState: {
+      str: '',
+      num: 15
+    },
+    initialReducers: {
+      str: () => 'test',
+      num: () => 12
+    },
+    history: createMemoryHistory(),
+    render: jsx => mount(jsx)
+  })
+  beforeEach(async () => {
+    await app.init()
+    console.log('done mounting')
+  })
+  it('should be setup', () => {
+    expect(app).toBeTruthy()
+  })
+  describe('child route', () => {
+    const createProducts = () =>
+      app.createSubRoute('products', async () => ({
+        component: ProductsComponent,
+        // saga: function* ProductsSaga(): any {},
+        reducer: {
+          products: (
+            state: Array<{ type: string }> = [],
+            action: { type: string }
+          ) => [...state, action]
+        }
+      }))
+    let products: ReturnType<typeof createProducts>
+    beforeEach(() => {
+      products = createProducts()
+    })
+    it('should create Products', () => {
+      expect(products).toBeTruthy()
+      expect(products.connect).toBeTruthy()
+      expect(products.createSubRoute).toBeTruthy()
+      expect(products.getState).toBeTruthy()
     })
 
-    const products = app.createSubRoute('products', async () => ({
-      component: ProductsComponent,
-      // saga: function* ProductsSaga(): any {},
-      reducer: {
-        products: (
-          state: Array<{ type: string }> = [],
-          action: { type: string }
-        ) => [...state, action]
-      }
-    }))
-
-    const ConnectedProducts = products.connect(
-      state => ({
-        products: state.products
-      }),
-      {
-        onClick: () => console.log('click')
-      }
-    )(ProductsComponent)
-    // should not error
-    render(<ConnectedProducts test="" />, rootEl)
-    const productSearch = products.createSubRoute(
-      'search/:terms',
-      async () => ({
-        component: ProductSearchComponent,
-        // saga: function* ProductsSearchSaga(): any {},
-        reducer: {
-          producer: () => null,
-          productSearch: (
-            state: { test: string },
-            action: { type: string; payload: string }
-          ) => ({
-            ...state,
-            test: action.payload
-          })
+    it('should connect Products', () => {
+      const ConnectedProducts = products.connect(
+        state => ({
+          products: state.products
+        }),
+        {
+          onClick: () => console.log('click')
         }
-      })
-    )
-    const ConnectedProductSearch = productSearch.connect(state => ({
-      title: state.productSearch.test
-    }))(ProductSearchComponent)
-    render(<ConnectedProductSearch />, rootEl)
+      )(ProductsComponent)
+
+      render(
+        <Provider store={app.store}>
+          <ConnectedProducts test="" />
+        </Provider>
+      )
+    })
+    it('should create a sub route', () => {
+      // should not error
+      const productSearch = products.createSubRoute(
+        'search/:terms',
+        async () => ({
+          component: ProductSearchComponent,
+          // saga: function* ProductsSearchSaga(): any {},
+          reducer: {
+            producer: () => null,
+            productSearch: (
+              state: { test: string },
+              action: { type: string; payload: string }
+            ) => ({
+              ...state,
+              test: action.payload
+            })
+          }
+        })
+      )
+      const ConnectedProductSearch = productSearch.connect(state => ({
+        title: state.productSearch.test
+      }))(ProductSearchComponent)
+      render(
+        <Provider store={app.store}>
+          <ConnectedProductSearch />
+        </Provider>
+      )
+    })
   })
 })
