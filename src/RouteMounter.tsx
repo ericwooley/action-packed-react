@@ -12,7 +12,6 @@ import { AddMountAlert } from './mountAlert'
 interface IPathMatcherProps {
   routeMap: IRoutesMap
   pathname: string
-  emitter: Telegraph.Emitter<EVENTS>
   onRouteMatch: (routes: string[]) => any
   onPackLoaded: (routePack: IRouteOptions<any>[]) => any
   onMount: (route: string) => any
@@ -23,18 +22,11 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
   constructor(props: any) {
     super(props)
     this.routeMap = this.props.routeMap
-    this.props.emitter.on(EVENTS.ROUTE_MAP_UPDATE, this.updateRoutesMap)
   }
   componentDidUpdate(lastProps: IPathMatcherProps) {
     if (lastProps.pathname !== this.props.pathname) {
       this.buildChildren()
     }
-  }
-  updateRoutesMap(routesMap: IRoutesMap) {
-    this.routeMap = routesMap
-  }
-  componentWillUnmount() {
-    this.props.emitter.off(EVENTS.ROUTE_MAP_UPDATE, this.updateRoutesMap)
   }
   routeChildren: JSX.Element = <Loading key="loading" />
   buildChildren = async () => {

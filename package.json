@@ -139,8 +139,7 @@
     "react-dom": "16",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "reselect": "^4.0.0",
-    "telegraph-events": "^1.0.3"
+    "reselect": "^4.0.0"
   },
   "husky": {
     "hooks": {
