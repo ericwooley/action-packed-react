@@ -96,7 +96,10 @@ const createProductsSearch = () => {
     // saga: function* ProductsSearchSaga(): any {},
     reducer: {
       producer: () => null,
-      productSearch: (state: { test: string }, action: { type: string; payload: string }) => ({
+      productSearch: (
+        state: { test: string },
+        action: { type: string; payload: string }
+      ) => ({
         ...state,
         test: action.payload
       })
@@ -106,10 +109,12 @@ const createProductsSearch = () => {
 }
 describe('the wooley way fe', () => {
   beforeEach(async () => {})
+  let basicApp: ReturnType<typeof createBasicApp>
   it('should be setup', async () => {
-    let { app } = createBasicApp()
-    await app.init()
-    expect(app).toBeTruthy()
+    let basicApp = createBasicApp()
+    await basicApp.app.init()
+    expect(basicApp.app).toBeTruthy()
+    basicApp.app.shutDown()
   })
   describe('child route', () => {
     describe('with matching route', () => {
@@ -121,10 +126,10 @@ describe('the wooley way fe', () => {
             component: ProductsComponent,
             // saga: function* ProductsSaga(): any {},
             reducer: {
-              products: (state: Array<{ type: string }> = [], action: { type: string }) => [
-                ...state,
-                action
-              ]
+              products: (
+                state: Array<{ type: string }> = [],
+                action: { type: string }
+              ) => [...state, action]
             }
           }),
           {
@@ -167,7 +172,9 @@ describe('the wooley way fe', () => {
             {
               onMount: r,
               onUnMount: () => {
-                expect(sanitizeState(app.store.getState())).toMatchSnapshot('unmount')
+                expect(sanitizeState(app.store.getState())).toMatchSnapshot(
+                  'unmount'
+                )
                 done()
               }
             }
@@ -191,6 +198,12 @@ describe('the wooley way fe', () => {
         expect(productsApp.products.connect).toBeTruthy()
         expect(productsApp.products.createSubRoute).toBeTruthy()
         expect(productsApp.products.getState).toBeTruthy()
+        expect(sanitizeState(productsApp.products.getState())).toMatchSnapshot()
+        expect(
+          sanitizeState(
+            productsApp.products.baseSelector(productsApp.products.getState())
+          )
+        ).toMatchSnapshot()
       })
 
       it('should connect Products', () => {
@@ -208,20 +221,26 @@ describe('the wooley way fe', () => {
               <ConnectedProducts test="" />
             </Provider>
           )
-        ).toThrowErrorMatchingInlineSnapshot(`"Cannot read property 'products' of undefined"`)
+        ).toThrowErrorMatchingInlineSnapshot(
+          `"Cannot read property 'products' of undefined"`
+        )
       })
       it('should create a sub route', () => {
         // should not error
-        const ConnectedProductSearch = productSearchApp.productSearch.connect(state => ({
-          title: state.productSearch.test
-        }))(ProductSearchComponent)
+        const ConnectedProductSearch = productSearchApp.productSearch.connect(
+          state => ({
+            title: state.productSearch.test
+          })
+        )(ProductSearchComponent)
         expect(() =>
           render(
             <Provider store={productSearchApp.app.store}>
               <ConnectedProductSearch />
             </Provider>
           )
-        ).toThrowErrorMatchingInlineSnapshot(`"Cannot read property 'test' of undefined"`)
+        ).toThrowErrorMatchingInlineSnapshot(
+          `"Cannot read property 'test' of undefined"`
+        )
       })
     })
   })

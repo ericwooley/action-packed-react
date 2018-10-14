@@ -80,3 +80,33 @@ Object {
   "str": "test",
 }
 `;
+
+exports[`the wooley way fe child route without route matching should create Products 1`] = `
+Object {
+  "_route": Object {
+    "action": "PUSH",
+    "hash": "",
+    "history": Array [],
+    "key": "<key>",
+    "pathname": "",
+    "search": "",
+  },
+  "num": 12,
+  "str": "test",
+}
+`;
+
+exports[`the wooley way fe child route without route matching should create Products 2`] = `
+Object {
+  "_route": Object {
+    "action": "PUSH",
+    "hash": "",
+    "history": Array [],
+    "key": "<key>",
+    "pathname": "",
+    "search": "",
+  },
+  "num": 12,
+  "str": "test",
+}
+`;

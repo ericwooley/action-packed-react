@@ -6,15 +6,15 @@ export const AddMountAlert = <IProps, T>(
 ) => {
   return class RouteAlerter extends React.Component<
     IProps & {
-      onMount?: (id: typeof identifier, extra?: T) => any
-      onUnMount?: (id: typeof identifier, extra?: T) => any
+      onMount: (id: typeof identifier, extra?: T) => any
+      onUnMount: (id: typeof identifier, extra?: T) => any
     }
   > {
     componentWillMount() {
-      if (this.props.onMount) this.props.onMount(identifier, extra)
+      this.props.onMount(identifier, extra)
     }
     componentWillUnmount() {
-      if (this.props.onUnMount) this.props.onUnMount(identifier, extra)
+      this.props.onUnMount(identifier, extra)
     }
     render() {
       const { onMount, ...restProps } = this.props as any

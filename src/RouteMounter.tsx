@@ -61,27 +61,34 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
       })
     )
     this.props.onPackLoaded(loadedPacks.map(p => p.contents))
-    this.routeChildren = loadedPacks.reduce((children: JSX.Element | null, pack, index) => {
-      const Component = AddMountAlert(pack.contents.component, pack.route, pack.contents)
-      if (children) {
+    this.routeChildren = loadedPacks.reduce(
+      (children: JSX.Element | null, pack, index) => {
+        const Component = AddMountAlert(
+          pack.contents.component,
+          pack.route,
+          pack.contents
+        )
+        if (children) {
+          return (
+            <Component
+              key={matchingRoutes[index]}
+              onMount={this.props.onMount}
+              onUnMount={this.props.onUnMount}
+            >
+              {children}
+            </Component>
+          )
+        }
         return (
           <Component
             key={matchingRoutes[index]}
             onMount={this.props.onMount}
             onUnMount={this.props.onUnMount}
-          >
-            {children}
-          </Component>
+          />
         )
-      }
-      return (
-        <Component
-          key={matchingRoutes[index]}
-          onMount={this.props.onMount}
-          onUnMount={this.props.onUnMount}
-        />
-      )
-    }, null) || <Loading key="loading" />
+      },
+      null
+    ) || <Loading key="loading" />
     this.forceUpdate()
   }
   render() {
@@ -113,18 +120,13 @@ export const mount = (
   store: Store,
   render: IRender, // typeof ReactDOM.render
   options: {
-    onMount?: () => any
+    onMount: () => any
   }
 ) => {
-  const { onMount = () => null } = options
+  const { onMount } = options
   const comp: React.ReactElement<any> = (
     <Provider store={store}>
-      <ConnectedPathMatcher
-        {...initialProps}
-        ref={el => {
-          if (el) onMount()
-        }}
-      />
+      <ConnectedPathMatcher {...initialProps} ref={onMount} />
     </Provider>
   )
   return render(comp)
