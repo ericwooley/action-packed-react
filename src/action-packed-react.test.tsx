@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { createApp, BareBonesState } from './createApp'
+import { createApp, BareBonesState } from './action-packed-react'
 import { createMemoryHistory } from 'history'
 import { mount, render } from 'enzyme'
 import { Provider } from 'react-redux'

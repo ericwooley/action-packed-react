@@ -1,5 +1,10 @@
 import * as React from 'react'
-import { IRoutesMap, BareBonesState, EVENTS, IRouteOptions } from './createApp'
+import {
+  IRoutesMap,
+  BareBonesState,
+  EVENTS,
+  IRouteOptions
+} from './action-packed-react'
 import { routeMatchesPath } from './routeMatcher'
 import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'

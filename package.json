@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "main": "dist/createApp.umd.js",
-  "module": "dist/createApp.es5.js",
-  "typings": "dist/types/createApp.d.ts",
+  "main": "dist/action-packed-react.umd.js",
+  "module": "dist/action-packed-react.es5.js",
+  "typings": "dist/types/action-packed-react.d.ts",
   "files": [
     "dist"
   ],
