@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { IRoutesMap, BareBonesState, EVENTS, IRouteOptions, IRoutesMapValue } from './createApp'
+import { IRoutesMap, BareBonesState, EVENTS, IRouteOptions } from './createApp'
 import { routeMatchesPath } from './routeMatcher'
 import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
@@ -11,7 +11,7 @@ interface IPathMatcherProps {
   onRouteMatch: (routes: string[]) => any
   onPackLoaded: (routePack: IRouteOptions<any>[]) => any
   onMount: (route: string) => any
-  onUnMount: (route: string) => any
+  onUnMount: (route: string, content: IRouteOptions<any>) => any
 }
 export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
   routeMap: IRoutesMap
@@ -62,7 +62,7 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
     )
     this.props.onPackLoaded(loadedPacks.map(p => p.contents))
     this.routeChildren = loadedPacks.reduce((children: JSX.Element | null, pack, index) => {
-      const Component = AddMountAlert(pack.contents.component, pack.route)
+      const Component = AddMountAlert(pack.contents.component, pack.route, pack.contents)
       if (children) {
         return (
           <Component

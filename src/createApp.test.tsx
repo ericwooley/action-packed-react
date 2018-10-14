@@ -1,8 +1,20 @@
 import * as React from 'react'
-import { createApp } from './createApp'
+import { createApp, BareBonesState } from './createApp'
 import { createMemoryHistory } from 'history'
 import { mount, render } from 'enzyme'
 import { Provider } from 'react-redux'
+import { createActionPack, createReducerFromActionPack } from './createReducer'
+const sanitizeState = (state: BareBonesState) => ({
+  ...state,
+  _route: {
+    ...state._route,
+    history: state._route.history.map((item, idx) => ({
+      ...item,
+      key: `${idx}`
+    })),
+    key: '<key>'
+  }
+})
 class ProductsComponent extends React.Component<{
   productsLen: number
   test: string
@@ -45,17 +57,31 @@ const createBasicApp = () => {
     })
   }
 }
+
+interface Product {
+  type: string
+}
+interface ProductState {
+  products: Product[]
+}
+const productsState: ProductState = {
+  products: [{ type: 'test' }]
+}
+const addProduct = createActionPack<ProductState, { type: string }>(
+  'ADD_PRODUCT',
+  (state: ProductState, action) => ({
+    ...productsState,
+    products: [...state.products, action.payload]
+  })
+)
+
+const productReducer = createReducerFromActionPack(productsState, [addProduct])
 const createProducts = () => {
   const { app, history } = createBasicApp()
   const products = app.createSubRoute('products', async () => ({
     component: ProductsComponent,
     // saga: function* ProductsSaga(): any {},
-    reducer: {
-      products: (state: Array<{ type: string }> = [], action: { type: string }) => [
-        ...state,
-        action
-      ]
-    }
+    reducer: { products: productReducer }
   }))
   return {
     app,
@@ -125,6 +151,33 @@ describe('the wooley way fe', () => {
         app.init()
         history.push('/products')
       })
+      it('should mount the proper state', async done => {
+        const { app, history } = createBasicApp()
+        expect(sanitizeState(app.store.getState())).toMatchSnapshot('none')
+        await new Promise(r => {
+          const productRoute = app.createSubRoute(
+            'products',
+            async () => ({
+              component: ProductsComponent,
+              // saga: function* ProductsSaga(): any {},
+              reducer: {
+                products: productReducer
+              }
+            }),
+            {
+              onMount: r,
+              onUnMount: () => {
+                expect(sanitizeState(app.store.getState())).toMatchSnapshot('unmount')
+                done()
+              }
+            }
+          )
+          app.init()
+          history.push('/products')
+        })
+        expect(sanitizeState(app.store.getState())).toMatchSnapshot('mount')
+        history.push('')
+      })
     })
     describe('without route matching', () => {
       let productsApp: ReturnType<typeof createProducts>
@@ -143,7 +196,7 @@ describe('the wooley way fe', () => {
       it('should connect Products', () => {
         const ConnectedProducts = productsApp.products.connect(
           state => ({
-            productsLen: state.products.length
+            productsLen: state.products.products.length
           }),
           {
             onClick: () => console.log('click')
@@ -155,7 +208,7 @@ describe('the wooley way fe', () => {
               <ConnectedProducts test="" />
             </Provider>
           )
-        ).toThrowErrorMatchingInlineSnapshot(`"Cannot read property 'length' of undefined"`)
+        ).toThrowErrorMatchingInlineSnapshot(`"Cannot read property 'products' of undefined"`)
       })
       it('should create a sub route', () => {
         // should not error

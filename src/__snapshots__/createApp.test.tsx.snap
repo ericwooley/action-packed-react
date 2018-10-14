@@ -1,3 +1,82 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`the wooley way fe child route with matching route should mount on navigate 1`] = `"<h1>ProductsComponent 1</h1><p></p>"`;
+
+exports[`the wooley way fe child route with matching route should mount the proper state: mount 1`] = `
+Object {
+  "_route": Object {
+    "action": "PUSH",
+    "hash": "",
+    "history": Array [
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "0",
+        "pathname": "",
+        "search": "",
+      },
+    ],
+    "key": "<key>",
+    "pathname": "/products",
+    "search": "",
+    "state": undefined,
+  },
+  "num": 12,
+  "products": Object {
+    "products": Array [
+      Object {
+        "type": "test",
+      },
+    ],
+  },
+  "str": "test",
+}
+`;
+
+exports[`the wooley way fe child route with matching route should mount the proper state: none 1`] = `
+Object {
+  "_route": Object {
+    "action": "PUSH",
+    "hash": "",
+    "history": Array [],
+    "key": "<key>",
+    "pathname": "",
+    "search": "",
+  },
+  "num": 12,
+  "str": "test",
+}
+`;
+
+exports[`the wooley way fe child route with matching route should mount the proper state: unmount 1`] = `
+Object {
+  "_route": Object {
+    "action": "PUSH",
+    "hash": "",
+    "history": Array [
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "0",
+        "pathname": "",
+        "search": "",
+      },
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "1",
+        "pathname": "/products",
+        "search": "",
+        "state": undefined,
+      },
+    ],
+    "key": "<key>",
+    "pathname": "/",
+    "search": "",
+    "state": undefined,
+  },
+  "num": 12,
+  "products": null,
+  "str": "test",
+}
+`;

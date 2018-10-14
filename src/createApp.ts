@@ -69,22 +69,18 @@ export function createApp<R extends { [key: string]: Reducer }>({
   render
 }: IOptions<R>) {
   const emitter: Telegraph.Emitter<EVENTS> = telegraph()
-  const alwaysReducerObject = Object.assign({}, reducerBase, initialReducers)
-  const store = createStore(combineReducers(alwaysReducerObject), initialState)
+  let currentReducerObject = Object.assign({}, reducerBase, initialReducers)
+  const store = createStore(combineReducers(currentReducerObject), initialState)
   type IInitialState = BareBonesState & ReducerToState<R>
   const routeMap: IRoutesMap = {}
-  const createSubRoute = <IParentState extends ReducerObj>(
-    parentRoute: string
-  ) => <ISubState extends ReducerObj>(
+  const createSubRoute = <IParentState extends ReducerObj>(parentRoute: string) => <
+    ISubState extends ReducerObj
+  >(
     route: string,
     routeCreator: IRouteOptionsCreator<ISubState, IParentState>,
     options: ICreateRouteOptions = {}
   ) => {
-    const {
-      onRouteMatch = () => null,
-      onMount = () => null,
-      onUnMount = () => null
-    } = options
+    const { onRouteMatch = () => null, onMount = () => null, onUnMount = () => null } = options
     const combinedRoute = [parentRoute, route].join('/')
     routeMap[combinedRoute] = {
       onRouteMatch,
@@ -140,22 +136,31 @@ export function createApp<R extends { [key: string]: Reducer }>({
             onRouteMatch: routes =>
               routes.map(r => routeMap[r]).forEach(pack => pack.onRouteMatch()),
             onPackLoaded: packs => {
-              const reducers = [
-                alwaysReducerObject,
-                ...packs.map(c => c.reducer)
-              ]
-              const combined = Object.assign({}, ...reducers)
-              const reducer = combineReducers(combined)
-              store.replaceReducer(reducer as any)
+              const reducers = [currentReducerObject, ...packs.map(c => c.reducer)]
+              currentReducerObject = Object.assign({}, ...reducers)
+              const reducer = combineReducers(currentReducerObject)
+              store.replaceReducer(reducer)
             },
             onMount: route => {
-              console.log('on mount', route, routeMap[route])
               if (routeMap[route]) {
                 routeMap[route].onMount()
               }
             },
-            onUnMount: route => {
-              if (routeMap[route]) {
+            onUnMount: (route, pack) => {
+              console.log('unmount', route, pack)
+              if (pack) {
+                currentReducerObject = Object.keys(pack.reducer).reduce(
+                  (reducer, key) => {
+                    reducer[key] = () => null
+                    return reducer
+                  },
+                  { ...(currentReducerObject as any) }
+                )
+                const reducer = combineReducers(currentReducerObject)
+                store.replaceReducer(reducer)
+                store.dispatch({
+                  type: `UNMOUNT_${route}`
+                })
                 routeMap[route].onUnMount()
               }
             }
@@ -174,6 +179,4 @@ export function createApp<R extends { [key: string]: Reducer }>({
 }
 
 export type ReducerObj = { [key: string]: Reducer<any, any> }
-export type ReducerToState<T extends ReducerObj> = {
-  [K in keyof T]: ReturnType<T[K]>
-}
+export type ReducerToState<T extends ReducerObj> = { [K in keyof T]: ReturnType<T[K]> }

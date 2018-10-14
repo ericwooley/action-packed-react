@@ -21,10 +21,7 @@ export interface IActionPack<T, IState> {
   _type: string
 }
 
-export const createActionPack = <TState, T>(
-  type: string,
-  handler: IHandler<T, TState>
-) => {
+export const createActionPack = <TState, T>(type: string, handler: IHandler<T, TState>) => {
   const ac: IActionPack<T, TState> & any = (payload: T) => ({
     payload,
     type
@@ -60,16 +57,11 @@ export const createReducerFromActionPack = <T>(
   )
   return (state: T | undefined = initialState, action: AnyAction) => {
     if (handlerMap[action.type]) {
-      const updatedState = handlerMap[action.type]._handler(
-        state,
-        action as IAction<any>
-      )
+      const updatedState = handlerMap[action.type]._handler(state, action as IAction<any>)
       if (enableWarnings) {
         Object.keys(updatedState).forEach(k => {
           if (!expectedKeys[k]) {
-            console.warn(
-              'Unexpected state update for key which did not exist on the state before'
-            )
+            console.warn('Unexpected state update for key which did not exist on the state before')
           }
         })
       }

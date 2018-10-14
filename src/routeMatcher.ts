@@ -1,7 +1,4 @@
-export function routeMatcher(
-  routeMap: { [key: string]: any },
-  routeState: { pathname: string }
-) {
+export function routeMatcher(routeMap: { [key: string]: any }, routeState: { pathname: string }) {
   const path = routeState.pathname
   const routes = Object.keys(routeMap)
   return routes.filter(routeMatchesPath(path))
