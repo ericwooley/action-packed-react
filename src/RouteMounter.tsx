@@ -47,14 +47,11 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
         if (a > b) return 1
         return 0
       })
-      // reverse to get the most inner children first
-      .reverse()
     this.props.onRouteMatch(matchingRoutes)
     const routePacks = matchingRoutes.map(r => ({
       route: r,
       pack: this.routeMap[r]
     }))
-    // preload pack
     const loadedPacks = await Promise.all(
       routePacks.map(async routePack => {
         const ret = {

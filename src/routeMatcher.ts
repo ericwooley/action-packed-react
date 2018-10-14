@@ -1,7 +1,4 @@
-export function routeMatcher(
-  routeMap: { [key: string]: any },
-  routeState: { pathname: string }
-) {
+export function routeMatcher(routeMap: { [key: string]: any }, routeState: { pathname: string }) {
   const path = routeState.pathname
   const routes = Object.keys(routeMap)
   return routes.filter(routeMatchesPath(path))
@@ -20,7 +17,7 @@ export const routeMatchesPath = (path: string) => (route: string) => {
 
   const misMatch = segments.find((segment, i) => {
     const route = routeSegments[i]
-    if (!route) return true
+    if (!route) return false
     if (route.indexOf(':') === 0) return false
     return route !== segment
   })

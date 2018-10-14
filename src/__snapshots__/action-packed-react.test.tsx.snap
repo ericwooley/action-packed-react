@@ -24,6 +24,13 @@ Object {
     "state": undefined,
   },
   "num": 12,
+  "products": Object {
+    "products": Array [
+      Object {
+        "type": "test",
+      },
+    ],
+  },
   "productsSearch": Object {
     "products": Array [
       Object {
@@ -78,6 +85,13 @@ Object {
     "state": undefined,
   },
   "num": 12,
+  "products": Object {
+    "products": Array [
+      Object {
+        "type": "test",
+      },
+    ],
+  },
   "productsSearch": null,
   "str": "test",
 }

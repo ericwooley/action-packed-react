@@ -25,6 +25,7 @@ class ProductsComponent extends React.Component<{
       <div>
         <h1>ProductsComponent {this.props.productsLen}</h1>
         <p>{this.props.test}</p>
+        {this.props.children}
       </div>
     )
   }
