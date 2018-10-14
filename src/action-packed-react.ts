@@ -145,6 +145,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
                 ...packs.map(c => c.reducer)
               ]
               currentReducerObject = Object.assign({}, ...reducers)
+              console.log('replacing reducer', currentReducerObject)
               const reducer = combineReducers(currentReducerObject)
               store.replaceReducer(reducer)
             },

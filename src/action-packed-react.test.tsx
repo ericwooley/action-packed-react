@@ -156,7 +156,43 @@ describe('the wooley way fe', () => {
         app.init()
         history.push('/products')
       })
-      it('should mount the proper state', async done => {
+      it('should mount navigate sub-* routes', done => {
+        const { app, history, products } = createProducts()
+        const productRoute = products.createSubRoute(
+          'search',
+          async () => ({
+            component: ProductsComponent,
+            // saga: function* ProductsSaga(): any {},
+            reducer: {
+              productsSearch: productReducer
+            }
+          }),
+          {
+            onMount: () => {
+              expect(
+                render(
+                  <Provider store={app.store}>
+                    <ConnectedProducts test="" />
+                  </Provider>
+                ).html()
+              ).toMatchSnapshot()
+              done()
+            }
+          }
+        )
+        const ConnectedProducts = productRoute.connect(
+          state => ({
+            productsLen: state.productsSearch.products.length
+          }),
+          {
+            onClick: () => console.log('click')
+          }
+        )(ProductsComponent)
+        app.init()
+        history.push('/products/search')
+      })
+
+      it('should mount/unmount the proper state', async done => {
         const { app, history } = createBasicApp()
         expect(sanitizeState(app.store.getState())).toMatchSnapshot('none')
         await new Promise(r => {
@@ -181,6 +217,35 @@ describe('the wooley way fe', () => {
           )
           app.init()
           history.push('/products')
+        })
+        expect(sanitizeState(app.store.getState())).toMatchSnapshot('mount')
+        history.push('')
+      })
+      it('should mount/unmount the proper state on subRoutes', async done => {
+        const { app, history, products } = createProducts()
+        expect(sanitizeState(app.store.getState())).toMatchSnapshot('none')
+        await new Promise(r => {
+          const productRoute = products.createSubRoute(
+            'search',
+            async () => ({
+              component: ProductsComponent,
+              // saga: function* ProductsSaga(): any {},
+              reducer: {
+                productsSearch: productReducer
+              }
+            }),
+            {
+              onMount: r,
+              onUnMount: () => {
+                expect(sanitizeState(app.store.getState())).toMatchSnapshot(
+                  'unmount'
+                )
+                done()
+              }
+            }
+          )
+          app.init()
+          history.push('/products/search')
         })
         expect(sanitizeState(app.store.getState())).toMatchSnapshot('mount')
         history.push('')

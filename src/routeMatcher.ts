@@ -1,4 +1,7 @@
-export function routeMatcher(routeMap: { [key: string]: any }, routeState: { pathname: string }) {
+export function routeMatcher(
+  routeMap: { [key: string]: any },
+  routeState: { pathname: string }
+) {
   const path = routeState.pathname
   const routes = Object.keys(routeMap)
   return routes.filter(routeMatchesPath(path))
@@ -13,9 +16,11 @@ export const routeMatchesPath = (path: string) => (route: string) => {
     .toLowerCase()
     .split('/')
     .filter(r => !!r)
-  if (segments.length !== routeSegments.length) return false
+  if (segments.length < routeSegments.length) return false
+
   const misMatch = segments.find((segment, i) => {
     const route = routeSegments[i]
+    if (!route) return true
     if (route.indexOf(':') === 0) return false
     return route !== segment
   })
@@ -25,14 +30,14 @@ export const routeMatchesPath = (path: string) => (route: string) => {
 export const getVariablesForRoute = (path: string, route: string) => {
   const segments = path.split('/').filter(s => !!s)
   const routeSegments = route.split('/').filter(r => !!r)
-  if (segments.length !== routeSegments.length) {
+  if (segments.length < routeSegments.length) {
     throw new Error('Route mismatch')
   }
   return segments.reduce(
     (vars, segment, index) => {
       if (segment.indexOf(':') === 0) {
         const varName = segment.slice(1)
-        vars[varName] = routeSegments[index]
+        vars[varName] = routeSegments[index] || ''
       }
       return vars
     },
