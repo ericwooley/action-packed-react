@@ -55,11 +55,15 @@
       "tsx",
       "js"
     ],
+    "testPathIgnorePatterns": [
+      "dist"
+    ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/test/",
       "/rollup.config.ts",
-      "tools"
+      "tools",
+      "dist"
     ],
     "coverageThreshold": {
       "global": {
@@ -98,6 +102,7 @@
     "jest": "^23.6.0",
     "jest-config": "^23.6.0",
     "jest-dom": "^2.0.5",
+    "jsdom": "^12.1.0",
     "lint-staged": "^7.3.0",
     "lodash.camelcase": "^4.3.0",
     "prettier": "^1.14.3",
@@ -130,7 +135,6 @@
     "@types/redux": "^3.6.0",
     "@types/reselect": "^2.2.0",
     "history": "^4.7.2",
-    "jsdom": "^12.1.0",
     "react": "^16.5.2",
     "react-dom": "16",
     "react-redux": "^5.0.7",

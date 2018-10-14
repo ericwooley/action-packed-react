@@ -21,7 +21,13 @@ export default {
     { file: pkg.module, format: 'es', sourcemap: true }
   ],
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-  external: [],
+  external: [
+    'react',
+    'react-redux',
+    'react-dom',
+    'history',
+    'telegraph-events'
+  ],
   watch: {
     include: 'src/**'
   },

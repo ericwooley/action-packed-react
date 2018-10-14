@@ -3,8 +3,8 @@ import { History } from 'history'
 import { mount, IRender } from './RouteMounter'
 import { routeReducer, updateHistory } from './routeReducer'
 import { connect } from 'react-redux'
-import * as telegraph from 'telegraph-events'
-
+import * as telegraph_ from 'telegraph-events'
+const telegraph = telegraph_
 export interface IHaveType {
   type: string
 }
