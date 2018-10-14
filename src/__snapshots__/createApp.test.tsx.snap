@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the wooley way fe child route with matching route should mount on navigate 1`] = `"<h1>ProductsComponent 1</h1><p></p>"`;

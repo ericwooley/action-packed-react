@@ -33,7 +33,7 @@
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare"
   },
   "lint-staged": {
-    "{src,test}/**/*.ts*": [
+    "{src,test}/**/*.tsx?": [
       "prettier --write",
       "git add"
     ]
@@ -128,12 +128,14 @@
     "@types/react-dom": "^16.0.8",
     "@types/react-redux": "^6.0.9",
     "@types/redux": "^3.6.0",
+    "@types/reselect": "^2.2.0",
     "history": "^4.7.2",
     "jsdom": "^12.1.0",
     "react": "^16.5.2",
     "react-dom": "16",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
+    "reselect": "^4.0.0",
     "telegraph-events": "^1.0.3"
   },
   "husky": {

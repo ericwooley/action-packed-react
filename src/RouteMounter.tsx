@@ -1,12 +1,17 @@
 import * as React from 'react'
-import { IRoutesMap, BareBonesState, EVENTS } from './createApp'
+import { IRoutesMap, BareBonesState, EVENTS, IRouteOptions, IRoutesMapValue } from './createApp'
 import { routeMatchesPath } from './routeMatcher'
 import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
+import { AddMountAlert } from './mountAlert'
 interface IPathMatcherProps {
   routeMap: IRoutesMap
   pathname: string
   emitter: Telegraph.Emitter<EVENTS>
+  onRouteMatch: (routes: string[]) => any
+  onPackLoaded: (routePack: IRouteOptions<any>[]) => any
+  onMount: (route: string) => any
+  onUnMount: (route: string) => any
 }
 export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
   routeMap: IRoutesMap
@@ -14,6 +19,11 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
     super(props)
     this.routeMap = this.props.routeMap
     this.props.emitter.on(EVENTS.ROUTE_MAP_UPDATE, this.updateRoutesMap)
+  }
+  componentDidUpdate(lastProps: IPathMatcherProps) {
+    if (lastProps.pathname !== this.props.pathname) {
+      this.buildChildren()
+    }
   }
   updateRoutesMap(routesMap: IRoutesMap) {
     this.routeMap = routesMap
@@ -34,16 +44,45 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
       })
       // reverse to get the most inner children first
       .reverse()
-    const routePacks = matchingRoutes.map(r => this.routeMap[r])
+    this.props.onRouteMatch(matchingRoutes)
+    const routePacks = matchingRoutes.map(r => ({
+      route: r,
+      pack: this.routeMap[r]
+    }))
     // preload pack
-    const loadedPacks = await Promise.all(routePacks.map(routePack => routePack()))
+    const loadedPacks = await Promise.all(
+      routePacks.map(async routePack => {
+        const ret = {
+          route: routePack.route,
+          pack: routePack.pack,
+          contents: await routePack.pack.loader()
+        }
+        return ret
+      })
+    )
+    this.props.onPackLoaded(loadedPacks.map(p => p.contents))
     this.routeChildren = loadedPacks.reduce((children: JSX.Element | null, pack, index) => {
-      const Component = pack.component
+      const Component = AddMountAlert(pack.contents.component, pack.route)
       if (children) {
-        return <Component key={matchingRoutes[index]}>{children}</Component>
+        return (
+          <Component
+            key={matchingRoutes[index]}
+            onMount={this.props.onMount}
+            onUnMount={this.props.onUnMount}
+          >
+            {children}
+          </Component>
+        )
       }
-      return <Component key={matchingRoutes[index]} />
+      return (
+        <Component
+          key={matchingRoutes[index]}
+          onMount={this.props.onMount}
+          onUnMount={this.props.onUnMount}
+        />
+      )
     }, null) || <Loading key="loading" />
+    this.forceUpdate()
   }
   render() {
     const content = this.routeChildren
@@ -64,36 +103,29 @@ export class Loading extends React.PureComponent {
   }
 }
 
+// Should return a function that unmounts
 export interface IRender {
-  (c: React.ReactElement<any>): any
+  (c: React.ReactElement<any>): () => any
 }
 
 export const mount = (
-  initialProps: { routeMap: IRoutesMap },
+  initialProps: IPathMatcherProps,
   store: Store,
   render: IRender, // typeof ReactDOM.render
   options: {
     onMount?: () => any
-    emitter: Telegraph.Emitter<EVENTS>
   }
 ) => {
-  let routeMap = initialProps.routeMap
-  const { onMount = () => null, emitter } = options
+  const { onMount = () => null } = options
   const comp: React.ReactElement<any> = (
     <Provider store={store}>
       <ConnectedPathMatcher
+        {...initialProps}
         ref={el => {
           if (el) onMount()
         }}
-        emitter={emitter}
-        routeMap={routeMap}
       />
     </Provider>
   )
-  render(comp)
-  return {
-    updateRouteMap: (newRouteMap: IRoutesMap) => {
-      routeMap = newRouteMap
-    }
-  }
+  return render(comp)
 }
