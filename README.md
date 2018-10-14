@@ -1,8 +1,14 @@
-# TODO
+# Action Packed React
+
+## TODO for 1.0
 
 1. sagas
-2. Loading Component
-3. middleware
+2. typed route matching
+3. Loading Component
+4. middleware
+5. Demo Website
+
+# Development
 
 ### Features
 
@@ -84,9 +90,3 @@ Then you may want to:
 #### What if I don't want to use coveralls or report my coverage?
 
 Remove `npm run report-coverage` from `.travis.yml`
-
-## Resources
-
-- [Write a library using TypeScript library starter](https://dev.to/alexjoverm/write-a-library-using-typescript-library-starter) by [@alexjoverm](https://github.com/alexjoverm/)
-- [📺 Create a TypeScript Library using typescript-library-starter](https://egghead.io/lessons/typescript-create-a-typescript-library-using-typescript-library-starter) by [@alexjoverm](https://github.com/alexjoverm/)
-- [Introducing TypeScript Library Starter Lite](https://blog.tonysneed.com/2017/09/15/introducing-typescript-library-starter-lite/) by [@tonysneed](https://github.com/tonysneed)
