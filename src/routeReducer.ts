@@ -1,18 +1,5 @@
 import { createReducerFromActionPack, createActionPack } from './createReducer'
-import { Action } from 'history'
-
-export interface IRouteStatus {
-  pathname: string
-  search: string
-  hash: string
-  action: Action
-  key?: string
-  state?: any
-}
-export interface IRouteState extends IRouteStatus {
-  history: IRouteStatus[]
-}
-
+import { IRouteState, IRouteStatus } from './types'
 export const initialState: IRouteState = {
   history: [],
   pathname: '',
@@ -33,4 +20,6 @@ export const updateHistory = createActionPack<IRouteState, IRouteStatus>(
   }
 )
 
-export const routeReducer = createReducerFromActionPack(initialState, [updateHistory])
+export const routeReducer = createReducerFromActionPack(initialState, [
+  updateHistory
+])

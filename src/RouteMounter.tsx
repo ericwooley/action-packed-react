@@ -1,13 +1,10 @@
 import * as React from 'react'
-import {
-  IRoutesMap,
-  BareBonesState,
-  IRouteOptions
-} from './action-packed-react'
+import { BareBonesState } from './action-packed-react'
 import { routeMatchesPath } from './routeMatcher'
 import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
 import { AddMountAlert } from './mountAlert'
+import { IRender, IRoutesMap, IRouteOptions } from './types'
 interface IPathMatcherProps {
   routeMap: IRoutesMap
   pathname: string
@@ -104,11 +101,6 @@ const ConnectedPathMatcher = connect(
   }),
   {}
 )(PathMatcher)
-
-// Should return a function that unmounts
-export interface IRender {
-  (c: React.ReactElement<any>): () => any
-}
 
 export const mount = (
   initialProps: IPathMatcherProps,

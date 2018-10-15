@@ -5,8 +5,9 @@
 1. sagas
 2. typed route matching
 3. Loading Component
-4. middleware
-5. Demo Website
+4. Exact Match Component
+5. middleware
+6. Demo Website
 
 # Development
 

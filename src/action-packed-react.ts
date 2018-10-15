@@ -1,66 +1,22 @@
 import { createStore, combineReducers, Reducer, Store } from 'redux'
-import { History } from 'history'
-import { mount, IRender } from './RouteMounter'
+import { mount } from './RouteMounter'
 import {
   routeReducer,
   updateHistory,
   initialState as routeInitialState
 } from './routeReducer'
 import { connect } from 'react-redux'
-export interface IHaveType {
-  type: string
-}
+import {
+  ReducerToState,
+  IOptions,
+  IRoutesMap,
+  ReducerObj,
+  IRouteOptionsCreator,
+  ICreateRouteOptions
+} from './types'
 
-export interface IReducerBundle<SubState> {
-  initialState: SubState
-  reducer: (state: SubState, action: IHaveType) => SubState
-  handlers: { [k: string]: (state: SubState, action: IHaveType) => SubState }
-}
-
-export interface IOptions<
-  R extends { [key: string]: Reducer<any> },
-  State extends ReducerToState<R> = ReducerToState<R>
-> {
-  initialState: State
-  initialReducers: R
-  history: History
-  rootEl?: HTMLElement
-  onMount?: () => any
-  render: IRender
-}
-
-export interface IRouteOptions<T extends ReducerObj> {
-  component: React.ComponentType<any>
-  saga?: AsyncIterableIterator<any>
-  reducer: T
-  initialState?: ReducerToState<T>
-}
-
-export interface IRouteOptionsCreator<
-  AdditionalState extends ReducerObj,
-  ParentState extends ReducerObj
-> {
-  (): Promise<IRouteOptions<AdditionalState & Partial<ParentState>>>
-}
-
-export interface IRoutesMapValue {
-  route: string
-  parent?: IRoutesMapValue
-  loader: IRouteOptionsCreator<any, any>
-  onRouteMatch: () => any
-  onMount: () => any
-  onUnMount: () => any
-}
-export interface IRoutesMap {
-  [k: string]: IRoutesMapValue
-}
 const reducerBase = { _route: routeReducer }
 export type BareBonesState = ReducerToState<typeof reducerBase>
-interface ICreateRouteOptions {
-  onRouteMatch?: () => any
-  onMount?: () => any
-  onUnMount?: () => any
-}
 export function createApp<R extends { [key: string]: Reducer }>({
   initialState,
   initialReducers,
@@ -184,9 +140,4 @@ export function createApp<R extends { [key: string]: Reducer }>({
     store: store as Store<IInitialState>,
     baseSelector: (s: IInitialState) => s
   }
-}
-
-export type ReducerObj = { [key: string]: Reducer<any, any> }
-export type ReducerToState<T extends ReducerObj> = {
-  [K in keyof T]: ReturnType<T[K]>
 }
