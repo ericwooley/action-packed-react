@@ -4,6 +4,8 @@ exports[`the wooley way fe child route with matching route should mount navigate
 
 exports[`the wooley way fe child route with matching route should mount on navigate 1`] = `"<h1>ProductsComponent 1</h1><p></p>"`;
 
+exports[`the wooley way fe child route with matching route should mount on navigate: products-full-dom 1`] = `"<div><h1>ProductsComponent </h1><p></p></div>"`;
+
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state on subRoutes: mount 1`] = `
 Object {
   "_route": Object {

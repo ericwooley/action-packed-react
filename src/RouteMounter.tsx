@@ -17,6 +17,12 @@ interface IPathMatcherProps {
   onMount: (route: string) => any
   onUnMount: (route: string, content: IRouteOptions<any>) => any
 }
+export class Loading extends React.PureComponent {
+  render() {
+    return <span>Loading...</span>
+  }
+}
+const loading = <Loading key="loading" />
 export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
   routeMap: IRoutesMap
   constructor(props: any) {
@@ -55,8 +61,8 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
       })
     )
     this.props.onPackLoaded(loadedPacks.map(p => p.contents))
-    this.routeChildren = loadedPacks.reduce(
-      (children: JSX.Element | null, pack, index) => {
+    this.routeChildren =
+      loadedPacks.reduce((children: JSX.Element | null, pack, index) => {
         const Component = AddMountAlert(
           pack.contents.component,
           pack.route,
@@ -80,9 +86,12 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
             onUnMount={this.props.onUnMount}
           />
         )
-      },
-      null
-    ) || <Loading key="loading" />
+      }, null) || loading
+    console.log(
+      'after building children for',
+      this.props.pathname,
+      this.routeChildren
+    )
     this.forceUpdate()
   }
   render() {
@@ -97,12 +106,6 @@ const ConnectedPathMatcher = connect(
   }),
   {}
 )(PathMatcher)
-
-export class Loading extends React.PureComponent {
-  render() {
-    return <span>Loading...</span>
-  }
-}
 
 // Should return a function that unmounts
 export interface IRender {

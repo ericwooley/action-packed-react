@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { createApp, BareBonesState } from './action-packed-react'
 import { createMemoryHistory } from 'history'
-import { mount, render } from 'enzyme'
+import { mount, render, ReactWrapper } from 'enzyme'
 import { Provider } from 'react-redux'
 import { createActionPack, createReducerFromActionPack } from './createReducer'
 const sanitizeState = (state: BareBonesState) => ({
@@ -37,7 +37,8 @@ class ProductSearchComponent extends React.Component<{
     return <h1>ProductSearchComponent</h1>
   }
 }
-const createBasicApp = () => {
+type OnMountWrap = (r: ReturnType<typeof mount>) => any
+const createBasicApp = (onMountWrap?: OnMountWrap) => {
   const history = createMemoryHistory()
   return {
     history,
@@ -52,7 +53,8 @@ const createBasicApp = () => {
         num: () => 12
       },
       render: jsx => {
-        mount(jsx)
+        const wrapper = mount(jsx)
+        if (onMountWrap) onMountWrap(wrapper)
         return () => null
       }
     })
@@ -77,8 +79,8 @@ const addProduct = createActionPack<ProductState, { type: string }>(
 )
 
 const productReducer = createReducerFromActionPack(productsState, [addProduct])
-const createProducts = () => {
-  const { app, history } = createBasicApp()
+const createProducts = (onMountWrap?: OnMountWrap) => {
+  const { app, history } = createBasicApp(onMountWrap)
   const products = app.createSubRoute('products', async () => ({
     component: ProductsComponent,
     // saga: function* ProductsSaga(): any {},
@@ -90,8 +92,8 @@ const createProducts = () => {
     products
   }
 }
-const createProductsSearch = () => {
-  const { products, app, history } = createProducts()
+const createProductsSearch = (onMountWrap?: OnMountWrap) => {
+  const { products, app, history } = createProducts(onMountWrap)
   const productSearch = products.createSubRoute('search/:terms', async () => ({
     component: ProductSearchComponent,
     // saga: function* ProductsSearchSaga(): any {},
@@ -120,7 +122,10 @@ describe('the wooley way fe', () => {
   describe('child route', () => {
     describe('with matching route', () => {
       it('should mount on navigate', done => {
-        const { app, history } = createBasicApp()
+        let wraper: ReactWrapper
+        const { app, history } = createBasicApp(r => {
+          wraper = r
+        })
         const productRoute = app.createSubRoute(
           'products',
           async () => ({
@@ -135,6 +140,7 @@ describe('the wooley way fe', () => {
           }),
           {
             onMount: () => {
+              expect(wraper.html()).toMatchSnapshot('products-full-dom')
               expect(
                 render(
                   <Provider store={app.store}>

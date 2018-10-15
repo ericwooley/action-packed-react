@@ -10,7 +10,7 @@ export const AddMountAlert = <IProps, T>(
       onUnMount: (id: typeof identifier, extra?: T) => any
     }
   > {
-    componentWillMount() {
+    componentDidMount() {
       this.props.onMount(identifier, extra)
     }
     componentWillUnmount() {
