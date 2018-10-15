@@ -2,7 +2,6 @@ import * as React from 'react'
 import {
   IRoutesMap,
   BareBonesState,
-  EVENTS,
   IRouteOptions
 } from './action-packed-react'
 import { routeMatchesPath } from './routeMatcher'
@@ -45,6 +44,7 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
         if (a > b) return 1
         return 0
       })
+      .reverse()
     this.props.onRouteMatch(matchingRoutes)
     const routePacks = matchingRoutes.map(r => ({
       route: r,

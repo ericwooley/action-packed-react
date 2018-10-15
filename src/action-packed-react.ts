@@ -52,9 +52,6 @@ export interface IRoutesMap {
 }
 const reducerBase = { _route: routeReducer }
 export type BareBonesState = ReducerToState<typeof reducerBase>
-export enum EVENTS {
-  ROUTE_MAP_UPDATE = 'ROUTE_MAP_UPDATE'
-}
 interface ICreateRouteOptions {
   onRouteMatch?: () => any
   onMount?: () => any
