@@ -40,8 +40,11 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
     const matchingRoutes = routes
       .filter(routeMatchesPath(route))
       .sort((a, b) => {
+        /* istanbul ignore next */
         if (a < b) return -1
+        /* istanbul ignore next */
         if (a > b) return 1
+        /* istanbul ignore next */
         return 0
       })
       .reverse()
@@ -87,11 +90,6 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
           />
         )
       }, null) || loading
-    console.log(
-      'after building children for',
-      this.props.pathname,
-      this.routeChildren
-    )
     this.forceUpdate()
   }
   render() {

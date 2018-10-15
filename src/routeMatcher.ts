@@ -1,4 +1,7 @@
-export function routeMatcher(routeMap: { [key: string]: any }, routeState: { pathname: string }) {
+export function routeMatcher(
+  routeMap: { [key: string]: any },
+  routeState: { pathname: string }
+) {
   const path = routeState.pathname
   const routes = Object.keys(routeMap)
   return routes.filter(routeMatchesPath(path))
@@ -34,6 +37,7 @@ export const getVariablesForRoute = (path: string, route: string) => {
     (vars, segment, index) => {
       if (segment.indexOf(':') === 0) {
         const varName = segment.slice(1)
+        /* istanbul ignore next */
         vars[varName] = routeSegments[index] || ''
       }
       return vars

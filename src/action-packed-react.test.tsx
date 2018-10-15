@@ -122,6 +122,9 @@ describe('the wooley way fe', () => {
   })
   it('should be setup', () => {
     expect(baseApp.app).toBeTruthy()
+    expect(
+      baseApp.app.baseSelector(baseApp.app.store.getState())
+    ).toMatchSnapshot()
   })
   afterEach(() => baseApp.app.shutDown())
   describe('child route', () => {

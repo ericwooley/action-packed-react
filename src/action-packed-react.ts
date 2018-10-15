@@ -1,7 +1,11 @@
-import { createStore, combineReducers, Reducer } from 'redux'
+import { createStore, combineReducers, Reducer, Store } from 'redux'
 import { History } from 'history'
 import { mount, IRender } from './RouteMounter'
-import { routeReducer, updateHistory } from './routeReducer'
+import {
+  routeReducer,
+  updateHistory,
+  initialState as routeInitialState
+} from './routeReducer'
 import { connect } from 'react-redux'
 export interface IHaveType {
   type: string
@@ -63,9 +67,19 @@ export function createApp<R extends { [key: string]: Reducer }>({
   history,
   render
 }: IOptions<R>) {
-  let currentReducerObject = Object.assign({}, reducerBase, initialReducers)
-  const store = createStore(combineReducers(currentReducerObject), initialState)
   type IInitialState = BareBonesState & ReducerToState<R>
+  let currentReducerObject: typeof reducerBase & R = Object.assign(
+    {},
+    reducerBase,
+    initialReducers
+  )
+  const combinedInitialState = Object.assign({}, initialState, {
+    _route: routeInitialState
+  })
+  const store = createStore(
+    combineReducers(currentReducerObject),
+    combinedInitialState
+  )
   const routeMap: IRoutesMap = {}
   const createSubRoute = <IParentState extends ReducerObj>(
     parentRoute: string
@@ -75,6 +89,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
     options: ICreateRouteOptions = {}
   ) => {
     const {
+      /* istanbul ignore next */
       onRouteMatch = () => null,
       onMount = () => null,
       onUnMount = () => null
@@ -166,7 +181,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
         )
       }),
     createSubRoute: createSubRoute<IInitialState>(''),
-    store,
+    store: store as Store<IInitialState>,
     baseSelector: (s: IInitialState) => s
   }
 }
