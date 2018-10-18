@@ -135,6 +135,16 @@ export function createApp<R extends { [key: string]: Reducer }>({
             onMount: r
           }
         )
+        store.dispatch(
+          updateHistory({
+            pathname: history.location.pathname,
+            hash: history.location.hash,
+            search: history.location.search,
+            action: 'REPLACE',
+            state: history.location.state,
+            key: history.location.key
+          })
+        )
       }),
     createSubRoute: createSubRoute<IInitialState>(''),
     store: store as Store<IInitialState>,
