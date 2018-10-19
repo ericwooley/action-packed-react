@@ -12,8 +12,10 @@ export interface IRouteStatus {
   key?: string
   state?: any
 }
-export interface IRouteState extends IRouteStatus {
+export interface IRouteState {
   history: IRouteStatus[]
+  currentLocation: IRouteStatus
+  userRoutes: string[]
 }
 
 export interface IHaveType {
@@ -57,8 +59,6 @@ export interface IRoutesMapValue {
   parent?: IRoutesMapValue
   loader: IRouteOptionsCreator<any, any>
   onRouteMatch: () => any
-  onMount: () => any
-  onUnMount: () => any
 }
 export interface IRoutesMap {
   [k: string]: IRoutesMapValue

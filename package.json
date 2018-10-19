@@ -133,12 +133,14 @@
     "@types/react-dom": "^16.0.8",
     "@types/react-redux": "^6.0.9",
     "@types/redux": "^3.6.0",
+    "@types/redux-saga": "^0.10.5",
     "@types/reselect": "^2.2.0",
     "history": "^4.7.2",
     "react": "^16.5.2",
     "react-dom": "16",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
+    "redux-saga": "^0.16.2",
     "reselect": "^4.0.0"
   },
   "husky": {

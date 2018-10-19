@@ -1,9 +1,18 @@
-import { createStore, combineReducers, Reducer, Store } from 'redux'
+import {
+  createStore,
+  combineReducers,
+  Reducer,
+  Store,
+  applyMiddleware
+} from 'redux'
+import createSagaMiddleware from 'redux-saga'
 import { mount } from './RouteMounter'
 import {
   routeReducer,
   updateHistory,
-  initialState as routeInitialState
+  initialState as routeInitialState,
+  selectors,
+  addUserRoute
 } from './routeReducer'
 import { connect } from 'react-redux'
 import {
@@ -12,8 +21,11 @@ import {
   IRoutesMap,
   ReducerObj,
   IRouteOptionsCreator,
-  ICreateRouteOptions
+  ICreateRouteOptions,
+  IRoutesMapValue,
+  IRouteOptions
 } from './types'
+import { take, select, all, call } from 'redux-saga/effects'
 
 const reducerBase = { _route: routeReducer }
 export type BareBonesState = ReducerToState<typeof reducerBase>
@@ -32,11 +44,78 @@ export function createApp<R extends { [key: string]: Reducer }>({
   const combinedInitialState = Object.assign({}, initialState, {
     _route: routeInitialState
   })
+  const routeMap: IRoutesMap = {}
+  const sagaMiddleware = createSagaMiddleware()
   const store = createStore(
     combineReducers(currentReducerObject),
-    combinedInitialState
+    combinedInitialState,
+    applyMiddleware(sagaMiddleware)
   )
-  const routeMap: IRoutesMap = {}
+  sagaMiddleware.run(function* rootSaga(): any {
+    console.log('saga running')
+    let oldMatchingRoutes: string[] = []
+    let oldMatchingRouteMap: ReturnType<typeof selectors.matchingRouteMap> = {}
+    while (true) {
+      yield take(updateHistory._type)
+      console.log('route updated')
+      const matchingRouteMap: ReturnType<
+        typeof selectors.matchingRouteMap
+      > = yield select(selectors.matchingRouteMap)
+      const matchingRoutes: ReturnType<
+        typeof selectors.matchingRoutes
+      > = yield select(selectors.matchingRoutes)
+      const noLongerMatchingRoutes = oldMatchingRoutes.filter(
+        r => !matchingRouteMap[r]
+      )
+      const newlyMatchingRoutes = oldMatchingRoutes.filter(
+        r => !oldMatchingRouteMap[r]
+      )
+      oldMatchingRoutes = matchingRoutes
+      yield all(
+        noLongerMatchingRoutes
+          .map(route => async () => {
+            const packLoader = routeMap[route]
+            if (!packLoader) return
+            const pack = await packLoader.loader()
+            if (pack.reducer) {
+              currentReducerObject = Object.keys(pack.reducer).reduce(
+                (reducer, key) => {
+                  reducer[key] = () => null
+                  return reducer
+                },
+                { ...(currentReducerObject as any) }
+              )
+              const reducer = combineReducers(currentReducerObject)
+              store.replaceReducer(reducer)
+              store.dispatch({
+                type: `UNMOUNT_${route}`
+              })
+            }
+          })
+          .map(call)
+      )
+      const bundles: {
+        pack: IRouteOptions<any>
+        packLoader: IRoutesMapValue
+      }[] = yield all(
+        newlyMatchingRoutes
+          .filter(route => routeMap[route])
+          .map(route => routeMap[route])
+          .map(packLoader => async () => {
+            packLoader.onRouteMatch()
+            const pack = await packLoader.loader()
+            return { pack, packLoader }
+          })
+          .map(call)
+      )
+      const reducers = [
+        currentReducerObject,
+        ...bundles.map(c => c.pack.reducer)
+      ]
+      currentReducerObject = Object.assign({}, ...reducers)
+      yield call(store.replaceReducer, combineReducers(currentReducerObject))
+    }
+  })
   const createSubRoute = <IParentState extends ReducerObj>(
     parentRoute: string
   ) => <ISubState extends ReducerObj>(
@@ -44,21 +123,15 @@ export function createApp<R extends { [key: string]: Reducer }>({
     routeCreator: IRouteOptionsCreator<ISubState, IParentState>,
     options: ICreateRouteOptions = {}
   ) => {
-    const {
-      /* istanbul ignore next */
-      onRouteMatch = () => null,
-      onMount = () => null,
-      onUnMount = () => null
-    } = options
+    const { onRouteMatch = () => null } = options
     const combinedRoute = [parentRoute, route].join('/')
     routeMap[combinedRoute] = {
       onRouteMatch,
-      onMount,
-      onUnMount,
       route: route,
       parent: routeMap[parentRoute],
       loader: routeCreator
     }
+    store.dispatch(addUserRoute(combinedRoute))
     type CompleteState = ReducerToState<ISubState> & IParentState
     const subRoute = {
       getState: () => (store.getState() as any) as CompleteState,
@@ -88,45 +161,28 @@ export function createApp<R extends { [key: string]: Reducer }>({
       })
     )
   })
-
   return {
     shutDown: () => {
       unlisten()
+      // unsub()
     },
     init: () =>
       new Promise(r => {
+        console.log('routes', routeMap)
+        // Object.keys(routeMap).forEach(k => store.dispatch(addUserRoute(k)))
         mount(
           {
             pathname: '',
             routeMap,
-            onRouteMatch: routes =>
-              routes.map(r => routeMap[r]).forEach(pack => pack.onRouteMatch()),
+            matchingRoutes: [],
             onPackLoaded: packs => {
-              const reducers = [
-                currentReducerObject,
-                ...packs.map(c => c.reducer)
-              ]
-              currentReducerObject = Object.assign({}, ...reducers)
-              const reducer = combineReducers(currentReducerObject)
-              store.replaceReducer(reducer)
-            },
-            onMount: route => {
-              routeMap[route].onMount()
-            },
-            onUnMount: (route, pack) => {
-              currentReducerObject = Object.keys(pack.reducer).reduce(
-                (reducer, key) => {
-                  reducer[key] = () => null
-                  return reducer
-                },
-                { ...(currentReducerObject as any) }
-              )
-              const reducer = combineReducers(currentReducerObject)
-              store.replaceReducer(reducer)
-              store.dispatch({
-                type: `UNMOUNT_${route}`
-              })
-              routeMap[route].onUnMount()
+              // const reducers = [
+              //   currentReducerObject,
+              //   ...packs.map(c => c.reducer)
+              // ]
+              // currentReducerObject = Object.assign({}, ...reducers)
+              // const reducer = combineReducers(currentReducerObject)
+              // store.replaceReducer(reducer)
             }
           },
           store,

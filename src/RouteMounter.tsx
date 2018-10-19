@@ -3,15 +3,13 @@ import { BareBonesState } from './action-packed-react'
 import { routeMatchesPath } from './routeMatcher'
 import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
-import { AddMountAlert } from './mountAlert'
 import { IRender, IRoutesMap, IRouteOptions } from './types'
+import { selectors } from './routeReducer'
 interface IPathMatcherProps {
   routeMap: IRoutesMap
   pathname: string
-  onRouteMatch: (routes: string[]) => any
+  matchingRoutes: string[]
   onPackLoaded: (routePack: IRouteOptions<any>[]) => any
-  onMount: (route: string) => any
-  onUnMount: (route: string, content: IRouteOptions<any>) => any
 }
 export class Loading extends React.PureComponent {
   render() {
@@ -32,20 +30,7 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
   }
   routeChildren: JSX.Element = <Loading key="loading" />
   buildChildren = async () => {
-    const routes = Object.keys(this.routeMap)
-    const route = this.props.pathname
-    const matchingRoutes = routes
-      .filter(routeMatchesPath(route))
-      .sort((a, b) => {
-        /* istanbul ignore next */
-        if (a < b) return -1
-        /* istanbul ignore next */
-        if (a > b) return 1
-        /* istanbul ignore next */
-        return 0
-      })
-      .reverse()
-    this.props.onRouteMatch(matchingRoutes)
+    const matchingRoutes = this.props.matchingRoutes
     const routePacks = matchingRoutes.map(r => ({
       route: r,
       pack: this.routeMap[r]
@@ -63,29 +48,8 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
     this.props.onPackLoaded(loadedPacks.map(p => p.contents))
     this.routeChildren =
       loadedPacks.reduce((children: JSX.Element | null, pack, index) => {
-        const Component = AddMountAlert(
-          pack.contents.component,
-          pack.route,
-          pack.contents
-        )
-        if (children) {
-          return (
-            <Component
-              key={matchingRoutes[index]}
-              onMount={this.props.onMount}
-              onUnMount={this.props.onUnMount}
-            >
-              {children}
-            </Component>
-          )
-        }
-        return (
-          <Component
-            key={matchingRoutes[index]}
-            onMount={this.props.onMount}
-            onUnMount={this.props.onUnMount}
-          />
-        )
+        const Component = pack.contents.component
+        return <Component key={matchingRoutes[index]}>{children}</Component>
       }, null) || loading
     this.forceUpdate()
   }
@@ -97,7 +61,8 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
 
 const ConnectedPathMatcher = connect(
   (state: BareBonesState) => ({
-    pathname: state._route.pathname
+    pathname: selectors.currentPath(state),
+    matchingRoutes: selectors.matchingRoutes(state)
   }),
   {}
 )(PathMatcher)
