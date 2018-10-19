@@ -11,6 +11,7 @@ export const createLink = (history: History, link: string) => {
         replace?: boolean
         currentPath: string
         activeClass?: string
+        dispatch?: (...args: any[]) => any
       }
     > {
       navigate = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -23,7 +24,13 @@ export const createLink = (history: History, link: string) => {
         if (this.props.onClick) this.props.onClick(e)
       }
       render() {
-        const { activeClass = '', replace, ...restProps } = this.props
+        const {
+          activeClass = '',
+          currentPath,
+          replace,
+          dispatch,
+          ...restProps
+        } = this.props
         return (
           <a {...restProps} href={link} onClick={this.navigate}>
             {this.props.children}
