@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { BareBonesState } from './action-packed-react'
-import { routeMatchesPath } from './routeMatcher'
 import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
 import { IRender, IRoutesMap, IRouteOptions } from './types'
@@ -9,7 +8,7 @@ interface IPathMatcherProps {
   routeMap: IRoutesMap
   pathname: string
   matchingRoutes: string[]
-  onPackLoaded: (routePack: IRouteOptions<any>[]) => any
+  component: React.ComponentType<any>
 }
 export class Loading extends React.PureComponent {
   render() {
@@ -45,7 +44,6 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
         return ret
       })
     )
-    this.props.onPackLoaded(loadedPacks.map(p => p.contents))
     this.routeChildren =
       loadedPacks.reduce((children: JSX.Element | null, pack, index) => {
         const Component = pack.contents.component
@@ -55,7 +53,8 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
   }
   render() {
     const content = this.routeChildren
-    return <>{content}</>
+    const RootComponent = this.props.component
+    return <RootComponent>{content}</RootComponent>
   }
 }
 

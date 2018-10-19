@@ -33,7 +33,8 @@ export function createApp<R extends { [key: string]: Reducer }>({
   initialState,
   initialReducers,
   history,
-  render
+  render,
+  component
 }: IOptions<R>) {
   type IInitialState = BareBonesState & ReducerToState<R>
   let currentReducerObject: typeof reducerBase & R = Object.assign(
@@ -52,12 +53,10 @@ export function createApp<R extends { [key: string]: Reducer }>({
     applyMiddleware(sagaMiddleware)
   )
   sagaMiddleware.run(function* rootSaga(): any {
-    console.log('saga running')
     let oldMatchingRoutes: string[] = []
     let oldMatchingRouteMap: ReturnType<typeof selectors.matchingRouteMap> = {}
     while (true) {
       yield take(updateHistory._type)
-      console.log('route updated')
       const matchingRouteMap: ReturnType<
         typeof selectors.matchingRouteMap
       > = yield select(selectors.matchingRouteMap)
@@ -164,26 +163,16 @@ export function createApp<R extends { [key: string]: Reducer }>({
   return {
     shutDown: () => {
       unlisten()
-      // unsub()
     },
     init: () =>
       new Promise(r => {
         console.log('routes', routeMap)
-        // Object.keys(routeMap).forEach(k => store.dispatch(addUserRoute(k)))
         mount(
           {
             pathname: '',
             routeMap,
             matchingRoutes: [],
-            onPackLoaded: packs => {
-              // const reducers = [
-              //   currentReducerObject,
-              //   ...packs.map(c => c.reducer)
-              // ]
-              // currentReducerObject = Object.assign({}, ...reducers)
-              // const reducer = combineReducers(currentReducerObject)
-              // store.replaceReducer(reducer)
-            }
+            component
           },
           store,
           render,

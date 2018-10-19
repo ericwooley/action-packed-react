@@ -38,6 +38,7 @@ export interface IOptions<
   rootEl?: HTMLElement
   onMount?: () => any
   render: IRender
+  component: React.ComponentType<any>
 }
 
 export interface IRouteOptions<T extends ReducerObj> {
