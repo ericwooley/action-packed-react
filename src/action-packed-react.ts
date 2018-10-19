@@ -12,7 +12,9 @@ import {
   updateHistory,
   initialState as routeInitialState,
   selectors,
-  addUserRoute
+  addUserRoute,
+  activateRoute,
+  routeCleared
 } from './routeReducer'
 import { connect } from 'react-redux'
 import {
@@ -25,8 +27,13 @@ import {
   IRoutesMapValue,
   IRouteOptions
 } from './types'
-import { take, select, all, call } from 'redux-saga/effects'
+import { take, select, all, call, put } from 'redux-saga/effects'
 import { createLink } from './link'
+import {
+  IRouteComposer,
+  createRouteComposer,
+  IRouteLimitations
+} from './routeMatcher'
 
 const reducerBase = { _route: routeReducer }
 export type BareBonesState = ReducerToState<typeof reducerBase>
@@ -35,7 +42,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
   initialReducers,
   history,
   render,
-  component
+  importBaseComponent
 }: IOptions<R>) {
   type IInitialState = BareBonesState & ReducerToState<R>
   let currentReducerObject: typeof reducerBase & R = Object.assign(
@@ -54,87 +61,123 @@ export function createApp<R extends { [key: string]: Reducer }>({
     applyMiddleware(sagaMiddleware)
   )
   sagaMiddleware.run(function* rootSaga(): any {
-    let oldMatchingRoutes: string[] = []
-    let oldMatchingRouteMap: ReturnType<typeof selectors.matchingRouteMap> = {}
     while (true) {
       yield take(updateHistory._type)
-      const matchingRouteMap: ReturnType<
-        typeof selectors.matchingRouteMap
-      > = yield select(selectors.matchingRouteMap)
-      const matchingRoutes: ReturnType<
-        typeof selectors.matchingRoutes
-      > = yield select(selectors.matchingRoutes)
-      const noLongerMatchingRoutes = oldMatchingRoutes.filter(
-        r => !matchingRouteMap[r]
-      )
-      const newlyMatchingRoutes = oldMatchingRoutes.filter(
-        r => !oldMatchingRouteMap[r]
-      )
-      oldMatchingRoutes = matchingRoutes
-      yield all(
-        noLongerMatchingRoutes
-          .map(route => async () => {
-            const packLoader = routeMap[route]
-            if (!packLoader) return
-            const pack = await packLoader.loader()
-            if (pack.reducer) {
-              currentReducerObject = Object.keys(pack.reducer).reduce(
-                (reducer, key) => {
-                  reducer[key] = () => null
-                  return reducer
-                },
-                { ...(currentReducerObject as any) }
-              )
-              const reducer = combineReducers(currentReducerObject)
-              store.replaceReducer(reducer)
-              store.dispatch({
-                type: `UNMOUNT_${route}`
-              })
-            }
-          })
-          .map(call)
-      )
-      const bundles: {
-        pack: IRouteOptions<any>
-        packLoader: IRoutesMapValue
-      }[] = yield all(
-        newlyMatchingRoutes
-          .filter(route => routeMap[route])
-          .map(route => routeMap[route])
-          .map(packLoader => async () => {
-            packLoader.onRouteMatch()
-            const pack = await packLoader.loader()
-            return { pack, packLoader }
-          })
-          .map(call)
-      )
-      const reducers = [
-        currentReducerObject,
-        ...bundles.map(c => c.pack.reducer)
-      ]
-      currentReducerObject = Object.assign({}, ...reducers)
-      yield call(store.replaceReducer, combineReducers(currentReducerObject))
+      const currentPath = yield select(selectors.currentPath)
+      const allRoutes = yield select(selectors.routes)
+      const outdatedPath = yield select(selectors.activePath)
+      if (currentPath !== outdatedPath) {
+        // console.log(
+        //   'de-activating route',
+        //   outdatedPath,
+        //   ' to mount',
+        //   currentPath
+        // )
+        const matchingRouteMap: ReturnType<
+          typeof selectors.nextPathMatchingRouteMap
+        > = yield select(selectors.nextPathMatchingRouteMap)
+        const matchingRoutes: ReturnType<
+          typeof selectors.nextPathMatchingRoutes
+        > = yield select(selectors.nextPathMatchingRoutes)
+
+        const oldMatchingRouteMap: ReturnType<
+          typeof selectors.activePathMatchingRouteMap
+        > = yield select(selectors.activePathMatchingRouteMap)
+        const oldMatchingRoutes: ReturnType<
+          typeof selectors.activePathMatchingRoutes
+        > = yield select(selectors.activePathMatchingRoutes)
+        const noLongerMatchingRoutes = oldMatchingRoutes.filter(
+          r => !matchingRouteMap[r]
+        )
+        const newlyMatchingRoutes = matchingRoutes.filter(
+          r => !oldMatchingRouteMap[r]
+        )
+        // console.log('-------> matching routes', {
+        //   matchingRoutes,
+        //   oldMatchingRoutes,
+        //   newlyMatchingRoutes,
+        //   noLongerMatchingRoutes,
+        //   allRoutes
+        // })
+        const bundles: {
+          pack: IRouteOptions<any>
+          packLoader: IRoutesMapValue
+        }[] = yield all(
+          newlyMatchingRoutes
+            .filter(route => routeMap[route])
+            .map(route => routeMap[route])
+            .map(packLoader => async () => {
+              packLoader.onRouteMatch()
+              const pack = await packLoader.loader()
+              return { pack, packLoader }
+            })
+            .map(call)
+        )
+        // no more yield here, react can't have another chance to interact with state
+        const reducers = [
+          currentReducerObject,
+          ...bundles.map(c => c.pack.reducer)
+        ]
+        // console.log('----> adding reducer for', newlyMatchingRoutes)
+        currentReducerObject = Object.assign({}, ...reducers)
+        store.replaceReducer(combineReducers(currentReducerObject))
+        store.dispatch(activateRoute(currentPath))
+        yield all(
+          noLongerMatchingRoutes
+            .map(route => async () => {
+              const packLoader = routeMap[route]
+              if (!packLoader) return
+              const pack = await packLoader.loader()
+              if (pack.reducer) {
+                // console.log('--> removing reducer for', route)
+                currentReducerObject = Object.keys(pack.reducer).reduce(
+                  (reducer, key) => {
+                    reducer[key] = () => null
+                    return reducer
+                  },
+                  { ...(currentReducerObject as any) }
+                )
+                const reducer = combineReducers(currentReducerObject)
+                store.replaceReducer(reducer)
+                store.dispatch(routeCleared(route))
+                if (pack.onStateCleared) pack.onStateCleared()
+              }
+            })
+            .map(call)
+        )
+        // console.log('<----------- path switch complete')
+      }
     }
   })
-  const createSubRoute = <IParentState extends ReducerObj>(
-    parentRoute: string
-  ) => <ISubState extends ReducerObj>(
-    route: string,
+  const createSubRoute = <
+    IParentState extends ReducerObj,
+    ParentRouteProps extends IRouteLimitations = {}
+  >(
+    parentRoute: IRouteComposer<ParentRouteProps>
+  ) => <
+    ISubState extends ReducerObj,
+    RouteProps extends Partial<ParentRouteProps> = {}
+  >(
+    route: IRouteComposer<RouteProps> | string,
     routeCreator: IRouteOptionsCreator<ISubState, IParentState>,
     options: ICreateRouteOptions = {}
   ) => {
     const { onRouteMatch = () => null } = options
-    const combinedRoute = [parentRoute, route].join('/')
+    if (typeof route === 'string') route = createRouteComposer<{}>(route)
+    const combinedRoute = [parentRoute.route, route.route].join('/')
+    type IFullRouteProps = RouteProps & ParentRouteProps
+    const routeComposer = createRouteComposer<IFullRouteProps>(combinedRoute)
     routeMap[combinedRoute] = {
       onRouteMatch,
-      route: route,
-      parent: routeMap[parentRoute],
+      route: routeComposer,
+      parent: routeMap[parentRoute.route],
       loader: routeCreator
     }
     store.dispatch(addUserRoute(combinedRoute))
     type CompleteState = ReducerToState<ISubState> & IParentState
     const subRoute = {
-      Link: createLink(history, combinedRoute),
+      Link: createLink(history, routeComposer),
+      routeComposer,
       fullRoute: combinedRoute,
       routeSegment: route,
       getState: () => (store.getState() as any) as CompleteState,
@@ -147,7 +190,9 @@ export function createApp<R extends { [key: string]: Reducer }>({
           mapStateToProps,
           handlers
         ),
-      createSubRoute: createSubRoute<CompleteState>(combinedRoute)
+      createSubRoute: createSubRoute<CompleteState, IFullRouteProps>(
+        routeComposer
+      )
     }
     return subRoute
   }
@@ -168,12 +213,13 @@ export function createApp<R extends { [key: string]: Reducer }>({
     shutDown: () => {
       unlisten()
     },
-    init: () =>
-      new Promise(r => {
-        console.log('routes', routeMap)
+    init: async () => {
+      const component = await importBaseComponent
+      return new Promise(r => {
         mount(
           {
             pathname: '',
+            activeRoute: '',
             routeMap,
             matchingRoutes: [],
             component
@@ -194,8 +240,9 @@ export function createApp<R extends { [key: string]: Reducer }>({
             key: history.location.key
           })
         )
-      }),
-    createSubRoute: createSubRoute<IInitialState>(''),
+      })
+    },
+    createSubRoute: createSubRoute<IInitialState>(createRouteComposer('')),
     store: store as Store<IInitialState>,
     baseSelector: (s: IInitialState) => s
   }

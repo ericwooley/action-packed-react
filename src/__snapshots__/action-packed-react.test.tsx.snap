@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`the wooley way fe child route Links should navigate a link 2`] = `
+Object {
+  "hash": "",
+  "key": "<key>",
+  "pathname": "/products",
+  "search": "",
+  "state": undefined,
+}
+`;
+
+exports[`the wooley way fe child route Links should navigate a link with replace 1`] = `
+Object {
+  "hash": "",
+  "key": "<key>",
+  "pathname": "/products/search/whatever",
+  "search": "",
+  "state": undefined,
+}
+`;
+
 exports[`the wooley way fe child route with matching route should mount navigate sub-* routes 1`] = `"<h1>ProductsComponent 1</h1><p></p>"`;
 
 exports[`the wooley way fe child route with matching route should mount navigate sub-* routes 2`] = `"<h1>ProductsComponent 1</h1><p></p>"`;
@@ -8,7 +28,7 @@ exports[`the wooley way fe child route with matching route should mount navigate
 
 exports[`the wooley way fe child route with matching route should mount navigate sub-* routes: products full dom 2`] = `"<div><h1>ProductsComponent </h1><p></p><h1>ProductSearchComponent</h1></div>"`;
 
-exports[`the wooley way fe child route with matching route should mount on navigate 1`] = `"<h1>ProductsComponent 1</h1><p></p>"`;
+exports[`the wooley way fe child route with matching route should mount on navigate 1`] = `"<h1>ProductsComponent 2</h1><p></p>"`;
 
 exports[`the wooley way fe child route with matching route should mount on navigate 2`] = `"<h1>ProductsComponent 2</h1><p></p>"`;
 
@@ -21,21 +41,36 @@ exports[`the wooley way fe child route with matching route should mount/unmount 
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state on subRoutes: mount 1`] = `
 Object {
   "_route": Object {
-    "action": "PUSH",
-    "hash": "",
+    "activeRoute": "/products/search",
+    "currentLocation": Object {
+      "action": "PUSH",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/products/search",
+      "search": "",
+      "state": undefined,
+    },
     "history": Array [
       Object {
         "action": "PUSH",
         "hash": "",
         "key": "0",
-        "pathname": "",
+        "pathname": "/",
         "search": "",
       },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "1",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
     ],
-    "key": "<key>",
-    "pathname": "/products/search",
-    "search": "",
-    "state": undefined,
+    "userRoutes": Array [
+      "/products",
+      "/products/search",
+    ],
   },
   "num": 12,
   "products": Object {
@@ -59,12 +94,18 @@ Object {
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state on subRoutes: none 1`] = `
 Object {
   "_route": Object {
-    "action": "PUSH",
-    "hash": "",
+    "activeRoute": "/",
+    "currentLocation": Object {
+      "action": "PUSH",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/",
+      "search": "",
+    },
     "history": Array [],
-    "key": "<key>",
-    "pathname": "",
-    "search": "",
+    "userRoutes": Array [
+      "/products",
+    ],
   },
   "num": 12,
   "str": "test",
@@ -74,33 +115,60 @@ Object {
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state on subRoutes: unmount 1`] = `
 Object {
   "_route": Object {
-    "action": "PUSH",
-    "hash": "",
+    "activeRoute": "/",
+    "currentLocation": Object {
+      "action": "PUSH",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/",
+      "search": "",
+      "state": undefined,
+    },
     "history": Array [
       Object {
         "action": "PUSH",
         "hash": "",
         "key": "0",
-        "pathname": "",
+        "pathname": "/",
         "search": "",
+      },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "1",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
       },
       Object {
         "action": "PUSH",
         "hash": "",
-        "key": "1",
+        "key": "2",
         "pathname": "/products/search",
         "search": "",
         "state": undefined,
       },
     ],
-    "key": "<key>",
-    "pathname": "/",
-    "search": "",
-    "state": undefined,
+    "userRoutes": Array [
+      "/products",
+      "/products/search",
+    ],
   },
   "num": 12,
-  "products": null,
-  "productsSearch": null,
+  "products": Object {
+    "products": Array [
+      Object {
+        "type": "test",
+      },
+    ],
+  },
+  "productsSearch": Object {
+    "products": Array [
+      Object {
+        "type": "test",
+      },
+    ],
+  },
   "str": "test",
 }
 `;
@@ -112,21 +180,43 @@ exports[`the wooley way fe child route with matching route should mount/unmount 
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state: mount 1`] = `
 Object {
   "_route": Object {
-    "action": "PUSH",
-    "hash": "",
+    "activeRoute": "/products",
+    "currentLocation": Object {
+      "action": "PUSH",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/products",
+      "search": "",
+      "state": undefined,
+    },
     "history": Array [
       Object {
         "action": "PUSH",
         "hash": "",
         "key": "0",
-        "pathname": "",
+        "pathname": "/",
         "search": "",
       },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "1",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "2",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
     ],
-    "key": "<key>",
-    "pathname": "/products",
-    "search": "",
-    "state": undefined,
+    "userRoutes": Array [
+      "/products",
+    ],
   },
   "num": 12,
   "products": Object {
@@ -143,14 +233,82 @@ Object {
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state: none 1`] = `
 Object {
   "_route": Object {
-    "action": "PUSH",
-    "hash": "",
-    "history": Array [],
-    "key": "<key>",
-    "pathname": "",
-    "search": "",
+    "activeRoute": "/",
+    "currentLocation": Object {
+      "action": "REPLACE",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/",
+      "search": "",
+      "state": undefined,
+    },
+    "history": Array [
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "0",
+        "pathname": "/",
+        "search": "",
+      },
+    ],
+    "userRoutes": Array [],
   },
   "num": 12,
+  "str": "test",
+}
+`;
+
+exports[`the wooley way fe child route with matching route should mount/unmount the proper state: state cleared 1`] = `
+Object {
+  "_route": Object {
+    "activeRoute": "/",
+    "currentLocation": Object {
+      "action": "PUSH",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/",
+      "search": "",
+      "state": undefined,
+    },
+    "history": Array [
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "0",
+        "pathname": "/",
+        "search": "",
+      },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "1",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "2",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "3",
+        "pathname": "/products",
+        "search": "",
+        "state": undefined,
+      },
+    ],
+    "userRoutes": Array [
+      "/products",
+    ],
+  },
+  "num": 12,
+  "products": null,
   "str": "test",
 }
 `;
@@ -158,32 +316,60 @@ Object {
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state: unmount 1`] = `
 Object {
   "_route": Object {
-    "action": "PUSH",
-    "hash": "",
+    "activeRoute": "/",
+    "currentLocation": Object {
+      "action": "PUSH",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/",
+      "search": "",
+      "state": undefined,
+    },
     "history": Array [
       Object {
         "action": "PUSH",
         "hash": "",
         "key": "0",
-        "pathname": "",
+        "pathname": "/",
         "search": "",
+      },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "1",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "2",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
       },
       Object {
         "action": "PUSH",
         "hash": "",
-        "key": "1",
+        "key": "3",
         "pathname": "/products",
         "search": "",
         "state": undefined,
       },
     ],
-    "key": "<key>",
-    "pathname": "/",
-    "search": "",
-    "state": undefined,
+    "userRoutes": Array [
+      "/products",
+    ],
   },
   "num": 12,
-  "products": null,
+  "products": Object {
+    "products": Array [
+      Object {
+        "type": "test",
+      },
+    ],
+  },
   "str": "test",
 }
 `;
@@ -191,32 +377,60 @@ Object {
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state: unmount 2`] = `
 Object {
   "_route": Object {
-    "action": "PUSH",
-    "hash": "",
+    "activeRoute": "/",
+    "currentLocation": Object {
+      "action": "PUSH",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/",
+      "search": "",
+      "state": undefined,
+    },
     "history": Array [
       Object {
         "action": "PUSH",
         "hash": "",
         "key": "0",
-        "pathname": "",
+        "pathname": "/",
         "search": "",
+      },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "1",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "2",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
       },
       Object {
         "action": "PUSH",
         "hash": "",
-        "key": "1",
+        "key": "3",
         "pathname": "/products",
         "search": "",
         "state": undefined,
       },
     ],
-    "key": "<key>",
-    "pathname": "/",
-    "search": "",
-    "state": undefined,
+    "userRoutes": Array [
+      "/products",
+    ],
   },
   "num": 12,
-  "products": null,
+  "products": Object {
+    "products": Array [
+      Object {
+        "type": "test",
+      },
+    ],
+  },
   "str": "test",
 }
 `;
@@ -224,12 +438,18 @@ Object {
 exports[`the wooley way fe child route without route matching should create Products 1`] = `
 Object {
   "_route": Object {
-    "action": "PUSH",
-    "hash": "",
+    "activeRoute": "/",
+    "currentLocation": Object {
+      "action": "PUSH",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/",
+      "search": "",
+    },
     "history": Array [],
-    "key": "<key>",
-    "pathname": "",
-    "search": "",
+    "userRoutes": Array [
+      "/products",
+    ],
   },
   "num": 12,
   "str": "test",
@@ -239,12 +459,18 @@ Object {
 exports[`the wooley way fe child route without route matching should create Products 2`] = `
 Object {
   "_route": Object {
-    "action": "PUSH",
-    "hash": "",
+    "activeRoute": "/",
+    "currentLocation": Object {
+      "action": "PUSH",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/",
+      "search": "",
+    },
     "history": Array [],
-    "key": "<key>",
-    "pathname": "",
-    "search": "",
+    "userRoutes": Array [
+      "/products",
+    ],
   },
   "num": 12,
   "str": "test",
@@ -254,11 +480,25 @@ Object {
 exports[`the wooley way fe should be setup 1`] = `
 Object {
   "_route": Object {
-    "action": "PUSH",
-    "hash": "",
-    "history": Array [],
-    "pathname": "",
-    "search": "",
+    "activeRoute": "/",
+    "currentLocation": Object {
+      "action": "REPLACE",
+      "hash": "",
+      "key": "<key>",
+      "pathname": "/",
+      "search": "",
+      "state": undefined,
+    },
+    "history": Array [
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "0",
+        "pathname": "/",
+        "search": "",
+      },
+    ],
+    "userRoutes": Array [],
   },
   "num": 12,
   "str": "test",

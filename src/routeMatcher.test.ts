@@ -1,4 +1,9 @@
-import { routeMatchesPath, getVariablesForRoute, routeMatcher } from './routeMatcher'
+import {
+  routeMatchesPath,
+  getVariablesForRoute,
+  routeMatcher,
+  createRouteComposer
+} from './routeMatcher'
 
 describe('routeMatcher', () => {
   describe('routeMatchesPath', () => {
@@ -30,14 +35,18 @@ describe('routeMatcher', () => {
         id: '12',
         friendId: '37'
       }
-      expect(getVariablesForRoute('/home/:id/:friendId', '/home/12/37')).toEqual(expected)
+      expect(
+        getVariablesForRoute('/home/:id/:friendId', '/home/12/37')
+      ).toEqual(expected)
     })
     it('should return the variables for multiple', () => {
       const expected = {
         id: '12',
         friendId: '37'
       }
-      expect(getVariablesForRoute('/home/:id/:friendId', '/home/12/37')).toEqual(expected)
+      expect(
+        getVariablesForRoute('/home/:id/:friendId', '/home/12/37')
+      ).toEqual(expected)
     })
     it('should return the variables for none', () => {
       const expected = {}
@@ -57,6 +66,37 @@ describe('routeMatcher', () => {
       }
       const matches = routeMatcher(routeMap, { pathname: '/test/123' })
       expect(matches).toEqual(['/test/123', '/test/:id'])
+    })
+  })
+  describe('routeComposer', () => {
+    it('should create a route composer with no variables', () => {
+      createRouteComposer('/test/thing')
+    })
+    it('should create a route composer with variables', () => {
+      createRouteComposer<{ thing: string }>('/test/:thing')
+    })
+    it('should return a function which inserts variables into the route', () => {
+      const routeComposer = createRouteComposer<{ thing: string }>(
+        '/test/:thing'
+      )
+      expect(routeComposer).toMatchSnapshot()
+      expect(
+        routeComposer.createUrl({
+          thing: 'stuff'
+        })
+      ).toMatchInlineSnapshot(`"/test/stuff"`)
+    })
+    it('should return a function which inserts variables into the route for multiple variables', () => {
+      const routeComposer = createRouteComposer<{
+        jobs: string
+        thing: string
+      }>('/test/:thing/steve/:jobs')
+      expect(
+        routeComposer.createUrl({
+          thing: 'stuff',
+          jobs: 'works'
+        })
+      ).toMatchInlineSnapshot(`"/test/stuff/steve/works"`)
     })
   })
 })

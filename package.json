@@ -34,7 +34,7 @@
   },
   "lint-staged": {
     "{src,test}/**/*.tsx?": [
-      "prettier --write",
+      "tslint --fix",
       "git add"
     ]
   },

@@ -1,5 +1,6 @@
 import { History, Action } from 'history'
 import { Reducer } from 'redux'
+import { IRouteComposer } from './routeMatcher'
 // Should return a function that unmounts
 export interface IRender {
   (c: React.ReactElement<any>): () => any
@@ -16,6 +17,7 @@ export interface IRouteState {
   history: IRouteStatus[]
   currentLocation: IRouteStatus
   userRoutes: string[]
+  activeRoute: string
 }
 
 export interface IHaveType {
@@ -38,7 +40,9 @@ export interface IOptions<
   rootEl?: HTMLElement
   onMount?: () => any
   render: IRender
-  component: React.ComponentType<any>
+  importBaseComponent:
+    | React.ComponentType<any>
+    | Promise<React.ComponentType<any>>
 }
 
 export interface IRouteOptions<T extends ReducerObj> {
@@ -46,6 +50,7 @@ export interface IRouteOptions<T extends ReducerObj> {
   saga?: AsyncIterableIterator<any>
   reducer: T
   initialState?: ReducerToState<T>
+  onStateCleared?: () => any
 }
 
 export interface IRouteOptionsCreator<
@@ -56,7 +61,7 @@ export interface IRouteOptionsCreator<
 }
 
 export interface IRoutesMapValue {
-  route: string
+  route: IRouteComposer<any>
   parent?: IRoutesMapValue
   loader: IRouteOptionsCreator<any, any>
   onRouteMatch: () => any

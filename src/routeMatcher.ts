@@ -1,3 +1,5 @@
+import { IRouteProps } from './link'
+
 export function routeMatcher(
   routeMap: { [key: string]: any },
   routeState: { pathname: string }
@@ -27,6 +29,8 @@ export const routeMatchesPath = (path: string) => (route: string) => {
   return !misMatch
 }
 
+const segmentIsVariable = (segment: string) => segment.indexOf(':') === 0
+const varNameFromSegment = (segment: string) => segment.slice(1)
 export const getVariablesForRoute = (path: string, route: string) => {
   const segments = path.split('/').filter(s => !!s)
   const routeSegments = route.split('/').filter(r => !!r)
@@ -35,8 +39,8 @@ export const getVariablesForRoute = (path: string, route: string) => {
   }
   return segments.reduce(
     (vars, segment, index) => {
-      if (segment.indexOf(':') === 0) {
-        const varName = segment.slice(1)
+      if (segmentIsVariable(segment)) {
+        const varName = varNameFromSegment(segment)
         /* istanbul ignore next */
         vars[varName] = routeSegments[index] || ''
       }
@@ -46,4 +50,31 @@ export const getVariablesForRoute = (path: string, route: string) => {
       [key: string]: string
     }
   )
+}
+
+export interface IRouteComposer<T> {
+  route: string
+  createUrl: (args: T) => string
+}
+
+export type IRouteLimitations = Partial<React.HTMLProps<HTMLAnchorElement>> & {
+  [key: string]: string
+} & Partial<IRouteProps>
+
+export function createRouteComposer<T extends IRouteLimitations = {}>(
+  route: string
+): IRouteComposer<T> {
+  const segments = route.split('/')
+  return {
+    route,
+    createUrl: (args: T) =>
+      segments
+        .map((s: string) => {
+          if (segmentIsVariable(s)) {
+            return args[varNameFromSegment(s)]
+          }
+          return s
+        })
+        .join('/')
+  }
 }

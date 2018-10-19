@@ -7,6 +7,7 @@ import { selectors } from './routeReducer'
 interface IPathMatcherProps {
   routeMap: IRoutesMap
   pathname: string
+  activeRoute: string
   matchingRoutes: string[]
   component: React.ComponentType<any>
 }
@@ -16,14 +17,17 @@ export class Loading extends React.PureComponent {
   }
 }
 const loading = <Loading key="loading" />
-export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
+export class PathMatcher extends React.Component<IPathMatcherProps> {
   routeMap: IRoutesMap
   constructor(props: any) {
     super(props)
     this.routeMap = this.props.routeMap
   }
+  shouldComponentUpdate(nextProps: IPathMatcherProps) {
+    return nextProps.activeRoute !== this.props.activeRoute
+  }
   componentDidUpdate(lastProps: IPathMatcherProps) {
-    if (lastProps.pathname !== this.props.pathname) {
+    if (lastProps.activeRoute !== this.props.activeRoute) {
       this.buildChildren()
     }
   }
@@ -60,8 +64,9 @@ export class PathMatcher extends React.PureComponent<IPathMatcherProps> {
 
 const ConnectedPathMatcher = connect(
   (state: BareBonesState) => ({
+    activeRoute: selectors.activePath(state),
     pathname: selectors.currentPath(state),
-    matchingRoutes: selectors.matchingRoutes(state)
+    matchingRoutes: selectors.activePathMatchingRoutes(state)
   }),
   {}
 )(PathMatcher)

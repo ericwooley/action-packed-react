@@ -6,12 +6,13 @@ import { routeMatchesPath } from './routeMatcher'
 export const initialState: IRouteState = {
   history: [],
   currentLocation: {
-    pathname: '',
+    pathname: '/',
     search: '',
     hash: '',
     action: 'PUSH'
   },
-  userRoutes: []
+  userRoutes: [],
+  activeRoute: '/'
 }
 
 export const updateHistory = createActionPack<IRouteState, IRouteStatus>(
@@ -29,23 +30,46 @@ export const addUserRoute = createActionPack<IRouteState, string>(
     userRoutes: Array.from(new Set([...state.userRoutes, action.payload]))
   })
 )
+export const activateRoute = createActionPack<IRouteState, string>(
+  '@APR/ACTIVATE_ROUTE',
+  (state, action) => ({
+    ...state,
+    activeRoute: action.payload
+  })
+)
+export const routeCleared = createActionPack<IRouteState, string>(
+  '@APR/ROUTE_CLEARED',
+  state => state
+)
 
 export const routeReducer = createReducerFromActionPack(initialState, [
   updateHistory,
-  addUserRoute
+  addUserRoute,
+  activateRoute,
+  routeCleared
 ])
 
 // selectors
 const base = (s: BareBonesState) => s._route
 const currentPath = createSelector(base, r => r.currentLocation.pathname)
+const activePath = createSelector(base, r => r.activeRoute)
 const routes = createSelector(base, r => r.userRoutes)
-const matchingRoutes = createSelector(currentPath, routes, (p, r) =>
+const routeMatchFilter = (p: string, r: string[]) =>
   r
     .filter(routeMatchesPath(p))
     .sort()
     .reverse()
+const activePathMatchingRoutes = createSelector(
+  activePath,
+  routes,
+  routeMatchFilter
 )
-const matchingRouteMap = createSelector(matchingRoutes, rts =>
+const nextPathMatchingRoutes = createSelector(
+  currentPath,
+  routes,
+  routeMatchFilter
+)
+const toTruthMap = (rts: string[]) =>
   rts.reduce(
     (map, r) => {
       map[r] = true
@@ -53,11 +77,22 @@ const matchingRouteMap = createSelector(matchingRoutes, rts =>
     },
     {} as { [k: string]: boolean }
   )
+const activePathMatchingRouteMap = createSelector(
+  activePathMatchingRoutes,
+  toTruthMap
+)
+
+const nextPathMatchingRouteMap = createSelector(
+  nextPathMatchingRoutes,
+  toTruthMap
 )
 export const selectors = {
   base,
+  activePath,
   currentPath,
   routes,
-  matchingRoutes,
-  matchingRouteMap
+  nextPathMatchingRoutes,
+  activePathMatchingRoutes,
+  activePathMatchingRouteMap,
+  nextPathMatchingRouteMap
 }

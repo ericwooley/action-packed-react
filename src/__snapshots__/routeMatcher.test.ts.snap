@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routeMatcher routeComposer should return a function which inserts variables into the route 1`] = `
+Object {
+  "createUrl": [Function],
+  "route": "/test/:thing",
+}
+`;
