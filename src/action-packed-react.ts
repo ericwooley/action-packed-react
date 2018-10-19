@@ -26,6 +26,7 @@ import {
   IRouteOptions
 } from './types'
 import { take, select, all, call } from 'redux-saga/effects'
+import { createLink } from './link'
 
 const reducerBase = { _route: routeReducer }
 export type BareBonesState = ReducerToState<typeof reducerBase>
@@ -133,6 +134,9 @@ export function createApp<R extends { [key: string]: Reducer }>({
     store.dispatch(addUserRoute(combinedRoute))
     type CompleteState = ReducerToState<ISubState> & IParentState
     const subRoute = {
+      Link: createLink(history, combinedRoute),
+      fullRoute: combinedRoute,
+      routeSegment: route,
       getState: () => (store.getState() as any) as CompleteState,
       baseSelector: (s: CompleteState) => s,
       connect: <T, OwnProps, H>(

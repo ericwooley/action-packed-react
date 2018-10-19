@@ -2,7 +2,7 @@ import * as React from 'react'
 import { BareBonesState } from './action-packed-react'
 import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
-import { IRender, IRoutesMap, IRouteOptions } from './types'
+import { IRender, IRoutesMap } from './types'
 import { selectors } from './routeReducer'
 interface IPathMatcherProps {
   routeMap: IRoutesMap

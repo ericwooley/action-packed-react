@@ -43,6 +43,7 @@ const createBasicApp = (onMountWrap?: OnMountWrap) => {
   return {
     history,
     app: createApp({
+      component: props => <>{props.children}</>,
       history: history,
       initialState: {
         str: '',
