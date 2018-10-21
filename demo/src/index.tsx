@@ -53,7 +53,9 @@ const subRoute2 = app.createSubRoute(
   createRouteComposer<{ test: string }>("test/:test"),
   async () => ({
     component: InnerLayout,
-    reducer: {}
+    reducer: {
+      thing: () => 'thing'
+    }
   })
 );
 

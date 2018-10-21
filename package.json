@@ -1,0 +1,13 @@
+{
+  "name": "action-packed-react-meta",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ericwooley/action-packed-react.git",
+  "author": "Eric Wooley <ericwooley@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "action-packed-react",
+    "demo"
+  ]
+}
