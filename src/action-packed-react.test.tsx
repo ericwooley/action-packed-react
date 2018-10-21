@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { createApp, BareBonesState } from './action-packed-react'
 import { createMemoryHistory } from 'history'
-import { mount, render, ReactWrapper, shallow } from 'enzyme'
+import { mount, render, ReactWrapper } from 'enzyme'
 import { Provider } from 'react-redux'
 import { createActionPack, createReducerFromActionPack } from './createReducer'
 import { createRouteComposer } from './routeMatcher'

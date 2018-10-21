@@ -4,7 +4,7 @@
   "description": "",
   "keywords": [],
   "main": "dist/action-packed-react.umd.js",
-  "module": "dist/action-packed-react.es5.js",
+  "module": "dist/lib/index.js",
   "typings": "dist/types/index.d.ts",
   "files": [
     "dist"
@@ -91,7 +91,7 @@
     "@types/jest": "^23.3.2",
     "@types/node": "^10.11.0",
     "colors": "^1.3.2",
-    "commitizen": "^2.10.1",
+    "commitizen": "^3.0.4",
     "core-js": "^2.5.7",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
@@ -121,14 +121,14 @@
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-config-standard": "^8.0.1",
-    "typedoc": "^0.12.0",
+    "typedoc": "^0.13.0",
     "typescript": "^3.0.3"
   },
   "dependencies": {
     "@types/enzyme": "^3.1.14",
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/history": "^4.7.0",
-    "@types/jsdom": "^11.12.0",
+    "@types/jsdom": "^12.2.0",
     "@types/react": "^16.4.15",
     "@types/react-dom": "^16.0.8",
     "@types/react-redux": "^6.0.9",
