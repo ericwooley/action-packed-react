@@ -1,25 +1,31 @@
 import * as React from 'react'
-import { createApp, BareBonesState } from './action-packed-react'
+import { createApp } from './action-packed-react'
 import { createMemoryHistory } from 'history'
-import { mount, render, ReactWrapper } from 'enzyme'
-import { Provider } from 'react-redux'
-import { createActionPack, createReducerFromActionPack } from './createReducer'
+import { mount } from 'enzyme'
 import { createRouteComposer } from './routeMatcher'
-const Layout = (props: { children: any }) => (
-  <div>
-    <h1>Layout</h1>
-    {props.children}
-  </div>
-)
 
-const InnerLayout = (props: { children: any }) => (
-  <div>
-    <h1>Layout</h1>
-    {props.children}
-  </div>
-)
 describe('basic test', () => {
   it('should be usable', () => {
+    const Layout = (props: { children: any }) => (
+      <div>
+        <h1>Layout</h1>
+        <ul>
+          <li>
+            <subRoute2.Link>Subroute 2</subRoute2.Link>
+          </li>
+          <li>
+            <subRoute3.Link id="2">Subroute 3</subRoute3.Link>
+          </li>
+        </ul>
+        {props.children}
+      </div>
+    )
+    const InnerLayout = (props: { children: any }) => (
+      <div>
+        <h1>Layout</h1>
+        {props.children}
+      </div>
+    )
     const history = createMemoryHistory()
     // (window as any).hist = history;
     const app = createApp({
@@ -34,11 +40,10 @@ describe('basic test', () => {
         num: () => 12
       },
       render: jsx => {
-        const wrapper = mount(jsx)
+        mount(jsx)
         return () => null
       }
     })
-    app.init()
     // (window as any).app = app;
     // console.log("state", app.store.getState());
 
@@ -49,9 +54,9 @@ describe('basic test', () => {
         reducer: {}
       })
     )
-
-    const subRotue3 = subRoute2.createSubRoute(
-      createRouteComposer('test2'),
+    // is not any...
+    const subRoute3 = subRoute2.createSubRoute(
+      createRouteComposer<{ id: string }>('test/:id'),
       async () => ({
         reducer: {},
         component: (props: any) => (
@@ -62,5 +67,6 @@ describe('basic test', () => {
         )
       })
     )
+    app.init()
   })
 })

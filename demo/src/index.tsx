@@ -8,7 +8,7 @@ const Layout = (props: { children: any }) => (
     <h1>Layout</h1>
     <ul>
       <li>
-        <subRoute2.Link test="some other test">Subroute 2</subRoute2.Link>
+        <subRoute2.Link>Subroute 2</subRoute2.Link>
       </li>
       <li>
         <subRoute3.Link test="inner link">Subroute 3</subRoute3.Link>
@@ -47,21 +47,19 @@ export const app = createApp({
   },
   render: renderApp
 });
-app.init();
 
 const subRoute2 = app.createSubRoute(
-  createRouteComposer<{ test: string }>("test/:test"),
+  createRouteComposer<{}>("test"),
   async () => ({
     component: InnerLayout,
-    reducer: {
-      thing: () => 'thing'
-    }
+    reducer: {}
   })
 );
-
+// should not be any...
 const subRoute3 = subRoute2.createSubRoute(
   createRouteComposer("test2"),
   async () => ({
+    reducer: {},
     component: (props: any) => (
       <div>
         <h1>Waldows World</h1>
@@ -70,3 +68,4 @@ const subRoute3 = subRoute2.createSubRoute(
     )
   })
 );
+app.init();
