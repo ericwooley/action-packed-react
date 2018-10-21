@@ -10,7 +10,7 @@ const pkg = require('./package.json')
 const libraryName = 'action-packed-react'
 
 export default {
-  input: `src/${libraryName}.ts`,
+  input: `src/index.ts`,
   output: [
     {
       file: pkg.main,

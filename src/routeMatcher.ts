@@ -61,9 +61,9 @@ export type IRouteLimitations = Partial<React.HTMLProps<HTMLAnchorElement>> & {
   [key: string]: string
 } & Partial<IRouteProps>
 
-export function createRouteComposer<T extends IRouteLimitations = {}>(
+export const createRouteComposer = <T extends IRouteLimitations = {}>(
   route: string
-): IRouteComposer<T> {
+): IRouteComposer<T> => {
   const segments = route.split('/')
   return {
     route,
