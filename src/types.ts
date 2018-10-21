@@ -41,8 +41,8 @@ export interface IOptions<
   onMount?: () => any
   render: IRender
   importBaseComponent:
-    | React.ComponentType<any>
     | Promise<React.ComponentType<any>>
+    | React.ComponentType<any>
 }
 
 export interface IRouteOptions<T extends ReducerObj> {
