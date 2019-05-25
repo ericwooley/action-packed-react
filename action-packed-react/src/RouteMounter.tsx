@@ -4,24 +4,24 @@ import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
 import { IRender, IRoutesMap } from './types'
 import { selectors } from './routeReducer'
-interface IPathMatcherProps {
+export interface IPathMatcherProps {
   routeMap: IRoutesMap
   pathname: string
   activeRoute: string
   matchingRoutes: string[]
+  RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
+  LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
   component: React.ComponentType<any>
+  onMount: () => any
 }
-export class Loading extends React.PureComponent {
-  render() {
-    return <span>Loading...</span>
-  }
-}
-const loading = <Loading key="loading" />
 export class PathMatcher extends React.Component<IPathMatcherProps> {
   routeMap: IRoutesMap
   constructor(props: any) {
     super(props)
     this.routeMap = this.props.routeMap
+  }
+  componentDidMount() {
+    this.props.onMount()
   }
   shouldComponentUpdate(nextProps: IPathMatcherProps) {
     return nextProps.activeRoute !== this.props.activeRoute
@@ -31,13 +31,16 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
       this.buildChildren()
     }
   }
-  routeChildren: JSX.Element = <Loading key="loading" />
+  routeChildren: JSX.Element | undefined
   buildChildren = async () => {
+    const { RouteNotFoundComponent, LoadingComponent } = this.props
     const matchingRoutes = this.props.matchingRoutes
     const routePacks = matchingRoutes.map(r => ({
       route: r,
       pack: this.routeMap[r]
     }))
+    this.routeChildren = <LoadingComponent key="loading"/>
+    this.forceUpdate()
     const loadedPacks = await Promise.all(
       routePacks.map(async routePack => {
         const ret = {
@@ -52,7 +55,7 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
       loadedPacks.reduce((children: JSX.Element | null, pack, index) => {
         const Component = pack.contents.component
         return <Component key={matchingRoutes[index]}>{children}</Component>
-      }, null) || loading
+      }, null) || <RouteNotFoundComponent {...this.props} />
     this.forceUpdate()
   }
   render() {
@@ -75,14 +78,10 @@ export const mount = (
   initialProps: IPathMatcherProps,
   store: Store,
   render: IRender, // typeof ReactDOM.render
-  options: {
-    onMount: () => any
-  }
 ) => {
-  const { onMount } = options
   const comp: React.ReactElement<any> = (
     <Provider store={store}>
-      <ConnectedPathMatcher {...initialProps} ref={onMount} />
+      <ConnectedPathMatcher {...initialProps} />
     </Provider>
   )
   return render(comp)

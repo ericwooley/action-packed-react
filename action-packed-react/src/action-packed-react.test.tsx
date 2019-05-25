@@ -65,6 +65,8 @@ const createBasicApp = (onMountWrap?: OnMountWrap) => {
   return {
     history,
     app: createApp({
+      RouteNotFoundComponent: () => <h1>Not Found</h1>,
+      LoadingComponent: () => <div>Loading...</div>,
       importBaseComponent: props => <>{props.children}</>,
       history: history,
       initialState: {
@@ -95,7 +97,7 @@ const productsState: ProductState = {
 }
 const addProduct = createActionPack<ProductState, { type: string }>(
   'ADD_PRODUCT',
-  (state: ProductState, action) => ({
+  (state, action) => ({
     ...productsState,
     products: [...state.products, action.payload]
   })

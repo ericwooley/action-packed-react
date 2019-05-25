@@ -1,6 +1,7 @@
 import { History, Action } from 'history'
-import { Reducer } from 'redux'
+import { Reducer, compose } from 'redux'
 import { IRouteComposer } from './routeMatcher'
+import { IPathMatcherProps } from './RouteMounter';
 // Should return a function that unmounts
 export interface IRender {
   (c: React.ReactElement<any>): () => any
@@ -39,14 +40,17 @@ export interface IOptions<
   history: History
   rootEl?: HTMLElement
   onMount?: () => any
+  RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
+  LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
   render: IRender
   importBaseComponent:
     | Promise<React.ComponentType<any>>
     | React.ComponentType<any>
+  composeEnhancers?: typeof compose
 }
 
-export interface IRouteOptions<T extends ReducerObj> {
-  component: React.ComponentType<any>
+export interface IRouteOptions<T extends ReducerObj, U> {
+  component: React.ComponentType<U>
   saga?: AsyncIterableIterator<any>
   reducer: T
   initialState?: ReducerToState<T>
@@ -55,15 +59,16 @@ export interface IRouteOptions<T extends ReducerObj> {
 
 export interface IRouteOptionsCreator<
   AdditionalState extends ReducerObj,
-  ParentState extends ReducerObj
+  ParentState extends ReducerObj,
+  ComponentProps
 > {
-  (): Promise<IRouteOptions<AdditionalState & Partial<ParentState>>>
+  (): Promise<IRouteOptions<AdditionalState & Partial<ParentState>, ComponentProps>>
 }
 
 export interface IRoutesMapValue {
   route: IRouteComposer<any>
   parent?: IRoutesMapValue
-  loader: IRouteOptionsCreator<any, any>
+  loader: IRouteOptionsCreator<any, any, any>
   onRouteMatch: () => any
 }
 export interface IRoutesMap {

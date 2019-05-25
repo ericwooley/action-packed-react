@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import { welcomeRoute } from "./routes/welcome/welcome";
-import { welcomeSteveRoute } from "./routes/welcome/routes/steve/steve";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -24,10 +23,7 @@ export class RootLayout extends React.PureComponent {
         <Nav>
           <ul>
             <li>
-              <welcomeRoute.Link name="steve">Welcome</welcomeRoute.Link>
-            </li>
-            <li>
-              <welcomeSteveRoute.Link>Welcome Steve</welcomeSteveRoute.Link>
+              <welcomeRoute.Link>User Index</welcomeRoute.Link>
             </li>
           </ul>
         </Nav>

@@ -2,29 +2,6 @@ import * as React from "react";
 import { createApp, createRouteComposer } from "action-packed-react";
 import { createHashHistory } from "history";
 import { render, unmountComponentAtNode } from "react-dom";
-
-const Layout = (props: { children: any }) => (
-  <div>
-    <h1>Layout</h1>
-    <ul>
-      <li>
-        <subRoute2.Link>Subroute 2</subRoute2.Link>
-      </li>
-      <li>
-        <subRoute3.Link id="2">Subroute 3</subRoute3.Link>
-      </li>
-    </ul>
-    {props.children}
-  </div>
-);
-
-const InnerLayout = (props: { children: any }) => (
-  <div>
-    <h1>Layout</h1>
-    {props.children}
-  </div>
-);
-
 const el = document.getElementById("root");
 if (!el) throw new Error("no el");
 
@@ -35,7 +12,7 @@ const renderApp = (jsx: JSX.Element) => {
 const history = createHashHistory();
 
 export const app = createApp({
-  importBaseComponent: Layout,
+  importBaseComponent: import('./layout').then(({ RootLayout }) => RootLayout),
   history,
   initialState: {
     str: "",
@@ -45,22 +22,52 @@ export const app = createApp({
     str: () => "test",
     num: () => 12
   },
-  render: renderApp
+  RouteNotFoundComponent: () => <div>Not Found</div>,
+  LoadingComponent: () => <h3>Loading...</h3>,
+  render: renderApp,
+  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 });
 
+
+const InnerLayout = (props: { children: any, params: any }) => (
+  <div>
+    <h1>Layout</h1>
+    {props.children}
+  </div>
+);
+
 const subRoute2 = app.createSubRoute(
-  createRouteComposer<{}>("test"),
+  createRouteComposer<any>("test"),
   async () => ({
     component: InnerLayout,
     reducer: {}
   })
 );
+
+type ISubRoute3Params = {id: string}
+type ISubRoute3Props = {
+  params: ISubRoute3Params,
+  children: React.ReactElement
+}
 // should not be any...
 const subRoute3 = subRoute2.createSubRoute(
+  createRouteComposer<ISubRoute3Params>("test/:id"),
+  async () => ({
+    reducer: {},
+    component: (props: ISubRoute3Props) => (
+      <div>
+        <h1>Waldows World {props.params.id}</h1>
+        {props.children}
+      </div>
+    )
+  })
+);
+
+subRoute3.createSubRoute(
   createRouteComposer<{ id: string }>("test/:id"),
   async () => ({
     reducer: {},
-    component: (props: any) => (
+    component: (props) => (
       <div>
         <h1>Waldows World</h1>
         {props.children}
@@ -68,4 +75,4 @@ const subRoute3 = subRoute2.createSubRoute(
     )
   })
 );
-app.init();
+app.init()
