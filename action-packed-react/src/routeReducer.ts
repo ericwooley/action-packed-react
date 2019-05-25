@@ -64,6 +64,7 @@ const activePathMatchingRoutes = createSelector(
   routes,
   routeMatchFilter
 )
+
 const nextPathMatchingRoutes = createSelector(
   currentPath,
   routes,
@@ -94,5 +95,5 @@ export const selectors = {
   nextPathMatchingRoutes,
   activePathMatchingRoutes,
   activePathMatchingRouteMap,
-  nextPathMatchingRouteMap
+  nextPathMatchingRouteMap,
 }

@@ -53,9 +53,6 @@ const varNameFromSegment = (segment: string) => segment.slice(1)
 export const getVariablesForRoute = (path: string, route: string) => {
   const segments = path.split('/').filter(s => !!s)
   const routeSegments = route.split('/').filter(r => !!r)
-  if (segments.length < routeSegments.length) {
-    throw new Error('Route mismatch')
-  }
   return segments.reduce(
     (vars, segment, index) => {
       if (segmentIsVariable(segment)) {

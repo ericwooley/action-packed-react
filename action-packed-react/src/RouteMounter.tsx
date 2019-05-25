@@ -4,6 +4,7 @@ import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
 import { IRender, IRoutesMap } from './types'
 import { selectors } from './routeReducer'
+import { getVariablesForRoute } from './routeMatcher';
 export interface IPathMatcherProps {
   routeMap: IRoutesMap
   pathname: string
@@ -12,7 +13,7 @@ export interface IPathMatcherProps {
   RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
   LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
   component: React.ComponentType<any>
-  onMount: () => any
+  onMount: () => any,
 }
 export class PathMatcher extends React.Component<IPathMatcherProps> {
   routeMap: IRoutesMap
@@ -44,7 +45,7 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
     const loadedPacks = await Promise.all(
       routePacks.map(async routePack => {
         const ret = {
-          route: routePack.route,
+          path: routePack.route,
           pack: routePack.pack,
           contents: await routePack.pack.loader()
         }
@@ -54,7 +55,10 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
     this.routeChildren =
       loadedPacks.reduce((children: JSX.Element | null, pack, index) => {
         const Component = pack.contents.component
-        return <Component key={matchingRoutes[index]}>{children}</Component>
+        return <Component
+          key={matchingRoutes[index]}
+          params={getVariablesForRoute(pack.path, this.props.activeRoute)}
+          >{children}</Component>
       }, null) || <RouteNotFoundComponent {...this.props} />
     this.forceUpdate()
   }
@@ -69,7 +73,7 @@ const ConnectedPathMatcher = connect(
   (state: BareBonesState) => ({
     activeRoute: selectors.activePath(state),
     pathname: selectors.currentPath(state),
-    matchingRoutes: selectors.activePathMatchingRoutes(state)
+    matchingRoutes: selectors.activePathMatchingRoutes(state),
   }),
   {}
 )(PathMatcher)
