@@ -17,13 +17,12 @@ import {
   activateRoute,
   routeCleared
 } from './routeReducer'
-import { connect } from 'react-redux'
+import { connect, Connect } from 'react-redux'
 import {
   ReducerToState,
   IOptions,
   IRoutesMap,
   ReducerObj,
-  IRouteOptionsCreator,
   ICreateRouteOptions,
   IRoutesMapValue,
   IRouteOptions
@@ -42,6 +41,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
          initialState,
          initialReducers,
          history,
+         useHashHistory = true,
          render,
          importBaseComponent,
          RouteNotFoundComponent,
@@ -147,18 +147,19 @@ export function createApp<R extends { [key: string]: Reducer }>({
            }
          })
          const createSubRoute = <
-           IParentState extends ReducerObj,
+           IParentReducers extends ReducerObj,
            ParentRouteProps extends IRouteLimitations = {}
          >(
            parentRoute: IRouteComposer<ParentRouteProps>
-         ) => <ISubState extends ReducerObj, RouteProps extends Partial<ParentRouteProps> = {}>(
+         ) => <ISubReducers extends ReducerObj, RouteProps extends Partial<ParentRouteProps> = {}>(
            route: IRouteComposer<RouteProps> | string,
-           routeCreator: IRouteOptionsCreator<
-             ISubState,
-             IParentState,
-             //  any
-             { params: RouteProps; children: any }
-           >,
+           {
+             reducer,
+             component
+           }: {
+             reducer?: (() => Promise<ISubReducers>)
+             component: () => Promise<React.ComponentType<{ params: RouteProps; children: any }>>
+           },
            options: ICreateRouteOptions = {}
          ) => {
            const { onRouteMatch = () => null } = options
@@ -170,26 +171,38 @@ export function createApp<R extends { [key: string]: Reducer }>({
              onRouteMatch,
              route: routeComposer,
              parent: routeMap[parentRoute.route],
-             loader: routeCreator
+             loader: async () => {
+               const [loadedReducer, loadedComponent] = await Promise.all([
+                 reducer ? reducer() : Promise.resolve({}),
+                 component()
+               ])
+               return {
+                 component: loadedComponent,
+                 reducer: loadedReducer
+               }
+             }
            }
            store.dispatch(addUserRoute(combinedRoute))
-           type CompleteState = ReducerToState<ISubState> & IParentState
+           type ICompleteState = ReducerToState<ISubReducers & IParentReducers>
            const subRoute = {
-             Link: createLink(history, routeComposer),
+             Link: createLink(history, routeComposer, useHashHistory),
              routeComposer,
              fullRoute: combinedRoute,
              routeSegment: route,
-             getState: () => (store.getState() as any) as CompleteState,
-             baseSelector: (s: CompleteState) => s,
+             getState: () => (store.getState() as any) as ICompleteState,
+             baseSelector: (s: ICompleteState) => s,
+             paramSelector: (selectors.params as any) as (s: ICompleteState) => RouteProps,
              connect: <T, OwnProps, H>(
-               mapStateToProps: (state: CompleteState, ownProps: OwnProps) => T,
+               mapStateToProps: (state:
+                ICompleteState,
+                 ownProps: OwnProps) => T,
                handlers?: H
              ) =>
                connect(
                  mapStateToProps,
                  handlers
                ),
-             createSubRoute: createSubRoute<CompleteState, IFullRouteProps>(routeComposer)
+             createSubRoute: createSubRoute<ISubReducers & IParentReducers, IFullRouteProps>(routeComposer)
            }
            return subRoute
          }

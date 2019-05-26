@@ -1,14 +1,22 @@
 import * as React from "react";
-import { userList } from './userlist'
-import { userRoute } from './routes/user/user'
+import { userRoute } from './routes/user'
+import { User, selectors } from "./userListReducer";
+import { welcomeRoute } from ".";
 
-export const Welcome = (props: {
+const Welcome = (props: {
   children: React.ComponentElement<any, any>;
-  params: {}
+  params: {},
+  userList: User[]
 }) => (
     <div>
       <h1>Select A User</h1>
-      {userList.map(user => <div key={user} ><userRoute.Link name={user}>{user}</userRoute.Link></div>)}
+      {props.userList.map(user => <div key={user.name} >
+        <userRoute.Link id={user.id}>{user.name}</userRoute.Link>
+      </div>)}
       {props.children}
     </div>
   );
+
+export default welcomeRoute.connect((state) => ({
+  userList: selectors.userList(state)
+}))(Welcome)

@@ -36,6 +36,7 @@ export interface IOptions<
   State extends ReducerToState<R> = ReducerToState<R>
 > {
   initialState: State
+  useHashHistory?: boolean
   initialReducers: R
   history: History
   rootEl?: HTMLElement

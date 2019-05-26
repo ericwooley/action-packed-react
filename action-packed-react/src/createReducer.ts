@@ -27,10 +27,10 @@ export const createActionPack = <TState, T>(type: string, handler: IHandler<T, T
 
 export const createReducerFromActionPack = <T>(
   initialState: T,
-  handlers: IActionPack<any, T>[],
+  actionPacks: {[key: string]: IActionPack<any, T>},
   {  }: {} = {}
-): Reducer<T> => {
-  const handlerMap = handlers.reduce(
+): Reducer<T> & { actionCreators: typeof actionPacks } => {
+  const handlerMap = Object.values(actionPacks).reduce(
     (hmap, handler) => {
       hmap[handler._type] = handler
       return hmap
@@ -39,11 +39,13 @@ export const createReducerFromActionPack = <T>(
       [key: string]: IActionPack<T, any>
     }
   )
-  return (state: T | undefined = initialState, action: AnyAction) => {
+  const reducer = (state: T | undefined = initialState, action: AnyAction) => {
     if (handlerMap[action.type]) {
       const updatedState = handlerMap[action.type]._handler(state, action as IAction<any>)
       return updatedState
     }
     return state
   }
+  reducer.actionCreators = actionPacks
+  return reducer
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { welcomeRoute } from "./routes/welcome/welcome";
+import { welcomeRoute } from "./routes/welcome";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -23,7 +23,7 @@ export class RootLayout extends React.PureComponent {
         <Nav>
           <ul>
             <li>
-              <welcomeRoute.Link>User Index</welcomeRoute.Link>
+              <welcomeRoute.Link>User Directory</welcomeRoute.Link>
             </li>
           </ul>
         </Nav>

@@ -10,23 +10,34 @@ export interface IRouteProps {
   activeClass?: string
   dispatch?: any
 }
+export interface ILinkProps {
+  redirect?: boolean
+}
 
 export function createLink<T extends IRouteLimitations>(
   history: History,
-  link: IRouteComposer<T>
+  link: IRouteComposer<T>,
+  useHashHistory: boolean
 ) {
   class APRLink extends React.PureComponent<
-    Partial<React.HTMLProps<HTMLAnchorElement>> & Partial<IRouteProps> & T
+   Partial<React.HTMLProps<HTMLAnchorElement>> & Partial<IRouteProps> & T & ILinkProps
   > {
-    navigate = (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault()
+    componentDidMount() {
+      if(this.props.redirect) {
+        this.navigate()
+      }
+    }
+    navigateFromEvent = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      this.navigate()
+      if (this.props.onClick) this.props.onClick(e)
+    }
+    navigate = () => {
       const route = link.createUrl(this.props as any)
       if (this.props.replace) {
         history.replace(route)
       } else {
         history.push(route)
       }
-      if (this.props.onClick) this.props.onClick(e)
     }
     render() {
       const {
@@ -34,12 +45,13 @@ export function createLink<T extends IRouteLimitations>(
         currentPath,
         replace,
         dispatch,
+        redirect,
         ...restProps
       } = this.props as any
       return (
         <a
           {...restProps}
-          href={link.createUrl(this.props as any)}
+          href={`${useHashHistory ? '#' : ''}${link.createUrl(this.props as any)}`}
           onClick={this.navigate}
         >
           {this.props.children}
@@ -51,6 +63,6 @@ export function createLink<T extends IRouteLimitations>(
     currentPath: state._route.currentLocation.pathname
     // typescript,  i really really hate you sometimes
   }))(APRLink as any) as any) as React.ComponentType<
-    Partial<React.HTMLProps<HTMLAnchorElement>> & Partial<IRouteProps> & T
+    Partial<React.HTMLProps<HTMLAnchorElement>> & Partial<IRouteProps> & T & ILinkProps
   >
 }

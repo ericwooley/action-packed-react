@@ -35,13 +35,13 @@ describe('creating reducers', () => {
       test: action.payload
     }))
     it('should create a reducer', () => {
-      const reducer = createReducerFromActionPack(initialState, [actionPack])
+      const reducer = createReducerFromActionPack(initialState, { actionPack })
       expect(reducer(initialState, actionPack('update'))).toEqual({
         test: 'update'
       })
     })
     describe('reducer', () => {
-      const reducer = createReducerFromActionPack(initialState, [actionPack])
+      const reducer = createReducerFromActionPack(initialState, {actionPack})
       it('should work with undefined and an unhandled action', () => {
         expect(reducer(undefined, { type: 'test', payload: 'test' })).toEqual(initialState)
       })

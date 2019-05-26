@@ -2,7 +2,7 @@ import { createReducerFromActionPack, createActionPack } from './createReducer'
 import { IRouteState, IRouteStatus } from './types'
 import { createSelector } from 'reselect'
 import { BareBonesState } from './action-packed-react'
-import { routeMatchesPath } from './routeMatcher'
+import { routeMatchesPath, getVariablesForRoute } from './routeMatcher'
 export const initialState: IRouteState = {
   history: [],
   currentLocation: {
@@ -42,12 +42,12 @@ export const routeCleared = createActionPack<IRouteState, string>(
   state => state
 )
 
-export const routeReducer = createReducerFromActionPack(initialState, [
+export const routeReducer = createReducerFromActionPack(initialState, {
   updateHistory,
   addUserRoute,
   activateRoute,
   routeCleared
-])
+})
 
 // selectors
 const base = (s: BareBonesState) => s._route
@@ -59,10 +59,23 @@ const routeMatchFilter = (p: string, r: string[]) =>
     .filter(routeMatchesPath(p))
     .sort()
     .reverse()
+
+
+
 const activePathMatchingRoutes = createSelector(
   activePath,
   routes,
   routeMatchFilter
+)
+
+const params = createSelector(
+  activePathMatchingRoutes,
+  activePath,
+  (matchingRoutes, route) =>
+  matchingRoutes.reduce(
+      (acc, path) => ({ ...acc, ...getVariablesForRoute(path, route) }),
+      {}
+    )
 )
 
 const nextPathMatchingRoutes = createSelector(
@@ -96,4 +109,5 @@ export const selectors = {
   activePathMatchingRoutes,
   activePathMatchingRouteMap,
   nextPathMatchingRouteMap,
+  params
 }
