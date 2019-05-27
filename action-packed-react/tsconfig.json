@@ -10,6 +10,7 @@
       "dom"
     ],
     "strict": true,
+    "noEmit": false,
     "sourceMap": true,
     "declaration": true,
     "allowSyntheticDefaultImports": true,
@@ -18,12 +19,14 @@
     "declarationDir": "dist/types",
     "outDir": "dist/lib",
     "jsx": "react",
-    "typeRoots": ["node_modules/@types", "../node_modules/@types", "src/types"],
-    "rootDir": "src",
+    "typeRoots": ["node_modules/@types", "../node_modules/@types", "types"],
+    "rootDir": "./",
     "skipLibCheck": true
   },
-  "include": ["src/*", "src/types/**/*"],
+  "include": ["**/*"],
   "exclude": [
-    "src/**/*.test.ts*"
+    "__snapshots__/**/*",
+    "dist/**/*",
+    "**/*.test.ts*"
   ]
 }

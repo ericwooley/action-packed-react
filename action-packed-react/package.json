@@ -3,12 +3,8 @@
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "main": "dist/action-packed-react.umd.js",
-  "module": "dist/lib/index.js",
-  "typings": "dist/types/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "main": "./index.ts",
+  "module": "./index.ts",
   "author": "Eric Wooley <ericwooley@gmail.com>",
   "repository": {
     "type": "git",

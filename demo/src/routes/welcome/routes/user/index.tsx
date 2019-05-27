@@ -1,5 +1,5 @@
 import { welcomeRoute } from "../..";
-import { createRouteComposer } from "action-packed-react";
+import { createRouteComposer } from "action-packed-react/routeMatcher";
 
 export type IParams = {
   id: string

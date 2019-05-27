@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { createApp } from './action-packed-react'
+import { createApp } from './'
 import { createMemoryHistory } from 'history'
 import { mount } from 'enzyme'
 import { createRouteComposer } from './routeMatcher'
@@ -31,6 +31,8 @@ describe('basic test', () => {
     const app = createApp({
       importBaseComponent: Layout,
       history,
+      LoadingComponent: () => <h1>Loading</h1>,
+      RouteNotFoundComponent: () => <div>NotFound</div>,
       initialState: {
         str: '',
         num: 15
@@ -49,23 +51,23 @@ describe('basic test', () => {
 
     const subRoute2 = app.createSubRoute(
       createRouteComposer<{}>('test'),
-      async () => ({
-        component: InnerLayout,
-        reducer: {}
-      })
+      {
+        component: async () => InnerLayout,
+        reducer: async () => ({})
+      }
     )
     // is not any...
     const subRoute3 = subRoute2.createSubRoute(
       createRouteComposer<{ id: string }>('test/:id'),
-      async () => ({
-        reducer: {},
-        component: (props: any) => (
+      {
+        reducer: async () => ({}),
+        component: async () => (props: any) => (
           <div>
             <h1>Waldows World</h1>
             {props.children}
           </div>
         )
-      })
+      }
     )
     app.init()
   })

@@ -16,6 +16,6 @@ const UserProfileComponent = (props: { params: IParams, selectedUser: User }) =>
   </div>
 }
 export const userProfile = userRoute.connect((state) => ({
-  selectedUser: selectedUser(state as any)
+  selectedUser: selectedUser(state)
 }))(UserProfileComponent)
 

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { History } from 'history'
 import { connect } from 'react-redux'
-import { BareBonesState } from './action-packed-react'
+import { BareBonesState } from '.'
 import { IRouteComposer, IRouteLimitations } from './routeMatcher'
 
 export interface IRouteProps {
