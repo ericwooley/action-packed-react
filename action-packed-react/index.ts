@@ -30,6 +30,7 @@ import {
 import { take, select, all, call } from 'redux-saga/effects'
 import { createLink } from './link'
 import { IRouteComposer, createRouteComposer, IRouteLimitations } from './routeMatcher'
+import { ReactNode } from 'react';
 
 const reducerBase = { _route: routeReducer }
 export type BareBonesState = ReducerToState<typeof reducerBase>
@@ -144,10 +145,13 @@ export function createApp<R extends { [key: string]: Reducer }>({
   >(
     parentRoute: IRouteComposer<ParentRouteProps>
   ) => <
-      ISubReducers extends ReducerObj,
-      RouteProps extends Partial<ParentRouteProps>,
-      IComponentProps extends { params?: RouteProps; children: React.ReactChildren }
-    >(
+    ISubReducers extends ReducerObj,
+    RouteProps extends Partial<ParentRouteProps>,
+    IComponentProps extends Partial<{
+      params: RouteProps
+      children: ReactNode
+    }>
+  >(
     route: IRouteComposer<RouteProps> | string,
     {
       reducer

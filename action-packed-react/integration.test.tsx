@@ -6,7 +6,7 @@ import { createRouteComposer } from './routeMatcher'
 
 describe('basic test', () => {
   it('should be usable', () => {
-    const Layout = (props: { children: any }) => (
+    const Layout = (props: {children?: React.ReactNode}) => (
       <div>
         <h1>Layout</h1>
         <ul>
@@ -20,7 +20,7 @@ describe('basic test', () => {
         {props.children}
       </div>
     )
-    const InnerLayout = (props: { children: any }) => (
+    const InnerLayout = (props: { children?: any }) => (
       <div>
         <h1>Layout</h1>
         {props.children}
@@ -56,7 +56,7 @@ describe('basic test', () => {
       }
     )
     subRoute2.setComponent(
-      async () => InnerLayout,
+      async () => () => <InnerLayout />,
     )
     // is not any...
     const subRoute3 = subRoute2.createSubRoute(
@@ -74,3 +74,5 @@ describe('basic test', () => {
     app.init()
   })
 })
+
+

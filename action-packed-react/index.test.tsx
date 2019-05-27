@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { createActionPack, createReducerFromActionPack } from './createReducer'
 import { createRouteComposer } from './routeMatcher'
 export const mountAlert = <IProps, T>(
-  c: React.ComponentType<IProps>,
+  C: React.ComponentType<IProps>,
   { didMount, willUnmount }: { didMount?: () => any; willUnmount?: () => any }
 ) => {
   return class RouteAlerter extends React.Component<IProps> {
@@ -18,7 +18,7 @@ export const mountAlert = <IProps, T>(
     }
     render() {
       const { onMount, ...restProps } = this.props as any
-      return React.createElement(c, restProps)
+      return <C  {...restProps} />
     }
   }
 }
@@ -40,9 +40,8 @@ const sanitizeState = (state: BareBonesState): BareBonesState => ({
 class ProductsComponent extends React.Component<{
   productsLen: number
   test: string
-  // params: {},
   onClick: () => any
-  children?: React.ReactChild
+  children?: React.ReactChildren
 }> {
   render() {
     return (
@@ -113,7 +112,11 @@ const createProducts = (baseApp = createBasicApp()) => {
     // saga: function* ProductsSaga(): any {},
     reducer: async () => ({ products: productReducer })
   })
-  products.setComponent(async () => ProductsComponent)
+  products.setComponent(async () => ({ children }: any) => (
+    <ProductsComponent
+      productsLen={3} test="" onClick={() => null}>
+      {children}
+    </ProductsComponent>))
   return {
     app,
     history,
@@ -175,26 +178,28 @@ describe('the wooley way fe', () => {
         const ConnectedProducts = productRoute.connect(
           state => {
             return {
-              productsLen: state.products.length
+              productsLen: state.products.length,
+              test: ''
             }
           },
           {
             onClick: () => console.log('click')
           }
         )(ProductsComponent);
-        productRoute.setComponent(async () => mountAlert(ProductsComponent, {
+        const ComponentWithMountAlert = mountAlert(ConnectedProducts, {
           didMount: () => {
             expect(wrapper.html()).toMatchSnapshot('products-full-dom')
             expect(
               render(
                 <Provider store={baseApp.app.store}>
-                  <ConnectedProducts test="" />
+                  <ConnectedProducts />
                 </Provider>
               ).html()
             ).toMatchSnapshot()
             done()
           }
-        }))
+        })
+        productRoute.setComponent(async () => ComponentWithMountAlert)
 
 
         let stateTest = productRoute.createSubRoute('test', {
@@ -216,7 +221,7 @@ describe('the wooley way fe', () => {
             productsSearch: productReducer
           })
         })
-        productRoute.setComponent(async () => mountAlert(ProductSearchComponent, {
+        productRoute.setComponent(async () => mountAlert(() => <ProductSearchComponent title="test" />, {
           didMount: () => {
             expect(wrapper.html()).toMatchSnapshot('products full dom')
             expect(
@@ -258,18 +263,20 @@ describe('the wooley way fe', () => {
             //   done()
             // }
           })
-          productRoute.setComponent(async () => mountAlert(ProductsComponent, {
-            didMount: r,
-            willUnmount: () => {
-              expect(wrapper.html()).toMatchSnapshot(
-                'full after product unmount'
-              )
-              expect(sanitizeState(app.store.getState())).toMatchSnapshot(
-                'unmount'
-              )
-              done()
-            }
-          }))
+          productRoute.setComponent(async () => mountAlert(
+            () => <ProductsComponent onClick={() => null} test="" productsLen={12} />,
+            {
+              didMount: r,
+              willUnmount: () => {
+                expect(wrapper.html()).toMatchSnapshot(
+                  'full after product unmount'
+                )
+                expect(sanitizeState(app.store.getState())).toMatchSnapshot(
+                  'unmount'
+                )
+                done()
+              }
+            }))
           await app.init()
           history.push('/products')
         })
@@ -287,7 +294,7 @@ describe('the wooley way fe', () => {
               productsSearch: productReducer
             })
           })
-          productsSubRoute.setComponent(async () => mountAlert(ProductSearchComponent, {
+          productsSubRoute.setComponent(async () => mountAlert(() => <ProductSearchComponent title="search" />, {
             didMount: r,
             willUnmount: () => {
               expect(wrapper.html()).toMatchSnapshot('after unmount')
