@@ -17,6 +17,10 @@
     "typeRoots": ["node_modules/@types", "../node_modules/@types", "src/types"],
     "rootDirs": ["src", "../action-packed-react"]
   },
-  "include": ["src/*", "src/types/**/*", "../action-packed-react/**/*"],
+  "include": [
+    "src/*",
+    "src/types/**/*",
+    "../action-packed-react/**/*"
+  ],
   "exclude": ["**/*.test.ts*", ""]
 }

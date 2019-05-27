@@ -52,23 +52,25 @@ describe('basic test', () => {
     const subRoute2 = app.createSubRoute(
       createRouteComposer<{}>('test'),
       {
-        component: async () => InnerLayout,
         reducer: async () => ({})
       }
+    )
+    subRoute2.setComponent(
+      async () => InnerLayout,
     )
     // is not any...
     const subRoute3 = subRoute2.createSubRoute(
       createRouteComposer<{ id: string }>('test/:id'),
       {
         reducer: async () => ({}),
-        component: async () => (props: any) => (
-          <div>
-            <h1>Waldows World</h1>
-            {props.children}
-          </div>
-        )
       }
     )
+    subRoute3.setComponent(async () => (props: any) => (
+      <div>
+        <h1>Waldows World</h1>
+        {props.children}
+      </div>
+    ))
     app.init()
   })
 })

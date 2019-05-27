@@ -7,12 +7,11 @@ export type IParams = {
 export const userRoute = welcomeRoute.createSubRoute(
   createRouteComposer<IParams>(":id"),
   {
-    component: async () =>  (await import('./components/userProfile') as any).userProfile,
     reducer: async () => ({
       test: () => ({})
     })
   }
 );
-const state = userRoute.baseSelector({} as any)
+userRoute.setComponent(async () =>  (await import('./components/userProfile') as any).userProfile)
 
 export type UserRoute = typeof userRoute

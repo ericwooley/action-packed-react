@@ -13,17 +13,17 @@ module.exports = {
       maxInitialRequests: 3,
       automaticNameDelimiter: "~",
       name: true,
-      // cacheGroups: {
-      //   vendors: {
-      //     test: /[\\/]node_modules[\\/](?!(action-packed-react)\/)/,
-      //     priority: -10
-      //   },
-      //   default: {
-      //     minChunks: 2,
-      //     priority: -20,
-      //     reuseExistingChunk: true
-      //   }
-      // }
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/](?!(action-packed-react)\/)/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
     }
   },
   module: {
@@ -31,7 +31,6 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: "ts-loader",
-        exclude: /node_modules\/(?!(action-packed-react)\/).*/,
       }
     ]
   },
