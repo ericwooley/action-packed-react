@@ -8,4 +8,5 @@ export const welcomeRoute = app.createSubRoute(
   },
 );
 welcomeRoute.setComponent(async () => (await import("./welcomeComponent")).default)
+welcomeRoute.register();
 
