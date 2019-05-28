@@ -6,7 +6,7 @@ import { userRoute } from '..';
 import { User } from '../../../userListReducer';
 import { welcomeRoute } from '../../..';
 
-const UserProfileComponent = (props: { params: IParams, selectedUser: User }) => {
+const UserProfileComponent = (props: { params?: IParams, selectedUser: User }) => {
   const {selectedUser} = props
   if (!selectedUser) return <welcomeRoute.Link redirect={true} />
   return <div>

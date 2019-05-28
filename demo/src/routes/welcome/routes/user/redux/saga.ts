@@ -1,6 +1,5 @@
 import {delay, cancelled} from 'redux-saga/effects'
 
-
 export function * rootSaga () {
   console.log("Running root saga");
   const tickId = Math.floor(Math.random() * 1000)
@@ -16,5 +15,4 @@ export function * rootSaga () {
       console.log(count, "I was murdered!", tickId);
     }
   }
-
 }

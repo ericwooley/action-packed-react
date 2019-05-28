@@ -13,6 +13,6 @@ export const userRoute = welcomeRoute.createSubRoute(
   }
 );
 userRoute.setSaga(async () => (await import('./redux/saga')).rootSaga)
-userRoute.setComponent(async () =>  (await import('./components/userProfile') as any).userProfile)
+userRoute.setComponent(async () =>  (await import('./components/userProfile')).userProfile)
 userRoute.register()
 export type UserRoute = typeof userRoute
