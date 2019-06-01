@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStore, combineReducers, Reducer, Store, applyMiddleware, compose } from 'redux'
-import createSagaMiddleware, { Task, runSaga } from 'redux-saga'
+import createSagaMiddleware from 'redux-saga'
 import { mount } from './RouteMounter'
 import {
   routeReducer,
@@ -21,11 +21,21 @@ import {
   IRoutesMapValue,
   IRouteOptions
 } from './types'
-import { take, call, all, select, spawn, fork, cancel, SimpleEffect, ForkEffectDescriptor } from 'redux-saga/effects'
+import {
+  take,
+  call,
+  all,
+  select,
+  spawn,
+  fork,
+  cancel,
+  SimpleEffect,
+  ForkEffectDescriptor
+} from 'redux-saga/effects'
 import { createLink } from './link'
 import { IRouteComposer, createRouteComposer, IRouteLimitations } from './routeMatcher'
 import { ReactNode } from 'react'
-import { createSagaForPack } from './runSaga';
+import { createSagaForPack } from './runSaga'
 
 function* emptySaga(): IterableIterator<any> {
   return null
@@ -86,7 +96,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
             oldMatchingRoutes,
             newlyMatchingRoutes,
             noLongerMatchingRoutes,
-            allRoutes: yield select(selectors.routes),
+            allRoutes: yield select(selectors.routes)
           })
           const bundles: {
             pack: IRouteOptions<any, any>
@@ -102,9 +112,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
               })
               .map(call)
           )
-          yield all(
-            bundles.map(({ pack }) => spawn(createSagaForPack, pack))
-          )
+          yield all(bundles.map(({ pack }) => spawn(createSagaForPack, pack)))
           // no more yield here, react can't have another chance to interact with state
           const reducers = [currentReducerObject, ...bundles.map(c => c.pack.reducer)]
           // console.log('----> adding reducer for', newlyMatchingRoutes)
@@ -144,85 +152,87 @@ export function createApp<R extends { [key: string]: Reducer }>({
     ParentRouteProps extends IRouteLimitations = {}
   >(
     parentRoute: IRouteComposer<ParentRouteProps>
-  ) => <
-    ISubReducers extends ReducerObj,
-    RouteProps extends Partial<ParentRouteProps>,
-    IComponentProps extends Partial<{
-      params: RouteProps
-      children: ReactNode
-    }>
-  >(
-    route: IRouteComposer<RouteProps> | string,
-    {
-      reducer
-    }: {
-      reducer?: () => Promise<ISubReducers>
-    },
-    options: ICreateRouteOptions = {}
   ) => {
-    type IRouteComponent = React.ComponentType<IComponentProps>
-    type ILoadRouteComponent = () => Promise<IRouteComponent>
-    type ILoadSaga = () => Promise<typeof emptySaga>
-    let component: ILoadRouteComponent = (() =>
-      EmptyComponent
-    ) as any
-    let saga: ILoadSaga = () => Promise.resolve(emptySaga)
-    const { onRouteMatch = () => null } = options
-    if (typeof route === 'string') route = createRouteComposer<{}>(route)
-    const combinedRoute = [parentRoute.route, route.route].join('/')
-    type IFullRouteProps = RouteProps & ParentRouteProps
-    const routeComposer = createRouteComposer<IFullRouteProps>(combinedRoute)
+    return <
+      ISubReducers extends ReducerObj,
+      RouteProps extends ParentRouteProps,
+      IComponentProps extends Partial<{
+        params: RouteProps
+        children: ReactNode
+      }>
+    >(
+      route: IRouteComposer<RouteProps> | string,
+      reducer?: () => Promise<
+        keyof ISubReducers extends keyof IParentReducers
+          ? 'Reducer must not share any keys with parent route reducers'
+          : ISubReducers
+      >,
+      options: ICreateRouteOptions = {}
+    ) => {
+      type IRouteComponent = React.ComponentType<IComponentProps>
+      type ILoadRouteComponent = () => Promise<IRouteComponent>
+      type ILoadSaga = () => Promise<typeof emptySaga>
+      let component: ILoadRouteComponent = (() => EmptyComponent) as any
+      let saga: ILoadSaga = () => Promise.resolve(emptySaga)
+      const { onRouteMatch = () => null } = options
+      if (typeof route === 'string') route = createRouteComposer<{}>(route)
+      const combinedRoute = [parentRoute.route, route.route].join('/')
+      type IFullRouteProps = RouteProps & ParentRouteProps
+      const routeComposer = createRouteComposer<IFullRouteProps>(combinedRoute)
 
-    const setComponent = (componentLoader: ILoadRouteComponent) => {
-      component = componentLoader
-    }
-    const setSaga = (sagaLoader: ILoadSaga) => {
-      saga = sagaLoader
-    }
+      const setComponent = (componentLoader: ILoadRouteComponent) => {
+        component = componentLoader
+      }
+      const setSaga = (sagaLoader: ILoadSaga) => {
+        saga = sagaLoader
+      }
 
-    type ICompleteState = ReducerToState<ISubReducers & IParentReducers>
-    const subRoute = {
-      Link: createLink(history, routeComposer, useHashHistory),
-      routeComposer,
-      fullRoute: combinedRoute,
-      routeSegment: route,
-      setComponent,
-      setSaga,
-      register: () => {
-        routeMap[combinedRoute] = {
-          onRouteMatch,
-          route: routeComposer,
-          parent: routeMap[parentRoute.route],
-          loader: async () => {
-            const [loadedReducer, loadedComponent, loadedSaga] = await Promise.all([
-              reducer ? reducer() : Promise.resolve({}),
-              component(),
-              saga()
-            ])
-            return {
-              routeComposer: routeComposer,
-              component: loadedComponent,
-              reducer: loadedReducer,
-              saga: loadedSaga
+      type ICompleteState = ReducerToState<ISubReducers & IParentReducers>
+      const subRoute = {
+        Link: createLink(history, routeComposer, useHashHistory),
+        routeComposer,
+        fullRoute: combinedRoute,
+        routeSegment: route,
+        setComponent,
+        setSaga,
+        register: () => {
+          routeMap[combinedRoute] = {
+            onRouteMatch,
+            route: routeComposer,
+            parent: routeMap[parentRoute.route],
+            loader: async () => {
+              const [loadedReducer, loadedComponent, loadedSaga] = await Promise.all([
+                reducer ? reducer() : Promise.resolve({}),
+                component(),
+                saga()
+              ])
+              return {
+                routeComposer: routeComposer,
+                component: loadedComponent,
+                reducer: loadedReducer,
+                saga: loadedSaga
+              }
             }
           }
-        }
-        store.dispatch(addUserRoute(combinedRoute))
-      },
-      getState: () => (store.getState() as any) as ICompleteState,
-      baseSelector: (s: ICompleteState) => s,
-      paramSelector: (selectors.params as any) as (s: ICompleteState) => RouteProps,
-      connect: <T, OwnProps, H>(
-        mapStateToProps: (state: ICompleteState, ownProps: OwnProps) => T,
-        handlers?: H
-      ) =>
-        connect(
-          mapStateToProps,
-          handlers
-        ),
-      createSubRoute: createSubRoute<ISubReducers & IParentReducers, IFullRouteProps>(routeComposer)
+          store.dispatch(addUserRoute(combinedRoute))
+        },
+        getState: () => (store.getState() as any) as ICompleteState,
+        baseSelector: (s: ICompleteState) => s,
+        paramSelector: (selectors.params as any) as (s: ICompleteState) => RouteProps,
+        connect: <T, OwnProps, H>(
+          mapStateToProps: (state: ICompleteState, ownProps: OwnProps) => T,
+          handlers?: H
+        ) =>
+          connect(
+            mapStateToProps,
+            handlers
+          ),
+        createSubRoute: createSubRoute<ISubReducers & IParentReducers, IFullRouteProps>(
+          routeComposer
+        )
+      }
+      return subRoute
     }
-    return subRoute
   }
 
   const unlisten = history.listen((location, action) => {

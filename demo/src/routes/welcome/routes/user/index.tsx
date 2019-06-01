@@ -6,13 +6,11 @@ export type IParams = {
 }
 export const userRoute = welcomeRoute.createSubRoute(
   createRouteComposer<IParams>(":id"),
-  {
-    reducer: async () => ({
-      test: () => ({})
-    })
-  }
+  async () => ({
+    test: () => ({})
+  })
 );
 userRoute.setSaga(async () => (await import('./redux/saga')).rootSaga)
-userRoute.setComponent(async () =>  (await import('./components/userProfile')).userProfile)
+userRoute.setComponent(async () => (await import('./components/userProfile')).userProfile)
 userRoute.register()
 export type UserRoute = typeof userRoute
