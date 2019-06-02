@@ -52,7 +52,8 @@ export interface IOptions<
 
 export interface IRouteOptions<T extends ReducerObj, U> {
   component: React.ComponentType<U>
-  saga?: AsyncIterableIterator<any>
+  saga: () => IterableIterator<any>
+  routeComposer: IRouteComposer<any>,
   reducer: T
   initialState?: ReducerToState<T>
   onStateCleared?: () => any

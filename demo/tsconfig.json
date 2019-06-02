@@ -7,6 +7,7 @@
     "strict": true,
     "sourceMap": true,
     "declaration": true,
+    "noEmit": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -14,8 +15,12 @@
     "outDir": "dist/lib",
     "jsx": "react",
     "typeRoots": ["node_modules/@types", "../node_modules/@types", "src/types"],
-    "rootDir": "src"
+    "rootDirs": ["src", "../action-packed-react"]
   },
-  "include": ["src/*", "src/types/**/*"],
-  "exclude": ["src/**/*.test.ts*"]
+  "include": [
+    "src/*",
+    "src/types/**/*",
+    "../action-packed-react/**/*"
+  ],
+  "exclude": ["**/*.test.ts*", ""]
 }

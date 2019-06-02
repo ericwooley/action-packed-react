@@ -1,5 +1,5 @@
 import {welcomeRoute} from './index'
-import { createActionPack, createReducerFromActionPack } from 'action-packed-react'
+import { createActionPack, createReducerFromActionPack } from 'action-packed-react/createReducer'
 import { createSelector } from 'reselect';
 
 // setup data

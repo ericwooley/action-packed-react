@@ -15,7 +15,7 @@ module.exports = {
       name: true,
       cacheGroups: {
         vendors: {
-          test: /[\\/]node_modules[\\/]/,
+          test: /[\\/]node_modules[\\/](?!(action-packed-react)\/)/,
           priority: -10
         },
         default: {
@@ -31,7 +31,6 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: "ts-loader",
-        exclude: /node_modules/
       }
     ]
   },

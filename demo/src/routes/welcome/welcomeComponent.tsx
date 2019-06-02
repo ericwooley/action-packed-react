@@ -4,8 +4,7 @@ import { User, selectors } from "./userListReducer";
 import { welcomeRoute } from ".";
 
 const Welcome = (props: {
-  children: React.ComponentElement<any, any>;
-  params: {},
+  children?: React.ReactChildren;
   userList: User[]
 }) => (
     <div>

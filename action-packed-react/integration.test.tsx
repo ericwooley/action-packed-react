@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { createApp } from './action-packed-react'
+import { createApp } from './'
 import { createMemoryHistory } from 'history'
 import { mount } from 'enzyme'
 import { createRouteComposer } from './routeMatcher'
 
 describe('basic test', () => {
   it('should be usable', () => {
-    const Layout = (props: { children: any }) => (
+    const Layout = (props: {children?: React.ReactNode}) => (
       <div>
         <h1>Layout</h1>
         <ul>
@@ -20,7 +20,7 @@ describe('basic test', () => {
         {props.children}
       </div>
     )
-    const InnerLayout = (props: { children: any }) => (
+    const InnerLayout = (props: { children?: any }) => (
       <div>
         <h1>Layout</h1>
         {props.children}
@@ -31,6 +31,8 @@ describe('basic test', () => {
     const app = createApp({
       importBaseComponent: Layout,
       history,
+      LoadingComponent: () => <h1>Loading</h1>,
+      RouteNotFoundComponent: () => <div>NotFound</div>,
       initialState: {
         str: '',
         num: 15
@@ -49,24 +51,28 @@ describe('basic test', () => {
 
     const subRoute2 = app.createSubRoute(
       createRouteComposer<{}>('test'),
-      async () => ({
-        component: InnerLayout,
-        reducer: {}
-      })
+      {
+        reducer: async () => ({})
+      }
+    )
+    subRoute2.setComponent(
+      async () => () => <InnerLayout />,
     )
     // is not any...
     const subRoute3 = subRoute2.createSubRoute(
       createRouteComposer<{ id: string }>('test/:id'),
-      async () => ({
-        reducer: {},
-        component: (props: any) => (
-          <div>
-            <h1>Waldows World</h1>
-            {props.children}
-          </div>
-        )
-      })
+      {
+        reducer: async () => ({}),
+      }
     )
+    subRoute3.setComponent(async () => (props: any) => (
+      <div>
+        <h1>Waldows World</h1>
+        {props.children}
+      </div>
+    ))
     app.init()
   })
 })
+
+
