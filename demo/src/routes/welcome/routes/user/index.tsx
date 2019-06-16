@@ -1,7 +1,7 @@
 import { welcomeRoute } from "../..";
 import { createRouteComposer } from "action-packed-react/routeMatcher";
 
-export type IParams = {
+export interface IParams {
   id: string
 }
 export const userRoute = welcomeRoute.createSubRoute(

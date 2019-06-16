@@ -9,5 +9,8 @@
   "workspaces": [
     "action-packed-react",
     "demo"
-  ]
+  ],
+  "devDependencies": {
+    "tslint-react": "^4.0.0"
+  }
 }

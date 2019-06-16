@@ -2,6 +2,7 @@ import * as React from "react";
 import { createApp } from "action-packed-react";
 import { createHashHistory } from "history";
 import { render, unmountComponentAtNode } from "react-dom";
+
 const el = document.getElementById("root");
 if (!el) throw new Error("no el");
 
@@ -28,4 +29,4 @@ export const app = createApp({
   composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 });
 
-app.init()
+app.init().catch((e) => console.warn('Error Starting application', e))

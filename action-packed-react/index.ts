@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactChildren } from 'react'
 import { createStore, combineReducers, Reducer, Store, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { mount } from './RouteMounter'
@@ -158,7 +158,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
       RouteProps extends ParentRouteProps,
       IComponentProps extends Partial<{
         params: RouteProps
-        children: ReactNode
+        children: ReactChildren
       }>
     >(
       route: IRouteComposer<RouteProps> | string,
