@@ -8,9 +8,10 @@
   "private": true,
   "workspaces": [
     "action-packed-react",
-    "demo"
+    "apr-website"
   ],
   "devDependencies": {
-    "tslint-react": "^4.0.0"
+    "tslint-react": "^4.0.0",
+    "@types/jest": "24.0.15"
   }
 }
