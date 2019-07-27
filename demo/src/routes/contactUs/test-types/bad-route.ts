@@ -8,3 +8,8 @@ const contactUsError = contactUsRoute.createSubRoute(
     contactUs: () => null
   })
 );
+
+const contactUsEmpty = contactUsRoute.createSubRoute(
+  createRouteComposer("test"),
+  async () => ({  })
+);

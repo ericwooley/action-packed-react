@@ -29,12 +29,9 @@ import {
   spawn,
   fork,
   cancel,
-  SimpleEffect,
-  ForkEffectDescriptor
 } from 'redux-saga/effects'
 import { createLink } from './link'
 import { IRouteComposer, createRouteComposer, IRouteLimitations } from './routeMatcher'
-import { ReactNode } from 'react'
 import { createSagaForPack } from './runSaga'
 
 function* emptySaga(): IterableIterator<any> {
