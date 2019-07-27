@@ -42,6 +42,7 @@ function* emptySaga(): IterableIterator<any> {
 }
 const EmptyComponent = React.createElement('div')
 const reducerBase = { _route: routeReducer }
+type EmptyKeys = keyof {}
 export type BareBonesState = ReducerToState<typeof reducerBase>
 export function createApp<R extends { [key: string]: Reducer }>({
   initialState,
@@ -164,7 +165,9 @@ export function createApp<R extends { [key: string]: Reducer }>({
       route: IRouteComposer<RouteProps> | string,
       reducer?: () => Promise<
         keyof ISubReducers extends keyof IParentReducers
-          ? 'Reducer must not share any keys with parent route reducers'
+          ? keyof ISubReducers extends EmptyKeys // This is allowed if it's empty
+            ? ISubReducers
+            : 'Reducer must not share any keys with parent route reducers'
           : ISubReducers
       >,
       options: ICreateRouteOptions = {}
