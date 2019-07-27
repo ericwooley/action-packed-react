@@ -18,10 +18,11 @@ export const mountAlert = <IProps, T>(
     }
     render() {
       const { onMount, ...restProps } = this.props as any
-      return <C  {...restProps} />
+      return <C {...restProps} />
     }
   }
 }
+const noop = () => null
 
 const sanitizeState = (state: BareBonesState): BareBonesState => ({
   ...state,
@@ -81,7 +82,7 @@ const createBasicApp = (onMountWrap?: OnMountWrap) => {
       render: jsx => {
         const wrapper = mount(jsx)
         if (onMountWrap) onMountWrap(wrapper)
-        return () => null
+        return noop
       }
     })
   }
@@ -108,13 +109,12 @@ const productReducer = createReducerFromActionPack(productsState, { addProduct }
 const createProducts = (baseApp = createBasicApp()) => {
   const { app, history } = baseApp
   const route = createRouteComposer('products')
-  const products = app.createSubRoute(route, async () => ({ products: productReducer })
-  )
+  const products = app.createSubRoute(route, async () => ({ products: productReducer }))
   products.setComponent(async () => ({ children }: any) => (
-    <ProductsComponent
-      productsLen={3} test="" onClick={() => null}>
+    <ProductsComponent productsLen={3} test="" onClick={noop}>
       {children}
-    </ProductsComponent>))
+    </ProductsComponent>
+  ))
   return {
     app,
     history,
@@ -126,11 +126,8 @@ const createProductsSearch = (parentRoute = createProducts()) => {
   const productSearch = products.createSubRoute(
     createRouteComposer<{ terms: string }>('search/:terms'),
     async () => ({
-      producer: () => null,
-      productSearch: (
-        state: { test: string },
-        action: { type: string; payload: string }
-      ) => ({
+      producer: noop,
+      productSearch: (state: { test: string }, action: { type: string; payload: string }) => ({
         ...state,
         test: action.payload
       })
@@ -142,32 +139,27 @@ const createProductsSearch = (parentRoute = createProducts()) => {
 describe('the wooley way fe', () => {
   let baseApp: ReturnType<typeof createBasicApp>
   let wrapper: ReactWrapper
-  beforeEach(done => {
+  beforeEach(async done => {
     baseApp = createBasicApp(r => {
-      wrapper = r
+      wrapper = r as any
       done()
     })
-    baseApp.app.init()
+    await baseApp.app.init()
   })
   it('should be setup', () => {
     expect(baseApp.app).toBeTruthy()
-    expect(
-      sanitizeState(baseApp.app.baseSelector(baseApp.app.store.getState()))
-    ).toMatchSnapshot()
+    expect(sanitizeState(baseApp.app.baseSelector(baseApp.app.store.getState()))).toMatchSnapshot()
   })
   afterEach(() => baseApp.app.shutDown())
   describe('child route', () => {
     describe('with matching route', () => {
       it('should mount on navigate', async done => {
-        const productRoute = baseApp.app.createSubRoute(
-          'products',
-          async () => ({
-            products: (
-              state: Array<{ type: string }> = [],
-              action: { type: string }
-            ) => [...state, action]
-          })
-        )
+        const productRoute = baseApp.app.createSubRoute('products', async () => ({
+          products: (state: Array<{ type: string }> = [], action: { type: string }) => [
+            ...state,
+            action
+          ]
+        }))
         const ConnectedProducts = productRoute.connect(
           state => {
             return {
@@ -178,7 +170,7 @@ describe('the wooley way fe', () => {
           {
             onClick: () => console.log('click')
           }
-        )(ProductsComponent);
+        )(ProductsComponent)
         const ComponentWithMountAlert = mountAlert(ConnectedProducts, {
           didMount: () => {
             expect(wrapper.html()).toMatchSnapshot('products-full-dom')
@@ -194,7 +186,6 @@ describe('the wooley way fe', () => {
         })
         productRoute.setComponent(async () => ComponentWithMountAlert)
 
-
         let stateTest = productRoute.createSubRoute('test', async () => ({ testRed: () => 'test' }))
         stateTest.connect(state => ({
           products: state.products.length
@@ -207,21 +198,22 @@ describe('the wooley way fe', () => {
         const { app, history, products } = createProducts(baseApp)
         const productRoute = products.createSubRoute('search', async () => ({
           productsSearch: productReducer
-        })
-        )
-        productRoute.setComponent(async () => mountAlert(() => <ProductSearchComponent title="test" />, {
-          didMount: () => {
-            expect(wrapper.html()).toMatchSnapshot('products full dom')
-            expect(
-              render(
-                <Provider store={app.store}>
-                  <ConnectedProducts test="" />
-                </Provider>
-              ).html()
-            ).toMatchSnapshot()
-            done()
-          }
         }))
+        productRoute.setComponent(async () =>
+          mountAlert(() => <ProductSearchComponent title="test" />, {
+            didMount: () => {
+              expect(wrapper.html()).toMatchSnapshot('products full dom')
+              expect(
+                render(
+                  <Provider store={app.store}>
+                    <ConnectedProducts test="" />
+                  </Provider>
+                ).html()
+              ).toMatchSnapshot()
+              done()
+            }
+          })
+        )
         const ConnectedProducts = productRoute.connect(
           state => ({
             productsLen: state.productsSearch.products.length
@@ -241,20 +233,16 @@ describe('the wooley way fe', () => {
           const productRoute = app.createSubRoute('products', async () => ({
             products: productReducer
           }))
-          productRoute.setComponent(async () => mountAlert(
-            () => <ProductsComponent onClick={() => null} test="" productsLen={12} />,
-            {
+          productRoute.setComponent(async () =>
+            mountAlert(() => <ProductsComponent onClick={noop} test="" productsLen={12} />, {
               didMount: r,
               willUnmount: () => {
-                expect(wrapper.html()).toMatchSnapshot(
-                  'full after product unmount'
-                )
-                expect(sanitizeState(app.store.getState())).toMatchSnapshot(
-                  'unmount'
-                )
+                expect(wrapper.html()).toMatchSnapshot('full after product unmount')
+                expect(sanitizeState(app.store.getState())).toMatchSnapshot('unmount')
                 done()
               }
-            }))
+            })
+          )
           await app.init()
           history.push('/products')
         })
@@ -268,16 +256,16 @@ describe('the wooley way fe', () => {
           const productsSubRoute = products.createSubRoute('search', async () => ({
             productsSearch: productReducer
           }))
-          productsSubRoute.setComponent(async () => mountAlert(() => <ProductSearchComponent title="search" />, {
-            didMount: r,
-            willUnmount: () => {
-              expect(wrapper.html()).toMatchSnapshot('after unmount')
-              expect(sanitizeState(app.store.getState())).toMatchSnapshot(
-                'unmount'
-              )
-              done()
-            }
-          }))
+          productsSubRoute.setComponent(async () =>
+            mountAlert(() => <ProductSearchComponent title="search" />, {
+              didMount: r,
+              willUnmount: () => {
+                expect(wrapper.html()).toMatchSnapshot('after unmount')
+                expect(sanitizeState(app.store.getState())).toMatchSnapshot('unmount')
+                done()
+              }
+            })
+          )
           await app.init()
           history.push('/products/search')
         })
@@ -299,9 +287,7 @@ describe('the wooley way fe', () => {
         expect(productsApp.products.getState).toBeTruthy()
         expect(sanitizeState(productsApp.products.getState())).toMatchSnapshot()
         expect(
-          sanitizeState(
-            productsApp.products.baseSelector(productsApp.products.getState())
-          )
+          sanitizeState(productsApp.products.baseSelector(productsApp.products.getState()))
         ).toMatchSnapshot()
       })
 
@@ -320,26 +306,20 @@ describe('the wooley way fe', () => {
               <ConnectedProducts test="" />
             </Provider>
           )
-        ).toThrowErrorMatchingInlineSnapshot(
-          `"Cannot read property 'products' of undefined"`
-        )
+        ).toThrowErrorMatchingInlineSnapshot(`"Cannot read property 'products' of undefined"`)
       })
       it('should create a sub route', () => {
         // should not error
-        const ConnectedProductSearch = productSearchApp.productSearch.connect(
-          state => ({
-            title: state.productSearch.test
-          })
-        )(ProductSearchComponent)
+        const ConnectedProductSearch = productSearchApp.productSearch.connect(state => ({
+          title: state.productSearch.test
+        }))(ProductSearchComponent)
         expect(() =>
           render(
             <Provider store={productSearchApp.app.store}>
               <ConnectedProductSearch />
             </Provider>
           )
-        ).toThrowErrorMatchingInlineSnapshot(
-          `"Cannot read property 'test' of undefined"`
-        )
+        ).toThrowErrorMatchingInlineSnapshot(`"Cannot read property 'test' of undefined"`)
       })
     })
     describe('Links', () => {
@@ -368,9 +348,7 @@ describe('the wooley way fe', () => {
           </Provider>
         )
         link.find('a').simulate('click')
-        expect(link.html()).toMatchInlineSnapshot(
-          `"<a href=\\"/products\\"></a>"`
-        )
+        expect(link.html()).toMatchInlineSnapshot(`"<a href=\\"/products\\"></a>"`)
         await new Promise(r => setTimeout(r, 10))
         expect(spy).toHaveBeenCalledTimes(1)
         expect({ ...spy.mock.calls[0][0], key: '<key>' }).toMatchSnapshot()
@@ -381,7 +359,7 @@ describe('the wooley way fe', () => {
         productSearchApp.history.listen(spy)
         const link = mount(
           <Provider store={productSearchApp.app.store}>
-            <productSearchApp.productSearch.Link replace terms="whatever" />
+            <productSearchApp.productSearch.Link replace={true} terms="whatever" />
           </Provider>
         )
         link.find('a').simulate('click')

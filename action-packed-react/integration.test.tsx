@@ -5,7 +5,7 @@ import { mount } from 'enzyme'
 import { createRouteComposer } from './routeMatcher'
 
 describe('basic test', () => {
-  it('should be usable', () => {
+  it('should be usable', async () => {
     const Layout = (props: { children?: React.ReactNode }) => (
       <div>
         <h1>Layout</h1>
@@ -68,7 +68,7 @@ describe('basic test', () => {
         {props.children}
       </div>
     ))
-    app.init()
+    await app.init()
   })
 })
 
