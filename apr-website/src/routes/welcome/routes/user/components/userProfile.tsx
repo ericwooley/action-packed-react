@@ -2,7 +2,7 @@ import React from "react";
 import { IParams, userRoute } from "..";
 import { DeleteButton } from "../components/deleteButton";
 import { selectedUser } from "../redux/selectors";
-import { User } from "../../../userListReducer";
+import { User } from "../../../redux/userListReducer";
 import { welcomeRoute } from "../../..";
 
 const UserProfileComponent = (props: { params?: IParams; selectedUser: User }) => {

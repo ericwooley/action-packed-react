@@ -153,17 +153,23 @@ export function createApp<R extends { [key: string]: Reducer }>({
       }>
     >(
       route: IRouteComposer<RouteProps> | string,
-      reducer?: () => Promise<
-        keyof ISubReducers extends keyof IParentReducers
+      reducer?: () => Promise<{
+              default: keyof ISubReducers extends keyof IParentReducers
+                ? keyof ISubReducers extends EmptyKeys // This is allowed if it's empty
+                  ? ISubReducers
+                  : 'Reducer must not share any keys with parent route reducers'
+                : ISubReducers
+            }
+          | (keyof ISubReducers extends keyof IParentReducers
           ? keyof ISubReducers extends EmptyKeys // This is allowed if it's empty
             ? ISubReducers
             : 'Reducer must not share any keys with parent route reducers'
-          : ISubReducers
+          : ISubReducers)
       >,
       options: ICreateRouteOptions = {}
     ) => {
       type IRouteComponent = React.ComponentType<IComponentProps>
-      type ILoadRouteComponent = () => Promise<IRouteComponent>
+      type ILoadRouteComponent = () => Promise<{ default: IRouteComponent } | IRouteComponent>
       type ILoadSaga = () => Promise<typeof emptySaga>
       let component: ILoadRouteComponent = (() => EmptyComponent) as any
       let saga: ILoadSaga = () => Promise.resolve(emptySaga)
@@ -195,8 +201,16 @@ export function createApp<R extends { [key: string]: Reducer }>({
             parent: routeMap[parentRoute.route],
             loader: async () => {
               const [loadedReducer, loadedComponent, loadedSaga] = await Promise.all([
-                reducer ? reducer() : Promise.resolve({}),
-                component(),
+                reducer
+                  ? reducer().then((r: any) =>
+                      r.default ? (r.default as ISubReducers) : (r as ISubReducers)
+                    )
+                  : Promise.resolve({}),
+                component().then(c =>
+                  (c as { default: IRouteComponent }).default
+                    ? (c as { default: IRouteComponent }).default
+                    : (c as IRouteComponent)
+                ),
                 saga()
               ])
               return {

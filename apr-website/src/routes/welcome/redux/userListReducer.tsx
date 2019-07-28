@@ -1,6 +1,4 @@
-import { welcomeRoute } from './index'
 import { createActionPack, createReducerFromActionPack } from 'action-packed-react/createReducer'
-import { createSelector } from 'reselect';
 
 // setup data
 /* tslint:disable:max-line-length */
@@ -31,6 +29,4 @@ export default createReducerFromActionPack(initialState, {
   })
 })
 
-export const selectors = {
-  userList: createSelector(welcomeRoute.baseSelector, (state) => Object.values(state.users))
-}
+

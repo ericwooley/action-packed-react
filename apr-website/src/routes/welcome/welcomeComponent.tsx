@@ -1,6 +1,7 @@
 import * as React from "react";
 import { userRoute } from './routes/user'
-import { User, selectors } from "./userListReducer";
+import {User} from './redux/userListReducer'
+import { selectors } from "./redux/selectors";
 import { welcomeRoute } from ".";
 
 const Welcome = (props: {

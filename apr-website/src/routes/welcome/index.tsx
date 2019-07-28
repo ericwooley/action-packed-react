@@ -1,10 +1,8 @@
 import { app } from "../../index";
 import { createRouteComposer } from "action-packed-react/routeMatcher";
 
-export const welcomeRoute = app.createSubRoute(
-  createRouteComposer("users"),
-  async () => ({ users: (await import('./userListReducer')).default }),
+export const welcomeRoute = app.createSubRoute(createRouteComposer("users"), () =>
+  import("./redux/index")
 );
-welcomeRoute.setComponent(async () => (await import("./welcomeComponent")).default)
+welcomeRoute.setComponent(() => import("./welcomeComponent"));
 welcomeRoute.register();
-

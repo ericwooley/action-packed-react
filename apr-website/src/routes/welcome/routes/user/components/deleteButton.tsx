@@ -1,7 +1,7 @@
 import React from "react";
 import { userRoute } from "..";
 import { selectedUser } from "../redux/selectors";
-import userReducer, { User } from "../../../userListReducer";
+import userReducer, { User } from "../../../redux/userListReducer";
 export const DeleteButton = userRoute.connect(
   state => ({
     selectedUser: selectedUser(state as any)
