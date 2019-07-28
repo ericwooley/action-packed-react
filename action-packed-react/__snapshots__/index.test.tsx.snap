@@ -24,19 +24,19 @@ exports[`the wooley way fe child route with matching route should mount navigate
 
 exports[`the wooley way fe child route with matching route should mount navigate sub-* routes 2`] = `"<h1>ProductsComponent 1</h1><p></p>"`;
 
-exports[`the wooley way fe child route with matching route should mount navigate sub-* routes: products full dom 1`] = `"<span>Loading...</span>"`;
+exports[`the wooley way fe child route with matching route should mount navigate sub-* routes: products full dom 1`] = `""`;
 
-exports[`the wooley way fe child route with matching route should mount navigate sub-* routes: products full dom 2`] = `"<div><h1>ProductsComponent </h1><p></p><h1>ProductSearchComponent</h1></div>"`;
+exports[`the wooley way fe child route with matching route should mount navigate sub-* routes: products full dom 2`] = `""`;
 
 exports[`the wooley way fe child route with matching route should mount on navigate 1`] = `"<h1>ProductsComponent 2</h1><p></p>"`;
 
 exports[`the wooley way fe child route with matching route should mount on navigate 2`] = `"<h1>ProductsComponent 2</h1><p></p>"`;
 
-exports[`the wooley way fe child route with matching route should mount on navigate: products-full-dom 1`] = `"<span>Loading...</span>"`;
+exports[`the wooley way fe child route with matching route should mount on navigate: products-full-dom 1`] = `""`;
 
-exports[`the wooley way fe child route with matching route should mount on navigate: products-full-dom 2`] = `"<div><h1>ProductsComponent </h1><p></p></div>"`;
+exports[`the wooley way fe child route with matching route should mount on navigate: products-full-dom 2`] = `""`;
 
-exports[`the wooley way fe child route with matching route should mount/unmount the proper state on subRoutes: after unmount 1`] = `"<span>Loading...</span>"`;
+exports[`the wooley way fe child route with matching route should mount/unmount the proper state on subRoutes: after unmount 1`] = `""`;
 
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state on subRoutes: mount 1`] = `
 Object {
@@ -68,18 +68,10 @@ Object {
       },
     ],
     "userRoutes": Array [
-      "/products",
       "/products/search",
     ],
   },
   "num": 12,
-  "products": Object {
-    "products": Array [
-      Object {
-        "type": "test",
-      },
-    ],
-  },
   "productsSearch": Object {
     "products": Array [
       Object {
@@ -103,9 +95,7 @@ Object {
       "search": "",
     },
     "history": Array [],
-    "userRoutes": Array [
-      "/products",
-    ],
+    "userRoutes": Array [],
   },
   "num": 12,
   "str": "test",
@@ -150,18 +140,10 @@ Object {
       },
     ],
     "userRoutes": Array [
-      "/products",
       "/products/search",
     ],
   },
   "num": 12,
-  "products": Object {
-    "products": Array [
-      Object {
-        "type": "test",
-      },
-    ],
-  },
   "productsSearch": Object {
     "products": Array [
       Object {
@@ -173,9 +155,9 @@ Object {
 }
 `;
 
-exports[`the wooley way fe child route with matching route should mount/unmount the proper state: full after product unmount 1`] = `"<div><h1>ProductsComponent </h1><p></p></div>"`;
+exports[`the wooley way fe child route with matching route should mount/unmount the proper state: full after product unmount 1`] = `""`;
 
-exports[`the wooley way fe child route with matching route should mount/unmount the proper state: full after product unmount 2`] = `"<div><h1>ProductsComponent </h1><p></p></div>"`;
+exports[`the wooley way fe child route with matching route should mount/unmount the proper state: full after product unmount 2`] = `""`;
 
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state: mount 1`] = `
 Object {
@@ -254,61 +236,6 @@ Object {
     "userRoutes": Array [],
   },
   "num": 12,
-  "str": "test",
-}
-`;
-
-exports[`the wooley way fe child route with matching route should mount/unmount the proper state: state cleared 1`] = `
-Object {
-  "_route": Object {
-    "activeRoute": "/",
-    "currentLocation": Object {
-      "action": "PUSH",
-      "hash": "",
-      "key": "<key>",
-      "pathname": "/",
-      "search": "",
-      "state": undefined,
-    },
-    "history": Array [
-      Object {
-        "action": "PUSH",
-        "hash": "",
-        "key": "0",
-        "pathname": "/",
-        "search": "",
-      },
-      Object {
-        "action": "REPLACE",
-        "hash": "",
-        "key": "1",
-        "pathname": "/",
-        "search": "",
-        "state": undefined,
-      },
-      Object {
-        "action": "REPLACE",
-        "hash": "",
-        "key": "2",
-        "pathname": "/",
-        "search": "",
-        "state": undefined,
-      },
-      Object {
-        "action": "PUSH",
-        "hash": "",
-        "key": "3",
-        "pathname": "/products",
-        "search": "",
-        "state": undefined,
-      },
-    ],
-    "userRoutes": Array [
-      "/products",
-    ],
-  },
-  "num": 12,
-  "products": null,
   "str": "test",
 }
 `;
@@ -447,9 +374,7 @@ Object {
       "search": "",
     },
     "history": Array [],
-    "userRoutes": Array [
-      "/products",
-    ],
+    "userRoutes": Array [],
   },
   "num": 12,
   "str": "test",
@@ -468,9 +393,7 @@ Object {
       "search": "",
     },
     "history": Array [],
-    "userRoutes": Array [
-      "/products",
-    ],
+    "userRoutes": Array [],
   },
   "num": 12,
   "str": "test",

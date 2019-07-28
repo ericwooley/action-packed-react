@@ -52,9 +52,6 @@ describe('routeMatcher', () => {
       const expected = {}
       expect(getVariablesForRoute('/home', '/home')).toEqual(expected)
     })
-    it('should throw an error on segment size mismatch', () => {
-      expect(() => getVariablesForRoute('/home', '/home/:id')).toThrow()
-    })
   })
   describe('routeMatchesPath', () => {
     it('should find all paths that match', () => {

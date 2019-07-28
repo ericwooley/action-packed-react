@@ -1,5 +1,5 @@
 import { IRouteProps } from './link'
-import curry from 'lodash.curry'
+import {curry} from 'lodash'
 
 /**
  * Get the routes which match the path.

@@ -1,14 +1,25 @@
 import { Reducer, AnyAction } from 'redux'
 
+/**
+ * A standard action which only has a type and payload.
+ */
 export interface IAction<T> extends AnyAction {
   type: string
   payload: T
 }
 
+/**
+ * Function which takes a state, and returns a modified version based on the
+ * action, should not modify state, but return a copy
+ */
 export interface IHandler<T, IState> {
   (state: IState, action: IAction<T>): IState
 }
 
+/**
+ * Function which accepts a payload, and creates a @IAction from it.
+ * Has attached _handler and _type for convenience
+ */
 export interface IActionPack<T, IState> {
   (payload: T): IAction<T>
   _handler: IHandler<T, IState>

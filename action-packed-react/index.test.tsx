@@ -67,6 +67,7 @@ const createBasicApp = (onMountWrap?: OnMountWrap) => {
   return {
     history,
     app: createApp({
+      useHashHistory: false,
       RouteNotFoundComponent: () => <h1>Not Found</h1>,
       LoadingComponent: () => <div>Loading...</div>,
       importBaseComponent: props => <>{props.children}</>,
@@ -133,7 +134,6 @@ const createProductsSearch = (parentRoute = createProducts()) => {
       })
     })
   )
-
   return { productSearch, products, app, history }
 }
 describe('the wooley way fe', () => {
@@ -160,6 +160,7 @@ describe('the wooley way fe', () => {
             action
           ]
         }))
+        productRoute.register()
         const ConnectedProducts = productRoute.connect(
           state => {
             return {
@@ -214,6 +215,7 @@ describe('the wooley way fe', () => {
             }
           })
         )
+        productRoute.register()
         const ConnectedProducts = productRoute.connect(
           state => ({
             productsLen: state.productsSearch.products.length
@@ -243,6 +245,7 @@ describe('the wooley way fe', () => {
               }
             })
           )
+          productRoute.register();
           await app.init()
           history.push('/products')
         })
@@ -266,6 +269,7 @@ describe('the wooley way fe', () => {
               }
             })
           )
+          productsSubRoute.register();
           await app.init()
           history.push('/products/search')
         })

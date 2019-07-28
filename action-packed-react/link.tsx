@@ -13,7 +13,12 @@ export interface IRouteProps {
 export interface ILinkProps {
   redirect?: boolean
 }
-
+/** Creates a link component which uses history pushes onto the history object,
+ * obeying the hash rules.
+ * @param history history object, should match npm history package.
+ * @param link IRouteComposer which has methods for manipulating a link.
+ * @param useHashHistory If true, all links will prepend # before the link.
+ */
 export function createLink<T extends IRouteLimitations>(
   history: History,
   link: IRouteComposer<T>,

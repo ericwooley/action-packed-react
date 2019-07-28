@@ -1,4 +1,4 @@
-import React, { ReactChildren } from 'react'
+import { ReactChildren, createElement } from 'react'
 import { createStore, combineReducers, Reducer, Store, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { mount } from './RouteMounter'
@@ -21,15 +21,7 @@ import {
   IRoutesMapValue,
   IRouteOptions
 } from './types'
-import {
-  take,
-  call,
-  all,
-  select,
-  spawn,
-  fork,
-  cancel,
-} from 'redux-saga/effects'
+import { take, call, all, select, spawn, fork, cancel } from 'redux-saga/effects'
 import { createLink } from './link'
 import { IRouteComposer, createRouteComposer, IRouteLimitations } from './routeMatcher'
 import { createSagaForPack } from './runSaga'
@@ -37,7 +29,7 @@ import { createSagaForPack } from './runSaga'
 function* emptySaga(): IterableIterator<any> {
   return null
 }
-const EmptyComponent = React.createElement('div')
+const EmptyComponent = createElement('div')
 const reducerBase = { _route: routeReducer }
 type EmptyKeys = keyof {}
 export type BareBonesState = ReducerToState<typeof reducerBase>
@@ -89,13 +81,14 @@ export function createApp<R extends { [key: string]: Reducer }>({
           > = yield select(selectors.activePathMatchingRoutes)
           const noLongerMatchingRoutes = oldMatchingRoutes.filter(r => !matchingRouteMap[r])
           const newlyMatchingRoutes = matchingRoutes.filter(r => !oldMatchingRouteMap[r])
-          console.log('-------> routes', {
-            matchingRoutes,
-            oldMatchingRoutes,
-            newlyMatchingRoutes,
-            noLongerMatchingRoutes,
-            allRoutes: yield select(selectors.routes)
-          })
+          // console.log('-------> routes', {
+          //   currentPath,
+          //   matchingRoutes,
+          //   oldMatchingRoutes,
+          //   newlyMatchingRoutes,
+          //   noLongerMatchingRoutes,
+          //   allRoutes: yield select(selectors.routes)
+          // })
           const bundles: {
             pack: IRouteOptions<any, any>
             packLoader: IRoutesMapValue
@@ -140,7 +133,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
               })
               .map(call)
           )
-          console.log('<----------- path switch complete')
+          // console.log('<----------- path switch complete')
         }
       })
     }
