@@ -1,7 +1,8 @@
 import { History, Action } from 'history'
 import { Reducer, compose } from 'redux'
 import { IRouteComposer } from './routeMatcher'
-import { IPathMatcherProps } from './RouteMounter';
+import { IPathMatcherProps } from './RouteMounter'
+export type Saga = () => IterableIterator<any>
 // Should return a function that unmounts
 export interface IRender {
   (c: React.ReactElement<any>): () => any
@@ -44,16 +45,17 @@ export interface IOptions<
   RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
   LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
   render: IRender
-  importBaseComponent:
-    | Promise<React.ComponentType<any>>
-    | React.ComponentType<any>
+  layout:
+    | React.ComponentType
+    | (Promise<(React.ComponentType) | ({ default: React.ComponentType })>)
+  saga?: Saga | Promise<{ default: Saga } | Saga>
   composeEnhancers?: typeof compose
 }
 
 export interface IRouteOptions<T extends ReducerObj, U> {
   component: React.ComponentType<U>
-  saga: () => IterableIterator<any>
-  routeComposer: IRouteComposer<any>,
+  saga: Saga
+  routeComposer: IRouteComposer<any>
   reducer: T
   initialState?: ReducerToState<T>
   onStateCleared?: () => any

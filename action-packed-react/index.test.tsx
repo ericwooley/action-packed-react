@@ -70,7 +70,7 @@ const createBasicApp = (onMountWrap?: OnMountWrap) => {
       useHashHistory: false,
       RouteNotFoundComponent: () => <h1>Not Found</h1>,
       LoadingComponent: () => <div>Loading...</div>,
-      importBaseComponent: props => <>{props.children}</>,
+      layout: props => <>{props.children}</>,
       history: history,
       initialState: {
         str: '',

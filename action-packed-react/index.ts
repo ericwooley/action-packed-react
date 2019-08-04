@@ -39,9 +39,10 @@ export function createApp<R extends { [key: string]: Reducer }>({
   history,
   useHashHistory = true,
   render,
-  importBaseComponent,
+  layout,
   RouteNotFoundComponent,
   LoadingComponent,
+  saga,
   composeEnhancers = compose
 }: IOptions<R>) {
   type IInitialState = BareBonesState & ReducerToState<R>
@@ -56,7 +57,18 @@ export function createApp<R extends { [key: string]: Reducer }>({
     combinedInitialState,
     composeEnhancers(applyMiddleware(sagaMiddleware))
   )
-  sagaMiddleware.run(function* rootSaga(): any {
+  sagaMiddleware.run(function* sagaRouteManager(): any {
+    // if (saga) {
+    //   try {
+    //     // fork to yield the saga resolver, so loading it doesn't block
+    //     yield fork(function*() {
+    //       const resolvedSaga = yield call(() => Promise.resolve(saga))
+    //       yield fork(resolvedSaga)
+    //     })
+    //   } catch (e) {
+    //     console.error('Error running user root saga: ', e)
+    //   }
+    // }
     let routeMountFork
     while (true) {
       yield take([updateHistory._type, addUserRoute._type])
@@ -153,18 +165,19 @@ export function createApp<R extends { [key: string]: Reducer }>({
       }>
     >(
       route: IRouteComposer<RouteProps> | string,
-      reducer?: () => Promise<{
-              default: keyof ISubReducers extends keyof IParentReducers
-                ? keyof ISubReducers extends EmptyKeys // This is allowed if it's empty
-                  ? ISubReducers
-                  : 'Reducer must not share any keys with parent route reducers'
-                : ISubReducers
-            }
-          | (keyof ISubReducers extends keyof IParentReducers
-          ? keyof ISubReducers extends EmptyKeys // This is allowed if it's empty
-            ? ISubReducers
-            : 'Reducer must not share any keys with parent route reducers'
-          : ISubReducers)
+      reducer?: () => Promise<
+        | {
+            default: keyof ISubReducers extends keyof IParentReducers
+              ? keyof ISubReducers extends EmptyKeys // This is allowed if it's empty
+                ? ISubReducers
+                : 'Reducer must not share any keys with parent route reducers'
+              : ISubReducers
+          }
+        | (keyof ISubReducers extends keyof IParentReducers
+            ? keyof ISubReducers extends EmptyKeys // This is allowed if it's empty
+              ? ISubReducers
+              : 'Reducer must not share any keys with parent route reducers'
+            : ISubReducers)
       >,
       options: ICreateRouteOptions = {}
     ) => {
@@ -259,7 +272,8 @@ export function createApp<R extends { [key: string]: Reducer }>({
       unlisten()
     },
     init: async () => {
-      const component = await importBaseComponent
+      let component: React.ComponentType<any> = await Promise.resolve(layout as any)
+      component = (component as any).default || component
       return new Promise(r => {
         mount(
           {

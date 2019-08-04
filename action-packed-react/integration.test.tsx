@@ -29,7 +29,7 @@ describe('basic test', () => {
     const history = createMemoryHistory()
     // (window as any).hist = history;
     const app = createApp({
-      importBaseComponent: Layout,
+      layout: Layout,
       history,
       LoadingComponent: () => <h1>Loading</h1>,
       RouteNotFoundComponent: () => <div>NotFound</div>,
