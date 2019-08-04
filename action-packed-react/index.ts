@@ -58,17 +58,17 @@ export function createApp<R extends { [key: string]: Reducer }>({
     composeEnhancers(applyMiddleware(sagaMiddleware))
   )
   sagaMiddleware.run(function* sagaRouteManager(): any {
-    // if (saga) {
-    //   try {
-    //     // fork to yield the saga resolver, so loading it doesn't block
-    //     yield fork(function*() {
-    //       const resolvedSaga = yield call(() => Promise.resolve(saga))
-    //       yield fork(resolvedSaga)
-    //     })
-    //   } catch (e) {
-    //     console.error('Error running user root saga: ', e)
-    //   }
-    // }
+    if (saga) {
+      try {
+        // fork to yield the saga resolver, so loading it doesn't block
+        yield fork(function*() {
+          const resolvedSaga = yield call(() => Promise.resolve(saga))
+          yield fork(resolvedSaga.default || resolvedSaga)
+        })
+      } catch (e) {
+        console.error('Error running user root saga: ', e)
+      }
+    }
     let routeMountFork
     while (true) {
       yield take([updateHistory._type, addUserRoute._type])

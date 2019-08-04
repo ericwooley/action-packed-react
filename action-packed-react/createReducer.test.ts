@@ -22,6 +22,18 @@ describe('creating reducers', () => {
       })
       expect(actionPack._type).toEqual('updateTest')
     })
+    it('should work with error options', () => {
+      const actionPack = createActionPack<InitialState, string>('updateTest', (state, action) => ({
+        ...state,
+        test: action.payload
+      }))
+      const error = new Error('Test error')
+      expect(actionPack('test3', { error })).toEqual({
+        type: 'updateTest',
+        payload: 'test3',
+        error
+      })
+    })
   })
   describe('reducers', () => {
     interface InitialState {
@@ -41,7 +53,7 @@ describe('creating reducers', () => {
       })
     })
     describe('reducer', () => {
-      const reducer = createReducerFromActionPack(initialState, {actionPack})
+      const reducer = createReducerFromActionPack(initialState, { actionPack })
       it('should work with undefined and an unhandled action', () => {
         expect(reducer(undefined, { type: 'test', payload: 'test' })).toEqual(initialState)
       })

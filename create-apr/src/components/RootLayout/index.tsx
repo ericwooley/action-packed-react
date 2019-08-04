@@ -13,9 +13,6 @@ const Nav = styled.div`
   border-radius: 20px;
 `;
 export default class RootLayout extends React.PureComponent {
-  constructor(props: any) {
-    super(props);
-  }
   render() {
     return (
       <Wrapper>

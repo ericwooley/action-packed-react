@@ -3,9 +3,11 @@ import { Reducer, AnyAction } from 'redux'
 /**
  * A standard action which only has a type and payload.
  */
-export interface IAction<T> extends AnyAction {
+export interface IAction<T, E = Error | object, M = {}> extends AnyAction {
   type: string
   payload: T
+  meta?: M
+  error?: E
 }
 
 /**
@@ -16,12 +18,16 @@ export interface IHandler<T, IState> {
   (state: IState, action: IAction<T>): IState
 }
 
+export interface IFSAOptions<M extends object = {}> {
+  error?: Error | object
+  meta?: M
+}
 /**
  * Function which accepts a payload, and creates a @IAction from it.
  * Has attached _handler and _type for convenience
  */
-export interface IActionPack<T, IState> {
-  (payload: T): IAction<T>
+export interface IActionPack<T, IState, M extends object = {}> {
+  (payload: T, options?: IFSAOptions<M>): IAction<T>
   _handler: IHandler<T, IState>
   _type: string
 }
@@ -54,14 +60,32 @@ export interface IActionPack<T, IState> {
  * //   {title: 'Something else I need to do', done: true}
  * // ]
  */
-export const createActionPack = <TState, T>(type: string, handler: IHandler<T, TState>) => {
-  const ac: IActionPack<T, TState> & any = (payload: T) => ({
-    payload,
-    type
-  })
+export const createActionPack = <TState, T, M extends object = {}>(
+  type: string,
+  handler: IHandler<T, TState>,
+  defaultMeta?: M
+) => {
+  const ac: IActionPack<T, TState, M> & any = (
+    payload: T,
+    { error, meta }: IFSAOptions<M> = {}
+  ) => {
+    const action = {
+      payload,
+      type,
+      meta: defaultMeta || meta ? { ...defaultMeta, meta } : undefined,
+      error
+    }
+    if (!action.meta) {
+      delete action.meta
+    }
+    if (!action.error) {
+      delete action.error
+    }
+    return action
+  }
   ac._handler = handler
   ac._type = type
-  return ac as IActionPack<T, TState>
+  return ac as IActionPack<T, TState, M>
 }
 
 /**
@@ -92,7 +116,7 @@ export const createActionPack = <TState, T>(type: string, handler: IHandler<T, T
  */
 export const createReducerFromActionPack = <T>(
   initialState: T,
-  actionPacks: { [key: string]: IActionPack<any, T> }
+  actionPacks: { [key: string]: IActionPack<any, T, any> }
 ): Reducer<T> & { actionCreators: typeof actionPacks } => {
   const handlerMap = Object.values(actionPacks).reduce(
     (hmap, handler) => {
@@ -100,7 +124,7 @@ export const createReducerFromActionPack = <T>(
       return hmap
     },
     {} as {
-      [key: string]: IActionPack<T, any>
+      [key: string]: IActionPack<T, any, any>
     }
   )
   const reducer = (state: T | undefined = initialState, action: AnyAction) => {

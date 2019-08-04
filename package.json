@@ -8,7 +8,8 @@
   "private": true,
   "workspaces": [
     "action-packed-react",
-    "apr-website"
+    "apr-website",
+    "create-apr"
   ],
   "devDependencies": {
     "tslint-react": "^4.0.0",
