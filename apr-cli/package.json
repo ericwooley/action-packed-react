@@ -1,0 +1,23 @@
+{
+  "name": "apr-cli",
+  "version": "1.0.0",
+  "description": "Cli for action packed react",
+  "main": "dist/index.js",
+  "author": "Eric Wooley <ericwooley@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "align-text": "^1.0.2",
+    "chalk": "^2.4.2",
+    "debug": "^4.1.1",
+    "enquirer": "^2.3.1",
+    "hygen": "^4.0.7",
+    "pad-left": "^2.1.0",
+    "supports-color": "^7.0.0",
+    "yargs-parser": "^13.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.9",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  }
+}

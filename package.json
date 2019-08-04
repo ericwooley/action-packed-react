@@ -9,7 +9,8 @@
   "workspaces": [
     "action-packed-react",
     "apr-website",
-    "create-apr"
+    "create-apr",
+    "apr-cli"
   ],
   "devDependencies": {
     "tslint-react": "^4.0.0",
