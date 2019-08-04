@@ -1,0 +1,15 @@
+{
+  "name": "apr-app",
+  "version": "1.0.0",
+  "description": "My apr app",
+  "main": "webpack.config.js",
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "webpack --config ./webpack.config.js",
+    "start": "webpack-dev-server --config ./webpack.config.js",
+    "lint": "tslint"
+  },
+
+  "author": "",
+  "license": "MIT"
+}
