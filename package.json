@@ -9,7 +9,8 @@
   "workspaces": {
     "nohoist": [
       "**/chalk/**",
-      "**/@types/**"
+      "**/@types/**",
+      "**/webpack/**"
     ],
     "packages": [
       "action-packed-react",
