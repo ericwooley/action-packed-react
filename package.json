@@ -6,12 +6,18 @@
   "author": "Eric Wooley <ericwooley@gmail.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "action-packed-react",
-    "apr-website",
-    "create-apr",
-    "apr-cli"
-  ],
+  "workspaces": {
+    "nohoist": [
+      "**/chalk/**",
+      "**/@types/**"
+    ],
+    "packages": [
+      "action-packed-react",
+      "apr-website",
+      "create-apr",
+      "apr-cli"
+    ]
+  },
   "devDependencies": {
     "tslint-react": "^4.0.0",
     "@types/jest": "24.0.15"
