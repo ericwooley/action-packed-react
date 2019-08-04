@@ -1,13 +1,13 @@
+import { join } from 'path';
 import { spawnSync } from "child_process";
 import which from "which";
-import {join} from 'path'
 import debug from "debug";
-const log = debug("apr:dev");
+const log = debug("apr:build");
 module.exports = async function dev() {
-  const serverCommand = which.sync("webpack-dev-server");
+  const buildCommand = which.sync("webpack");
   const args = ["--config", join(__dirname, "../webpack/webpack.config.js")]
-  log("starting server command:", serverCommand, 'with args', args);
-  spawnSync(serverCommand, args, {
+  log("running build:", buildCommand, 'with args', args);
+  spawnSync(buildCommand, args, {
     stdio: "inherit"
   });
 };

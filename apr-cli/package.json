@@ -4,6 +4,12 @@
   "description": "Cli for action packed react",
   "main": "dist/index.js",
   "author": "Eric Wooley <ericwooley@gmail.com>",
+  "bin": {
+    "apr": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.2",

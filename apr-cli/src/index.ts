@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import processArgv from "yargs-parser";
 import debug from "debug";
 import { EOL } from "os";
@@ -31,10 +32,16 @@ const commands: { [key: string]: typeof help } = {
     description: "Run the development server",
     examples: ["apr dev"],
     exec: require("./dev")
+  },
+  build: {
+    command: "build",
+    description: "Build project into ./dist",
+    examples: ["apr build"],
+    exec: require("./build")
   }
 };
 
-(async function() {
+async function main () {
   let command: string = argv._[0];
   if (argv._.length < 1 && argv.help) {
     command = commands.help.command;
@@ -43,4 +50,6 @@ const commands: { [key: string]: typeof help } = {
   if (command && commands[command]) {
     await commands[command].exec(argv);
   }
-})().catch(e => console.error("Unknown error: ", e));
+}
+
+main().catch(e => console.error("Unknown error: ", e));

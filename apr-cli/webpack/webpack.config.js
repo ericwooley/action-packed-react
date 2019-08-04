@@ -1,7 +1,12 @@
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const debug = require("debug");
+const log = debug("apr:webpack");
+
+let entry = path.join(process.cwd(), './src/index.tsx')
+console.log('entry', entry)
 module.exports = {
-  entry: "./src/index.tsx",
+  entry,
   mode: "development",
   optimization: {
     splitChunks: {
@@ -30,7 +35,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: "ts-loader",
+        use: "ts-loader"
       }
     ]
   },
@@ -45,7 +50,7 @@ module.exports = {
   },
   devtool: "eval",
   output: {
-    path: path.join(__dirname, "dist"),
+    path: path.join(process.cwd(), "dist"),
     filename: "[name].[contenthash].bundle.js",
     chunkFilename: "[name].[contenthash].chunk.js"
   }
