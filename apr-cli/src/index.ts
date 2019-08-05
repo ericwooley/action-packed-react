@@ -2,11 +2,13 @@
 import processArgv from "yargs-parser";
 import debug from "debug";
 import { EOL } from "os";
-const log = debug("apr")
+const log = debug("apr");
 interface color {
   (str: string): string;
 }
-const chalk: { green: color; grey: color } = require("chalk");
+const PADDING = 10;
+const empty = "".padStart(PADDING, " ");
+const chalk: { green: color; grey: color; blue: color } = require("chalk");
 const argv = processArgv(process.argv.slice(2));
 const help = {
   command: "help",
@@ -16,11 +18,12 @@ const help = {
     console.log(
       Object.values(commands)
         .filter(c => c)
-        .map(
-          c =>
-            `${chalk.green(c.command.padStart(5, " "))}: ${c.description}${EOL}${c.examples
-              .map(example => `${"".padStart(5, " ")}  ${chalk.grey(example)}`)
-              .join(EOL)}`
+        .map(c =>
+          `${chalk.green(c.command.padStart(PADDING-1, " "))} ${c.description}${EOL}${empty + chalk.blue(
+            "shortcut:"
+          )} ${c.command[0]}${EOL}${c.examples
+            .map(example => `${empty}${chalk.grey(example)}`)
+            .join(EOL)}`.trim()
         )
         .join(EOL)
     )
@@ -38,10 +41,16 @@ const commands: { [key: string]: typeof help } = {
     description: "Build project into ./dist",
     examples: ["apr build"],
     exec: require("./build")
+  },
+  generate: {
+    command: "generate",
+    description: "Build project into ./dist",
+    examples: ["apr build"],
+    exec: require("./build")
   }
 };
 
-async function main () {
+async function main() {
   let command: string = argv._[0];
   if (argv._.length < 1 && argv.help) {
     command = commands.help.command;

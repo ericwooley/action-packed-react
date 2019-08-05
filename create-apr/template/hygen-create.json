@@ -3,7 +3,6 @@
   "hygen_create_version": "0.2.0",
   "name": "apr-init",
   "files_and_dirs": {
-    "hygen-create.json": true,
     "src/index.tsx": true,
     "src/components/RootLayout/index.tsx": true,
     "src/redux/index.ts": true,
@@ -13,8 +12,9 @@
     "src/redux/selectors/index.ts": true,
     "package.json": true,
     "webpack.config.js": true,
-    "tsconfig.json": true
+    "tsconfig.json": true,
+    "html/index.html": true
   },
-  "templatize_using_name": "apr",
+  "templatize_using_name": "myApp",
   "gen_parent_dir": false
 }
