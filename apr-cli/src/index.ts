@@ -2,13 +2,11 @@
 import processArgv from "yargs-parser";
 import debug from "debug";
 import { EOL } from "os";
+import { green, grey, blue } from "./utils/colors";
 const log = debug("apr");
-interface color {
-  (str: string): string;
-}
+
 const PADDING = 10;
 const empty = "".padStart(PADDING, " ");
-const chalk: { green: color; grey: color; blue: color } = require("chalk");
 const argv = processArgv(process.argv.slice(2));
 const help = {
   command: "help",
@@ -19,10 +17,9 @@ const help = {
       Object.values(commands)
         .filter(c => c)
         .map(c =>
-          `${chalk.green(c.command.padStart(PADDING-1, " "))} ${c.description}${EOL}${empty + chalk.blue(
-            "shortcut:"
-          )} ${c.command[0]}${EOL}${c.examples
-            .map(example => `${empty}${chalk.grey(example)}`)
+          `${green(c.command.padStart(PADDING - 1, " "))} ${c.description}${EOL}${empty +
+            blue("shortcut:")} ${c.command[0]}${EOL}${c.examples
+            .map(example => `${empty}${grey(example)}`)
             .join(EOL)}`.trim()
         )
         .join(EOL)
@@ -44,8 +41,8 @@ const commands: { [key: string]: typeof help } = {
   },
   generate: {
     command: "generate",
-    description: "Build project into ./dist",
-    examples: ["apr build"],
+    description: "generate routes, components, etc...",
+    examples: ["apr g # interactive", "apr g component <component name>"],
     exec: require("./build")
   }
 };
@@ -56,7 +53,10 @@ async function main() {
     command = commands.help.command;
   }
   log("running command: ", command);
-  if (command && commands[command]) {
+  if (command.length === 1) {
+    command = Object.keys(commands).find(key => key[0] === command) || "";
+  }
+  if (commands[command]) {
     await commands[command].exec(argv);
   }
 }
