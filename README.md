@@ -9,8 +9,13 @@
 * [x] middleware
 * [x] Load default from files
 * [x] Cleanup configs and repo
+* [x] Create framework for generators
 * [ ] Add route generator
 * [ ] Add component generator
+* [ ] Add ui generator
+* [ ] Add duck generator
+* [ ] Add saga generator
+* [ ] Add selectors generator
 * [ ] Develop documentation website with APR
 * [ ] publish packages
 * [ ] i18n
