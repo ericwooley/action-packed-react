@@ -8,7 +8,11 @@
     "emitDecoratorMetadata": true,
     "jsx": "react",
     "typeRoots": ["node_modules/@types", "src/types"],
-    "rootDirs": ["src"]
+    "rootDirs": ["src"],
+    "baseUrl": "./src",
+    "paths": {
+      "ui": ["src/ui/"]
+    }
   },
   "include": ["src/*", "src/types/**/*"],
   "exclude": ["**/*.test.ts*", ""]

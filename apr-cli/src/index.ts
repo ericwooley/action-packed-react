@@ -43,7 +43,7 @@ const commands: { [key: string]: typeof help } = {
     command: "generate",
     description: "generate routes, components, etc...",
     examples: ["apr g # interactive", "apr g component <component name>"],
-    exec: require("./build")
+    exec: require("./generate")
   }
 };
 

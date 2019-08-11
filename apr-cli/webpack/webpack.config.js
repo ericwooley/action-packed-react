@@ -8,6 +8,12 @@ console.log('entry', entry)
 module.exports = {
   entry,
   mode: "development",
+  resolve: {
+    alias: {
+      "": "src",
+      ui: "src/ui"
+    }
+  },
   optimization: {
     splitChunks: {
       chunks: "async",
