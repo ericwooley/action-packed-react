@@ -41,7 +41,7 @@
       ".(ts|tsx)": "ts-jest"
     },
     "setupFilesAfterEnv": [
-      "<rootDir>/../setupTests.ts"
+      "<rootDir>/../setupTests.js"
     ],
     "testEnvironment": "jsdom",
     "testRegex": "(.*\\.(test|spec))\\.(ts|tsx|js)$",
