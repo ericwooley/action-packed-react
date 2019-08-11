@@ -9,7 +9,7 @@ import { green, grey, blue, red } from "./utils/colors";
 const log = debug("apr:generate");
 
 const generatorArgs: { [key: string]: (options: Arguments) => string[] | void } = {
-  component: () => [],
+  component: () => ["component", "new"],
   route: () => ["route", "new"],
   duck: () => []
 };

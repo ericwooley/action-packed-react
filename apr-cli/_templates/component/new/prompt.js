@@ -1,6 +1,6 @@
-const { findRoutes, uglyRoute } = require("../../../dist/utils/routes");
+const {findRoutes, uglyRoute} = require("../../../dist/utils/routes");
 const changeCase = require("change-case");
-const routes = findRoutes("route", { pretty: true });
+const routes = findRoutes("component", { pretty: true });
 // see types of prompts:
 // https://github.com/enquirer/enquirer/tree/master/examples
 
@@ -15,7 +15,7 @@ module.exports = [
   {
     type: "input",
     name: "name",
-    message: "Name your route",
+    message: "Name your component",
     format: changeCase.camel,
     result: changeCase.camel,
   }

@@ -2,7 +2,7 @@
 import processArgv from "yargs-parser";
 import debug from "debug";
 import { EOL } from "os";
-import { green, grey, blue } from "./utils/colors";
+import { green, grey, blue, red } from "./utils/colors";
 const log = debug("apr");
 
 const PADDING = 10;
@@ -44,12 +44,22 @@ const commands: { [key: string]: typeof help } = {
     description: "generate routes, components, etc...",
     examples: ["apr g # interactive", "apr g component <component name>"],
     exec: require("./generate")
+  },
+  routes: {
+    command: "routes",
+    description: "list all routes",
+    examples: ["apr r", "apr routes"],
+    exec: require("./routes")
   }
 };
 
 async function main() {
   let command: string = argv._[0];
   if (argv._.length < 1 && argv.help) {
+    command = commands.help.command;
+  }
+  if(!command) {
+    console.log(red('no matching commands'))
     command = commands.help.command;
   }
   log("running command: ", command);
