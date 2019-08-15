@@ -17,10 +17,8 @@ if (argv.dev) {
   const aprDir = "file:" + join(__dirname, "../", "action-packed-react");
   log(aprCliDir);
   log(aprDir);
-  spawnSync("yarn", ["add", aprCliDir], { stdio: "inherit" });
-  spawnSync("yarn", ["add", aprDir], {
-    stdio: "inherit"
-  });
+  spawnSync("yarn", ["add", aprCliDir, aprDir], { stdio: "inherit" });
+  spawnSync("yarn", ["link", "apr-cli"], { stdio: "inherit" });
 } else {
   spawnSync("yarn", ["add", "apr-cli"], { stdio: "inherit" });
   spawnSync("yarn", ["add", "action-packed-react"], {

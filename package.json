@@ -6,6 +6,10 @@
   "author": "Eric Wooley <ericwooley@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "clean-pg": "rm -rf ./playground/*",
+    "playground-init": "yarn run clean-pg; cd playground; create-apr --dev; yarn apr d"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "yarn workspaces run test"

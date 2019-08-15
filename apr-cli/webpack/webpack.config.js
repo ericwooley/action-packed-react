@@ -3,17 +3,20 @@ const path = require("path");
 const debug = require("debug");
 const log = debug("apr:webpack");
 
-let entry = path.join(process.cwd(), './src/index.tsx')
-console.log('entry', entry)
+let entry = path.join(process.cwd(), "./src/index.tsx");
+log("entry", entry);
+function srcPath(subdir) {
+  const result = path.join(process.cwd(), "src", subdir);
+  return result;
+}
+const alias = {
+  app: srcPath("")
+};
+log("alias", alias);
+console.log('file', path.join(process.cwd(), "tsconfig.json") )
 module.exports = {
   entry,
   mode: "development",
-  resolve: {
-    alias: {
-      "": "src",
-      ui: "src/ui"
-    }
-  },
   optimization: {
     splitChunks: {
       chunks: "async",
@@ -41,7 +44,8 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: "ts-loader"
+        loader: "ts-loader",
+        options: { allowTsInNodeModules: true }
       }
     ]
   },
@@ -52,7 +56,8 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: [".tsx", ".ts", ".js"],
+    alias
   },
   devtool: "eval",
   output: {
