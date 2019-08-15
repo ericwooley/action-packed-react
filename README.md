@@ -1,8 +1,7 @@
 # Action Packed React
 
 ## Initial Release
-See the initial release milestone:
-https://github.com/ericwooley/action-packed-react/milestone/1
+[See the initial release milestone](https://github.com/ericwooley/action-packed-react/milestone/1)
 
 
 ## Development
