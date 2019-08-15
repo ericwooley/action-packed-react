@@ -8,7 +8,9 @@
     "apr": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "start": "tsc --watch",
+    "test": "echo 'No tests yet'; exit 0;"
   },
   "license": "MIT",
   "dependencies": {
