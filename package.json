@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "clean-pg": "rm -rf ./playground/*",
-    "playground-init": "yarn run clean-pg; cd playground; create-apr --dev; yarn apr d"
+    "clean-pg": "./scripts/clean-playground.sh",
+    "playground-init": "./scripts/init-playground.sh"
   },
   "husky": {
     "hooks": {
