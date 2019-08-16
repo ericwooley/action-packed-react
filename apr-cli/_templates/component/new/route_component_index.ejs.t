@@ -1,8 +1,8 @@
 ---
 to: <%=route%>/components/<%= name %>/index.ts
 ---
-import { <%= Name %> } from './<%= name %>'
+import { <%= h.changeCase.pascal(name) %> } from './<%= name %>'
 
-export default <%= Name %>
+export default <%= h.changeCase.pascal(name) %>
 
 

@@ -1,5 +1,5 @@
 ---
-to: <%=route%>/components/<%= name %>/<%= name %>.tsx
+to: src/ui/<%= name %>/<%= name %>.tsx
 ---
 import * as React from 'react'
 
@@ -8,7 +8,7 @@ export interface <%= Name %>Props {
 }
 export const <%= h.changeCase.pascal(name) %> = (props: <%= Name %>Props) => {
   return (
-    <div> <%= h.changeCase.pascal(name) %> { props.children }</div>
+    <div> <%= h.changeCase.pascal(name) %> { props.children } </div>
   )
 }
 
