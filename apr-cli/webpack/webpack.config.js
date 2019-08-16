@@ -13,7 +13,7 @@ const alias = {
   app: srcPath("")
 };
 log("alias", alias);
-console.log('file', path.join(process.cwd(), "tsconfig.json") )
+console.log("file", path.join(process.cwd(), "tsconfig.json"));
 module.exports = {
   entry,
   mode: "development",
@@ -45,7 +45,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: "ts-loader",
-        options: { allowTsInNodeModules: true }
+        options: { reportFiles: ["src/**/*.{ts,tsx}"], allowTsInNodeModules: true }
       }
     ]
   },
