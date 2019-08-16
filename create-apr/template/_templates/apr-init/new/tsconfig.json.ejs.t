@@ -11,8 +11,12 @@ to: tsconfig.json
     "emitDecoratorMetadata": true,
     "jsx": "react",
     "typeRoots": ["node_modules/@types", "src/types"],
-    "rootDirs": ["src"]
+    "rootDirs": ["src"],
+    "baseUrl": "src",
+    "paths": {
+      "app": ["index"],
+      "app/*": ["*"]
+    }
   },
-  "include": ["src/*", "src/types/**/*"],
   "exclude": ["**/*.test.ts*", ""]
 }

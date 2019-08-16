@@ -3,7 +3,6 @@
 ## Initial Release
 [See the initial release milestone](https://github.com/ericwooley/action-packed-react/milestone/1)
 
-
 ## Development
 
 Packages or organized using yarn workspaces.
