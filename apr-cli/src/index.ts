@@ -3,11 +3,22 @@ import processArgv from "yargs-parser";
 import debug from "debug";
 import { EOL } from "os";
 import { green, grey, blue, red } from "./utils/colors";
+import cosmiconfig = require("cosmiconfig");
 const log = debug("apr");
-
+const explorer = cosmiconfig("apr");
+const searchResult = explorer.searchSync();
+log("Loaded config", searchResult);
+const config = searchResult === null ? {} : searchResult.config;
 const PADDING = 10;
 const empty = "".padStart(PADDING, " ");
 const argv = processArgv(process.argv.slice(2));
+
+// config options are the same as all flags
+const defaults = {
+  port: 8080,
+  host: "localhost"
+};
+Object.assign(argv, defaults, config, { _: argv._ });
 const help = {
   command: "help",
   description: "List options and arguments for any sub command.",
@@ -54,12 +65,13 @@ const commands: { [key: string]: typeof help } = {
 };
 
 async function main() {
+  log("argv", JSON.stringify(argv, null, 2));
   let command: string = argv._[0];
   if (argv._.length < 1 && argv.help) {
     command = commands.help.command;
   }
-  if(!command) {
-    console.log(red('no matching commands'))
+  if (!command) {
+    console.log(red("no matching commands"));
     command = commands.help.command;
   }
   log("running command: ", command);
