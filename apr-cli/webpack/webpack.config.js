@@ -13,7 +13,7 @@ const alias = {
   app: srcPath("")
 };
 log("alias", alias);
-console.log("file", path.join(process.cwd(), "tsconfig.json"));
+
 module.exports = {
   entry,
   mode: "development",

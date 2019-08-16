@@ -16,7 +16,7 @@ module.exports = function routes(args: Arguments) {
   );
   routes = routes.map(
     route =>
-      ` ${route.padEnd(longestRoute)} │ http://localhost:9000${prettyRoute(route, {
+      ` ${route.padEnd(longestRoute)} │ http://${args.host}:${args.port}${prettyRoute(route, {
         newSep: "/"
       })} `
   );

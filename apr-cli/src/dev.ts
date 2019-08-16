@@ -11,11 +11,19 @@ module.exports = async function dev(options: Arguments) {
     return console.log(`
 -> ${green('dev')}: [...webpack-dev-server-args]
   All arguments will be passed on to webpack-dev-server
-  ${blue('apr d --port 8080')} ${grey('-> apr d --config <apr-build-config> --port 8080')}
+  ${blue('apr d --hot-only')} ${grey('-> apr d --config <apr-build-config> --hot-only')}
   ${grey('see: https://webpack.js.org/configuration/dev-server/')}`.trim());
   }
   const serverCommand = which.sync("webpack-dev-server");
-  const args = ["--config", join(__dirname, "../webpack/webpack.config.js"), ...extraArgs];
+  const specialArgs = []
+  if (options.port) {
+    specialArgs.push('--port', options.port)
+  }
+  if (options.host) {
+    specialArgs.push('--host', options.host)
+  }
+  log("special args from cli", )
+  const args = ["--config", join(__dirname, "../webpack/webpack.config.js"), ...specialArgs, ...extraArgs];
   log("starting server command:", serverCommand, "with args", args);
   spawnSync(serverCommand, args, {
     stdio: "inherit"
