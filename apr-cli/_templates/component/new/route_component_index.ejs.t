@@ -1,15 +1,8 @@
 ---
 to: <%=route%>/components/<%= name %>/index.ts
 ---
-const hello = ```
-Hello!
-This is your first prompt based hygen template.
+import { <%= Name %> } from './<%= name %>'
 
-Learn what it can do here:
-
-https://github.com/jondot/hygen
-```
-
-console.log(hello)
+export default <%= Name %>
 
 
