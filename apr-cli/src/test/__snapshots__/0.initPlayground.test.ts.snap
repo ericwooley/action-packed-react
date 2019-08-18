@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setup should create the initial files: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts 1`] = `
+"import { Testui } from './testUi'
+
+export default Testui
+
+
+"
+`;
+
+exports[`setup should create the initial files: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestuiProps {
+  children?: React.ReactChildren
+}
+export const TestUi = (props: TestuiProps) => {
+  return (
+    <div> TestUi { props.children } </div>
+  )
+}
+
+
+"
+`;

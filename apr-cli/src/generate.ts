@@ -8,11 +8,11 @@ import { green, grey, blue, red } from "./utils/colors";
 
 const log = debug("apr:generate");
 
-const generatorArgs: { [key: string]: (options: Arguments) => string[] | void } = {
-  ui: () => ["ui", "new"],
-  component: () => ["component", "new"],
-  route: () => ["route", "new"],
-  duck: () => []
+const generatorArgs: { [key: string]: (restArgs: string[]) => string[] | void } = {
+  ui: (restArgs: string[]) => ["ui", "new", ...restArgs],
+  component: (restArgs: string[]) => ["component", "new", ...restArgs],
+  route: (restArgs: string[]) => ["route", "new", ...restArgs],
+  duck: (restArgs: string[]) => ["duck", "new", ...restArgs]
 };
 const helpText = grey(`       Available generators:
          * ${Object.keys(generatorArgs)
@@ -45,8 +45,7 @@ available generators:
     process.exit(1);
     return;
   }
-
-  const args = generatorArgs[generator](options);
+  const args = generatorArgs[generator](process.argv.slice(4));
   if (args) {
     log("running generator:", buildCommand, "with args", args);
     spawnSync(buildCommand, args, {
