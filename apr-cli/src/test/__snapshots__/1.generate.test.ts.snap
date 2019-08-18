@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts 1`] = `
+"import { Testui } from './testUi'
+
+export default Testui
+
+
+"
+`;
+
+exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestuiProps {
+  children?: React.ReactChildren
+}
+export const TestUi = (props: TestuiProps) => {
+  return (
+    <div> TestUi { props.children } </div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating ui should generate a new ui component: g ui --name testUi 1`] = `
+",
+Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templates/
+[?25l[36m?[39m [1m     exists: src/ui/testUi/index.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h,"
+`;
