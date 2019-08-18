@@ -4,7 +4,7 @@ const nameQuestion = require('../../nameQuestion')
 
 const questions = [
   routeQuestion,
-  nameQuestion('route')
+  nameQuestion('duck')
 ]
 module.exports = {
   prompt: promptArgs(questions)
