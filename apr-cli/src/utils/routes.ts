@@ -34,12 +34,12 @@ const prettySep = " -> ";
 routeLog("routeStr", routeStr)
 
 export function prettyRoute(route: string, { newSep = prettySep } = {}) {
-  const pretty = route.replace(routeSepRGX, newSep).replace(/^src\/?/, "/");
+  const pretty = route.replace(routeSepRGX, newSep);
   routeLog("pretty -", route, ': |', pretty, '| sep=', prettySep)
   return pretty
 }
 export function uglyRoute(route: string, { oldSep = prettySep } = {}) {
-  const ugly = route.replace(new RegExp(oldSep, "g"), routeStr).replace(/^\//, "src");
+  const ugly = route.replace(new RegExp(oldSep, "g"), routeStr);
   routeLog(route, ': |', ugly, '| sep=', prettySep)
   return ugly
 }
