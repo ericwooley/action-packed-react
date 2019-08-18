@@ -12,7 +12,8 @@ const generatorArgs: { [key: string]: (restArgs: string[]) => string[] | void } 
   ui: (restArgs: string[]) => ["ui", "new", ...restArgs],
   component: (restArgs: string[]) => ["component", "new", ...restArgs],
   route: (restArgs: string[]) => ["route", "new", ...restArgs],
-  duck: (restArgs: string[]) => ["duck", "new", ...restArgs]
+  duck: (restArgs: string[]) => ["duck", "new", ...restArgs],
+  saga: (restArgs: string[]) => ["saga", "new", ...restArgs]
 };
 const helpText = grey(`       Available generators:
          * ${Object.keys(generatorArgs)
