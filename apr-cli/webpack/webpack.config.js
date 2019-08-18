@@ -1,31 +1,36 @@
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-const path = require("path");
-const debug = require("debug");
-const log = debug("apr:webpack");
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
+const debug = require('debug')
+const log = debug('apr:webpack')
 
-let entry = path.join(process.cwd(), "./src/index.tsx");
-log("entry", entry);
-function srcPath(subdir) {
-  const result = path.join(process.cwd(), "src", subdir);
-  return result;
+const entry = path.join(process.cwd(), './src/index.tsx')
+log('entry', entry)
+function srcPath (subdir) {
+  const result = path.join(process.cwd(), 'src', subdir)
+  return result
 }
 const alias = {
-  app: srcPath("")
-};
-log("alias", alias);
+  app: srcPath('')
+}
+log('alias', alias)
 
 module.exports = {
   entry,
-  mode: "development",
+  mode: 'development',
+  devServer: {
+    historyApiFallback: {
+      index: 'index.html'
+    }
+  },
   optimization: {
     splitChunks: {
-      chunks: "async",
+      chunks: 'async',
       minSize: 30000,
       maxSize: 0,
       minChunks: 1,
       maxAsyncRequests: 5,
       maxInitialRequests: 3,
-      automaticNameDelimiter: "~",
+      automaticNameDelimiter: '~',
       name: true,
       cacheGroups: {
         vendors: {
@@ -44,25 +49,25 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: "ts-loader",
-        options: { reportFiles: ["src/**/*.{ts,tsx}"], allowTsInNodeModules: true }
+        loader: 'ts-loader',
+        options: { reportFiles: ['src/**/*.{ts,tsx}'], allowTsInNodeModules: true }
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "html/index.html",
-      filename: "index.html"
+      template: 'html/index.html',
+      filename: 'index.html'
     })
   ],
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
     alias
   },
-  devtool: "eval",
+  devtool: 'eval',
   output: {
-    path: path.join(process.cwd(), "dist"),
-    filename: "[name].[contenthash].bundle.js",
-    chunkFilename: "[name].[contenthash].chunk.js"
+    path: path.join(process.cwd(), 'dist'),
+    filename: '[name].[contenthash].bundle.js',
+    chunkFilename: '[name].[contenthash].chunk.js'
   }
-};
+}

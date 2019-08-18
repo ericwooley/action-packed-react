@@ -18,7 +18,7 @@ module.exports = function routes(args: Arguments) {
     route =>
       ` ${route.padEnd(longestRoute)} │ http://${args.host}:${args.port}${prettyRoute(route, {
         newSep: "/"
-      })} `
+      }).replace(/^src/, '')} `
   );
   const longestLine = routes.reduce(
     (longest, route) => (route.length > longest ? route.length : longest),
