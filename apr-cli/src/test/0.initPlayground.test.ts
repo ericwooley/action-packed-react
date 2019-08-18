@@ -2,12 +2,19 @@ import { spawn, ChildProcessWithoutNullStreams } from "child_process";
 import fs from "fs";
 import debug from "debug";
 import { snapshotPlayground } from "./utils/getAllSourceFiles";
+import { red } from "../utils/colors";
 const kill = require("tree-kill");
 const axios = require("axios");
-const log = debug("apr");
+const log = debug("apr:initPlayground");
 const originalDir = __dirname;
 let child: ChildProcessWithoutNullStreams;
 let webpackLog: fs.WriteStream;
+const warnAboutErrorCode = (code: number | null) => {
+  if (code) {
+    process.stderr.write(red(`\n\ninit playground exited code ${code}\n\n`));
+    process.exitCode = code;
+  }
+};
 beforeAll(async () => {
   process.chdir("../");
   process.stdout.write("\ncleaning and launching playground. see `tail -f playground.log`\n");
@@ -15,6 +22,7 @@ beforeAll(async () => {
   webpackLog = fs.createWriteStream("./playground.log");
   child.stdout.pipe(webpackLog);
   child.stderr.pipe(webpackLog);
+  child.once("exit", warnAboutErrorCode);
   let serverStarted = false;
   while (!serverStarted) {
     try {
@@ -35,13 +43,14 @@ describe("setup", () => {
     const result = await axios.get("http://localhost:8080");
     expect(result.status).toEqual(200);
   });
-  it('should create the initial files', async () => {
-    await snapshotPlayground()
-  })
+  it("should create the initial files", async () => {
+    await snapshotPlayground();
+  });
 });
 
-afterAll(async() => {
+afterAll(async () => {
   log("closing server");
+  child.removeAllListeners();
   await new Promise(r => kill(child.pid, r));
   webpackLog.close();
   process.chdir(originalDir);

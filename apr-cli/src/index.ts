@@ -23,7 +23,7 @@ const help = {
   command: "help",
   description: "List options and arguments for any sub command.",
   examples: ["apr dev --help"],
-  exec: async (args: typeof argv): Promise<void> =>
+  exec: async (args: typeof argv): Promise<number> => {
     console.log(
       Object.values(commands)
         .filter(c => c)
@@ -34,7 +34,9 @@ const help = {
             .join(EOL)}`.trim()
         )
         .join(EOL)
-    )
+    );
+    return 0;
+  }
 };
 const commands: { [key: string]: typeof help } = {
   help,
@@ -73,14 +75,25 @@ async function main() {
   if (!command) {
     console.log(red("no matching commands"));
     command = commands.help.command;
+    return 1;
   }
   log("running command: ", command);
   if (command.length === 1) {
     command = Object.keys(commands).find(key => key[0] === command) || "";
   }
   if (commands[command]) {
-    await commands[command].exec(argv);
+    const exitCode = await commands[command].exec(argv);
+    return exitCode;
+  } else {
+    return 1;
   }
 }
 
-main().catch(e => console.error("Unknown error: ", e));
+main()
+  .then(exitCode => {
+    process.exitCode = exitCode;
+  })
+  .catch(e => {
+    console.error("Unknown error: ", e);
+    process.exitCode = 1;
+  });

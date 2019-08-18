@@ -25,14 +25,14 @@ module.exports = async function build(options: Arguments) {
     -> ${green("generate")}: [ generator ]
        ${grey("Each generator has interactive prompts")}${EOL}${helpText}`.trim()
     );
+    return 0
   }
   const buildCommand = which.sync("hygen");
   process.env.HYGEN_TMPLS = join(__dirname, "../_templates/");
   const generator = options._[1];
   if (!generator) {
     console.error(red(`No generator for: ${generator}`));
-    process.exit(1);
-    return;
+    return 1;
   }
   if (!generatorArgs[generator]) {
     console.error(
@@ -42,14 +42,15 @@ available generators:
   * ${Object.keys(generatorArgs).join(`${EOL}  * `)}`
       )
     );
-    process.exit(1);
-    return;
+    return 1;
   }
   const args = generatorArgs[generator](process.argv.slice(4));
   if (args) {
     log("running generator:", buildCommand, "with args", args);
-    spawnSync(buildCommand, args, {
+    const result = spawnSync(buildCommand, args, {
       stdio: "inherit"
     });
+    return result.status
   }
+  return 1
 };

@@ -23,7 +23,8 @@ module.exports = async function build(options: Arguments) {
     ...extraArgs
   ];
   log("running build:", buildCommand, "with args", args);
-  spawnSync(buildCommand, args, {
+  const result = spawnSync(buildCommand, args, {
     stdio: "inherit"
   });
+  return result.status
 };

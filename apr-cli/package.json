@@ -17,6 +17,7 @@
       ".(ts|tsx)": "ts-jest"
     },
     "testEnvironment": "jsdom",
+    "testSequencer": "./testSequencer.js",
     "testRegex": "(.*\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",
@@ -26,23 +27,7 @@
     "testPathIgnorePatterns": [
       "dist",
       "node_modules"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/",
-      "/rollup.config.ts",
-      "tools",
-      "dist"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 50,
-        "functions": 70,
-        "lines": 50,
-        "statements": 50
-      }
-    },
-    "collectCoverage": true
+    ]
   },
   "license": "MIT",
   "dependencies": {

@@ -1,20 +1,23 @@
-import { join } from 'path';
-import { spawnSync } from 'child_process';
-import debug from 'debug'
-const log = debug('apr:runApr')
-export const runApr = (args: string[]|string, {snapshotOutput = false} = {}) => {
-  if(typeof args === 'string'){
-    args = args.split(/\s/g)
+import { join } from "path";
+import { spawnSync } from "child_process";
+import debug from "debug";
+const log = debug("apr:runApr");
+export const runApr = (args: string[] | string, { snapshotOutput = false } = {}) => {
+  if (typeof args === "string") {
+    args = args.split(/\s/g);
   }
-  process.chdir(join(__dirname, '../../../../playground'))
-  log('running: ', 'apr', args)
-  const result = spawnSync('apr', args)
-  if(result.status !== 0) {
-    throw new Error('Unsuccessful apr command: ' + ['apr', ...args].join(' '))
+  const prettyCommand = ["apr", ...args].join(" ");
+  process.chdir(join(__dirname, "../../../../playground"));
+  log("running: ", prettyCommand);
+  const result = spawnSync("apr", args);
+  const output = result.output.toString();
+  log("exit status for", prettyCommand, result.status);
+  log("output for", prettyCommand, "\n", output);
+  if (result.status !== 0) {
+    throw new Error("Unsuccessful apr command: " + ["apr", ...args].join(" "));
   }
-  const output = result.output.toString()
-  if(snapshotOutput) {
-    expect(output).toMatchSnapshot(args.join(' '))
+  if (snapshotOutput) {
+    expect(output).toMatchSnapshot(prettyCommand);
   }
-  return output
-}
+  return output;
+};

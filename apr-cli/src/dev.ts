@@ -25,7 +25,8 @@ module.exports = async function dev(options: Arguments) {
   log("special args from cli", )
   const args = ["--config", join(__dirname, "../webpack/webpack.config.js"), ...specialArgs, ...extraArgs];
   log("starting server command:", serverCommand, "with args", args);
-  spawnSync(serverCommand, args, {
+  const result = spawnSync(serverCommand, args, {
     stdio: "inherit"
   });
+  return result.signal
 };

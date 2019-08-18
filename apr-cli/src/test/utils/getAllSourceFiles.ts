@@ -2,7 +2,7 @@ import glob from "glob";
 import path from "path";
 import fs from "fs";
 import debug from "debug";
-const log = debug("apr:snapshot");
+const log = debug("apr:test:files");
 
 const playGroundSrc = path.join(__dirname, "../../../../playground/src/**/*");
 export const getAllFiles = () => {
@@ -18,6 +18,7 @@ export const getAllFiles = () => {
 };
 
 export const getAllFilesSource = (files: string[]) => {
+
   return Promise.all(
     files.map(
       file =>
@@ -37,6 +38,7 @@ export const getAllFilesSource = (files: string[]) => {
 export const getAllAllPlaygroundFileSources = async () => getAllFilesSource(await getAllFiles());
 export const snapshotPlayground = async () => {
   const filesWithSources = await getAllAllPlaygroundFileSources();
+  expect(filesWithSources.map(({ path }) => path)).toMatchSnapshot("file-list");
   filesWithSources.forEach(({ path, contents }) => {
     expect(contents).toMatchSnapshot(path);
   });

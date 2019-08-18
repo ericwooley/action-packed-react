@@ -13,8 +13,10 @@ module.exports = questions => ({ prompter, args }) => {
       if (question.validate) {
         const result = question.validate(providedArgs[k], answers)
         if (result === false) {
+          process.exitCode = 1
           throw new Error(`${k} is invalid`)
         } else if (typeof result === 'string') {
+          process.exitCode = 1
           throw new Error(result)
         }
       }
