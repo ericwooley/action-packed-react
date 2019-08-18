@@ -243,6 +243,17 @@ export default {}
 "
 `;
 
+exports[`generating route should generate a new route based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
 exports[`generating route should generate a new route based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
 "import { app } from 'app'
 import { createRouteComposer } from 'action-packed-react/routeMatcher';
@@ -280,6 +291,17 @@ exports[`generating route should generate a new route based on testRoutes: /home
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
 export default {}
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
 "
 `;
 
@@ -342,6 +364,7 @@ Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templat
        added: src/routes/testRoute/routes/testRoute2/index.ts
        added: src/routes/testRoute/routes/testRoute2/layout.tsx
        added: src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts
+       added: src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts
        added: src/routes/testRoute/routes/testRoute2/routes/.gitkeep
 ,"
 `;
@@ -359,9 +382,11 @@ Array [
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/sagas/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
   "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx",
@@ -611,6 +636,17 @@ export default {}
 "
 `;
 
+exports[`generating route should generate a new route based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
 exports[`generating route should generate a new route based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
 "import { app } from 'app'
 import { createRouteComposer } from 'action-packed-react/routeMatcher';
@@ -651,6 +687,17 @@ export default {}
 "
 `;
 
+exports[`generating route should generate a new route based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
 exports[`generating route should generate a new route based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `
 "import { app } from 'app'
 import { createRouteComposer } from 'action-packed-react/routeMatcher';
@@ -688,6 +735,17 @@ exports[`generating route should generate a new route based on testRoutes2: /hom
  * Run \`apr g duck --route src/routes/testRoute/routes/testRoute2\` to add a duck
  */
 export default {}
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
 "
 `;
 
@@ -750,6 +808,7 @@ Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templat
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts
+       added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/routes/.gitkeep
 ,"
 `;
@@ -767,12 +826,15 @@ Array [
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/sagas/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
   "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx",
@@ -1022,6 +1084,17 @@ export default {}
 "
 `;
 
+exports[`generating route should generate a new route: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
 exports[`generating route should generate a new route: /home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md 1`] = `
 "# UI
 \`ui\` is for reusable components, which should have 0 concept of anything else
@@ -1081,6 +1154,7 @@ Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templat
        added: src/routes/testRoute/index.ts
        added: src/routes/testRoute/layout.tsx
        added: src/routes/testRoute/redux/ducks/index.ts
+       added: src/routes/testRoute/redux/sagas/index.ts
        added: src/routes/testRoute/routes/.gitkeep
 ,"
 `;
@@ -1098,6 +1172,7 @@ Array [
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx",
   "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/sagas/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
   "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx",
