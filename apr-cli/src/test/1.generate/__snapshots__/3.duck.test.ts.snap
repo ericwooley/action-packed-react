@@ -1,0 +1,1648 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import styled from \\"styled-components\\";
+const Wrapper = styled.div\`
+  display: flex;
+  flex-direction: row;
+\`;
+const Nav = styled.div\`
+  flex: 0;
+  padding: 10px;
+  margin: 10px;
+  min-width: 300px;
+  border: 1px solid lightgreen;
+  border-radius: 20px;
+\`;
+export default class RootLayout extends React.PureComponent {
+  render() {
+    return (
+      <Wrapper>
+        <Nav>
+          <ul>
+            <li>
+              link 1
+            </li>
+            <li>
+              link 2
+            </li>
+          </ul>
+        </Nav>
+        <div>{this.props.children}</div>
+      </Wrapper>
+    );
+  }
+}
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/index.ts 1`] = `
+"import { TestComponent } from './testComponent'
+
+export default TestComponent
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/testComponent.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestcomponentProps {
+  children?: React.ReactChildren
+}
+export const TestComponent = (props: TestcomponentProps) => {
+  return (
+    <div> TestComponent { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { createHashHistory } from \\"history\\";
+import { render, unmountComponentAtNode } from \\"react-dom\\";
+import { defaultInitialState, defaultReducers } from \\"./redux\\";
+const el = document.getElementById(\\"root\\");
+if (!el) throw new Error(\\"no el\\");
+
+const renderApp = (jsx: JSX.Element) => {
+  render(jsx, el);
+  return () => unmountComponentAtNode(el);
+};
+const history = createHashHistory();
+
+export const app = createApp({
+  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+  history,
+  initialState: defaultInitialState,
+  initialReducers: defaultReducers,
+  RouteNotFoundComponent: () => <div>Not Found</div>,
+  LoadingComponent: () => <h3>Loading...</h3>,
+  render: renderApp,
+  saga: import('./redux/sagas/index'),
+  layout: import(\\"./components/RootLayout\\")
+});
+
+app.init().catch(e => console.error(\\"Error Starting application\\", e));
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/index.ts 1`] = `
+"import { TestDuck } from './testDuck'
+
+export default TestDuck
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/testDuck/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const TestDuck = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/redux/index.ts 1`] = `
+"import ui, {initialState} from \\"./reducers\\";
+export const defaultInitialState = {
+  ui: initialState
+}
+export const defaultReducers = {
+  ui
+};
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/redux/reducers/index.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+export const initialState = {
+  welcomeConfirmed: false
+};
+
+type UIState = typeof initialState;
+export default createReducerFromActionPack(initialState, {
+  confirmWelcome: createActionPack<UIState, boolean>(\\"CONFIRM_WELCOME\\", (state, action) => ({
+    ...state,
+    welcomeConfirmed: action.payload
+  }))
+});
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts 1`] = `
+"import { app } from \\"../..\\";
+import { race, delay, take, call, select } from \\"redux-saga/effects\\";
+import { eventChannel } from \\"redux-saga\\";
+
+/**
+ * Redux saga event channel to listen to any events by the user.
+ */
+function userEvent() {
+  return eventChannel(emitter => {
+    document.addEventListener(\\"keypress\\", emitter);
+    document.addEventListener(\\"mousemove\\", emitter);
+    document.addEventListener(\\"mousedown\\", emitter);
+    return () => {
+      document.removeEventListener(\\"keypress\\", emitter);
+      document.removeEventListener(\\"mousemove\\", emitter);
+      document.removeEventListener(\\"mousedown\\", emitter);
+    };
+  });
+}
+
+export default ({
+  // Amount of time to wait with no actions, and no user input before saving
+  // state to local storage.
+  SECONDS_TO_SAVE_STATE = 1
+} = {}) =>
+  function* autoSaveState() {
+    const chan = yield call(userEvent);
+    try {
+      // Sagas can go forever, without an infinite loop, as long as they are
+      // yielding to something.
+      while (true) {
+        // This is a race between the 3 events, the first event to happen
+        // cancels the other events. The return of the race is as follows:
+        // 1. A redux action occurred resulting in:
+        //    {cancelledByAction: <the action>}
+        // 2. A use moved the mouse or pressed a key triggering an event
+        //    on the channel, resulting in:
+        //    {cancelledByUserEvent: <event>}
+        // 3. The delay happened, (the other two didn't happen for X seconds)
+        //    Resulting in:
+        //    {shouldSave: <effect descriptor>}
+        const { shouldSave } = yield race({
+          cancelledByAction: take(() => true),
+          cancelledByUserEvent: take(chan),
+          shouldSave: delay(SECONDS_TO_SAVE_STATE * 1000)
+        });
+        // shouldSave being truthy means that no redux actions, or user events
+        // happened for X seconds
+        if (shouldSave) {
+          // select all state from our app
+          const allState = yield select(app.baseSelector);
+          // store it in local storage
+          localStorage.setItem(\\"saved-state\\", JSON.stringify(allState));
+        }
+      }
+    } finally {
+      // Something killed our saga.
+      console.log(\\"No longer saving state\\");
+    }
+  };
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+// import autoSaveState from './autoSaveState'
+
+/**
+ * rootSaga to load any global sagas you want.
+ *
+ * Included are some common ones, you just need to uncomment them.
+ */
+export default function* rootSaga() {
+  console.log(\\"saga initialized\\");
+  yield all([
+    // automatically save redux to local storage state after X (default: 1)
+    // seconds of inactivity
+    // autoSaveState()
+  ]);
+}
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts 1`] = `
+"import { createSelector } from 'reselect'
+import {app} from '../..'
+
+const confirmedWelcome = createSelector(app.baseSelector, (s) => s.ui.welcomeConfirmed)
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md 1`] = `
+"
+# Routes
+\`routes\` is a folder for holding other routes, which follows the
+[fractal pattern](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af).
+
+Each route contains:
+  * a \`routes\` folder for sub routes.
+  * a \`components\` folder for react components for this route.
+  * a \`redux\` folder, for
+    [ducks](https://github.com/erikras/ducks-modular-redux),
+    [sagas](https://redux-saga.js.org/), and anything else related to redux.
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `
+"import { TestComponent2 } from './testComponent2'
+
+export default TestComponent2
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `
+"import * as React from 'react'
+
+export interface Testcomponent2Props {
+  children?: React.ReactChildren
+}
+export const TestComponent2 = (props: Testcomponent2Props) => {
+  return (
+    <div> TestComponent2 { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute')
+const testRouteRoute = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRouteRoute.setComponent(() => import('./layout'))
+testRouteRoute.register()
+export default testRouteRoute;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface TestrouteProps {
+  children?: React.ReactChildren
+}
+
+const testRouteLayout = (props: TestrouteProps) => (
+  <div>
+    <h1>testRoute</h1>
+    { props.children }
+  </div>
+)
+export default testRouteLayout;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/testDuck2/index.ts 1`] = `
+"import { TestDuck2 } from './testDuck2'
+
+export default TestDuck2
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const TestDuck2 = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `
+"import { TestComponent3 } from './testComponent3'
+
+export default TestComponent3
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `
+"import * as React from 'react'
+
+export interface Testcomponent3Props {
+  children?: React.ReactChildren
+}
+export const TestComponent3 = (props: Testcomponent3Props) => {
+  return (
+    <div> TestComponent3 { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute2')
+const testRoute2Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute2Route.setComponent(() => import('./layout'))
+testRoute2Route.register()
+export default testRoute2Route;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute2Props {
+  children?: React.ReactChildren
+}
+
+const testRoute2Layout = (props: Testroute2Props) => (
+  <div>
+    <h1>testRoute2</h1>
+    { props.children }
+  </div>
+)
+export default testRoute2Layout;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute3')
+const testRoute3Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute3Route.setComponent(() => import('./layout'))
+testRoute3Route.register()
+export default testRoute3Route;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute3Props {
+  children?: React.ReactChildren
+}
+
+const testRoute3Layout = (props: Testroute3Props) => (
+  <div>
+    <h1>testRoute3</h1>
+    { props.children }
+  </div>
+)
+export default testRoute3Layout;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute/routes/testRoute2\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md 1`] = `
+"# UI
+\`ui\` is for reusable components, which should have 0 concept of anything else
+ that is in your app.
+
+## Examples
+### Components that belong in ui.
+UI components should be simple, pure, and require no context of the application.
+Try to imagine that one day, you want to publish an npm package, based on your
+ui elements. It should be as easy as copying this folder, and putting a
+package.json file in it (and maybe a build system). Think of this as your own
+personal bootstrap.
+  * Button - simple ui component. It requires no context, or anything to
+    be loaded in your app.
+  * Grid - Meta component for arranging other components or children
+  * Form inputs - keep your UI consistent by defining form inputs here.
+  * Avatar - Takes an image, and creates a specific size.
+  * Loader - Spinner or progress bar to show throughout the application.
+
+### Components that do not belong in ui.
+UI components that are specific to something in your application belong in
+components.
+  * UserAvatar - maybe it contains a link to user profiles, has knowledge of the
+    user model, etc...
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts 1`] = `
+"import { Testui } from './testUi'
+
+export default Testui
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestuiProps {
+  children?: React.ReactChildren
+}
+export const TestUi = (props: TestuiProps) => {
+  return (
+    <div> TestUi { props.children } </div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: apr g duck --name testDuck2 --route src/routes/testRoute 1`] = `
+",
+Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templates/
+       added: src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts
+       added: src/routes/testRoute/redux/ducks/testDuck2/index.ts
+,"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes: file-list 1`] = `
+Array [
+  "/home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/testComponent.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/index.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/testDuck.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/reducers/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/testDuck2/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
+  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx",
+]
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import styled from \\"styled-components\\";
+const Wrapper = styled.div\`
+  display: flex;
+  flex-direction: row;
+\`;
+const Nav = styled.div\`
+  flex: 0;
+  padding: 10px;
+  margin: 10px;
+  min-width: 300px;
+  border: 1px solid lightgreen;
+  border-radius: 20px;
+\`;
+export default class RootLayout extends React.PureComponent {
+  render() {
+    return (
+      <Wrapper>
+        <Nav>
+          <ul>
+            <li>
+              link 1
+            </li>
+            <li>
+              link 2
+            </li>
+          </ul>
+        </Nav>
+        <div>{this.props.children}</div>
+      </Wrapper>
+    );
+  }
+}
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/index.ts 1`] = `
+"import { TestComponent } from './testComponent'
+
+export default TestComponent
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/testComponent.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestcomponentProps {
+  children?: React.ReactChildren
+}
+export const TestComponent = (props: TestcomponentProps) => {
+  return (
+    <div> TestComponent { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { createHashHistory } from \\"history\\";
+import { render, unmountComponentAtNode } from \\"react-dom\\";
+import { defaultInitialState, defaultReducers } from \\"./redux\\";
+const el = document.getElementById(\\"root\\");
+if (!el) throw new Error(\\"no el\\");
+
+const renderApp = (jsx: JSX.Element) => {
+  render(jsx, el);
+  return () => unmountComponentAtNode(el);
+};
+const history = createHashHistory();
+
+export const app = createApp({
+  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+  history,
+  initialState: defaultInitialState,
+  initialReducers: defaultReducers,
+  RouteNotFoundComponent: () => <div>Not Found</div>,
+  LoadingComponent: () => <h3>Loading...</h3>,
+  render: renderApp,
+  saga: import('./redux/sagas/index'),
+  layout: import(\\"./components/RootLayout\\")
+});
+
+app.init().catch(e => console.error(\\"Error Starting application\\", e));
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/index.ts 1`] = `
+"import { TestDuck } from './testDuck'
+
+export default TestDuck
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/testDuck/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const TestDuck = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/redux/index.ts 1`] = `
+"import ui, {initialState} from \\"./reducers\\";
+export const defaultInitialState = {
+  ui: initialState
+}
+export const defaultReducers = {
+  ui
+};
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/redux/reducers/index.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+export const initialState = {
+  welcomeConfirmed: false
+};
+
+type UIState = typeof initialState;
+export default createReducerFromActionPack(initialState, {
+  confirmWelcome: createActionPack<UIState, boolean>(\\"CONFIRM_WELCOME\\", (state, action) => ({
+    ...state,
+    welcomeConfirmed: action.payload
+  }))
+});
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts 1`] = `
+"import { app } from \\"../..\\";
+import { race, delay, take, call, select } from \\"redux-saga/effects\\";
+import { eventChannel } from \\"redux-saga\\";
+
+/**
+ * Redux saga event channel to listen to any events by the user.
+ */
+function userEvent() {
+  return eventChannel(emitter => {
+    document.addEventListener(\\"keypress\\", emitter);
+    document.addEventListener(\\"mousemove\\", emitter);
+    document.addEventListener(\\"mousedown\\", emitter);
+    return () => {
+      document.removeEventListener(\\"keypress\\", emitter);
+      document.removeEventListener(\\"mousemove\\", emitter);
+      document.removeEventListener(\\"mousedown\\", emitter);
+    };
+  });
+}
+
+export default ({
+  // Amount of time to wait with no actions, and no user input before saving
+  // state to local storage.
+  SECONDS_TO_SAVE_STATE = 1
+} = {}) =>
+  function* autoSaveState() {
+    const chan = yield call(userEvent);
+    try {
+      // Sagas can go forever, without an infinite loop, as long as they are
+      // yielding to something.
+      while (true) {
+        // This is a race between the 3 events, the first event to happen
+        // cancels the other events. The return of the race is as follows:
+        // 1. A redux action occurred resulting in:
+        //    {cancelledByAction: <the action>}
+        // 2. A use moved the mouse or pressed a key triggering an event
+        //    on the channel, resulting in:
+        //    {cancelledByUserEvent: <event>}
+        // 3. The delay happened, (the other two didn't happen for X seconds)
+        //    Resulting in:
+        //    {shouldSave: <effect descriptor>}
+        const { shouldSave } = yield race({
+          cancelledByAction: take(() => true),
+          cancelledByUserEvent: take(chan),
+          shouldSave: delay(SECONDS_TO_SAVE_STATE * 1000)
+        });
+        // shouldSave being truthy means that no redux actions, or user events
+        // happened for X seconds
+        if (shouldSave) {
+          // select all state from our app
+          const allState = yield select(app.baseSelector);
+          // store it in local storage
+          localStorage.setItem(\\"saved-state\\", JSON.stringify(allState));
+        }
+      }
+    } finally {
+      // Something killed our saga.
+      console.log(\\"No longer saving state\\");
+    }
+  };
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+// import autoSaveState from './autoSaveState'
+
+/**
+ * rootSaga to load any global sagas you want.
+ *
+ * Included are some common ones, you just need to uncomment them.
+ */
+export default function* rootSaga() {
+  console.log(\\"saga initialized\\");
+  yield all([
+    // automatically save redux to local storage state after X (default: 1)
+    // seconds of inactivity
+    // autoSaveState()
+  ]);
+}
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts 1`] = `
+"import { createSelector } from 'reselect'
+import {app} from '../..'
+
+const confirmedWelcome = createSelector(app.baseSelector, (s) => s.ui.welcomeConfirmed)
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md 1`] = `
+"
+# Routes
+\`routes\` is a folder for holding other routes, which follows the
+[fractal pattern](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af).
+
+Each route contains:
+  * a \`routes\` folder for sub routes.
+  * a \`components\` folder for react components for this route.
+  * a \`redux\` folder, for
+    [ducks](https://github.com/erikras/ducks-modular-redux),
+    [sagas](https://redux-saga.js.org/), and anything else related to redux.
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `
+"import { TestComponent2 } from './testComponent2'
+
+export default TestComponent2
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `
+"import * as React from 'react'
+
+export interface Testcomponent2Props {
+  children?: React.ReactChildren
+}
+export const TestComponent2 = (props: Testcomponent2Props) => {
+  return (
+    <div> TestComponent2 { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute')
+const testRouteRoute = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRouteRoute.setComponent(() => import('./layout'))
+testRouteRoute.register()
+export default testRouteRoute;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface TestrouteProps {
+  children?: React.ReactChildren
+}
+
+const testRouteLayout = (props: TestrouteProps) => (
+  <div>
+    <h1>testRoute</h1>
+    { props.children }
+  </div>
+)
+export default testRouteLayout;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/testDuck2/index.ts 1`] = `
+"import { TestDuck2 } from './testDuck2'
+
+export default TestDuck2
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const TestDuck2 = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `
+"import { TestComponent3 } from './testComponent3'
+
+export default TestComponent3
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `
+"import * as React from 'react'
+
+export interface Testcomponent3Props {
+  children?: React.ReactChildren
+}
+export const TestComponent3 = (props: Testcomponent3Props) => {
+  return (
+    <div> TestComponent3 { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute2')
+const testRoute2Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute2Route.setComponent(() => import('./layout'))
+testRoute2Route.register()
+export default testRoute2Route;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute2Props {
+  children?: React.ReactChildren
+}
+
+const testRoute2Layout = (props: Testroute2Props) => (
+  <div>
+    <h1>testRoute2</h1>
+    { props.children }
+  </div>
+)
+export default testRoute2Layout;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/index.ts 1`] = `
+"import { TestDuck3 } from './testDuck3'
+
+export default TestDuck3
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/routes/testRoute/routes/testRoute2/testDuck3/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const TestDuck3 = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute3')
+const testRoute3Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute3Route.setComponent(() => import('./layout'))
+testRoute3Route.register()
+export default testRoute3Route;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute3Props {
+  children?: React.ReactChildren
+}
+
+const testRoute3Layout = (props: Testroute3Props) => (
+  <div>
+    <h1>testRoute3</h1>
+    { props.children }
+  </div>
+)
+export default testRoute3Layout;
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute/routes/testRoute2\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md 1`] = `
+"# UI
+\`ui\` is for reusable components, which should have 0 concept of anything else
+ that is in your app.
+
+## Examples
+### Components that belong in ui.
+UI components should be simple, pure, and require no context of the application.
+Try to imagine that one day, you want to publish an npm package, based on your
+ui elements. It should be as easy as copying this folder, and putting a
+package.json file in it (and maybe a build system). Think of this as your own
+personal bootstrap.
+  * Button - simple ui component. It requires no context, or anything to
+    be loaded in your app.
+  * Grid - Meta component for arranging other components or children
+  * Form inputs - keep your UI consistent by defining form inputs here.
+  * Avatar - Takes an image, and creates a specific size.
+  * Loader - Spinner or progress bar to show throughout the application.
+
+### Components that do not belong in ui.
+UI components that are specific to something in your application belong in
+components.
+  * UserAvatar - maybe it contains a link to user profiles, has knowledge of the
+    user model, etc...
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts 1`] = `
+"import { Testui } from './testUi'
+
+export default Testui
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestuiProps {
+  children?: React.ReactChildren
+}
+export const TestUi = (props: TestuiProps) => {
+  return (
+    <div> TestUi { props.children } </div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: apr g duck --name testDuck3 --route src/routes/testRoute/routes/testRoute2 1`] = `
+",
+Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templates/
+       added: src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts
+       added: src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/index.ts
+,"
+`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: file-list 1`] = `
+Array [
+  "/home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/testComponent.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/index.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/testDuck.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/reducers/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/testDuck2/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
+  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx",
+]
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import styled from \\"styled-components\\";
+const Wrapper = styled.div\`
+  display: flex;
+  flex-direction: row;
+\`;
+const Nav = styled.div\`
+  flex: 0;
+  padding: 10px;
+  margin: 10px;
+  min-width: 300px;
+  border: 1px solid lightgreen;
+  border-radius: 20px;
+\`;
+export default class RootLayout extends React.PureComponent {
+  render() {
+    return (
+      <Wrapper>
+        <Nav>
+          <ul>
+            <li>
+              link 1
+            </li>
+            <li>
+              link 2
+            </li>
+          </ul>
+        </Nav>
+        <div>{this.props.children}</div>
+      </Wrapper>
+    );
+  }
+}
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/index.ts 1`] = `
+"import { TestComponent } from './testComponent'
+
+export default TestComponent
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/testComponent.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestcomponentProps {
+  children?: React.ReactChildren
+}
+export const TestComponent = (props: TestcomponentProps) => {
+  return (
+    <div> TestComponent { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { createHashHistory } from \\"history\\";
+import { render, unmountComponentAtNode } from \\"react-dom\\";
+import { defaultInitialState, defaultReducers } from \\"./redux\\";
+const el = document.getElementById(\\"root\\");
+if (!el) throw new Error(\\"no el\\");
+
+const renderApp = (jsx: JSX.Element) => {
+  render(jsx, el);
+  return () => unmountComponentAtNode(el);
+};
+const history = createHashHistory();
+
+export const app = createApp({
+  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+  history,
+  initialState: defaultInitialState,
+  initialReducers: defaultReducers,
+  RouteNotFoundComponent: () => <div>Not Found</div>,
+  LoadingComponent: () => <h3>Loading...</h3>,
+  render: renderApp,
+  saga: import('./redux/sagas/index'),
+  layout: import(\\"./components/RootLayout\\")
+});
+
+app.init().catch(e => console.error(\\"Error Starting application\\", e));
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/index.ts 1`] = `
+"import { TestDuck } from './testDuck'
+
+export default TestDuck
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/testDuck/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const TestDuck = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/redux/index.ts 1`] = `
+"import ui, {initialState} from \\"./reducers\\";
+export const defaultInitialState = {
+  ui: initialState
+}
+export const defaultReducers = {
+  ui
+};
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/redux/reducers/index.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+export const initialState = {
+  welcomeConfirmed: false
+};
+
+type UIState = typeof initialState;
+export default createReducerFromActionPack(initialState, {
+  confirmWelcome: createActionPack<UIState, boolean>(\\"CONFIRM_WELCOME\\", (state, action) => ({
+    ...state,
+    welcomeConfirmed: action.payload
+  }))
+});
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts 1`] = `
+"import { app } from \\"../..\\";
+import { race, delay, take, call, select } from \\"redux-saga/effects\\";
+import { eventChannel } from \\"redux-saga\\";
+
+/**
+ * Redux saga event channel to listen to any events by the user.
+ */
+function userEvent() {
+  return eventChannel(emitter => {
+    document.addEventListener(\\"keypress\\", emitter);
+    document.addEventListener(\\"mousemove\\", emitter);
+    document.addEventListener(\\"mousedown\\", emitter);
+    return () => {
+      document.removeEventListener(\\"keypress\\", emitter);
+      document.removeEventListener(\\"mousemove\\", emitter);
+      document.removeEventListener(\\"mousedown\\", emitter);
+    };
+  });
+}
+
+export default ({
+  // Amount of time to wait with no actions, and no user input before saving
+  // state to local storage.
+  SECONDS_TO_SAVE_STATE = 1
+} = {}) =>
+  function* autoSaveState() {
+    const chan = yield call(userEvent);
+    try {
+      // Sagas can go forever, without an infinite loop, as long as they are
+      // yielding to something.
+      while (true) {
+        // This is a race between the 3 events, the first event to happen
+        // cancels the other events. The return of the race is as follows:
+        // 1. A redux action occurred resulting in:
+        //    {cancelledByAction: <the action>}
+        // 2. A use moved the mouse or pressed a key triggering an event
+        //    on the channel, resulting in:
+        //    {cancelledByUserEvent: <event>}
+        // 3. The delay happened, (the other two didn't happen for X seconds)
+        //    Resulting in:
+        //    {shouldSave: <effect descriptor>}
+        const { shouldSave } = yield race({
+          cancelledByAction: take(() => true),
+          cancelledByUserEvent: take(chan),
+          shouldSave: delay(SECONDS_TO_SAVE_STATE * 1000)
+        });
+        // shouldSave being truthy means that no redux actions, or user events
+        // happened for X seconds
+        if (shouldSave) {
+          // select all state from our app
+          const allState = yield select(app.baseSelector);
+          // store it in local storage
+          localStorage.setItem(\\"saved-state\\", JSON.stringify(allState));
+        }
+      }
+    } finally {
+      // Something killed our saga.
+      console.log(\\"No longer saving state\\");
+    }
+  };
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+// import autoSaveState from './autoSaveState'
+
+/**
+ * rootSaga to load any global sagas you want.
+ *
+ * Included are some common ones, you just need to uncomment them.
+ */
+export default function* rootSaga() {
+  console.log(\\"saga initialized\\");
+  yield all([
+    // automatically save redux to local storage state after X (default: 1)
+    // seconds of inactivity
+    // autoSaveState()
+  ]);
+}
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts 1`] = `
+"import { createSelector } from 'reselect'
+import {app} from '../..'
+
+const confirmedWelcome = createSelector(app.baseSelector, (s) => s.ui.welcomeConfirmed)
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md 1`] = `
+"
+# Routes
+\`routes\` is a folder for holding other routes, which follows the
+[fractal pattern](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af).
+
+Each route contains:
+  * a \`routes\` folder for sub routes.
+  * a \`components\` folder for react components for this route.
+  * a \`redux\` folder, for
+    [ducks](https://github.com/erikras/ducks-modular-redux),
+    [sagas](https://redux-saga.js.org/), and anything else related to redux.
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `
+"import { TestComponent2 } from './testComponent2'
+
+export default TestComponent2
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `
+"import * as React from 'react'
+
+export interface Testcomponent2Props {
+  children?: React.ReactChildren
+}
+export const TestComponent2 = (props: Testcomponent2Props) => {
+  return (
+    <div> TestComponent2 { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute')
+const testRouteRoute = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRouteRoute.setComponent(() => import('./layout'))
+testRouteRoute.register()
+export default testRouteRoute;
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface TestrouteProps {
+  children?: React.ReactChildren
+}
+
+const testRouteLayout = (props: TestrouteProps) => (
+  <div>
+    <h1>testRoute</h1>
+    { props.children }
+  </div>
+)
+export default testRouteLayout;
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `
+"import { TestComponent3 } from './testComponent3'
+
+export default TestComponent3
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `
+"import * as React from 'react'
+
+export interface Testcomponent3Props {
+  children?: React.ReactChildren
+}
+export const TestComponent3 = (props: Testcomponent3Props) => {
+  return (
+    <div> TestComponent3 { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute2')
+const testRoute2Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute2Route.setComponent(() => import('./layout'))
+testRoute2Route.register()
+export default testRoute2Route;
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute2Props {
+  children?: React.ReactChildren
+}
+
+const testRoute2Layout = (props: Testroute2Props) => (
+  <div>
+    <h1>testRoute2</h1>
+    { props.children }
+  </div>
+)
+export default testRoute2Layout;
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute3')
+const testRoute3Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute3Route.setComponent(() => import('./layout'))
+testRoute3Route.register()
+export default testRoute3Route;
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute3Props {
+  children?: React.ReactChildren
+}
+
+const testRoute3Layout = (props: Testroute3Props) => (
+  <div>
+    <h1>testRoute3</h1>
+    { props.children }
+  </div>
+)
+export default testRoute3Layout;
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute/routes/testRoute2\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md 1`] = `
+"# UI
+\`ui\` is for reusable components, which should have 0 concept of anything else
+ that is in your app.
+
+## Examples
+### Components that belong in ui.
+UI components should be simple, pure, and require no context of the application.
+Try to imagine that one day, you want to publish an npm package, based on your
+ui elements. It should be as easy as copying this folder, and putting a
+package.json file in it (and maybe a build system). Think of this as your own
+personal bootstrap.
+  * Button - simple ui component. It requires no context, or anything to
+    be loaded in your app.
+  * Grid - Meta component for arranging other components or children
+  * Form inputs - keep your UI consistent by defining form inputs here.
+  * Avatar - Takes an image, and creates a specific size.
+  * Loader - Spinner or progress bar to show throughout the application.
+
+### Components that do not belong in ui.
+UI components that are specific to something in your application belong in
+components.
+  * UserAvatar - maybe it contains a link to user profiles, has knowledge of the
+    user model, etc...
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts 1`] = `
+"import { Testui } from './testUi'
+
+export default Testui
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestuiProps {
+  children?: React.ReactChildren
+}
+export const TestUi = (props: TestuiProps) => {
+  return (
+    <div> TestUi { props.children } </div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating duck should generate a new duck: apr g duck --name testDuck --route src 1`] = `
+",
+Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templates/
+       added: src/redux/ducks/testDuck/testDuck.ts
+       added: src/redux/ducks/testDuck/index.ts
+,"
+`;
+
+exports[`generating duck should generate a new duck: file-list 1`] = `
+Array [
+  "/home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/components/testComponent/testComponent.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/index.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/testDuck/testDuck.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/reducers/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx",
+  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
+  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx",
+]
+`;
