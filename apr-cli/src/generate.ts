@@ -5,7 +5,6 @@ import { fork } from "child_process";
 import which from "which";
 import debug from "debug";
 import { green, grey, blue, red } from "./utils/colors";
-// import linkDuck from "./codemods/linkDuck";
 
 const log = debug("apr:generate");
 
