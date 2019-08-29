@@ -1,4 +1,10 @@
-module.exports = questions => ({ prompter, args }) => {
+const debug = require('debug')
+const log = debug('apr:promptUtil')
+log('test')
+module.exports = (questions, { autoLink = true } = {}) => ({ prompter, args }) => {
+  if (autoLink) {
+    questions = [...questions, { type: 'confirm', message: 'autoLink?', name: 'autoLink' }]
+  }
   const providedArgs = questions.reduce((selectedArgs, question) => {
     if (args[question.name]) {
       const answer = args[question.name]
@@ -21,6 +27,9 @@ module.exports = questions => ({ prompter, args }) => {
         }
       }
     })
+    log('apr answers', answers)
+    // this us used for codemods post gen
+    process.send(JSON.stringify({ aprAnswers: answers }))
     return answers
   })
 }

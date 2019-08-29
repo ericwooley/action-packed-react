@@ -1,6 +1,6 @@
 {
   "name": "create-apr",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "action packed react starter",
   "main": "bin.js",
   "author": "Eric Wooley <ericwooley@gmail.com>",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "debug": "^4.1.1",
-    "hygen": "^4.0.7",
+    "hygen": "^4.0.9",
     "yargs-parser": "^13.1.1"
   },
   "devDependencies": {

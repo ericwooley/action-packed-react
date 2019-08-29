@@ -11,14 +11,16 @@ describe("generating", () => {
       await snapshotPlayground();
     });
     it("should generate a new route based on testRoutes2", async () => {
-      runApr("g route --name testRoute3 --route src/routes/testRoute/routes/testRoute2", { snapshotOutput: true });
+      runApr("g route --name testRoute3 --route src/routes/testRoute/routes/testRoute2", {
+        snapshotOutput: true
+      });
       await snapshotPlayground();
     });
     it("should throw an error on a non-existent route", () => {
       expect(() =>
         runApr("g route --name testRoute --route src/routes/nothing")
       ).toThrowErrorMatchingInlineSnapshot(
-        `"Unsuccessful apr command: apr g route --name testRoute --route src/routes/nothing"`
+        `"Unsuccessful apr command: apr g route --name testRoute --route src/routes/nothing --autoLink"`
       );
     });
   });

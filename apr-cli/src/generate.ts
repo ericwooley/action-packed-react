@@ -1,19 +1,30 @@
 import { Arguments } from "yargs-parser";
 import { join } from "path";
 import { EOL } from "os";
-import { spawnSync } from "child_process";
+import { fork } from "child_process";
 import which from "which";
 import debug from "debug";
 import { green, grey, blue, red } from "./utils/colors";
+// import linkDuck from "./codemods/linkDuck";
 
 const log = debug("apr:generate");
 
-const generatorArgs: { [key: string]: (restArgs: string[]) => string[] | void } = {
-  ui: (restArgs: string[]) => ["ui", "new", ...restArgs],
-  component: (restArgs: string[]) => ["component", "new", ...restArgs],
-  route: (restArgs: string[]) => ["route", "new", ...restArgs],
-  duck: (restArgs: string[]) => ["duck", "new", ...restArgs],
-  saga: (restArgs: string[]) => ["saga", "new", ...restArgs]
+const generatorArgs: {
+  [key: string]: (
+    restArgs: string[]
+  ) => { args: string[]; autoLink?: (answers: any, args?: string[]) => void };
+} = {
+  ui: (restArgs: string[]) => ({
+    autoLink: () => null,
+    args: ["ui", "new", ...restArgs]
+  }),
+  component: (restArgs: string[]) => ({
+    args: ["component", "new", ...restArgs],
+    autoLink: () => null
+  }),
+  route: (restArgs: string[]) => ({ args: ["route", "new", ...restArgs], autoLink: () => null }),
+  duck: (restArgs: string[]) => ({ args: ["duck", "new", ...restArgs], autoLink: () => null }),
+  saga: (restArgs: string[]) => ({ args: ["saga", "new", ...restArgs], autoLink: () => null })
 };
 const helpText = grey(`       Available generators:
          * ${Object.keys(generatorArgs)
@@ -21,12 +32,12 @@ const helpText = grey(`       Available generators:
            .join(`${EOL}         * `)}`);
 module.exports = async function build(options: Arguments) {
   if (options.help) {
-    return console.log(
+    console.log(
       `
     -> ${green("generate")}: [ generator ]
        ${grey("Each generator has interactive prompts")}${EOL}${helpText}`.trim()
     );
-    return 0
+    return 0;
   }
   const buildCommand = which.sync("hygen");
   process.env.HYGEN_TMPLS = join(__dirname, "../_templates/");
@@ -45,13 +56,41 @@ available generators:
     );
     return 1;
   }
-  const args = generatorArgs[generator](process.argv.slice(4));
+  const { args, autoLink } = generatorArgs[generator](process.argv.slice(4));
   if (args) {
     log("running generator:", buildCommand, "with args", args);
-    const result = spawnSync(buildCommand, args, {
-      stdio: "inherit"
+    let answersFromHygen: { route: string; name: string; autoLink: boolean } = {
+      route: "",
+      name: "",
+      autoLink: false
+    };
+    let ipcCommunicated = false;
+    const hygenExitCode = await new Promise(r => {
+      const child = fork(buildCommand, args, {
+        stdio: ["inherit", "inherit", "inherit", "ipc"]
+      });
+      child.on("message", async message => {
+        log("ipc message", message);
+        try {
+          const { aprAnswers } = JSON.parse(message);
+          answersFromHygen = aprAnswers;
+          ipcCommunicated = true;
+        } catch (e) {
+          console.error(red("Could read summary: " + message));
+        }
+      });
+      child.on("exit", r);
     });
-    return result.status
+    log("answersFromHygen", answersFromHygen);
+    if (options.autoLink && !ipcCommunicated) {
+      console.error(red("Cannot autoLink, ipc communication error"));
+      return 1;
+    }
+    if (autoLink && answersFromHygen.autoLink) {
+      log("codemod with ", { answersFromHygen });
+      autoLink(answersFromHygen);
+    }
+    return hygenExitCode;
   }
-  return 1
+  return 1;
 };

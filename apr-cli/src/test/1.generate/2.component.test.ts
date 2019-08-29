@@ -22,7 +22,7 @@ describe("generating", () => {
       expect(() =>
         runApr("g component --name testComponent --route src/routes/nothing")
       ).toThrowErrorMatchingInlineSnapshot(
-        `"Unsuccessful apr command: apr g component --name testComponent --route src/routes/nothing"`
+        `"Unsuccessful apr command: apr g component --name testComponent --route src/routes/nothing --autoLink"`
       );
     });
   });

@@ -42,7 +42,7 @@ exports[`setup should create the initial files: /home/ericwooley/projects/action
 import { createApp } from \\"action-packed-react\\";
 import { createHashHistory } from \\"history\\";
 import { render, unmountComponentAtNode } from \\"react-dom\\";
-import { defaultInitialState, defaultReducers } from \\"./redux\\";
+import initialReducers, {initialState} from \\"./redux/ducks\\";
 const el = document.getElementById(\\"root\\");
 if (!el) throw new Error(\\"no el\\");
 
@@ -55,8 +55,8 @@ const history = createHashHistory();
 export const app = createApp({
   composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
   history,
-  initialState: defaultInitialState,
-  initialReducers: defaultReducers,
+  initialState,
+  initialReducers,
   RouteNotFoundComponent: () => <div>Not Found</div>,
   LoadingComponent: () => <h3>Loading...</h3>,
   render: renderApp,
@@ -68,31 +68,14 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 "
 `;
 
-exports[`setup should create the initial files: /home/ericwooley/projects/action-packed-react/playground/src/redux/index.ts 1`] = `
-"import ui, {initialState} from \\"./reducers\\";
-export const defaultInitialState = {
-  ui: initialState
-}
-export const defaultReducers = {
-  ui
-};
-"
-`;
+exports[`setup should create the initial files: /home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/index.ts 1`] = `
+"// 👇 Add your reducers here 👇
+export default {}
 
-exports[`setup should create the initial files: /home/ericwooley/projects/action-packed-react/playground/src/redux/reducers/index.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
-
+// 👇 Add your initial states here 👇
 export const initialState = {
-  welcomeConfirmed: false
-};
 
-type UIState = typeof initialState;
-export default createReducerFromActionPack(initialState, {
-  confirmWelcome: createActionPack<UIState, boolean>(\\"CONFIRM_WELCOME\\", (state, action) => ({
-    ...state,
-    welcomeConfirmed: action.payload
-  }))
-});
+}
 "
 `;
 
@@ -184,7 +167,6 @@ exports[`setup should create the initial files: /home/ericwooley/projects/action
 "import { createSelector } from 'reselect'
 import {app} from '../..'
 
-const confirmedWelcome = createSelector(app.baseSelector, (s) => s.ui.welcomeConfirmed)
 "
 `;
 
@@ -234,8 +216,7 @@ exports[`setup should create the initial files: file-list 1`] = `
 Array [
   "/home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx",
   "/home/ericwooley/projects/action-packed-react/playground/src/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/reducers/index.ts",
+  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts",
   "/home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts",

@@ -5,7 +5,7 @@ import * as React from "react";
 import { createApp } from "action-packed-react";
 import { createHashHistory } from "history";
 import { render, unmountComponentAtNode } from "react-dom";
-import { defaultInitialState, defaultReducers } from "./redux";
+import initialReducers, {initialState} from "./redux/ducks";
 const el = document.getElementById("root");
 if (!el) throw new Error("no el");
 
@@ -18,8 +18,8 @@ const history = createHashHistory();
 export const app = createApp({
   composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
   history,
-  initialState: defaultInitialState,
-  initialReducers: defaultReducers,
+  initialState,
+  initialReducers,
   RouteNotFoundComponent: () => <div>Not Found</div>,
   LoadingComponent: () => <h3>Loading...</h3>,
   render: renderApp,

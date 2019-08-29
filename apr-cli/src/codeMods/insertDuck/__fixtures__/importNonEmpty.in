@@ -1,0 +1,4 @@
+import test from './ducks/test'
+export default {
+  test: test
+};

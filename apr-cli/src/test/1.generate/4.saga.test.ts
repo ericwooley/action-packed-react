@@ -22,7 +22,7 @@ describe("generating", () => {
       expect(() =>
         runApr("g saga --name testSaga --route src/routes/nothing")
       ).toThrowErrorMatchingInlineSnapshot(
-        `"Unsuccessful apr command: apr g saga --name testSaga --route src/routes/nothing"`
+        `"Unsuccessful apr command: apr g saga --name testSaga --route src/routes/nothing --autoLink"`
       );
     });
   });

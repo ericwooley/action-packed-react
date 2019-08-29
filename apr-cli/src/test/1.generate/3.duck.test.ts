@@ -22,7 +22,7 @@ describe("generating", () => {
       expect(() =>
         runApr("g duck --name testDuck --route src/routes/nothing")
       ).toThrowErrorMatchingInlineSnapshot(
-        `"Unsuccessful apr command: apr g duck --name testDuck --route src/routes/nothing"`
+        `"Unsuccessful apr command: apr g duck --name testDuck --route src/routes/nothing --autoLink"`
       );
     });
   });

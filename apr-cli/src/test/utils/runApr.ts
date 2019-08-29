@@ -2,9 +2,12 @@ import { join } from "path";
 import { spawnSync } from "child_process";
 import debug from "debug";
 const log = debug("apr:runApr");
-export const runApr = (args: string[] | string, { snapshotOutput = false } = {}) => {
+export const runApr = (args: string[] | string, { snapshotOutput = false, autoLink = true } = {}) => {
   if (typeof args === "string") {
     args = args.split(/\s/g);
+  }
+  if(autoLink) {
+    args.push('--autoLink')
   }
   const prettyCommand = ["apr", ...args].join(" ");
   process.chdir(join(__dirname, "../../../../playground"));

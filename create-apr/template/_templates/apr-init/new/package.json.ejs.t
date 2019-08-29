@@ -10,13 +10,16 @@ to: package.json
     "prebuild": "rm -rf dist",
     "build": "apr build",
     "start": "apr dev",
-    "lint": "tslint"
+    "lint": "tslint",
+    "test": "echo 'test no yet defined'"
   },
   "dependencies":{
     "@types/history": "^4.7.2",
     "@types/react": "^16.8.24",
     "@types/react-dom": "^16.8.5",
     "@types/styled-components": "^4.1.18",
+    "action-packed-react": "0.0.0",
+    "apr-cli": "0.0.0",
     "history": "^4.9.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

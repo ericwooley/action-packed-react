@@ -7,5 +7,5 @@ const questions = [
   nameQuestion('component')
 ]
 module.exports = {
-  prompt: promptArgs(questions)
+  prompt: promptArgs(questions, { autoLink: false })
 }
