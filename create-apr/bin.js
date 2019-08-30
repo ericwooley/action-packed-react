@@ -27,9 +27,11 @@ if (argv.dev) {
   const currentPath = process.cwd()
   process.cwd('../')
   spawnSync('yarn', [], { stdio: 'inherit' })
+  process.chdir(join(__dirname, '../apr-cli/'))
+  spawnSync('yarn', ['link'], { stdio: 'inherit' })
   process.cwd(currentPath)
   // spawnSync('yarn', ['add', aprCliPath, aprPath], { stdio: 'inherit' })
-  // spawnSync('yarn', ['link', 'apr-cli'], { stdio: 'inherit' })
+  spawnSync('yarn', ['link', 'apr-cli'], { stdio: 'inherit' })
 } else {
   spawnSync('yarn', [], { stdio: 'inherit' })
   // spawnSync('yarn', ['add', 'apr-cli'], { stdio: 'inherit' })
