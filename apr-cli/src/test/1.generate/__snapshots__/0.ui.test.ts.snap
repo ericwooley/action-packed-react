@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx 1`] = `
+exports[`generating ui should generate a new ui component: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import styled from \\"styled-components\\";
 const Wrapper = styled.div\`
@@ -37,7 +37,7 @@ export default class RootLayout extends React.PureComponent {
 "
 `;
 
-exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/index.tsx 1`] = `
+exports[`generating ui should generate a new ui component: <project-root>playground/src/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import { createApp } from \\"action-packed-react\\";
 import { createHashHistory } from \\"history\\";
@@ -68,7 +68,7 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 "
 `;
 
-exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/index.ts 1`] = `
+exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/ducks/index.ts 1`] = `
 "// 👇 Add your reducers here 👇
 export default {}
 
@@ -79,7 +79,7 @@ export const initialState = {
 "
 `;
 
-exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts 1`] = `
+exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `
 "import { app } from \\"../..\\";
 import { race, delay, take, call, select } from \\"redux-saga/effects\\";
 import { eventChannel } from \\"redux-saga\\";
@@ -143,7 +143,7 @@ export default ({
 "
 `;
 
-exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts 1`] = `
+exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/sagas/index.ts 1`] = `
 "import { all } from \\"redux-saga/effects\\";
 // import autoSaveState from './autoSaveState'
 
@@ -163,14 +163,14 @@ export default function* rootSaga() {
 "
 `;
 
-exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts 1`] = `
+exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/selectors/index.ts 1`] = `
 "import { createSelector } from 'reselect'
 import {app} from '../..'
 
 "
 `;
 
-exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md 1`] = `
+exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/readme.md 1`] = `
 "
 # Routes
 \`routes\` is a folder for holding other routes, which follows the
@@ -185,7 +185,7 @@ Each route contains:
 "
 `;
 
-exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md 1`] = `
+exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/readme.md 1`] = `
 "# UI
 \`ui\` is for reusable components, which should have 0 concept of anything else
  that is in your app.
@@ -212,7 +212,7 @@ components.
 "
 `;
 
-exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts 1`] = `
+exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/index.ts 1`] = `
 "import { Testui } from './testUi'
 
 export default Testui
@@ -221,7 +221,7 @@ export default Testui
 "
 `;
 
-exports[`generating ui should generate a new ui component: /home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx 1`] = `
+exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `
 "import * as React from 'react'
 
 export interface TestuiProps {
@@ -247,15 +247,15 @@ Loaded templates: <project-root>apr-cli/_templates/
 
 exports[`generating ui should generate a new ui component: file-list 1`] = `
 Array [
-  "<project-root>/playground/src/components/RootLayout/index.tsx",
-  "<project-root>/playground/src/index.tsx",
-  "<project-root>/playground/src/redux/ducks/index.ts",
-  "<project-root>/playground/src/redux/sagas/autoSaveState.ts",
-  "<project-root>/playground/src/redux/sagas/index.ts",
-  "<project-root>/playground/src/redux/selectors/index.ts",
-  "<project-root>/playground/src/routes/readme.md",
-  "<project-root>/playground/src/ui/readme.md",
-  "<project-root>/playground/src/ui/testUi/index.ts",
-  "<project-root>/playground/src/ui/testUi/testUi.tsx",
+  "<project-root>playground/src/components/RootLayout/index.tsx",
+  "<project-root>playground/src/index.tsx",
+  "<project-root>playground/src/redux/ducks/index.ts",
+  "<project-root>playground/src/redux/sagas/autoSaveState.ts",
+  "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/selectors/index.ts",
+  "<project-root>playground/src/routes/readme.md",
+  "<project-root>playground/src/ui/readme.md",
+  "<project-root>playground/src/ui/testUi/index.ts",
+  "<project-root>playground/src/ui/testUi/testUi.tsx",
 ]
 `;

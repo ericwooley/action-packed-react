@@ -2,6 +2,7 @@ import glob from "glob";
 import path, { join } from "path";
 import fs from "fs";
 import debug from "debug";
+import { cleanSourcePath } from "./cleanSourcePath";
 const log = debug("apr:test:files");
 const projectRootPath = join(__dirname, "../../../../")
 const playGroundSrc = path.join(__dirname, "../../../../playground/src/**/*");
@@ -39,10 +40,10 @@ export const snapshotPlayground = async () => {
   const filesWithSources = await getAllAllPlaygroundFileSources();
   expect(
     filesWithSources.map(({ path }) =>
-      path.replace(projectRootPath, "<project-root>/")
+      cleanSourcePath(path)
     )
   ).toMatchSnapshot("file-list");
   filesWithSources.forEach(({ path, contents }) => {
-    expect(contents.replace(projectRootPath, '<project-root>')).toMatchSnapshot(path);
+    expect(cleanSourcePath(contents)).toMatchSnapshot(cleanSourcePath(path));
   });
 };
