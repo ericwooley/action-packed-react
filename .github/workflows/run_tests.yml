@@ -12,4 +12,4 @@ jobs:
     - name: install
       run: yarn install
     - name: test
-      run: yarn workspaces run test
+      run: sudo yarn workspaces run test
