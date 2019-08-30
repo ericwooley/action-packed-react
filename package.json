@@ -12,7 +12,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn workspaces run test || (cat playground.log && false)"
+      "pre-push": "yarn workspaces run test || (cat playground.log && false)"
     }
   },
   "workspaces": {
