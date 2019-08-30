@@ -2,7 +2,7 @@ import { join } from "path";
 import { spawnSync } from "child_process";
 import debug from "debug";
 const log = debug("apr:runApr");
-const projectRootPath = join(__dirname, "../../../../")
+const projectRootPath = new RegExp(join(__dirname, "../../../../"), 'g')
 export const runApr = (args: string[] | string, { snapshotOutput = false, autoLink = true } = {}) => {
   if (typeof args === "string") {
     args = args.split(/\s/g);
