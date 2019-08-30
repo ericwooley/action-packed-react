@@ -214,13 +214,13 @@ components.
 
 exports[`setup should create the initial files: file-list 1`] = `
 Array [
-  "/home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
+  "<project-root>/playground/src/components/RootLayout/index.tsx",
+  "<project-root>/playground/src/index.tsx",
+  "<project-root>/playground/src/redux/ducks/index.ts",
+  "<project-root>/playground/src/redux/sagas/autoSaveState.ts",
+  "<project-root>/playground/src/redux/sagas/index.ts",
+  "<project-root>/playground/src/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/readme.md",
+  "<project-root>/playground/src/ui/readme.md",
 ]
 `;

@@ -377,7 +377,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating route should generate a new route based on testRoutes: apr g route --name testRoute2 --route src/routes/testRoute --autoLink 1`] = `
 ",
-Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templates/
+Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/components/.gitkeep
        added: src/routes/testRoute/routes/testRoute2/index.ts
        added: src/routes/testRoute/routes/testRoute2/layout.tsx
@@ -391,28 +391,28 @@ Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templat
 
 exports[`generating route should generate a new route based on testRoutes: file-list 1`] = `
 Array [
-  "/home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/selectors/testRoute.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx",
+  "<project-root>/playground/src/components/RootLayout/index.tsx",
+  "<project-root>/playground/src/index.tsx",
+  "<project-root>/playground/src/redux/ducks/index.ts",
+  "<project-root>/playground/src/redux/sagas/autoSaveState.ts",
+  "<project-root>/playground/src/redux/sagas/index.ts",
+  "<project-root>/playground/src/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/readme.md",
+  "<project-root>/playground/src/routes/testRoute/index.ts",
+  "<project-root>/playground/src/routes/testRoute/layout.tsx",
+  "<project-root>/playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>/playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>/playground/src/routes/testRoute/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/testRoute/redux/selectors/testRoute.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
+  "<project-root>/playground/src/ui/readme.md",
+  "<project-root>/playground/src/ui/testUi/index.ts",
+  "<project-root>/playground/src/ui/testUi/testUi.tsx",
 ]
 `;
 
@@ -862,7 +862,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating route should generate a new route based on testRoutes2: apr g route --name testRoute3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
-Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templates/
+Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/components/.gitkeep
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx
@@ -876,34 +876,34 @@ Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templat
 
 exports[`generating route should generate a new route based on testRoutes2: file-list 1`] = `
 Array [
-  "/home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/selectors/testRoute.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx",
+  "<project-root>/playground/src/components/RootLayout/index.tsx",
+  "<project-root>/playground/src/index.tsx",
+  "<project-root>/playground/src/redux/ducks/index.ts",
+  "<project-root>/playground/src/redux/sagas/autoSaveState.ts",
+  "<project-root>/playground/src/redux/sagas/index.ts",
+  "<project-root>/playground/src/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/readme.md",
+  "<project-root>/playground/src/routes/testRoute/index.ts",
+  "<project-root>/playground/src/routes/testRoute/layout.tsx",
+  "<project-root>/playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>/playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>/playground/src/routes/testRoute/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/testRoute/redux/selectors/testRoute.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
+  "<project-root>/playground/src/ui/readme.md",
+  "<project-root>/playground/src/ui/testUi/index.ts",
+  "<project-root>/playground/src/ui/testUi/testUi.tsx",
 ]
 `;
 
@@ -1215,7 +1215,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating route should generate a new route: apr g route --name testRoute --route src --autoLink 1`] = `
 ",
-Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templates/
+Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/components/.gitkeep
        added: src/routes/testRoute/index.ts
        added: src/routes/testRoute/layout.tsx
@@ -1229,21 +1229,21 @@ Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templat
 
 exports[`generating route should generate a new route: file-list 1`] = `
 Array [
-  "/home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/layout.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/testRoute/redux/selectors/testRoute.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx",
+  "<project-root>/playground/src/components/RootLayout/index.tsx",
+  "<project-root>/playground/src/index.tsx",
+  "<project-root>/playground/src/redux/ducks/index.ts",
+  "<project-root>/playground/src/redux/sagas/autoSaveState.ts",
+  "<project-root>/playground/src/redux/sagas/index.ts",
+  "<project-root>/playground/src/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/readme.md",
+  "<project-root>/playground/src/routes/testRoute/index.ts",
+  "<project-root>/playground/src/routes/testRoute/layout.tsx",
+  "<project-root>/playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>/playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>/playground/src/routes/testRoute/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/testRoute/redux/selectors/testRoute.ts",
+  "<project-root>/playground/src/ui/readme.md",
+  "<project-root>/playground/src/ui/testUi/index.ts",
+  "<project-root>/playground/src/ui/testUi/testUi.tsx",
 ]
 `;

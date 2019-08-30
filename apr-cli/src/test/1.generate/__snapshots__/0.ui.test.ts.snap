@@ -239,7 +239,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating ui should generate a new ui component: apr g ui --name testUi --autoLink 1`] = `
 ",
-Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templates/
+Loaded templates: <project-root>apr-cli/_templates/
        added: src/ui/testUi/index.ts
        added: src/ui/testUi/testUi.tsx
 ,"
@@ -247,15 +247,15 @@ Loaded templates: /home/ericwooley/projects/action-packed-react/apr-cli/_templat
 
 exports[`generating ui should generate a new ui component: file-list 1`] = `
 Array [
-  "/home/ericwooley/projects/action-packed-react/playground/src/components/RootLayout/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/index.tsx",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/ducks/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/autoSaveState.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/sagas/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/redux/selectors/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/routes/readme.md",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/readme.md",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/index.ts",
-  "/home/ericwooley/projects/action-packed-react/playground/src/ui/testUi/testUi.tsx",
+  "<project-root>/playground/src/components/RootLayout/index.tsx",
+  "<project-root>/playground/src/index.tsx",
+  "<project-root>/playground/src/redux/ducks/index.ts",
+  "<project-root>/playground/src/redux/sagas/autoSaveState.ts",
+  "<project-root>/playground/src/redux/sagas/index.ts",
+  "<project-root>/playground/src/redux/selectors/index.ts",
+  "<project-root>/playground/src/routes/readme.md",
+  "<project-root>/playground/src/ui/readme.md",
+  "<project-root>/playground/src/ui/testUi/index.ts",
+  "<project-root>/playground/src/ui/testUi/testUi.tsx",
 ]
 `;

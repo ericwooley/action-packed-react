@@ -1,9 +1,9 @@
 import glob from "glob";
-import path from "path";
+import path, { join } from "path";
 import fs from "fs";
 import debug from "debug";
 const log = debug("apr:test:files");
-
+const projectRootPath = join(__dirname, "../../../../")
 const playGroundSrc = path.join(__dirname, "../../../../playground/src/**/*");
 export const getAllFiles = () => {
   log("searching", playGroundSrc, "for files to diff");
@@ -18,7 +18,6 @@ export const getAllFiles = () => {
 };
 
 export const getAllFilesSource = (files: string[]) => {
-
   return Promise.all(
     files.map(
       file =>
@@ -38,8 +37,12 @@ export const getAllFilesSource = (files: string[]) => {
 export const getAllAllPlaygroundFileSources = async () => getAllFilesSource(await getAllFiles());
 export const snapshotPlayground = async () => {
   const filesWithSources = await getAllAllPlaygroundFileSources();
-  expect(filesWithSources.map(({ path }) => path)).toMatchSnapshot("file-list");
+  expect(
+    filesWithSources.map(({ path }) =>
+      path.replace(projectRootPath, "<project-root>/")
+    )
+  ).toMatchSnapshot("file-list");
   filesWithSources.forEach(({ path, contents }) => {
-    expect(contents).toMatchSnapshot(path);
+    expect(contents.replace(projectRootPath, '<project-root>')).toMatchSnapshot(path);
   });
 };
