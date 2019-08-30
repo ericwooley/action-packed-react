@@ -8,6 +8,7 @@
   "private": false,
   "bin": "./bin.js",
   "scripts": {
+    "build": "echo 'No build script'; exit 0;",
     "test": "echo 'No tests yet'; exit 0;"
   },
   "dependencies": {
