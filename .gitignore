@@ -13,3 +13,4 @@ docs
 playground/*
 playground-*
 temp/*
+package-lock.json
