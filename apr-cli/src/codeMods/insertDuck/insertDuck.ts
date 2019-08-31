@@ -12,15 +12,11 @@ module.exports = function(fileInfo: FileInfo, api: API, options: { name: string 
     .node.program.body.unshift(
       `import { ${options.name}, initialState as ${options.name}InitialState } from './${options.name}/${options.name}'`
     );
-  root
-    .find(j.ExportDefaultDeclaration)
-    .forEach((dec: any) =>{
-      const property = j.property("init", j.identifier(options.name), j.identifier(options.name))
-      property.shorthand = true
-      dec.value.declaration.properties.push(
-        property
-      )}
-    );
+  root.find(j.ExportDefaultDeclaration).forEach((dec: any) => {
+    const property = j.property("init", j.identifier(options.name), j.identifier(options.name));
+    property.shorthand = true;
+    dec.value.declaration.properties.push(property);
+  });
   root
     .find(j.VariableDeclarator)
     .filter(isInitialState)
