@@ -1,7 +1,7 @@
 import { test, initialState as testInitialState } from './test/test'
 
 export default {
-  test: test
+  test
 };
 
 export const initialState = {

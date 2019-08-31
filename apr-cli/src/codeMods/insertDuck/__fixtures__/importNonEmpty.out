@@ -2,8 +2,8 @@ import { test2, initialState as test2InitialState } from './test2/test2'
 import { test, initialState as testInitialState } from './test/test'
 
 export default {
-  test: test,
-  test2: test2
+  test,
+  test2
 };
 
 export const initialState = {

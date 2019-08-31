@@ -94,22 +94,16 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/redux/ducks/index.ts 1`] = `
-"// 👇 Add your reducers here 👇
-export default {}
+"import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+// 👇 Add your reducers here 👇
+export default {
+  testDuck: testDuck
+};
 
 // 👇 Add your initial states here 👇
 export const initialState = {
-
+  testDuck: testDuckInitialState
 }
-"
-`;
-
-exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/redux/ducks/testDuck/index.ts 1`] = `
-"import { TestDuck } from './testDuck'
-
-export default TestDuck
-
-
 "
 `;
 
@@ -123,7 +117,7 @@ export const initialState = {
 };
 
 type UIState = typeof initialState;
-export const TestDuck = createReducerFromActionPack(initialState, {
+export const testDuck = createReducerFromActionPack(initialState, {
   confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
     ...state,
     confirmed: action.payload
@@ -296,19 +290,13 @@ export default testRouteLayout;
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
-"/**
+"import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+/**
  * Run \`apr g duck --route src\` to add a duck
  */
-export default {}
-"
-`;
-
-exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/index.ts 1`] = `
-"import { TestDuck2 } from './testDuck2'
-
-export default TestDuck2
-
-
+export default {
+ testDuck2: testDuck2
+};
 "
 `;
 
@@ -322,7 +310,7 @@ export const initialState = {
 };
 
 type UIState = typeof initialState;
-export const TestDuck2 = createReducerFromActionPack(initialState, {
+export const testDuck2 = createReducerFromActionPack(initialState, {
   confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
     ...state,
     confirmed: action.payload
@@ -579,8 +567,23 @@ exports[`generating duck should generate a new duck based on testRoutes: apr g d
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts
-       added: src/routes/testRoute/redux/ducks/testDuck2/index.ts
-,"
+Processing 1 files... 
+Spawning 1 workers...
+Sending 1 files to free worker...
+All done. 
+Results: 
+[31m0 errors[39m
+[31m[39m[33m0 unmodified[39m
+[33m[39m[33m0 skipped[39m
+[33m[39m[32m1 ok[39m
+[32m[39mTime elapsed: 0.261seconds 
+,Warning: The 'await-promise' rule requires type information.
+Warning: The 'deprecation' rule requires type information.
+Warning: The 'no-floating-promises' rule requires type information.
+Warning: The 'no-unnecessary-qualifier' rule requires type information.
+Warning: The 'no-unnecessary-type-assertion' rule requires type information.
+Warning: The 'strict-type-predicates' rule requires type information.
+"
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes: file-list 1`] = `
@@ -590,7 +593,6 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
-  "<project-root>playground/src/redux/ducks/testDuck/index.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
@@ -601,7 +603,6 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
@@ -720,22 +721,16 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/redux/ducks/index.ts 1`] = `
-"// 👇 Add your reducers here 👇
-export default {}
+"import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+// 👇 Add your reducers here 👇
+export default {
+  testDuck: testDuck
+};
 
 // 👇 Add your initial states here 👇
 export const initialState = {
-
+  testDuck: testDuckInitialState
 }
-"
-`;
-
-exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/redux/ducks/testDuck/index.ts 1`] = `
-"import { TestDuck } from './testDuck'
-
-export default TestDuck
-
-
 "
 `;
 
@@ -749,7 +744,7 @@ export const initialState = {
 };
 
 type UIState = typeof initialState;
-export const TestDuck = createReducerFromActionPack(initialState, {
+export const testDuck = createReducerFromActionPack(initialState, {
   confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
     ...state,
     confirmed: action.payload
@@ -922,19 +917,13 @@ export default testRouteLayout;
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
-"/**
+"import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+/**
  * Run \`apr g duck --route src\` to add a duck
  */
-export default {}
-"
-`;
-
-exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/index.ts 1`] = `
-"import { TestDuck2 } from './testDuck2'
-
-export default TestDuck2
-
-
+export default {
+ testDuck2: testDuck2
+};
 "
 `;
 
@@ -948,7 +937,7 @@ export const initialState = {
 };
 
 type UIState = typeof initialState;
-export const TestDuck2 = createReducerFromActionPack(initialState, {
+export const testDuck2 = createReducerFromActionPack(initialState, {
   confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
     ...state,
     confirmed: action.payload
@@ -1044,19 +1033,13 @@ export default testRoute2Layout;
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
-"/**
+"import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
+/**
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
-export default {}
-"
-`;
-
-exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/index.ts 1`] = `
-"import { TestDuck3 } from './testDuck3'
-
-export default TestDuck3
-
-
+export default {
+ testDuck3: testDuck3
+};
 "
 `;
 
@@ -1070,7 +1053,7 @@ export const initialState = {
 };
 
 type UIState = typeof initialState;
-export const TestDuck3 = createReducerFromActionPack(initialState, {
+export const testDuck3 = createReducerFromActionPack(initialState, {
   confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
     ...state,
     confirmed: action.payload
@@ -1233,8 +1216,23 @@ exports[`generating duck should generate a new duck based on testRoutes2: apr g 
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts
-       added: src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/index.ts
-,"
+Processing 1 files... 
+Spawning 1 workers...
+Sending 1 files to free worker...
+All done. 
+Results: 
+[31m0 errors[39m
+[31m[39m[33m0 unmodified[39m
+[33m[39m[33m0 skipped[39m
+[33m[39m[32m1 ok[39m
+[32m[39mTime elapsed: 0.258seconds 
+,Warning: The 'await-promise' rule requires type information.
+Warning: The 'deprecation' rule requires type information.
+Warning: The 'no-floating-promises' rule requires type information.
+Warning: The 'no-unnecessary-qualifier' rule requires type information.
+Warning: The 'no-unnecessary-type-assertion' rule requires type information.
+Warning: The 'strict-type-predicates' rule requires type information.
+"
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: file-list 1`] = `
@@ -1244,7 +1242,6 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
-  "<project-root>playground/src/redux/ducks/testDuck/index.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
@@ -1255,7 +1252,6 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
@@ -1265,7 +1261,6 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
@@ -1376,22 +1371,16 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 `;
 
 exports[`generating duck should generate a new duck: <project-root>playground/src/redux/ducks/index.ts 1`] = `
-"// 👇 Add your reducers here 👇
-export default {}
+"import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+// 👇 Add your reducers here 👇
+export default {
+  testDuck: testDuck
+};
 
 // 👇 Add your initial states here 👇
 export const initialState = {
-
+  testDuck: testDuckInitialState
 }
-"
-`;
-
-exports[`generating duck should generate a new duck: <project-root>playground/src/redux/ducks/testDuck/index.ts 1`] = `
-"import { TestDuck } from './testDuck'
-
-export default TestDuck
-
-
 "
 `;
 
@@ -1405,7 +1394,7 @@ export const initialState = {
 };
 
 type UIState = typeof initialState;
-export const TestDuck = createReducerFromActionPack(initialState, {
+export const testDuck = createReducerFromActionPack(initialState, {
   confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
     ...state,
     confirmed: action.payload
@@ -1833,8 +1822,23 @@ exports[`generating duck should generate a new duck: apr g duck --name testDuck 
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/redux/ducks/testDuck/testDuck.ts
-       added: src/redux/ducks/testDuck/index.ts
-,"
+Processing 1 files... 
+Spawning 1 workers...
+Sending 1 files to free worker...
+All done. 
+Results: 
+[31m0 errors[39m
+[31m[39m[33m0 unmodified[39m
+[33m[39m[33m0 skipped[39m
+[33m[39m[32m1 ok[39m
+[32m[39mTime elapsed: 0.273seconds 
+,Warning: The 'await-promise' rule requires type information.
+Warning: The 'deprecation' rule requires type information.
+Warning: The 'no-floating-promises' rule requires type information.
+Warning: The 'no-unnecessary-qualifier' rule requires type information.
+Warning: The 'no-unnecessary-type-assertion' rule requires type information.
+Warning: The 'strict-type-predicates' rule requires type information.
+"
 `;
 
 exports[`generating duck should generate a new duck: file-list 1`] = `
@@ -1844,7 +1848,6 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
-  "<project-root>playground/src/redux/ducks/testDuck/index.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",

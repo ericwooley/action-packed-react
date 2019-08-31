@@ -14,10 +14,12 @@ module.exports = function(fileInfo: FileInfo, api: API, options: { name: string 
     );
   root
     .find(j.ExportDefaultDeclaration)
-    .forEach((dec: any) =>
+    .forEach((dec: any) =>{
+      const property = j.property("init", j.identifier(options.name), j.identifier(options.name))
+      property.shorthand = true
       dec.value.declaration.properties.push(
-        j.property("init", j.identifier(options.name), j.identifier(options.name))
-      )
+        property
+      )}
     );
   root
     .find(j.VariableDeclarator)
