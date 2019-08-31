@@ -97,7 +97,7 @@ exports[`generating duck should generate a new duck based on testRoutes: <projec
 "import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
 // 👇 Add your reducers here 👇
 export default {
-  testDuck: testDuck
+  testDuck
 };
 
 // 👇 Add your initial states here 👇
@@ -295,7 +295,7 @@ exports[`generating duck should generate a new duck based on testRoutes: <projec
  * Run \`apr g duck --route src\` to add a duck
  */
 export default {
- testDuck2: testDuck2
+ testDuck2
 };
 "
 `;
@@ -567,23 +567,7 @@ exports[`generating duck should generate a new duck based on testRoutes: apr g d
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts
-Processing 1 files... 
-Spawning 1 workers...
-Sending 1 files to free worker...
-All done. 
-Results: 
-[31m0 errors[39m
-[31m[39m[33m0 unmodified[39m
-[33m[39m[33m0 skipped[39m
-[33m[39m[32m1 ok[39m
-[32m[39mTime elapsed: 0.261seconds 
-,Warning: The 'await-promise' rule requires type information.
-Warning: The 'deprecation' rule requires type information.
-Warning: The 'no-floating-promises' rule requires type information.
-Warning: The 'no-unnecessary-qualifier' rule requires type information.
-Warning: The 'no-unnecessary-type-assertion' rule requires type information.
-Warning: The 'strict-type-predicates' rule requires type information.
-"
+,"
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes: file-list 1`] = `
@@ -724,7 +708,7 @@ exports[`generating duck should generate a new duck based on testRoutes2: <proje
 "import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
 // 👇 Add your reducers here 👇
 export default {
-  testDuck: testDuck
+  testDuck
 };
 
 // 👇 Add your initial states here 👇
@@ -922,7 +906,7 @@ exports[`generating duck should generate a new duck based on testRoutes2: <proje
  * Run \`apr g duck --route src\` to add a duck
  */
 export default {
- testDuck2: testDuck2
+ testDuck2
 };
 "
 `;
@@ -1038,7 +1022,7 @@ exports[`generating duck should generate a new duck based on testRoutes2: <proje
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
 export default {
- testDuck3: testDuck3
+ testDuck3
 };
 "
 `;
@@ -1216,23 +1200,7 @@ exports[`generating duck should generate a new duck based on testRoutes2: apr g 
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts
-Processing 1 files... 
-Spawning 1 workers...
-Sending 1 files to free worker...
-All done. 
-Results: 
-[31m0 errors[39m
-[31m[39m[33m0 unmodified[39m
-[33m[39m[33m0 skipped[39m
-[33m[39m[32m1 ok[39m
-[32m[39mTime elapsed: 0.258seconds 
-,Warning: The 'await-promise' rule requires type information.
-Warning: The 'deprecation' rule requires type information.
-Warning: The 'no-floating-promises' rule requires type information.
-Warning: The 'no-unnecessary-qualifier' rule requires type information.
-Warning: The 'no-unnecessary-type-assertion' rule requires type information.
-Warning: The 'strict-type-predicates' rule requires type information.
-"
+,"
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: file-list 1`] = `
@@ -1374,7 +1342,7 @@ exports[`generating duck should generate a new duck: <project-root>playground/sr
 "import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
 // 👇 Add your reducers here 👇
 export default {
-  testDuck: testDuck
+  testDuck
 };
 
 // 👇 Add your initial states here 👇
@@ -1822,23 +1790,7 @@ exports[`generating duck should generate a new duck: apr g duck --name testDuck 
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/redux/ducks/testDuck/testDuck.ts
-Processing 1 files... 
-Spawning 1 workers...
-Sending 1 files to free worker...
-All done. 
-Results: 
-[31m0 errors[39m
-[31m[39m[33m0 unmodified[39m
-[33m[39m[33m0 skipped[39m
-[33m[39m[32m1 ok[39m
-[32m[39mTime elapsed: 0.273seconds 
-,Warning: The 'await-promise' rule requires type information.
-Warning: The 'deprecation' rule requires type information.
-Warning: The 'no-floating-promises' rule requires type information.
-Warning: The 'no-unnecessary-qualifier' rule requires type information.
-Warning: The 'no-unnecessary-type-assertion' rule requires type information.
-Warning: The 'strict-type-predicates' rule requires type information.
-"
+,"
 `;
 
 exports[`generating duck should generate a new duck: file-list 1`] = `

@@ -3,6 +3,7 @@ import which = require("which");
 import { promisify } from "util";
 import debug from "debug";
 import { join } from "path";
+import { red } from "../../utils/colors";
 const log = debug("apr:duck:autoLink");
 const whichPromise = promisify(which);
 // example route: "src/routes/testRoute/routes/testRoute2"
@@ -23,6 +24,12 @@ export async function autoLink({ name, route }: { name: string; route: string })
 
   const args = ["-t", codeShiftPath, ducksIndexPath, `--name=${name}`];
   log("running: ", jscodeshiftCommand, args);
-  spawnSync(jscodeshiftCommand, args, { stdio: "inherit" });
-  spawnSync(tslintCommand, [ducksIndexPath, "--fix"], { stdio: "inherit" });
+  const linkChild = spawnSync(jscodeshiftCommand, args);
+  if (linkChild.status !== 0 && linkChild.status) {
+    console.error(red("Error running codemod"));
+    console.error(linkChild.output.toString());
+    process.exitCode = linkChild.status;
+    process.kill(process.pid, 'SIGTERM')
+  }
+
 }

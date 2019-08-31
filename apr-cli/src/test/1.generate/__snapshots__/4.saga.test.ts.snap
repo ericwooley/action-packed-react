@@ -97,7 +97,7 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
 "import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
 // 👇 Add your reducers here 👇
 export default {
-  testDuck: testDuck
+  testDuck
 };
 
 // 👇 Add your initial states here 👇
@@ -304,7 +304,7 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
  * Run \`apr g duck --route src\` to add a duck
  */
 export default {
- testDuck2: testDuck2
+ testDuck2
 };
 "
 `;
@@ -429,7 +429,7 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
 export default {
- testDuck3: testDuck3
+ testDuck3
 };
 "
 `;
@@ -751,7 +751,7 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
 "import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
 // 👇 Add your reducers here 👇
 export default {
-  testDuck: testDuck
+  testDuck
 };
 
 // 👇 Add your initial states here 👇
@@ -958,7 +958,7 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
  * Run \`apr g duck --route src\` to add a duck
  */
 export default {
- testDuck2: testDuck2
+ testDuck2
 };
 "
 `;
@@ -1083,7 +1083,7 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
 export default {
- testDuck3: testDuck3
+ testDuck3
 };
 "
 `;
@@ -1415,7 +1415,7 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
 "import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
 // 👇 Add your reducers here 👇
 export default {
-  testDuck: testDuck
+  testDuck
 };
 
 // 👇 Add your initial states here 👇
@@ -1622,7 +1622,7 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
  * Run \`apr g duck --route src\` to add a duck
  */
 export default {
- testDuck2: testDuck2
+ testDuck2
 };
 "
 `;
@@ -1738,7 +1738,7 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
 export default {
- testDuck3: testDuck3
+ testDuck3
 };
 "
 `;

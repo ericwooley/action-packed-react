@@ -1,6 +1,6 @@
 import { API, FileInfo, ExportDeclaration, Identifier } from "jscodeshift";
 import processArgv from "yargs-parser";
-let describe = require("jscodeshift-helper").describe;
+// let describe = require("jscodeshift-helper").describe;
 
 const argv = processArgv(process.argv.slice(2));
 module.exports = function(fileInfo: FileInfo, api: API, options: { name: string }) {
@@ -21,10 +21,9 @@ module.exports = function(fileInfo: FileInfo, api: API, options: { name: string 
     .find(j.VariableDeclarator)
     .filter(isInitialState)
     .forEach(d => {
-      // describe(d.node);
       (d.node.init as any).properties.push(
         j.property("init", j.identifier(options.name), j.identifier(`${options.name}InitialState`))
-      ); // logs helpful info to the console
+      );
       return true;
     });
   return root.toSource();
