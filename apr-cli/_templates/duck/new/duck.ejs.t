@@ -10,7 +10,7 @@ export const initialState = {
 };
 
 type UIState = typeof initialState;
-export const <%= h.changeCase.pascal(name) %> = createReducerFromActionPack(initialState, {
+export const <%= name %> = createReducerFromActionPack(initialState, {
   confirm: createActionPack<UIState, boolean>(ns("CONFIRM"), (state, action) => ({
     ...state,
     confirmed: action.payload
