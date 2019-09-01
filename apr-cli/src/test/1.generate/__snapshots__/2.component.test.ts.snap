@@ -94,13 +94,38 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 `;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/ducks/index.ts 1`] = `
-"// 👇 Add your reducers here 👇
-export default {}
+"import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+// 👇 Add your reducers here 👇
+export default {
+  testDuck,
+  testDuck
+};
 
 // 👇 Add your initial states here 👇
 export const initialState = {
-
+  testDuck: testDuckInitialState,
+  testDuck: testDuckInitialState
 }
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/testDuck/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const testDuck = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
 "
 `;
 
@@ -169,7 +194,10 @@ export default ({
 `;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga } from './testSaga'
+import { testSaga } from './testSaga'
+import { myFirstSaga } from './myFirstSaga'
+import { all, call } from \\"redux-saga/effects\\";
 // import autoSaveState from './autoSaveState'
 
 /**
@@ -179,11 +207,25 @@ exports[`generating component should generate a new component based on testRoute
  */
 export default function* rootSaga() {
   console.log(\\"saga initialized\\");
-  yield all([
-    // automatically save redux to local storage state after X (default: 1)
-    // seconds of inactivity
-    // autoSaveState()
-  ]);
+  yield all([call(myFirstSaga), call(testSaga), call(testSaga)]);
+}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* myFirstSaga () {
+  yield call(() => console.log('my new saga'));
+}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga () {
+  yield call(() => console.log('my new saga'));
 }
 "
 `;
@@ -268,21 +310,55 @@ export default testRouteLayout;
 `;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
-"/**
+"import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+/**
  * Run \`apr g duck --route src\` to add a duck
  */
-export default {}
+export default {
+ testDuck2,
+ testDuck2
+};
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const testDuck2 = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
 "
 `;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga2 } from './testSaga2'
+import { testSaga2 } from './testSaga2'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga2), call(testSaga2)]);
 }
 
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga2 () {
+  yield call(() => console.log('my new saga'));
+}
 "
 `;
 
@@ -301,6 +377,31 @@ const identity = createSelector(route.baseSelector, (routeState) => routeState);
 export default {
   identity
 }
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `
+"import { TestComponent3 } from './testComponent3'
+
+export default TestComponent3
+
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `
+"import * as React from 'react'
+
+export interface Testcomponent3Props {
+  children?: React.ReactChildren
+}
+export const TestComponent3 = (props: Testcomponent3Props) => {
+  return (
+    <div> TestComponent3 { props.children }</div>
+  )
+}
+
+
 "
 `;
 
@@ -337,21 +438,55 @@ export default testRoute2Layout;
 `;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
-"/**
+"import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
+import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
+/**
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
-export default {}
+export default {
+ testDuck3,
+ testDuck3
+};
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/routes/testRoute/routes/testRoute2/testDuck3/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const testDuck3 = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
 "
 `;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga3 } from './testSaga3'
+import { testSaga3 } from './testSaga3'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga3), call(testSaga3)]);
 }
 
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga3 () {
+  yield call(() => console.log('my new saga'));
+}
 "
 `;
 
@@ -497,9 +632,7 @@ export const TestUi = (props: TestuiProps) => {
 exports[`generating component should generate a new component based on testRoutes: apr g component --name testComponent2 --route src/routes/testRoute --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-       added: src/routes/testRoute/components/testComponent2/index.ts
-       added: src/routes/testRoute/components/testComponent2/testComponent2.tsx
-,"
+[?25l[36m?[39m [1m     exists: src/routes/testRoute/components/testComponent2/index.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h,"
 `;
 
 exports[`generating component should generate a new component based on testRoutes: file-list 1`] = `
@@ -509,8 +642,11 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
+  "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
+  "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/routes/testRoute/components/testComponent2/index.ts",
@@ -518,13 +654,19 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
@@ -633,13 +775,38 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 `;
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/ducks/index.ts 1`] = `
-"// 👇 Add your reducers here 👇
-export default {}
+"import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+// 👇 Add your reducers here 👇
+export default {
+  testDuck,
+  testDuck
+};
 
 // 👇 Add your initial states here 👇
 export const initialState = {
-
+  testDuck: testDuckInitialState,
+  testDuck: testDuckInitialState
 }
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/testDuck/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const testDuck = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
 "
 `;
 
@@ -708,7 +875,10 @@ export default ({
 `;
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga } from './testSaga'
+import { testSaga } from './testSaga'
+import { myFirstSaga } from './myFirstSaga'
+import { all, call } from \\"redux-saga/effects\\";
 // import autoSaveState from './autoSaveState'
 
 /**
@@ -718,11 +888,25 @@ exports[`generating component should generate a new component based on testRoute
  */
 export default function* rootSaga() {
   console.log(\\"saga initialized\\");
-  yield all([
-    // automatically save redux to local storage state after X (default: 1)
-    // seconds of inactivity
-    // autoSaveState()
-  ]);
+  yield all([call(myFirstSaga), call(testSaga), call(testSaga)]);
+}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* myFirstSaga () {
+  yield call(() => console.log('my new saga'));
+}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga () {
+  yield call(() => console.log('my new saga'));
 }
 "
 `;
@@ -807,21 +991,55 @@ export default testRouteLayout;
 `;
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
-"/**
+"import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+/**
  * Run \`apr g duck --route src\` to add a duck
  */
-export default {}
+export default {
+ testDuck2,
+ testDuck2
+};
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const testDuck2 = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
 "
 `;
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga2 } from './testSaga2'
+import { testSaga2 } from './testSaga2'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga2), call(testSaga2)]);
 }
 
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga2 () {
+  yield call(() => console.log('my new saga'));
+}
 "
 `;
 
@@ -901,21 +1119,55 @@ export default testRoute2Layout;
 `;
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
-"/**
+"import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
+import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
+/**
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
-export default {}
+export default {
+ testDuck3,
+ testDuck3
+};
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/routes/testRoute/routes/testRoute2/testDuck3/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const testDuck3 = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
 "
 `;
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga3 } from './testSaga3'
+import { testSaga3 } from './testSaga3'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga3), call(testSaga3)]);
 }
 
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga3 () {
+  yield call(() => console.log('my new saga'));
+}
 "
 `;
 
@@ -1061,9 +1313,7 @@ export const TestUi = (props: TestuiProps) => {
 exports[`generating component should generate a new component based on testRoutes2: apr g component --name testComponent3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-       added: src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts
-       added: src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx
-,"
+[?25l[36m?[39m [1m     exists: src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h,"
 `;
 
 exports[`generating component should generate a new component based on testRoutes2: file-list 1`] = `
@@ -1073,8 +1323,11 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
+  "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
+  "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/routes/testRoute/components/testComponent2/index.ts",
@@ -1082,7 +1335,9 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
@@ -1090,7 +1345,9 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
@@ -1199,13 +1456,38 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 `;
 
 exports[`generating component should generate a new component: <project-root>playground/src/redux/ducks/index.ts 1`] = `
-"// 👇 Add your reducers here 👇
-export default {}
+"import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+// 👇 Add your reducers here 👇
+export default {
+  testDuck,
+  testDuck
+};
 
 // 👇 Add your initial states here 👇
 export const initialState = {
-
+  testDuck: testDuckInitialState,
+  testDuck: testDuckInitialState
 }
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/testDuck/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const testDuck = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
 "
 `;
 
@@ -1274,7 +1556,10 @@ export default ({
 `;
 
 exports[`generating component should generate a new component: <project-root>playground/src/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga } from './testSaga'
+import { testSaga } from './testSaga'
+import { myFirstSaga } from './myFirstSaga'
+import { all, call } from \\"redux-saga/effects\\";
 // import autoSaveState from './autoSaveState'
 
 /**
@@ -1284,11 +1569,25 @@ exports[`generating component should generate a new component: <project-root>pla
  */
 export default function* rootSaga() {
   console.log(\\"saga initialized\\");
-  yield all([
-    // automatically save redux to local storage state after X (default: 1)
-    // seconds of inactivity
-    // autoSaveState()
-  ]);
+  yield all([call(myFirstSaga), call(testSaga), call(testSaga)]);
+}
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* myFirstSaga () {
+  yield call(() => console.log('my new saga'));
+}
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga () {
+  yield call(() => console.log('my new saga'));
 }
 "
 `;
@@ -1312,6 +1611,31 @@ Each route contains:
   * a \`redux\` folder, for
     [ducks](https://github.com/erikras/ducks-modular-redux),
     [sagas](https://redux-saga.js.org/), and anything else related to redux.
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `
+"import { TestComponent2 } from './testComponent2'
+
+export default TestComponent2
+
+
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `
+"import * as React from 'react'
+
+export interface Testcomponent2Props {
+  children?: React.ReactChildren
+}
+export const TestComponent2 = (props: Testcomponent2Props) => {
+  return (
+    <div> TestComponent2 { props.children }</div>
+  )
+}
+
+
 "
 `;
 
@@ -1348,21 +1672,55 @@ export default testRouteLayout;
 `;
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
-"/**
+"import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+/**
  * Run \`apr g duck --route src\` to add a duck
  */
-export default {}
+export default {
+ testDuck2,
+ testDuck2
+};
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const testDuck2 = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
 "
 `;
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga2 } from './testSaga2'
+import { testSaga2 } from './testSaga2'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga2), call(testSaga2)]);
 }
 
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga2 () {
+  yield call(() => console.log('my new saga'));
+}
 "
 `;
 
@@ -1381,6 +1739,31 @@ const identity = createSelector(route.baseSelector, (routeState) => routeState);
 export default {
   identity
 }
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `
+"import { TestComponent3 } from './testComponent3'
+
+export default TestComponent3
+
+
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `
+"import * as React from 'react'
+
+export interface Testcomponent3Props {
+  children?: React.ReactChildren
+}
+export const TestComponent3 = (props: Testcomponent3Props) => {
+  return (
+    <div> TestComponent3 { props.children }</div>
+  )
+}
+
+
 "
 `;
 
@@ -1417,21 +1800,55 @@ export default testRoute2Layout;
 `;
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
-"/**
+"import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
+import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
+/**
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
-export default {}
+export default {
+ testDuck3,
+ testDuck3
+};
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+
+const ns = (type: string) => \`src/routes/testRoute/routes/testRoute2/testDuck3/\${type}\`
+
+export const initialState = {
+  confirmed: false
+};
+
+type UIState = typeof initialState;
+export const testDuck3 = createReducerFromActionPack(initialState, {
+  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
+    ...state,
+    confirmed: action.payload
+  }))
+});
 "
 `;
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga3 } from './testSaga3'
+import { testSaga3 } from './testSaga3'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga3), call(testSaga3)]);
 }
 
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga3 () {
+  yield call(() => console.log('my new saga'));
+}
 "
 `;
 
@@ -1577,9 +1994,7 @@ export const TestUi = (props: TestuiProps) => {
 exports[`generating component should generate a new component: apr g component --name testComponent --route src --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-       added: src/components/testComponent/index.ts
-       added: src/components/testComponent/testComponent.tsx
-,"
+[?25l[36m?[39m [1m     exists: src/components/testComponent/index.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h,"
 `;
 
 exports[`generating component should generate a new component: file-list 1`] = `
@@ -1589,20 +2004,31 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
+  "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
+  "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
+  "<project-root>playground/src/routes/testRoute/components/testComponent2/index.ts",
+  "<project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx",
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",

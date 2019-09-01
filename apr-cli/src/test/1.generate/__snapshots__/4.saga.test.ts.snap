@@ -95,13 +95,16 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/ducks/index.ts 1`] = `
 "import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
 // 👇 Add your reducers here 👇
 export default {
+  testDuck,
   testDuck
 };
 
 // 👇 Add your initial states here 👇
 export const initialState = {
+  testDuck: testDuckInitialState,
   testDuck: testDuckInitialState
 }
 "
@@ -191,7 +194,10 @@ export default ({
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga } from './testSaga'
+import { testSaga } from './testSaga'
+import { myFirstSaga } from './myFirstSaga'
+import { all, call } from \\"redux-saga/effects\\";
 // import autoSaveState from './autoSaveState'
 
 /**
@@ -201,11 +207,16 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
  */
 export default function* rootSaga() {
   console.log(\\"saga initialized\\");
-  yield all([
-    // automatically save redux to local storage state after X (default: 1)
-    // seconds of inactivity
-    // autoSaveState()
-  ]);
+  yield all([call(myFirstSaga), call(testSaga), call(testSaga)]);
+}
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* myFirstSaga () {
+  yield call(() => console.log('my new saga'));
 }
 "
 `;
@@ -300,10 +311,12 @@ export default testRouteLayout;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
 "import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
 /**
  * Run \`apr g duck --route src\` to add a duck
  */
 export default {
+ testDuck2,
  testDuck2
 };
 "
@@ -329,11 +342,12 @@ export const testDuck2 = createReducerFromActionPack(initialState, {
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga2 } from './testSaga2'
+import { testSaga2 } from './testSaga2'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga2), call(testSaga2)]);
 }
 
 "
@@ -425,10 +439,12 @@ export default testRoute2Layout;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
 "import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
+import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
 /**
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
 export default {
+ testDuck3,
  testDuck3
 };
 "
@@ -454,13 +470,23 @@ export const testDuck3 = createReducerFromActionPack(initialState, {
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga3 } from './testSaga3'
+import { testSaga3 } from './testSaga3'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga3), call(testSaga3)]);
 }
 
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga3 () {
+  yield call(() => console.log('my new saga'));
+}
 "
 `;
 
@@ -606,8 +632,16 @@ export const TestUi = (props: TestuiProps) => {
 exports[`generating saga should generate a new saga based on testRoutes: apr g saga --name testSaga2 --route src/routes/testRoute --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-       added: src/routes/testRoute/redux/sagas/testSaga2.ts
-,"
+[?25l[36m?[39m [1m     exists: src/routes/testRoute/redux/sagas/testSaga2.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h
+ERROR: src/routes/testRoute/redux/sagas/index.ts:2:1 - Multiple imports from './testSaga2' can be combined into one.
+
+,Warning: The 'await-promise' rule requires type information.
+Warning: The 'deprecation' rule requires type information.
+Warning: The 'no-floating-promises' rule requires type information.
+Warning: The 'no-unnecessary-qualifier' rule requires type information.
+Warning: The 'no-unnecessary-type-assertion' rule requires type information.
+Warning: The 'strict-type-predicates' rule requires type information.
+"
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes: file-list 1`] = `
@@ -620,6 +654,7 @@ Array [
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
@@ -640,6 +675,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
@@ -749,13 +785,16 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/ducks/index.ts 1`] = `
 "import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
 // 👇 Add your reducers here 👇
 export default {
+  testDuck,
   testDuck
 };
 
 // 👇 Add your initial states here 👇
 export const initialState = {
+  testDuck: testDuckInitialState,
   testDuck: testDuckInitialState
 }
 "
@@ -845,7 +884,10 @@ export default ({
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga } from './testSaga'
+import { testSaga } from './testSaga'
+import { myFirstSaga } from './myFirstSaga'
+import { all, call } from \\"redux-saga/effects\\";
 // import autoSaveState from './autoSaveState'
 
 /**
@@ -855,11 +897,16 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
  */
 export default function* rootSaga() {
   console.log(\\"saga initialized\\");
-  yield all([
-    // automatically save redux to local storage state after X (default: 1)
-    // seconds of inactivity
-    // autoSaveState()
-  ]);
+  yield all([call(myFirstSaga), call(testSaga), call(testSaga)]);
+}
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* myFirstSaga () {
+  yield call(() => console.log('my new saga'));
 }
 "
 `;
@@ -954,10 +1001,12 @@ export default testRouteLayout;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
 "import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
 /**
  * Run \`apr g duck --route src\` to add a duck
  */
 export default {
+ testDuck2,
  testDuck2
 };
 "
@@ -983,11 +1032,12 @@ export const testDuck2 = createReducerFromActionPack(initialState, {
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga2 } from './testSaga2'
+import { testSaga2 } from './testSaga2'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga2), call(testSaga2)]);
 }
 
 "
@@ -1079,10 +1129,12 @@ export default testRoute2Layout;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
 "import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
+import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
 /**
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
 export default {
+ testDuck3,
  testDuck3
 };
 "
@@ -1108,11 +1160,12 @@ export const testDuck3 = createReducerFromActionPack(initialState, {
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga3 } from './testSaga3'
+import { testSaga3 } from './testSaga3'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga3), call(testSaga3)]);
 }
 
 "
@@ -1269,8 +1322,16 @@ export const TestUi = (props: TestuiProps) => {
 exports[`generating saga should generate a new saga based on testRoutes2: apr g saga --name testSaga3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-       added: src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts
-,"
+[?25l[36m?[39m [1m     exists: src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h
+ERROR: src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts:2:1 - Multiple imports from './testSaga3' can be combined into one.
+
+,Warning: The 'await-promise' rule requires type information.
+Warning: The 'deprecation' rule requires type information.
+Warning: The 'no-floating-promises' rule requires type information.
+Warning: The 'no-unnecessary-qualifier' rule requires type information.
+Warning: The 'no-unnecessary-type-assertion' rule requires type information.
+Warning: The 'strict-type-predicates' rule requires type information.
+"
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes2: file-list 1`] = `
@@ -1283,6 +1344,7 @@ Array [
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
@@ -1413,13 +1475,16 @@ app.init().catch(e => console.error(\\"Error Starting application\\", e));
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/redux/ducks/index.ts 1`] = `
 "import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
+import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
 // 👇 Add your reducers here 👇
 export default {
+  testDuck,
   testDuck
 };
 
 // 👇 Add your initial states here 👇
 export const initialState = {
+  testDuck: testDuckInitialState,
   testDuck: testDuckInitialState
 }
 "
@@ -1509,7 +1574,10 @@ export default ({
 `;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga } from './testSaga'
+import { testSaga } from './testSaga'
+import { myFirstSaga } from './myFirstSaga'
+import { all, call } from \\"redux-saga/effects\\";
 // import autoSaveState from './autoSaveState'
 
 /**
@@ -1519,11 +1587,16 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
  */
 export default function* rootSaga() {
   console.log(\\"saga initialized\\");
-  yield all([
-    // automatically save redux to local storage state after X (default: 1)
-    // seconds of inactivity
-    // autoSaveState()
-  ]);
+  yield all([call(myFirstSaga), call(testSaga), call(testSaga)]);
+}
+"
+`;
+
+exports[`generating saga should generate a new saga: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* myFirstSaga () {
+  yield call(() => console.log('my new saga'));
 }
 "
 `;
@@ -1618,10 +1691,12 @@ export default testRouteLayout;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
 "import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
+import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
 /**
  * Run \`apr g duck --route src\` to add a duck
  */
 export default {
+ testDuck2,
  testDuck2
 };
 "
@@ -1647,13 +1722,23 @@ export const testDuck2 = createReducerFromActionPack(initialState, {
 `;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga2 } from './testSaga2'
+import { testSaga2 } from './testSaga2'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga2), call(testSaga2)]);
 }
 
+"
+`;
+
+exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga2 () {
+  yield call(() => console.log('my new saga'));
+}
 "
 `;
 
@@ -1734,10 +1819,12 @@ export default testRoute2Layout;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
 "import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
+import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
 /**
  * Run \`apr g duck --route src/routes/testRoute\` to add a duck
  */
 export default {
+ testDuck3,
  testDuck3
 };
 "
@@ -1763,13 +1850,23 @@ export const testDuck3 = createReducerFromActionPack(initialState, {
 `;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
+"import { testSaga3 } from './testSaga3'
+import { testSaga3 } from './testSaga3'
+import { all, call } from \\"redux-saga/effects\\";
 
 export default function* rootSaga() {
-  yield all([
-  ]);
+  yield all([call(testSaga3), call(testSaga3)]);
 }
 
+"
+`;
+
+exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `
+"import { call } from 'redux-saga/effects';
+
+export function* testSaga3 () {
+  yield call(() => console.log('my new saga'));
+}
 "
 `;
 
@@ -1915,8 +2012,16 @@ export const TestUi = (props: TestuiProps) => {
 exports[`generating saga should generate a new saga: apr g saga --name testSaga --route src --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-       added: src/redux/sagas/testSaga.ts
-,"
+[?25l[36m?[39m [1m     exists: src/redux/sagas/testSaga.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h
+ERROR: src/redux/sagas/index.ts:2:1 - Multiple imports from './testSaga' can be combined into one.
+
+,Warning: The 'await-promise' rule requires type information.
+Warning: The 'deprecation' rule requires type information.
+Warning: The 'no-floating-promises' rule requires type information.
+Warning: The 'no-unnecessary-qualifier' rule requires type information.
+Warning: The 'no-unnecessary-type-assertion' rule requires type information.
+Warning: The 'strict-type-predicates' rule requires type information.
+"
 `;
 
 exports[`generating saga should generate a new saga: file-list 1`] = `
@@ -1929,6 +2034,7 @@ Array [
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
@@ -1939,6 +2045,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
@@ -1948,6 +2055,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
