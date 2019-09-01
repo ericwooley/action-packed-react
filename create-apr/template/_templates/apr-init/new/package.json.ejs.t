@@ -10,7 +10,7 @@ to: package.json
     "prebuild": "rm -rf dist",
     "build": "apr build",
     "start": "apr dev",
-    "lint": "tslint",
+    "lint": "tslint --project tsconfig.json",
     "test": "echo 'test no yet defined'"
   },
   "dependencies":{
