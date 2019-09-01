@@ -3,7 +3,7 @@ const log = debug('apr:promptUtil')
 log('test')
 module.exports = (questions, { autoLink = true } = {}) => ({ prompter, args }) => {
   if (autoLink) {
-    questions = [...questions, { type: 'confirm', message: 'autoLink?', name: 'autoLink' }]
+    questions = [...questions, { type: 'confirm', message: 'autoLink?', default: true, name: 'autoLink' }]
   }
   const providedArgs = questions.reduce((selectedArgs, question) => {
     if (args[question.name]) {

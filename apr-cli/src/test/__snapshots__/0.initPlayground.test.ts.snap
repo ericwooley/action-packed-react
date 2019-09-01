@@ -1,223 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`setup should create the initial files: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `
-"import * as React from \\"react\\";
-import styled from \\"styled-components\\";
-const Wrapper = styled.div\`
-  display: flex;
-  flex-direction: row;
-\`;
-const Nav = styled.div\`
-  flex: 0;
-  padding: 10px;
-  margin: 10px;
-  min-width: 300px;
-  border: 1px solid lightgreen;
-  border-radius: 20px;
-\`;
-export default class RootLayout extends React.PureComponent {
-  render() {
-    return (
-      <Wrapper>
-        <Nav>
-          <ul>
-            <li>
-              link 1
-            </li>
-            <li>
-              link 2
-            </li>
-          </ul>
-        </Nav>
-        <div>{this.props.children}</div>
-      </Wrapper>
-    );
-  }
-}
-"
-`;
+exports[`setup should create the initial files: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `"bd9fea18708e85d7a8117d761192c9b4"`;
 
-exports[`setup should create the initial files: <project-root>playground/src/index.tsx 1`] = `
-"import * as React from \\"react\\";
-import { createApp } from \\"action-packed-react\\";
-import { createHashHistory } from \\"history\\";
-import { render, unmountComponentAtNode } from \\"react-dom\\";
-import initialReducers, {initialState} from \\"./redux/ducks\\";
-const el = document.getElementById(\\"root\\");
-if (!el) throw new Error(\\"no el\\");
+exports[`setup should create the initial files: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-const renderApp = (jsx: JSX.Element) => {
-  render(jsx, el);
-  return () => unmountComponentAtNode(el);
-};
-const history = createHashHistory();
+exports[`setup should create the initial files: <project-root>playground/src/redux/ducks/index.ts 1`] = `"476e29b73b3d5d1e635bc9b8a83d6aa4"`;
 
-export const app = createApp({
-  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
-  history,
-  initialState,
-  initialReducers,
-  RouteNotFoundComponent: () => <div>Not Found</div>,
-  LoadingComponent: () => <h3>Loading...</h3>,
-  render: renderApp,
-  saga: import('./redux/sagas/index'),
-  layout: import(\\"./components/RootLayout\\")
-});
+exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/index.ts 1`] = `"e23efdf8bcee4e5476fe3aa56d536e75"`;
 
-app.init().catch(e => console.error(\\"Error Starting application\\", e));
-"
-`;
+exports[`setup should create the initial files: <project-root>playground/src/redux/selectors/index.ts 1`] = `"6c8425d082718860d737b83973731057"`;
 
-exports[`setup should create the initial files: <project-root>playground/src/redux/ducks/index.ts 1`] = `
-"// 👇 Add your reducers here 👇
-export default {}
+exports[`setup should create the initial files: <project-root>playground/src/routes/readme.md 1`] = `"1f1dcc180a5f38ad42d8dcea10766c79"`;
 
-// 👇 Add your initial states here 👇
-export const initialState = {
-
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `
-"import { app } from \\"../..\\";
-import { race, delay, take, call, select } from \\"redux-saga/effects\\";
-import { eventChannel } from \\"redux-saga\\";
-
-/**
- * Redux saga event channel to listen to any events by the user.
- */
-function userEvent() {
-  return eventChannel(emitter => {
-    document.addEventListener(\\"keypress\\", emitter);
-    document.addEventListener(\\"mousemove\\", emitter);
-    document.addEventListener(\\"mousedown\\", emitter);
-    return () => {
-      document.removeEventListener(\\"keypress\\", emitter);
-      document.removeEventListener(\\"mousemove\\", emitter);
-      document.removeEventListener(\\"mousedown\\", emitter);
-    };
-  });
-}
-
-export default ({
-  // Amount of time to wait with no actions, and no user input before saving
-  // state to local storage.
-  SECONDS_TO_SAVE_STATE = 1
-} = {}) =>
-  function* autoSaveState() {
-    const chan = yield call(userEvent);
-    try {
-      // Sagas can go forever, without an infinite loop, as long as they are
-      // yielding to something.
-      while (true) {
-        // This is a race between the 3 events, the first event to happen
-        // cancels the other events. The return of the race is as follows:
-        // 1. A redux action occurred resulting in:
-        //    {cancelledByAction: <the action>}
-        // 2. A use moved the mouse or pressed a key triggering an event
-        //    on the channel, resulting in:
-        //    {cancelledByUserEvent: <event>}
-        // 3. The delay happened, (the other two didn't happen for X seconds)
-        //    Resulting in:
-        //    {shouldSave: <effect descriptor>}
-        const { shouldSave } = yield race({
-          cancelledByAction: take(() => true),
-          cancelledByUserEvent: take(chan),
-          shouldSave: delay(SECONDS_TO_SAVE_STATE * 1000)
-        });
-        // shouldSave being truthy means that no redux actions, or user events
-        // happened for X seconds
-        if (shouldSave) {
-          // select all state from our app
-          const allState = yield select(app.baseSelector);
-          // store it in local storage
-          localStorage.setItem(\\"saved-state\\", JSON.stringify(allState));
-        }
-      }
-    } finally {
-      // Something killed our saga.
-      console.log(\\"No longer saving state\\");
-    }
-  };
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
-// import autoSaveState from './autoSaveState'
-
-/**
- * rootSaga to load any global sagas you want.
- *
- * Included are some common ones, you just need to uncomment them.
- */
-export default function* rootSaga() {
-  console.log(\\"saga initialized\\");
-  yield all([
-    // automatically save redux to local storage state after X (default: 1)
-    // seconds of inactivity
-    // autoSaveState()
-  ]);
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/selectors/index.ts 1`] = `
-"import { createSelector } from 'reselect'
-import {app} from '../..'
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/readme.md 1`] = `
-"
-# Routes
-\`routes\` is a folder for holding other routes, which follows the
-[fractal pattern](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af).
-
-Each route contains:
-  * a \`routes\` folder for sub routes.
-  * a \`components\` folder for react components for this route.
-  * a \`redux\` folder, for
-    [ducks](https://github.com/erikras/ducks-modular-redux),
-    [sagas](https://redux-saga.js.org/), and anything else related to redux.
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/ui/readme.md 1`] = `
-"# UI
-\`ui\` is for reusable components, which should have 0 concept of anything else
- that is in your app.
-
-## Examples
-### Components that belong in ui.
-UI components should be simple, pure, and require no context of the application.
-Try to imagine that one day, you want to publish an npm package, based on your
-ui elements. It should be as easy as copying this folder, and putting a
-package.json file in it (and maybe a build system). Think of this as your own
-personal bootstrap.
-  * Button - simple ui component. It requires no context, or anything to
-    be loaded in your app.
-  * Grid - Meta component for arranging other components or children
-  * Form inputs - keep your UI consistent by defining form inputs here.
-  * Avatar - Takes an image, and creates a specific size.
-  * Loader - Spinner or progress bar to show throughout the application.
-
-### Components that do not belong in ui.
-UI components that are specific to something in your application belong in
-components.
-  * UserAvatar - maybe it contains a link to user profiles, has knowledge of the
-    user model, etc...
-"
-`;
+exports[`setup should create the initial files: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
 
 exports[`setup should create the initial files: file-list 1`] = `
 Array [
   "<project-root>playground/src/components/RootLayout/index.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
-  "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",

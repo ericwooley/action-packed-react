@@ -5,25 +5,39 @@ import { fork } from "child_process";
 import which from "which";
 import debug from "debug";
 import { green, grey, blue, red } from "./utils/colors";
-
+import { autoLink as autoLinkDuck } from "./codeMods/insertDuck/autoLink";
+import { autoLink as autoLinkSaga } from "./codeMods/insertSaga/autoLink";
 const log = debug("apr:generate");
-
+interface HygenResponse {
+  route: string;
+  name: string;
+  autoLink: boolean;
+}
 const generatorArgs: {
   [key: string]: (
     restArgs: string[]
-  ) => { args: string[]; autoLink?: (answers: any, args?: string[]) => void };
+  ) => { args: string[]; autoLink?: (answers: any, args?: string[]) => Promise<void> };
 } = {
   ui: (restArgs: string[]) => ({
-    autoLink: () => null,
+    autoLink: () => Promise.resolve(),
     args: ["ui", "new", ...restArgs]
   }),
   component: (restArgs: string[]) => ({
     args: ["component", "new", ...restArgs],
-    autoLink: () => null
+    autoLink: () => Promise.resolve()
   }),
-  route: (restArgs: string[]) => ({ args: ["route", "new", ...restArgs], autoLink: () => null }),
-  duck: (restArgs: string[]) => ({ args: ["duck", "new", ...restArgs], autoLink: () => null }),
-  saga: (restArgs: string[]) => ({ args: ["saga", "new", ...restArgs], autoLink: () => null })
+  route: (restArgs: string[]) => ({
+    args: ["route", "new", ...restArgs],
+    autoLink: () => Promise.resolve()
+  }),
+  duck: (restArgs: string[]) => ({
+    args: ["duck", "new", ...restArgs],
+    autoLink: autoLinkDuck
+  }),
+  saga: (restArgs: string[]) => ({
+    args: ["saga", "new", ...restArgs],
+    autoLink: autoLinkSaga
+  })
 };
 const helpText = grey(`       Available generators:
          * ${Object.keys(generatorArgs)
@@ -58,7 +72,7 @@ available generators:
   const { args, autoLink } = generatorArgs[generator](process.argv.slice(4));
   if (args) {
     log("running generator:", buildCommand, "with args", args);
-    let answersFromHygen: { route: string; name: string; autoLink: boolean } = {
+    let answersFromHygen: HygenResponse = {
       route: "",
       name: "",
       autoLink: false
@@ -87,7 +101,7 @@ available generators:
     }
     if (autoLink && answersFromHygen.autoLink) {
       log("codemod with ", { answersFromHygen });
-      autoLink(answersFromHygen);
+      await autoLink(answersFromHygen);
     }
     return hygenExitCode;
   }
