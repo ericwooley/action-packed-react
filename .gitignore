@@ -11,6 +11,5 @@ compiled
 .rpt2_cache
 docs
 playground/*
-playground-*
 temp/*
 package-lock.json

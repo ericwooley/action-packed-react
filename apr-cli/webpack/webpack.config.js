@@ -2,6 +2,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const debug = require('debug')
 const log = debug('apr:webpack')
+const R = require('remeda')
 
 const entry = path.join(process.cwd(), './src/index.tsx')
 log('entry', entry)
@@ -46,13 +47,9 @@ module.exports = {
     }
   },
   module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: { reportFiles: ['src/**/*.{ts,tsx}'], allowTsInNodeModules: true }
-      }
-    ]
+    rules: R.pipe(require('./loaders/typescript.js')('development'))([]).map(
+      ({ id, ...loader }) => loader
+    )
   },
   plugins: [
     new HtmlWebpackPlugin({
