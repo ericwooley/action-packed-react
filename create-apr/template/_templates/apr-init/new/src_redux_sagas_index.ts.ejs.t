@@ -2,7 +2,6 @@
 to: src/redux/sagas/index.ts
 ---
 import { all } from "redux-saga/effects";
-// import autoSaveState from './autoSaveState'
 
 /**
  * rootSaga to load any global sagas you want.
@@ -12,8 +11,5 @@ import { all } from "redux-saga/effects";
 export default function* rootSaga() {
   console.log("saga initialized");
   yield all([
-    // automatically save redux to local storage state after X (default: 1)
-    // seconds of inactivity
-    // autoSaveState()
   ]);
 }
