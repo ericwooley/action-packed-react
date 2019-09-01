@@ -5,7 +5,8 @@ import { fork } from "child_process";
 import which from "which";
 import debug from "debug";
 import { green, grey, blue, red } from "./utils/colors";
-import {autoLink as autoLinkDuck } from './codeMods/insertDuck/autoLink'
+import { autoLink as autoLinkDuck } from "./codeMods/insertDuck/autoLink";
+import { autoLink as autoLinkSaga } from "./codeMods/insertSaga/autoLink";
 const log = debug("apr:generate");
 interface HygenResponse {
   route: string;
@@ -35,7 +36,7 @@ const generatorArgs: {
   }),
   saga: (restArgs: string[]) => ({
     args: ["saga", "new", ...restArgs],
-    autoLink: () => Promise.resolve()
+    autoLink: autoLinkSaga
   })
 };
 const helpText = grey(`       Available generators:

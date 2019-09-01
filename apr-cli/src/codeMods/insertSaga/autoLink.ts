@@ -4,7 +4,7 @@ import { promisify } from "util";
 import debug from "debug";
 import { join } from "path";
 import { red } from "../../utils/colors";
-const log = debug("apr:duck:autoLink");
+const log = debug("apr:saga:autoLink");
 const whichPromise = promisify(which);
 // example route: "src/routes/testRoute/routes/testRoute2"
 // example  name: "myNewDuck"
@@ -19,15 +19,15 @@ export async function autoLink({ name, route }: { name: string; route: string })
   if (!tslintCommand) {
     throw new Error("Could not find dependency: 'tslint'");
   }
-  const codeShiftPath = join(__dirname, "./insertDuck.js");
-  const ducksIndexPath = join(route, "redux/ducks/index.ts");
+  const codeShiftPath = join(__dirname, "./insertSaga.js");
+  const sagaIndexPath = join(route, "redux/sagas/index.ts");
 
-  const args = ["-t", codeShiftPath, ducksIndexPath, `--name=${name}`];
+  const args = ["-t", codeShiftPath, sagaIndexPath, `--name=${name}`];
   log("running: ", jscodeshiftCommand, args);
-  const linkChild = spawnSync(jscodeshiftCommand, args);
+  const linkChild = spawnSync(jscodeshiftCommand, args, {});
   if (linkChild.status !== 0 && linkChild.status) {
     console.error(red("Error running codemod"));
     console.error(linkChild.output.toString());
   }
-  spawnSync(tslintCommand, [ducksIndexPath, '--fix'], {stdio: 'inherit'})
+  spawnSync(tslintCommand, [sagaIndexPath, '--fix'], {stdio: 'inherit'})
 }
