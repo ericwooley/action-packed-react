@@ -1,633 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`setup should create the initial files: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `
-"import * as React from \\"react\\";
-import styled from \\"styled-components\\";
-const Wrapper = styled.div\`
-  display: flex;
-  flex-direction: row;
-\`;
-const Nav = styled.div\`
-  flex: 0;
-  padding: 10px;
-  margin: 10px;
-  min-width: 300px;
-  border: 1px solid lightgreen;
-  border-radius: 20px;
-\`;
-export default class RootLayout extends React.PureComponent {
-  render() {
-    return (
-      <Wrapper>
-        <Nav>
-          <ul>
-            <li>
-              link 1
-            </li>
-            <li>
-              link 2
-            </li>
-          </ul>
-        </Nav>
-        <div>{this.props.children}</div>
-      </Wrapper>
-    );
-  }
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/components/testComponent/index.ts 1`] = `
-"import { TestComponent } from './testComponent'
-
-export default TestComponent
-
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/components/testComponent/testComponent.tsx 1`] = `
-"import * as React from 'react'
-
-export interface TestcomponentProps {
-  children?: React.ReactChildren
-}
-export const TestComponent = (props: TestcomponentProps) => {
-  return (
-    <div> TestComponent { props.children }</div>
-  )
-}
-
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/index.tsx 1`] = `
-"import * as React from \\"react\\";
-import { createApp } from \\"action-packed-react\\";
-import { createHashHistory } from \\"history\\";
-import { render, unmountComponentAtNode } from \\"react-dom\\";
-import initialReducers, {initialState} from \\"./redux/ducks\\";
-const el = document.getElementById(\\"root\\");
-if (!el) throw new Error(\\"no el\\");
-
-const renderApp = (jsx: JSX.Element) => {
-  render(jsx, el);
-  return () => unmountComponentAtNode(el);
-};
-const history = createHashHistory();
-
-export const app = createApp({
-  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
-  history,
-  initialState,
-  initialReducers,
-  RouteNotFoundComponent: () => <div>Not Found</div>,
-  LoadingComponent: () => <h3>Loading...</h3>,
-  render: renderApp,
-  saga: import('./redux/sagas/index'),
-  layout: import(\\"./components/RootLayout\\")
-});
-
-app.init().catch(e => console.error(\\"Error Starting application\\", e));
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/ducks/index.ts 1`] = `
-"import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
-import { testDuck, initialState as testDuckInitialState } from './testDuck/testDuck'
-// 👇 Add your reducers here 👇
-export default {
-  testDuck,
-  testDuck
-};
-
-// 👇 Add your initial states here 👇
-export const initialState = {
-  testDuck: testDuckInitialState,
-  testDuck: testDuckInitialState
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
-
-const ns = (type: string) => \`src/testDuck/\${type}\`
-
-export const initialState = {
-  confirmed: false
-};
-
-type UIState = typeof initialState;
-export const testDuck = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
-});
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `
-"import { app } from \\"../..\\";
-import { race, delay, take, call, select } from \\"redux-saga/effects\\";
-import { eventChannel } from \\"redux-saga\\";
-
-/**
- * Redux saga event channel to listen to any events by the user.
- */
-function userEvent() {
-  return eventChannel(emitter => {
-    document.addEventListener(\\"keypress\\", emitter);
-    document.addEventListener(\\"mousemove\\", emitter);
-    document.addEventListener(\\"mousedown\\", emitter);
-    return () => {
-      document.removeEventListener(\\"keypress\\", emitter);
-      document.removeEventListener(\\"mousemove\\", emitter);
-      document.removeEventListener(\\"mousedown\\", emitter);
-    };
-  });
-}
-
-export default ({
-  // Amount of time to wait with no actions, and no user input before saving
-  // state to local storage.
-  SECONDS_TO_SAVE_STATE = 1
-} = {}) =>
-  function* autoSaveState() {
-    const chan = yield call(userEvent);
-    try {
-      // Sagas can go forever, without an infinite loop, as long as they are
-      // yielding to something.
-      while (true) {
-        // This is a race between the 3 events, the first event to happen
-        // cancels the other events. The return of the race is as follows:
-        // 1. A redux action occurred resulting in:
-        //    {cancelledByAction: <the action>}
-        // 2. A use moved the mouse or pressed a key triggering an event
-        //    on the channel, resulting in:
-        //    {cancelledByUserEvent: <event>}
-        // 3. The delay happened, (the other two didn't happen for X seconds)
-        //    Resulting in:
-        //    {shouldSave: <effect descriptor>}
-        const { shouldSave } = yield race({
-          cancelledByAction: take(() => true),
-          cancelledByUserEvent: take(chan),
-          shouldSave: delay(SECONDS_TO_SAVE_STATE * 1000)
-        });
-        // shouldSave being truthy means that no redux actions, or user events
-        // happened for X seconds
-        if (shouldSave) {
-          // select all state from our app
-          const allState = yield select(app.baseSelector);
-          // store it in local storage
-          localStorage.setItem(\\"saved-state\\", JSON.stringify(allState));
-        }
-      }
-    } finally {
-      // Something killed our saga.
-      console.log(\\"No longer saving state\\");
-    }
-  };
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/index.ts 1`] = `
-"import { testSaga } from './testSaga'
-import { testSaga } from './testSaga'
-import { myFirstSaga } from './myFirstSaga'
-import { all, call } from \\"redux-saga/effects\\";
-// import autoSaveState from './autoSaveState'
-
-/**
- * rootSaga to load any global sagas you want.
- *
- * Included are some common ones, you just need to uncomment them.
- */
-export default function* rootSaga() {
-  console.log(\\"saga initialized\\");
-  yield all([call(myFirstSaga), call(testSaga), call(testSaga)]);
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `
-"import { call } from 'redux-saga/effects';
-
-export function* myFirstSaga () {
-  yield call(() => console.log('my new saga'));
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `
-"import { call } from 'redux-saga/effects';
-
-export function* testSaga () {
-  yield call(() => console.log('my new saga'));
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/selectors/index.ts 1`] = `
-"import { createSelector } from 'reselect'
-import {app} from '../..'
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/readme.md 1`] = `
-"
-# Routes
-\`routes\` is a folder for holding other routes, which follows the
-[fractal pattern](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af).
-
-Each route contains:
-  * a \`routes\` folder for sub routes.
-  * a \`components\` folder for react components for this route.
-  * a \`redux\` folder, for
-    [ducks](https://github.com/erikras/ducks-modular-redux),
-    [sagas](https://redux-saga.js.org/), and anything else related to redux.
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `
-"import { TestComponent2 } from './testComponent2'
-
-export default TestComponent2
-
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `
-"import * as React from 'react'
-
-export interface Testcomponent2Props {
-  children?: React.ReactChildren
-}
-export const TestComponent2 = (props: Testcomponent2Props) => {
-  return (
-    <div> TestComponent2 { props.children }</div>
-  )
-}
-
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/index.ts 1`] = `
-"import { app } from 'app'
-import { createRouteComposer } from 'action-packed-react/routeMatcher';
-
-export const route = createRouteComposer('testRoute')
-const testRouteRoute = app.createSubRoute(
-  route,
-  () => import('./redux/ducks')
-)
-testRouteRoute.setComponent(() => import('./layout'))
-testRouteRoute.register()
-export default testRouteRoute;
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `
-"import * as React from 'react'
-
-interface TestrouteProps {
-  children?: React.ReactChildren
-}
-
-const testRouteLayout = (props: TestrouteProps) => (
-  <div>
-    <h1>testRoute</h1>
-    { props.children }
-  </div>
-)
-export default testRouteLayout;
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
-"import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
-import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
-/**
- * Run \`apr g duck --route src\` to add a duck
- */
-export default {
- testDuck2,
- testDuck2
-};
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
-
-const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
-
-export const initialState = {
-  confirmed: false
-};
-
-type UIState = typeof initialState;
-export const testDuck2 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
-});
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
-"import { testSaga2 } from './testSaga2'
-import { testSaga2 } from './testSaga2'
-import { all, call } from \\"redux-saga/effects\\";
-
-export default function* rootSaga() {
-  yield all([call(testSaga2), call(testSaga2)]);
-}
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `
-"import { call } from 'redux-saga/effects';
-
-export function* testSaga2 () {
-  yield call(() => console.log('my new saga'));
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `
-"import testRoute from './testRoute';
-export default testRoute;
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `
-"import { createSelector } from 'reselect'
-import route from '../../'
-
-const identity = createSelector(route.baseSelector, (routeState) => routeState);
-
-export default {
-  identity
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `
-"import { TestComponent3 } from './testComponent3'
-
-export default TestComponent3
-
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `
-"import * as React from 'react'
-
-export interface Testcomponent3Props {
-  children?: React.ReactChildren
-}
-export const TestComponent3 = (props: Testcomponent3Props) => {
-  return (
-    <div> TestComponent3 { props.children }</div>
-  )
-}
-
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
-"import { app } from 'app'
-import { createRouteComposer } from 'action-packed-react/routeMatcher';
-
-export const route = createRouteComposer('testRoute2')
-const testRoute2Route = app.createSubRoute(
-  route,
-  () => import('./redux/ducks')
-)
-testRoute2Route.setComponent(() => import('./layout'))
-testRoute2Route.register()
-export default testRoute2Route;
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `
-"import * as React from 'react'
-
-interface Testroute2Props {
-  children?: React.ReactChildren
-}
-
-const testRoute2Layout = (props: Testroute2Props) => (
-  <div>
-    <h1>testRoute2</h1>
-    { props.children }
-  </div>
-)
-export default testRoute2Layout;
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
-"import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
-import { testDuck3, initialState as testDuck3InitialState } from './testDuck3/testDuck3'
-/**
- * Run \`apr g duck --route src/routes/testRoute\` to add a duck
- */
-export default {
- testDuck3,
- testDuck3
-};
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
-
-const ns = (type: string) => \`src/routes/testRoute/routes/testRoute2/testDuck3/\${type}\`
-
-export const initialState = {
-  confirmed: false
-};
-
-type UIState = typeof initialState;
-export const testDuck3 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
-});
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
-"import { testSaga3 } from './testSaga3'
-import { testSaga3 } from './testSaga3'
-import { all, call } from \\"redux-saga/effects\\";
-
-export default function* rootSaga() {
-  yield all([call(testSaga3), call(testSaga3)]);
-}
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `
-"import { call } from 'redux-saga/effects';
-
-export function* testSaga3 () {
-  yield call(() => console.log('my new saga'));
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `
-"import testRoute2 from './testRoute2';
-export default testRoute2;
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts 1`] = `
-"import { createSelector } from 'reselect'
-import route from '../../'
-
-const identity = createSelector(route.baseSelector, (routeState) => routeState);
-
-export default {
-  identity
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `
-"import { app } from 'app'
-import { createRouteComposer } from 'action-packed-react/routeMatcher';
-
-export const route = createRouteComposer('testRoute3')
-const testRoute3Route = app.createSubRoute(
-  route,
-  () => import('./redux/ducks')
-)
-testRoute3Route.setComponent(() => import('./layout'))
-testRoute3Route.register()
-export default testRoute3Route;
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `
-"import * as React from 'react'
-
-interface Testroute3Props {
-  children?: React.ReactChildren
-}
-
-const testRoute3Layout = (props: Testroute3Props) => (
-  <div>
-    <h1>testRoute3</h1>
-    { props.children }
-  </div>
-)
-export default testRoute3Layout;
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `
-"/**
- * Run \`apr g duck --route src/routes/testRoute/routes/testRoute2\` to add a duck
- */
-export default {}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts 1`] = `
-"import { all } from \\"redux-saga/effects\\";
-
-export default function* rootSaga() {
-  yield all([
-  ]);
-}
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts 1`] = `
-"import testRoute3 from './testRoute3';
-export default testRoute3;
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts 1`] = `
-"import { createSelector } from 'reselect'
-import route from '../../'
-
-const identity = createSelector(route.baseSelector, (routeState) => routeState);
-
-export default {
-  identity
-}
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/ui/readme.md 1`] = `
-"# UI
-\`ui\` is for reusable components, which should have 0 concept of anything else
- that is in your app.
-
-## Examples
-### Components that belong in ui.
-UI components should be simple, pure, and require no context of the application.
-Try to imagine that one day, you want to publish an npm package, based on your
-ui elements. It should be as easy as copying this folder, and putting a
-package.json file in it (and maybe a build system). Think of this as your own
-personal bootstrap.
-  * Button - simple ui component. It requires no context, or anything to
-    be loaded in your app.
-  * Grid - Meta component for arranging other components or children
-  * Form inputs - keep your UI consistent by defining form inputs here.
-  * Avatar - Takes an image, and creates a specific size.
-  * Loader - Spinner or progress bar to show throughout the application.
-
-### Components that do not belong in ui.
-UI components that are specific to something in your application belong in
-components.
-  * UserAvatar - maybe it contains a link to user profiles, has knowledge of the
-    user model, etc...
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/ui/testUi/index.ts 1`] = `
-"import { Testui } from './testUi'
-
-export default Testui
-
-
-"
-`;
-
-exports[`setup should create the initial files: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `
-"import * as React from 'react'
-
-export interface TestuiProps {
-  children?: React.ReactChildren
-}
-export const TestUi = (props: TestuiProps) => {
-  return (
-    <div> TestUi { props.children } </div>
-  )
-}
-
-
-"
-`;
+exports[`setup should create the initial files: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `"bd9fea18708e85d7a8117d761192c9b4"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/components/testComponent/index.ts 1`] = `"66e837ed03ae52c1741c39138f6b1e59"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/components/testComponent/testComponent.tsx 1`] = `"c1fba66f368a7c6a62496fecf5d6bb1b"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/redux/ducks/index.ts 1`] = `"22e36077d21fa407096aa36b7a169706"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `"5dfb438f17d6ef5f695629fd6346b18a"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `"37fc63f2a8f6f954ab702060d0dc106b"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/index.ts 1`] = `"3787aa2cfd0efff9a5b54a8d2fdec2c9"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `"c7de352914a203e1177ce9a88c8f469d"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `"c614f80fd3b31b3bccac6471c9f91141"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/redux/selectors/index.ts 1`] = `"6c8425d082718860d737b83973731057"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/readme.md 1`] = `"1f1dcc180a5f38ad42d8dcea10766c79"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `"c6683951ee4ebd52ab679eac643dd4aa"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `"2446c766091d4ffc3bd33d366fd04fbd"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/index.ts 1`] = `"cc2c8bd60d2ca37ca3a1be1623d276d5"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"1be19caeb790c36a20337d72452fb15d"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `"734cbf44f6b50c53ec00e91f16bf339a"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"167df8e98f89908269e3e34aa8a8e0a5"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `"4d3dff914cb71a9d2e3cf56c965f102e"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `"85f9a89021625dbd6a152f541a920c29"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `"b8b115c44607f9bf1df189f677650f79"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `"a7b9694f82808a0f9251e0b3946b967f"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `"7219714256642c7a44858c42a80bbf52"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"73798afc671dbad39acafdd4a967ecfa"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `"3c0f7c47fe6fe996ba5a86839d51e90a"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"3f7bf2f5a0ba64336ffdd52eac2f5509"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `"9a45ee7517b86cd5f4547f682ebb2545"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `"45149cd07269f32980273a007a92c198"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `"d618ef580c6c78402ddc979c9df88c30"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `"959b8d0b1c57ad5f65ab18f42412254a"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `"b8691136ebd5bcef166911cb3b704695"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts 1`] = `"e02cddab29983a120f513e8b3e53b90d"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/ui/testUi/index.ts 1`] = `"9e2a5017ae3409c0c93523263f55f862"`;
+
+exports[`setup should create the initial files: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"01750535627b3e16f72eb2343ca64482"`;
 
 exports[`setup should create the initial files: file-list 1`] = `
 Array [
