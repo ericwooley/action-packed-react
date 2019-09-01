@@ -1,17 +1,17 @@
 name: CI
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: install
-      run: yarn install
-    - name: build
-      run: yarn workspaces run build
-    - name: test
-      run: yarn workspaces run test || (cat playground.log && false)
+      - uses: actions/checkout@v1
+      - name: install
+        run: yarn install
+      - name: build
+        run: yarn workspaces run build
+      - name: lint
+        run: yarn workspaces run lint
+      - name: test
+        run: yarn workspaces run test || (cat playground.log && false)
