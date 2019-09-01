@@ -8,15 +8,11 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/ducks/index.ts 1`] = `"22e36077d21fa407096aa36b7a169706"`;
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/ducks/index.ts 1`] = `"33528d1413803770743f997b1d5540c6"`;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `"5dfb438f17d6ef5f695629fd6346b18a"`;
 
-exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `"37fc63f2a8f6f954ab702060d0dc106b"`;
-
-exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/sagas/index.ts 1`] = `"3787aa2cfd0efff9a5b54a8d2fdec2c9"`;
-
-exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `"c7de352914a203e1177ce9a88c8f469d"`;
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/sagas/index.ts 1`] = `"848c92787fc553168c9d590649004da5"`;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `"c614f80fd3b31b3bccac6471c9f91141"`;
 
@@ -32,11 +28,11 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
 
-exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"1be19caeb790c36a20337d72452fb15d"`;
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"974eb15b43f08a38736ee872ca83d043"`;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `"734cbf44f6b50c53ec00e91f16bf339a"`;
 
-exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"167df8e98f89908269e3e34aa8a8e0a5"`;
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"771a694ddab6759c17cdb6214fe1c533"`;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `"4d3dff914cb71a9d2e3cf56c965f102e"`;
 
@@ -52,13 +48,11 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
 
-exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"73798afc671dbad39acafdd4a967ecfa"`;
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"f91d5be1839a205d276b57913c83fb62"`;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `"3c0f7c47fe6fe996ba5a86839d51e90a"`;
 
-exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"3f7bf2f5a0ba64336ffdd52eac2f5509"`;
-
-exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `"9a45ee7517b86cd5f4547f682ebb2545"`;
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `"45149cd07269f32980273a007a92c198"`;
 
@@ -85,9 +79,7 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
 exports[`generating saga should generate a new saga based on testRoutes: apr g saga --name testSaga2 --route src/routes/testRoute --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-[?25l[36m?[39m [1m     exists: src/routes/testRoute/redux/sagas/testSaga2.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h
-ERROR: src/routes/testRoute/redux/sagas/index.ts:2:1 - Multiple imports from './testSaga2' can be combined into one.
-
+       added: src/routes/testRoute/redux/sagas/testSaga2.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -105,9 +97,7 @@ Array [
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
-  "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
-  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
@@ -128,7 +118,6 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
@@ -151,15 +140,11 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/ducks/index.ts 1`] = `"22e36077d21fa407096aa36b7a169706"`;
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/ducks/index.ts 1`] = `"33528d1413803770743f997b1d5540c6"`;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `"5dfb438f17d6ef5f695629fd6346b18a"`;
 
-exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `"37fc63f2a8f6f954ab702060d0dc106b"`;
-
-exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/sagas/index.ts 1`] = `"3787aa2cfd0efff9a5b54a8d2fdec2c9"`;
-
-exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `"c7de352914a203e1177ce9a88c8f469d"`;
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/sagas/index.ts 1`] = `"848c92787fc553168c9d590649004da5"`;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `"c614f80fd3b31b3bccac6471c9f91141"`;
 
@@ -175,11 +160,11 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
 
-exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"1be19caeb790c36a20337d72452fb15d"`;
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"974eb15b43f08a38736ee872ca83d043"`;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `"734cbf44f6b50c53ec00e91f16bf339a"`;
 
-exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"167df8e98f89908269e3e34aa8a8e0a5"`;
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"771a694ddab6759c17cdb6214fe1c533"`;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `"4d3dff914cb71a9d2e3cf56c965f102e"`;
 
@@ -195,11 +180,11 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
 
-exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"73798afc671dbad39acafdd4a967ecfa"`;
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"f91d5be1839a205d276b57913c83fb62"`;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `"3c0f7c47fe6fe996ba5a86839d51e90a"`;
 
-exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"3f7bf2f5a0ba64336ffdd52eac2f5509"`;
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"8721a36234da6efb1feb08b4a3b6f37a"`;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `"9a45ee7517b86cd5f4547f682ebb2545"`;
 
@@ -228,9 +213,7 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
 exports[`generating saga should generate a new saga based on testRoutes2: apr g saga --name testSaga3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-[?25l[36m?[39m [1m     exists: src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h
-ERROR: src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts:2:1 - Multiple imports from './testSaga3' can be combined into one.
-
+       added: src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -248,9 +231,7 @@ Array [
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
-  "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
-  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
@@ -294,15 +275,11 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-exports[`generating saga should generate a new saga: <project-root>playground/src/redux/ducks/index.ts 1`] = `"22e36077d21fa407096aa36b7a169706"`;
+exports[`generating saga should generate a new saga: <project-root>playground/src/redux/ducks/index.ts 1`] = `"33528d1413803770743f997b1d5540c6"`;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `"5dfb438f17d6ef5f695629fd6346b18a"`;
 
-exports[`generating saga should generate a new saga: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `"37fc63f2a8f6f954ab702060d0dc106b"`;
-
-exports[`generating saga should generate a new saga: <project-root>playground/src/redux/sagas/index.ts 1`] = `"3787aa2cfd0efff9a5b54a8d2fdec2c9"`;
-
-exports[`generating saga should generate a new saga: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `"c7de352914a203e1177ce9a88c8f469d"`;
+exports[`generating saga should generate a new saga: <project-root>playground/src/redux/sagas/index.ts 1`] = `"848c92787fc553168c9d590649004da5"`;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `"c614f80fd3b31b3bccac6471c9f91141"`;
 
@@ -318,13 +295,11 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
 
-exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"1be19caeb790c36a20337d72452fb15d"`;
+exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"974eb15b43f08a38736ee872ca83d043"`;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `"734cbf44f6b50c53ec00e91f16bf339a"`;
 
-exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"167df8e98f89908269e3e34aa8a8e0a5"`;
-
-exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `"4d3dff914cb71a9d2e3cf56c965f102e"`;
+exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `"85f9a89021625dbd6a152f541a920c29"`;
 
@@ -338,13 +313,11 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
 
-exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"73798afc671dbad39acafdd4a967ecfa"`;
+exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"f91d5be1839a205d276b57913c83fb62"`;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `"3c0f7c47fe6fe996ba5a86839d51e90a"`;
 
-exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"3f7bf2f5a0ba64336ffdd52eac2f5509"`;
-
-exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `"9a45ee7517b86cd5f4547f682ebb2545"`;
+exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `"45149cd07269f32980273a007a92c198"`;
 
@@ -371,9 +344,7 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
 exports[`generating saga should generate a new saga: apr g saga --name testSaga --route src --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-[?25l[36m?[39m [1m     exists: src/redux/sagas/testSaga.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h
-ERROR: src/redux/sagas/index.ts:2:1 - Multiple imports from './testSaga' can be combined into one.
-
+       added: src/redux/sagas/testSaga.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -391,9 +362,7 @@ Array [
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
-  "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
-  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
@@ -404,7 +373,6 @@ Array [
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
@@ -414,7 +382,6 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",

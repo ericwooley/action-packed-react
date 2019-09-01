@@ -8,17 +8,9 @@ exports[`generating component should generate a new component based on testRoute
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/ducks/index.ts 1`] = `"22e36077d21fa407096aa36b7a169706"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/ducks/index.ts 1`] = `"476e29b73b3d5d1e635bc9b8a83d6aa4"`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `"5dfb438f17d6ef5f695629fd6346b18a"`;
-
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `"37fc63f2a8f6f954ab702060d0dc106b"`;
-
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/sagas/index.ts 1`] = `"3787aa2cfd0efff9a5b54a8d2fdec2c9"`;
-
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `"c7de352914a203e1177ce9a88c8f469d"`;
-
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `"c614f80fd3b31b3bccac6471c9f91141"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/sagas/index.ts 1`] = `"e23efdf8bcee4e5476fe3aa56d536e75"`;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/selectors/index.ts 1`] = `"6c8425d082718860d737b83973731057"`;
 
@@ -32,33 +24,21 @@ exports[`generating component should generate a new component based on testRoute
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"1be19caeb790c36a20337d72452fb15d"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"6bd41dc838fe659b45219c0a9ee91e5a"`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `"734cbf44f6b50c53ec00e91f16bf339a"`;
-
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"167df8e98f89908269e3e34aa8a8e0a5"`;
-
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `"4d3dff914cb71a9d2e3cf56c965f102e"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `"85f9a89021625dbd6a152f541a920c29"`;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `"b8b115c44607f9bf1df189f677650f79"`;
-
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `"a7b9694f82808a0f9251e0b3946b967f"`;
-
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `"7219714256642c7a44858c42a80bbf52"`;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"73798afc671dbad39acafdd4a967ecfa"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"a41d6164e37356212616d341b28aec9d"`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `"3c0f7c47fe6fe996ba5a86839d51e90a"`;
-
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"3f7bf2f5a0ba64336ffdd52eac2f5509"`;
-
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `"9a45ee7517b86cd5f4547f682ebb2545"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `"45149cd07269f32980273a007a92c198"`;
 
@@ -85,7 +65,9 @@ exports[`generating component should generate a new component based on testRoute
 exports[`generating component should generate a new component based on testRoutes: apr g component --name testComponent2 --route src/routes/testRoute --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-[?25l[36m?[39m [1m     exists: src/routes/testRoute/components/testComponent2/index.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h,"
+       added: src/routes/testRoute/components/testComponent2/index.ts
+       added: src/routes/testRoute/components/testComponent2/testComponent2.tsx
+,"
 `;
 
 exports[`generating component should generate a new component based on testRoutes: file-list 1`] = `
@@ -95,11 +77,7 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
-  "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
-  "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
-  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
-  "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/routes/testRoute/components/testComponent2/index.ts",
@@ -107,19 +85,13 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
@@ -142,17 +114,9 @@ exports[`generating component should generate a new component based on testRoute
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/ducks/index.ts 1`] = `"22e36077d21fa407096aa36b7a169706"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/ducks/index.ts 1`] = `"476e29b73b3d5d1e635bc9b8a83d6aa4"`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `"5dfb438f17d6ef5f695629fd6346b18a"`;
-
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `"37fc63f2a8f6f954ab702060d0dc106b"`;
-
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/sagas/index.ts 1`] = `"3787aa2cfd0efff9a5b54a8d2fdec2c9"`;
-
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `"c7de352914a203e1177ce9a88c8f469d"`;
-
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `"c614f80fd3b31b3bccac6471c9f91141"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/sagas/index.ts 1`] = `"e23efdf8bcee4e5476fe3aa56d536e75"`;
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/selectors/index.ts 1`] = `"6c8425d082718860d737b83973731057"`;
 
@@ -166,13 +130,9 @@ exports[`generating component should generate a new component based on testRoute
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"1be19caeb790c36a20337d72452fb15d"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"6bd41dc838fe659b45219c0a9ee91e5a"`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `"734cbf44f6b50c53ec00e91f16bf339a"`;
-
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"167df8e98f89908269e3e34aa8a8e0a5"`;
-
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `"4d3dff914cb71a9d2e3cf56c965f102e"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `"85f9a89021625dbd6a152f541a920c29"`;
 
@@ -186,13 +146,9 @@ exports[`generating component should generate a new component based on testRoute
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"73798afc671dbad39acafdd4a967ecfa"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"a41d6164e37356212616d341b28aec9d"`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `"3c0f7c47fe6fe996ba5a86839d51e90a"`;
-
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"3f7bf2f5a0ba64336ffdd52eac2f5509"`;
-
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `"9a45ee7517b86cd5f4547f682ebb2545"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `"45149cd07269f32980273a007a92c198"`;
 
@@ -219,7 +175,9 @@ exports[`generating component should generate a new component based on testRoute
 exports[`generating component should generate a new component based on testRoutes2: apr g component --name testComponent3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-[?25l[36m?[39m [1m     exists: src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h,"
+       added: src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts
+       added: src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx
+,"
 `;
 
 exports[`generating component should generate a new component based on testRoutes2: file-list 1`] = `
@@ -229,11 +187,7 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
-  "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
-  "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
-  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
-  "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/routes/testRoute/components/testComponent2/index.ts",
@@ -241,9 +195,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
@@ -251,9 +203,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
@@ -276,57 +226,33 @@ exports[`generating component should generate a new component: <project-root>pla
 
 exports[`generating component should generate a new component: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/redux/ducks/index.ts 1`] = `"22e36077d21fa407096aa36b7a169706"`;
+exports[`generating component should generate a new component: <project-root>playground/src/redux/ducks/index.ts 1`] = `"476e29b73b3d5d1e635bc9b8a83d6aa4"`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `"5dfb438f17d6ef5f695629fd6346b18a"`;
-
-exports[`generating component should generate a new component: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `"37fc63f2a8f6f954ab702060d0dc106b"`;
-
-exports[`generating component should generate a new component: <project-root>playground/src/redux/sagas/index.ts 1`] = `"3787aa2cfd0efff9a5b54a8d2fdec2c9"`;
-
-exports[`generating component should generate a new component: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `"c7de352914a203e1177ce9a88c8f469d"`;
-
-exports[`generating component should generate a new component: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `"c614f80fd3b31b3bccac6471c9f91141"`;
+exports[`generating component should generate a new component: <project-root>playground/src/redux/sagas/index.ts 1`] = `"e23efdf8bcee4e5476fe3aa56d536e75"`;
 
 exports[`generating component should generate a new component: <project-root>playground/src/redux/selectors/index.ts 1`] = `"6c8425d082718860d737b83973731057"`;
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/readme.md 1`] = `"1f1dcc180a5f38ad42d8dcea10766c79"`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `"c6683951ee4ebd52ab679eac643dd4aa"`;
-
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `"2446c766091d4ffc3bd33d366fd04fbd"`;
-
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/index.ts 1`] = `"cc2c8bd60d2ca37ca3a1be1623d276d5"`;
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"1be19caeb790c36a20337d72452fb15d"`;
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"6bd41dc838fe659b45219c0a9ee91e5a"`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `"734cbf44f6b50c53ec00e91f16bf339a"`;
-
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"167df8e98f89908269e3e34aa8a8e0a5"`;
-
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `"4d3dff914cb71a9d2e3cf56c965f102e"`;
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `"85f9a89021625dbd6a152f541a920c29"`;
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `"b8b115c44607f9bf1df189f677650f79"`;
-
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `"a7b9694f82808a0f9251e0b3946b967f"`;
-
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `"7219714256642c7a44858c42a80bbf52"`;
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"73798afc671dbad39acafdd4a967ecfa"`;
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"a41d6164e37356212616d341b28aec9d"`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `"3c0f7c47fe6fe996ba5a86839d51e90a"`;
-
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"3f7bf2f5a0ba64336ffdd52eac2f5509"`;
-
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `"9a45ee7517b86cd5f4547f682ebb2545"`;
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `"45149cd07269f32980273a007a92c198"`;
 
@@ -353,7 +279,9 @@ exports[`generating component should generate a new component: <project-root>pla
 exports[`generating component should generate a new component: apr g component --name testComponent --route src --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
-[?25l[36m?[39m [1m     exists: src/components/testComponent/index.ts. Overwrite? (y/N): [22m [2m(y/N)[22m [2m‣[22m [36mfalse[39m[10D[?25h,"
+       added: src/components/testComponent/index.ts
+       added: src/components/testComponent/testComponent.tsx
+,"
 `;
 
 exports[`generating component should generate a new component: file-list 1`] = `
@@ -363,31 +291,19 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
-  "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
-  "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
-  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
-  "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
-  "<project-root>playground/src/routes/testRoute/components/testComponent2/index.ts",
-  "<project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx",
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",

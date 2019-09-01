@@ -2,128 +2,26 @@
 
 exports[`setup should create the initial files: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `"bd9fea18708e85d7a8117d761192c9b4"`;
 
-exports[`setup should create the initial files: <project-root>playground/src/components/testComponent/index.ts 1`] = `"66e837ed03ae52c1741c39138f6b1e59"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/components/testComponent/testComponent.tsx 1`] = `"c1fba66f368a7c6a62496fecf5d6bb1b"`;
-
 exports[`setup should create the initial files: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-exports[`setup should create the initial files: <project-root>playground/src/redux/ducks/index.ts 1`] = `"22e36077d21fa407096aa36b7a169706"`;
+exports[`setup should create the initial files: <project-root>playground/src/redux/ducks/index.ts 1`] = `"476e29b73b3d5d1e635bc9b8a83d6aa4"`;
 
-exports[`setup should create the initial files: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `"5dfb438f17d6ef5f695629fd6346b18a"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/autoSaveState.ts 1`] = `"37fc63f2a8f6f954ab702060d0dc106b"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/index.ts 1`] = `"3787aa2cfd0efff9a5b54a8d2fdec2c9"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/myFirstSaga.ts 1`] = `"c7de352914a203e1177ce9a88c8f469d"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `"c614f80fd3b31b3bccac6471c9f91141"`;
+exports[`setup should create the initial files: <project-root>playground/src/redux/sagas/index.ts 1`] = `"e23efdf8bcee4e5476fe3aa56d536e75"`;
 
 exports[`setup should create the initial files: <project-root>playground/src/redux/selectors/index.ts 1`] = `"6c8425d082718860d737b83973731057"`;
 
 exports[`setup should create the initial files: <project-root>playground/src/routes/readme.md 1`] = `"1f1dcc180a5f38ad42d8dcea10766c79"`;
 
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `"c6683951ee4ebd52ab679eac643dd4aa"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `"2446c766091d4ffc3bd33d366fd04fbd"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/index.ts 1`] = `"cc2c8bd60d2ca37ca3a1be1623d276d5"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"1be19caeb790c36a20337d72452fb15d"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `"734cbf44f6b50c53ec00e91f16bf339a"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"167df8e98f89908269e3e34aa8a8e0a5"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `"4d3dff914cb71a9d2e3cf56c965f102e"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `"85f9a89021625dbd6a152f541a920c29"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `"b8b115c44607f9bf1df189f677650f79"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `"a7b9694f82808a0f9251e0b3946b967f"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `"7219714256642c7a44858c42a80bbf52"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"73798afc671dbad39acafdd4a967ecfa"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `"3c0f7c47fe6fe996ba5a86839d51e90a"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"3f7bf2f5a0ba64336ffdd52eac2f5509"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts 1`] = `"9a45ee7517b86cd5f4547f682ebb2545"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `"45149cd07269f32980273a007a92c198"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `"d618ef580c6c78402ddc979c9df88c30"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `"959b8d0b1c57ad5f65ab18f42412254a"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `"b8691136ebd5bcef166911cb3b704695"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts 1`] = `"e02cddab29983a120f513e8b3e53b90d"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
-
 exports[`setup should create the initial files: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/ui/testUi/index.ts 1`] = `"9e2a5017ae3409c0c93523263f55f862"`;
-
-exports[`setup should create the initial files: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"01750535627b3e16f72eb2343ca64482"`;
 
 exports[`setup should create the initial files: file-list 1`] = `
 Array [
   "<project-root>playground/src/components/RootLayout/index.tsx",
-  "<project-root>playground/src/components/testComponent/index.ts",
-  "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
-  "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
-  "<project-root>playground/src/redux/sagas/autoSaveState.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
-  "<project-root>playground/src/redux/sagas/myFirstSaga.ts",
-  "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
-  "<project-root>playground/src/routes/testRoute/components/testComponent2/index.ts",
-  "<project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx",
-  "<project-root>playground/src/routes/testRoute/index.ts",
-  "<project-root>playground/src/routes/testRoute/layout.tsx",
-  "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
-  "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
-  "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
-  "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts",
-  "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/ui/readme.md",
-  "<project-root>playground/src/ui/testUi/index.ts",
-  "<project-root>playground/src/ui/testUi/testUi.tsx",
 ]
 `;
