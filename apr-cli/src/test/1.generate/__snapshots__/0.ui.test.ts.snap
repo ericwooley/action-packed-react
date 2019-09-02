@@ -14,15 +14,18 @@ exports[`generating ui should generate a new ui component: <project-root>playgro
 
 exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/index.ts 1`] = `"9e2a5017ae3409c0c93523263f55f862"`;
+exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/index.ts 1`] = `"8a9de13f6510c85917c451b26ebdb783"`;
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"01750535627b3e16f72eb2343ca64482"`;
+exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `"4b070b3b570f6e9f52e1eba5d2a57c64"`;
+
+exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"0681a3f4331a7f3bef9962b38cc03dde"`;
 
 exports[`generating ui should generate a new ui component: apr g ui --name testUi --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/ui/testUi/index.ts
        added: src/ui/testUi/testUi.tsx
+       added: src/ui/testUi/testUi.story.tsx
 ,"
 `;
 
@@ -36,6 +39,7 @@ Array [
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
+  "<project-root>playground/src/ui/testUi/testUi.story.tsx",
   "<project-root>playground/src/ui/testUi/testUi.tsx",
 ]
 `;

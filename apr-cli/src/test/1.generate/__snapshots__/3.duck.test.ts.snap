@@ -66,9 +66,11 @@ exports[`generating duck should generate a new duck based on testRoutes: <projec
 
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
 
-exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/ui/testUi/index.ts 1`] = `"9e2a5017ae3409c0c93523263f55f862"`;
+exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/ui/testUi/index.ts 1`] = `"8a9de13f6510c85917c451b26ebdb783"`;
 
-exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"01750535627b3e16f72eb2343ca64482"`;
+exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `"4b070b3b570f6e9f52e1eba5d2a57c64"`;
+
+exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"0681a3f4331a7f3bef9962b38cc03dde"`;
 
 exports[`generating duck should generate a new duck based on testRoutes: apr g duck --name testDuck2 --route src/routes/testRoute --autoLink 1`] = `
 ",
@@ -119,6 +121,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
+  "<project-root>playground/src/ui/testUi/testUi.story.tsx",
   "<project-root>playground/src/ui/testUi/testUi.tsx",
 ]
 `;
@@ -191,9 +194,11 @@ exports[`generating duck should generate a new duck based on testRoutes2: <proje
 
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
 
-exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/ui/testUi/index.ts 1`] = `"9e2a5017ae3409c0c93523263f55f862"`;
+exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/ui/testUi/index.ts 1`] = `"8a9de13f6510c85917c451b26ebdb783"`;
 
-exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"01750535627b3e16f72eb2343ca64482"`;
+exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `"4b070b3b570f6e9f52e1eba5d2a57c64"`;
+
+exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"0681a3f4331a7f3bef9962b38cc03dde"`;
 
 exports[`generating duck should generate a new duck based on testRoutes2: apr g duck --name testDuck3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
@@ -245,6 +250,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
+  "<project-root>playground/src/ui/testUi/testUi.story.tsx",
   "<project-root>playground/src/ui/testUi/testUi.tsx",
 ]
 `;
@@ -313,9 +319,11 @@ exports[`generating duck should generate a new duck: <project-root>playground/sr
 
 exports[`generating duck should generate a new duck: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
 
-exports[`generating duck should generate a new duck: <project-root>playground/src/ui/testUi/index.ts 1`] = `"9e2a5017ae3409c0c93523263f55f862"`;
+exports[`generating duck should generate a new duck: <project-root>playground/src/ui/testUi/index.ts 1`] = `"8a9de13f6510c85917c451b26ebdb783"`;
 
-exports[`generating duck should generate a new duck: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"01750535627b3e16f72eb2343ca64482"`;
+exports[`generating duck should generate a new duck: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `"4b070b3b570f6e9f52e1eba5d2a57c64"`;
+
+exports[`generating duck should generate a new duck: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"0681a3f4331a7f3bef9962b38cc03dde"`;
 
 exports[`generating duck should generate a new duck: apr g duck --name testDuck --route src --autoLink 1`] = `
 ",
@@ -365,6 +373,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
+  "<project-root>playground/src/ui/testUi/testUi.story.tsx",
   "<project-root>playground/src/ui/testUi/testUi.tsx",
 ]
 `;
