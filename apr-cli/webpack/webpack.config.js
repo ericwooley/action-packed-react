@@ -2,7 +2,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const debug = require('debug')
 const log = debug('apr:webpack')
-const R = require('remeda')
+const loaders = require('./loaders')
 
 const entry = path.join(process.cwd(), './src/index.tsx')
 log('entry', entry)
@@ -15,9 +15,11 @@ const alias = {
 }
 log('alias', alias)
 
+const mode = 'development'
+const rules = loaders(mode)
 module.exports = {
   entry,
-  mode: 'development',
+  mode,
   devServer: {
     historyApiFallback: {
       index: 'index.html'
@@ -47,9 +49,7 @@ module.exports = {
     }
   },
   module: {
-    rules: R.pipe(require('./loaders/typescript.js')('development'))([]).map(
-      ({ id, ...loader }) => loader
-    )
+    rules
   },
   plugins: [
     new HtmlWebpackPlugin({

@@ -1,4 +1,5 @@
-module.exports = env => allLoaders => [
+const curry = require('lodash/curry')
+module.exports = curry((env, allLoaders) => [
   ...allLoaders,
   {
     id: 'typescript',
@@ -6,4 +7,4 @@ module.exports = env => allLoaders => [
     loader: 'ts-loader',
     options: { reportFiles: ['src/**/*.{ts,tsx}'], allowTsInNodeModules: true }
   }
-]
+])
