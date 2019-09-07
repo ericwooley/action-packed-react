@@ -3,7 +3,6 @@ import path, { join } from "path";
 import fs from "fs";
 import debug from "debug";
 import { cleanSourcePath } from "./cleanSourcePath";
-import md5 from "md5";
 
 const log = debug("apr:test:files");
 const playGroundSrc = path.join(__dirname, "../../../../playground/src/**/*");
@@ -41,6 +40,6 @@ export const snapshotPlayground = async () => {
   const filesWithSources = await getAllAllPlaygroundFileSources();
   expect(filesWithSources.map(({ path }) => cleanSourcePath(path))).toMatchSnapshot("file-list");
   filesWithSources.forEach(({ path, contents }) => {
-    expect(md5(contents)).toMatchSnapshot(cleanSourcePath(path));
+    expect(cleanSourcePath(contents)).toMatchSnapshot(cleanSourcePath(path));
   });
 };

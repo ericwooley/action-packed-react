@@ -2,21 +2,20 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const debug = require('debug')
 const log = debug('apr:webpack')
+const loaders = require('./loaders')
+const aliasModules = require('./alias')
 
 const entry = path.join(process.cwd(), './src/index.tsx')
+const mode = 'development'
+const alias = aliasModules(mode, {})
+const rules = loaders(mode)
+
 log('entry', entry)
-function srcPath (subdir) {
-  const result = path.join(process.cwd(), 'src', subdir)
-  return result
-}
-const alias = {
-  app: srcPath('')
-}
 log('alias', alias)
 
 module.exports = {
   entry,
-  mode: 'development',
+  mode,
   devServer: {
     historyApiFallback: {
       index: 'index.html'
@@ -46,13 +45,7 @@ module.exports = {
     }
   },
   module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: { reportFiles: ['src/**/*.{ts,tsx}'], allowTsInNodeModules: true }
-      }
-    ]
+    rules
   },
   plugins: [
     new HtmlWebpackPlugin({

@@ -1,28 +1,246 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `"bd9fea18708e85d7a8117d761192c9b4"`;
+exports[`generating ui should generate a new ui component: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import styled from \\"styled-components\\";
+const Wrapper = styled.div\`
+  display: flex;
+  flex-direction: row;
+\`;
+const Nav = styled.div\`
+  flex: 0;
+  padding: 10px;
+  margin: 10px;
+  min-width: 300px;
+  border: 1px solid lightgreen;
+  border-radius: 20px;
+\`;
+export default class RootLayout extends React.PureComponent {
+  render() {
+    return (
+      <Wrapper>
+        <Nav>
+          <ul>
+            <li>
+              link 1
+            </li>
+            <li>
+              link 2
+            </li>
+          </ul>
+        </Nav>
+        <div>{this.props.children}</div>
+      </Wrapper>
+    );
+  }
+}
+"
+`;
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
+exports[`generating ui should generate a new ui component: <project-root>playground/src/index.tsx 1`] = `
+"import { routeFactory } from \\"./route\\";
+import { render, unmountComponentAtNode } from \\"react-dom\\";
+import { createHashHistory } from \\"history\\";
+const el = document.getElementById(\\"root\\");
+if (!el) throw new Error(\\"no el\\");
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/ducks/index.ts 1`] = `"476e29b73b3d5d1e635bc9b8a83d6aa4"`;
+const renderApp = (jsx: JSX.Element) => {
+  render(jsx, el);
+  return () => unmountComponentAtNode(el);
+};
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/sagas/index.ts 1`] = `"e23efdf8bcee4e5476fe3aa56d536e75"`;
+export default routeFactory(renderApp, {history: createHashHistory()});
+"
+`;
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/selectors/index.ts 1`] = `"6c8425d082718860d737b83973731057"`;
+exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/ducks/index.ts 1`] = `
+"// 👇 Add your reducers here 👇
+export default {}
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/readme.md 1`] = `"1f1dcc180a5f38ad42d8dcea10766c79"`;
+// 👇 Add your initial states here 👇
+export const initialState = {
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
+}
+"
+`;
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/index.ts 1`] = `"9e2a5017ae3409c0c93523263f55f862"`;
+exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"01750535627b3e16f72eb2343ca64482"`;
+/**
+ * rootSaga to load any global sagas you want.
+ *
+ * Included are some common ones, you just need to uncomment them.
+ */
+export default function* rootSaga() {
+  console.log(\\"saga initialized\\");
+  yield all([
+  ]);
+}
+"
+`;
+
+exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/selectors/index.ts 1`] = `
+"import { createSelector } from 'reselect'
+import app from '../..'
+
+"
+`;
+
+exports[`generating ui should generate a new ui component: <project-root>playground/src/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import { routeFactory } from \\"./route\\";
+import { createMemoryHistory } from \\"history\\";
+
+// this is a gross hack, until i make a storybook addon
+// to handle this gracefully
+
+let onMount: () => void = () => {};
+let appJsx: null | React.ReactElement = null;
+
+export const history = createMemoryHistory();
+export const route = routeFactory(
+  jsx => {
+    appJsx = jsx;
+    console.log(\\"trigger re-render\\");
+    onMount();
+    return () => {
+      appJsx = null as any;
+    };
+  },
+  { history }
+);
+
+export class AppStory extends React.Component {
+  componentDidMount() {
+    onMount = this.forceUpdate;
+  }
+  componentWillUnmount() {
+    onMount = () => {};
+  }
+
+  render() {
+    return appJsx;
+  }
+}
+storiesOf(\\"app\\", module).add(\\"with text\\", () => <AppStory />);
+"
+`;
+
+exports[`generating ui should generate a new ui component: <project-root>playground/src/route.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { History } from \\"history\\";
+import initialReducers, { initialState } from \\"./redux/ducks\\";
+import { IRender } from \\"action-packed-react/types\\";
+export const routeFactory = (renderApp: IRender, { history }: { history: History }) => {
+  const app = createApp({
+    composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+    history,
+    initialState,
+    initialReducers,
+    RouteNotFoundComponent: () => <div>Not Found</div>,
+    LoadingComponent: () => <h3>Loading...</h3>,
+    render: renderApp,
+    saga: import(\\"./redux/sagas/index\\"),
+    layout: import(\\"./components/RootLayout\\")
+  });
+
+  app.init().catch(e => console.error(\\"Error Starting application\\", e));
+  return app;
+};
+export type Parent = ReturnType<typeof routeFactory>
+
+
+"
+`;
+
+exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/readme.md 1`] = `
+"
+# Routes
+\`routes\` is a folder for holding other routes, which follows the
+[fractal pattern](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af).
+
+Each route contains:
+  * a \`routes\` folder for sub routes.
+  * a \`components\` folder for react components for this route.
+  * a \`redux\` folder, for
+    [ducks](https://github.com/erikras/ducks-modular-redux),
+    [sagas](https://redux-saga.js.org/), and anything else related to redux.
+"
+`;
+
+exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/readme.md 1`] = `
+"# UI
+\`ui\` is for reusable components, which should have 0 concept of anything else
+ that is in your app.
+
+## Examples
+### Components that belong in ui.
+UI components should be simple, pure, and require no context of the application.
+Try to imagine that one day, you want to publish an npm package, based on your
+ui elements. It should be as easy as copying this folder, and putting a
+package.json file in it (and maybe a build system). Think of this as your own
+personal bootstrap.
+  * Button - simple ui component. It requires no context, or anything to
+    be loaded in your app.
+  * Grid - Meta component for arranging other components or children
+  * Form inputs - keep your UI consistent by defining form inputs here.
+  * Avatar - Takes an image, and creates a specific size.
+  * Loader - Spinner or progress bar to show throughout the application.
+
+### Components that do not belong in ui.
+UI components that are specific to something in your application belong in
+components.
+  * UserAvatar - maybe it contains a link to user profiles, has knowledge of the
+    user model, etc...
+"
+`;
+
+exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/index.ts 1`] = `
+"import { TestUi } from './testUi'
+
+export default TestUi
+
+
+"
+`;
+
+exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `
+"import * as React from 'react'
+import { storiesOf } from '@storybook/react';
+import {TestUi} from './testUi';
+
+storiesOf('ui/testUi', module)
+  .add('with text', () => (
+    <TestUi>Hello TestUi</TestUi>
+  ));
+"
+`;
+
+exports[`generating ui should generate a new ui component: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestuiProps {
+  children?: React.ReactNode
+}
+export const TestUi = (props: TestuiProps) => {
+  return (
+    <div> TestUi { props.children } </div>
+  )
+}
+
+
+"
+`;
 
 exports[`generating ui should generate a new ui component: apr g ui --name testUi --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/ui/testUi/index.ts
        added: src/ui/testUi/testUi.tsx
+       added: src/ui/testUi/testUi.story.tsx
 ,"
 `;
 
@@ -33,9 +251,12 @@ Array [
   "<project-root>playground/src/redux/ducks/index.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
+  "<project-root>playground/src/route.story.tsx",
+  "<project-root>playground/src/route.tsx",
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
+  "<project-root>playground/src/ui/testUi/testUi.story.tsx",
   "<project-root>playground/src/ui/testUi/testUi.tsx",
 ]
 `;
