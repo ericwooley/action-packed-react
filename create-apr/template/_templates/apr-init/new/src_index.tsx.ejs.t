@@ -1,7 +1,7 @@
 ---
 to: src/index.tsx
 ---
-import { appFactory } from "./app";
+import { routeFactory } from "./route";
 import { render, unmountComponentAtNode } from "react-dom";
 import { createHashHistory } from "history";
 const el = document.getElementById("root");
@@ -12,5 +12,4 @@ const renderApp = (jsx: JSX.Element) => {
   return () => unmountComponentAtNode(el);
 };
 
-export const app = appFactory(renderApp, {history: createHashHistory()});
-
+export default routeFactory(renderApp, {history: createHashHistory()});
