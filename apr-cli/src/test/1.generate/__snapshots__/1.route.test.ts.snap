@@ -38,11 +38,9 @@ export default class RootLayout extends React.PureComponent {
 `;
 
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/index.tsx 1`] = `
-"import * as React from \\"react\\";
-import { createApp } from \\"action-packed-react\\";
-import { createHashHistory } from \\"history\\";
+"import { routeFactory } from \\"./route\\";
 import { render, unmountComponentAtNode } from \\"react-dom\\";
-import initialReducers, {initialState} from \\"./redux/ducks\\";
+import { createHashHistory } from \\"history\\";
 const el = document.getElementById(\\"root\\");
 if (!el) throw new Error(\\"no el\\");
 
@@ -50,21 +48,8 @@ const renderApp = (jsx: JSX.Element) => {
   render(jsx, el);
   return () => unmountComponentAtNode(el);
 };
-const history = createHashHistory();
 
-export const app = createApp({
-  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
-  history,
-  initialState,
-  initialReducers,
-  RouteNotFoundComponent: () => <div>Not Found</div>,
-  LoadingComponent: () => <h3>Loading...</h3>,
-  render: renderApp,
-  saga: import('./redux/sagas/index'),
-  layout: import(\\"./components/RootLayout\\")
-});
-
-app.init().catch(e => console.error(\\"Error Starting application\\", e));
+export default routeFactory(renderApp, {history: createHashHistory()});
 "
 `;
 
@@ -97,7 +82,7 @@ export default function* rootSaga() {
 
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/redux/selectors/index.ts 1`] = `
 "import { createSelector } from 'reselect'
-import {app} from '../..'
+import app from '../..'
 
 "
 `;
@@ -187,17 +172,9 @@ Each route contains:
 `;
 
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/index.ts 1`] = `
-"import { app } from 'app'
-import { createRouteComposer } from 'action-packed-react/routeMatcher';
-
-export const route = createRouteComposer('testRoute')
-const testRouteRoute = app.createSubRoute(
-  route,
-  () => import('./redux/ducks')
-)
-testRouteRoute.setComponent(() => import('./layout'))
-testRouteRoute.register()
-export default testRouteRoute;
+"import parent from '../../'
+import testRouteRoute from './route'
+export default testRouteRoute(parent)
 "
 `;
 
@@ -298,17 +275,9 @@ export type Parent = ReturnType<typeof testRouteRoute>
 `;
 
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
-"import { app } from 'app'
-import { createRouteComposer } from 'action-packed-react/routeMatcher';
-
-export const route = createRouteComposer('testRoute2')
-const testRoute2Route = app.createSubRoute(
-  route,
-  () => import('./redux/ducks')
-)
-testRoute2Route.setComponent(() => import('./layout'))
-testRoute2Route.register()
-export default testRoute2Route;
+"import parent from '../../'
+import testRoute2Route from './route'
+export default testRoute2Route(parent)
 "
 `;
 
@@ -482,6 +451,8 @@ Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts
        added: src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts
        added: src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts
+       added: src/routes/testRoute/routes/testRoute2/route.ts
+       added: src/routes/testRoute/routes/testRoute2/route.story.tsx
        added: src/routes/testRoute/routes/testRoute2/routes/.gitkeep
 ,"
 `;
@@ -493,6 +464,8 @@ Array [
   "<project-root>playground/src/redux/ducks/index.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
+  "<project-root>playground/src/route.story.tsx",
+  "<project-root>playground/src/route.tsx",
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
@@ -500,12 +473,16 @@ Array [
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
+  "<project-root>playground/src/routes/testRoute/route.story.tsx",
+  "<project-root>playground/src/routes/testRoute/route.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/route.story.tsx",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",
@@ -551,11 +528,9 @@ export default class RootLayout extends React.PureComponent {
 `;
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/index.tsx 1`] = `
-"import * as React from \\"react\\";
-import { createApp } from \\"action-packed-react\\";
-import { createHashHistory } from \\"history\\";
+"import { routeFactory } from \\"./route\\";
 import { render, unmountComponentAtNode } from \\"react-dom\\";
-import initialReducers, {initialState} from \\"./redux/ducks\\";
+import { createHashHistory } from \\"history\\";
 const el = document.getElementById(\\"root\\");
 if (!el) throw new Error(\\"no el\\");
 
@@ -563,21 +538,8 @@ const renderApp = (jsx: JSX.Element) => {
   render(jsx, el);
   return () => unmountComponentAtNode(el);
 };
-const history = createHashHistory();
 
-export const app = createApp({
-  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
-  history,
-  initialState,
-  initialReducers,
-  RouteNotFoundComponent: () => <div>Not Found</div>,
-  LoadingComponent: () => <h3>Loading...</h3>,
-  render: renderApp,
-  saga: import('./redux/sagas/index'),
-  layout: import(\\"./components/RootLayout\\")
-});
-
-app.init().catch(e => console.error(\\"Error Starting application\\", e));
+export default routeFactory(renderApp, {history: createHashHistory()});
 "
 `;
 
@@ -610,7 +572,7 @@ export default function* rootSaga() {
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/redux/selectors/index.ts 1`] = `
 "import { createSelector } from 'reselect'
-import {app} from '../..'
+import app from '../..'
 
 "
 `;
@@ -700,17 +662,9 @@ Each route contains:
 `;
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/index.ts 1`] = `
-"import { app } from 'app'
-import { createRouteComposer } from 'action-packed-react/routeMatcher';
-
-export const route = createRouteComposer('testRoute')
-const testRouteRoute = app.createSubRoute(
-  route,
-  () => import('./redux/ducks')
-)
-testRouteRoute.setComponent(() => import('./layout'))
-testRouteRoute.register()
-export default testRouteRoute;
+"import parent from '../../'
+import testRouteRoute from './route'
+export default testRouteRoute(parent)
 "
 `;
 
@@ -811,17 +765,9 @@ export type Parent = ReturnType<typeof testRouteRoute>
 `;
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
-"import { app } from 'app'
-import { createRouteComposer } from 'action-packed-react/routeMatcher';
-
-export const route = createRouteComposer('testRoute2')
-const testRoute2Route = app.createSubRoute(
-  route,
-  () => import('./redux/ducks')
-)
-testRoute2Route.setComponent(() => import('./layout'))
-testRoute2Route.register()
-export default testRoute2Route;
+"import parent from '../../'
+import testRoute2Route from './route'
+export default testRoute2Route(parent)
 "
 `;
 
@@ -922,17 +868,9 @@ export type Parent = ReturnType<typeof testRoute2Route>
 `;
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `
-"import { app } from 'app'
-import { createRouteComposer } from 'action-packed-react/routeMatcher';
-
-export const route = createRouteComposer('testRoute3')
-const testRoute3Route = app.createSubRoute(
-  route,
-  () => import('./redux/ducks')
-)
-testRoute3Route.setComponent(() => import('./layout'))
-testRoute3Route.register()
-export default testRoute3Route;
+"import parent from '../../'
+import testRoute3Route from './route'
+export default testRoute3Route(parent)
 "
 `;
 
@@ -1106,6 +1044,8 @@ Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts
+       added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts
+       added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/routes/.gitkeep
 ,"
 `;
@@ -1117,6 +1057,8 @@ Array [
   "<project-root>playground/src/redux/ducks/index.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
+  "<project-root>playground/src/route.story.tsx",
+  "<project-root>playground/src/route.tsx",
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
@@ -1124,18 +1066,24 @@ Array [
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
+  "<project-root>playground/src/routes/testRoute/route.story.tsx",
+  "<project-root>playground/src/routes/testRoute/route.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/route.story.tsx",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",
@@ -1181,11 +1129,9 @@ export default class RootLayout extends React.PureComponent {
 `;
 
 exports[`generating route should generate a new route: <project-root>playground/src/index.tsx 1`] = `
-"import * as React from \\"react\\";
-import { createApp } from \\"action-packed-react\\";
-import { createHashHistory } from \\"history\\";
+"import { routeFactory } from \\"./route\\";
 import { render, unmountComponentAtNode } from \\"react-dom\\";
-import initialReducers, {initialState} from \\"./redux/ducks\\";
+import { createHashHistory } from \\"history\\";
 const el = document.getElementById(\\"root\\");
 if (!el) throw new Error(\\"no el\\");
 
@@ -1193,21 +1139,8 @@ const renderApp = (jsx: JSX.Element) => {
   render(jsx, el);
   return () => unmountComponentAtNode(el);
 };
-const history = createHashHistory();
 
-export const app = createApp({
-  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
-  history,
-  initialState,
-  initialReducers,
-  RouteNotFoundComponent: () => <div>Not Found</div>,
-  LoadingComponent: () => <h3>Loading...</h3>,
-  render: renderApp,
-  saga: import('./redux/sagas/index'),
-  layout: import(\\"./components/RootLayout\\")
-});
-
-app.init().catch(e => console.error(\\"Error Starting application\\", e));
+export default routeFactory(renderApp, {history: createHashHistory()});
 "
 `;
 
@@ -1240,7 +1173,7 @@ export default function* rootSaga() {
 
 exports[`generating route should generate a new route: <project-root>playground/src/redux/selectors/index.ts 1`] = `
 "import { createSelector } from 'reselect'
-import {app} from '../..'
+import app from '../..'
 
 "
 `;
@@ -1330,17 +1263,9 @@ Each route contains:
 `;
 
 exports[`generating route should generate a new route: <project-root>playground/src/routes/testRoute/index.ts 1`] = `
-"import { app } from 'app'
-import { createRouteComposer } from 'action-packed-react/routeMatcher';
-
-export const route = createRouteComposer('testRoute')
-const testRouteRoute = app.createSubRoute(
-  route,
-  () => import('./redux/ducks')
-)
-testRouteRoute.setComponent(() => import('./layout'))
-testRouteRoute.register()
-export default testRouteRoute;
+"import parent from '../../'
+import testRouteRoute from './route'
+export default testRouteRoute(parent)
 "
 `;
 
@@ -1514,6 +1439,8 @@ Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/redux/sagas/index.ts
        added: src/routes/testRoute/redux/selectors/index.ts
        added: src/routes/testRoute/redux/selectors/testRoute.ts
+       added: src/routes/testRoute/route.ts
+       added: src/routes/testRoute/route.story.tsx
        added: src/routes/testRoute/routes/.gitkeep
 ,"
 `;
@@ -1525,6 +1452,8 @@ Array [
   "<project-root>playground/src/redux/ducks/index.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
+  "<project-root>playground/src/route.story.tsx",
+  "<project-root>playground/src/route.tsx",
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
@@ -1532,6 +1461,8 @@ Array [
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
+  "<project-root>playground/src/routes/testRoute/route.story.tsx",
+  "<project-root>playground/src/routes/testRoute/route.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",
