@@ -28,11 +28,26 @@ module.exports = {
 
 ## Development
 
-Packages or organized using yarn workspaces.
+Packages or organized using yarn workspaces, so yarn is required.
+
+First thing you should do is run `yarn install`
+
+
+Next is to understand the organization of the project.
 ```bash
 .
-├── action-packed-react   # Library/framework
+├── action-packed-react   # Libraries/framework
 ├── apr-cli               # CLI for running builds, development, and generation
 ├── apr-website           # Future home for the documentation
 └── create-apr            # Boilerplate package, for easy setup.
 ```
+
+There is another `package` named playground, that is git ignored. If you run `yarn playground-init`, it will wiped clean, and re-initialized with a fresh install of action packed react.
+
+### Dev flow
+1. Make any changes you want on a package.
+2. from the root, run `yarn playground-init`
+3. `cd playground`
+4. the apr cli can be accessed by resolving it with yarn. `yarn apr g route` for example.
+5. Generate some things with the cli.
+6. Make sure things work as expected. Make sure storybooks `yarn apr s` and `yarn apr d` work as expected.
