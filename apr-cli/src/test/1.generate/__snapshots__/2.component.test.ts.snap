@@ -1,74 +1,473 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `"bd9fea18708e85d7a8117d761192c9b4"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import styled from \\"styled-components\\";
+const Wrapper = styled.div\`
+  display: flex;
+  flex-direction: row;
+\`;
+const Nav = styled.div\`
+  flex: 0;
+  padding: 10px;
+  margin: 10px;
+  min-width: 300px;
+  border: 1px solid lightgreen;
+  border-radius: 20px;
+\`;
+export default class RootLayout extends React.PureComponent {
+  render() {
+    return (
+      <Wrapper>
+        <Nav>
+          <ul>
+            <li>
+              link 1
+            </li>
+            <li>
+              link 2
+            </li>
+          </ul>
+        </Nav>
+        <div>{this.props.children}</div>
+      </Wrapper>
+    );
+  }
+}
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/components/testComponent/index.ts 1`] = `"66e837ed03ae52c1741c39138f6b1e59"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/components/testComponent/index.ts 1`] = `
+"import { TestComponent } from './testComponent'
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/components/testComponent/testComponent.tsx 1`] = `"c1fba66f368a7c6a62496fecf5d6bb1b"`;
+export default TestComponent
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/ducks/index.ts 1`] = `"476e29b73b3d5d1e635bc9b8a83d6aa4"`;
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/sagas/index.ts 1`] = `"e23efdf8bcee4e5476fe3aa56d536e75"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/components/testComponent/testComponent.story.tsx 1`] = `
+"import * as React from 'react'
+import { storiesOf } from '@storybook/react';
+import {TestComponent} from './testComponent';
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/selectors/index.ts 1`] = `"6c8425d082718860d737b83973731057"`;
+storiesOf('app//_components/testComponent', module)
+  .add('with text', () => (
+    <TestComponent>Hello TestComponent</TestComponent>
+  ));
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/readme.md 1`] = `"1f1dcc180a5f38ad42d8dcea10766c79"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/components/testComponent/testComponent.tsx 1`] = `
+"import * as React from 'react'
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `"c6683951ee4ebd52ab679eac643dd4aa"`;
+export interface TestcomponentProps {
+  children?: React.ReactNode
+}
+export const TestComponent = (props: TestcomponentProps) => {
+  return (
+    <div> TestComponent { props.children }</div>
+  )
+}
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `"2446c766091d4ffc3bd33d366fd04fbd"`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/index.ts 1`] = `"cc2c8bd60d2ca37ca3a1be1623d276d5"`;
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { createHashHistory } from \\"history\\";
+import { render, unmountComponentAtNode } from \\"react-dom\\";
+import initialReducers, {initialState} from \\"./redux/ducks\\";
+const el = document.getElementById(\\"root\\");
+if (!el) throw new Error(\\"no el\\");
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"6bd41dc838fe659b45219c0a9ee91e5a"`;
+const renderApp = (jsx: JSX.Element) => {
+  render(jsx, el);
+  return () => unmountComponentAtNode(el);
+};
+const history = createHashHistory();
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
+export const app = createApp({
+  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+  history,
+  initialState,
+  initialReducers,
+  RouteNotFoundComponent: () => <div>Not Found</div>,
+  LoadingComponent: () => <h3>Loading...</h3>,
+  render: renderApp,
+  saga: import('./redux/sagas/index'),
+  layout: import(\\"./components/RootLayout\\")
+});
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `"85f9a89021625dbd6a152f541a920c29"`;
+app.init().catch(e => console.error(\\"Error Starting application\\", e));
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/ducks/index.ts 1`] = `
+"// 👇 Add your reducers here 👇
+export default {}
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `"7219714256642c7a44858c42a80bbf52"`;
+// 👇 Add your initial states here 👇
+export const initialState = {
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
+}
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"a41d6164e37356212616d341b28aec9d"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
+/**
+ * rootSaga to load any global sagas you want.
+ *
+ * Included are some common ones, you just need to uncomment them.
+ */
+export default function* rootSaga() {
+  console.log(\\"saga initialized\\");
+  yield all([
+  ]);
+}
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `"45149cd07269f32980273a007a92c198"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/redux/selectors/index.ts 1`] = `
+"import { createSelector } from 'reselect'
+import {app} from '../..'
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `"d618ef580c6c78402ddc979c9df88c30"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/readme.md 1`] = `
+"
+# Routes
+\`routes\` is a folder for holding other routes, which follows the
+[fractal pattern](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af).
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `"959b8d0b1c57ad5f65ab18f42412254a"`;
+Each route contains:
+  * a \`routes\` folder for sub routes.
+  * a \`components\` folder for react components for this route.
+  * a \`redux\` folder, for
+    [ducks](https://github.com/erikras/ducks-modular-redux),
+    [sagas](https://redux-saga.js.org/), and anything else related to redux.
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `"b8691136ebd5bcef166911cb3b704695"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `
+"import { TestComponent2 } from './testComponent2'
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
+export default TestComponent2
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts 1`] = `"e02cddab29983a120f513e8b3e53b90d"`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.story.tsx 1`] = `
+"import * as React from 'react'
+import { storiesOf } from '@storybook/react';
+import {TestComponent2} from './testComponent2';
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/ui/testUi/index.ts 1`] = `"8a9de13f6510c85917c451b26ebdb783"`;
+storiesOf('app/testRoute/_components/testComponent2', module)
+  .add('with text', () => (
+    <TestComponent2>Hello TestComponent2</TestComponent2>
+  ));
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `"4b070b3b570f6e9f52e1eba5d2a57c64"`;
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `
+"import * as React from 'react'
 
-exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"0681a3f4331a7f3bef9962b38cc03dde"`;
+export interface Testcomponent2Props {
+  children?: React.ReactNode
+}
+export const TestComponent2 = (props: Testcomponent2Props) => {
+  return (
+    <div> TestComponent2 { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute')
+const testRouteRoute = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRouteRoute.setComponent(() => import('./layout'))
+testRouteRoute.register()
+export default testRouteRoute;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface TestrouteProps {
+  children?: React.ReactChildren
+}
+
+const testRouteLayout = (props: TestrouteProps) => (
+  <div>
+    <h1>testRoute</h1>
+    { props.children }
+  </div>
+)
+export default testRouteLayout;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `
+"import testRoute from './testRoute';
+export default testRoute;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `
+"import { createSelector } from 'reselect'
+import route from '../../'
+
+const identity = createSelector(route.baseSelector, (routeState) => routeState);
+
+export default {
+  identity
+}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute2')
+const testRoute2Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute2Route.setComponent(() => import('./layout'))
+testRoute2Route.register()
+export default testRoute2Route;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute2Props {
+  children?: React.ReactChildren
+}
+
+const testRoute2Layout = (props: Testroute2Props) => (
+  <div>
+    <h1>testRoute2</h1>
+    { props.children }
+  </div>
+)
+export default testRoute2Layout;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `
+"import testRoute2 from './testRoute2';
+export default testRoute2;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts 1`] = `
+"import { createSelector } from 'reselect'
+import route from '../../'
+
+const identity = createSelector(route.baseSelector, (routeState) => routeState);
+
+export default {
+  identity
+}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute3')
+const testRoute3Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute3Route.setComponent(() => import('./layout'))
+testRoute3Route.register()
+export default testRoute3Route;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute3Props {
+  children?: React.ReactChildren
+}
+
+const testRoute3Layout = (props: Testroute3Props) => (
+  <div>
+    <h1>testRoute3</h1>
+    { props.children }
+  </div>
+)
+export default testRoute3Layout;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute/routes/testRoute2\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts 1`] = `
+"import testRoute3 from './testRoute3';
+export default testRoute3;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts 1`] = `
+"import { createSelector } from 'reselect'
+import route from '../../'
+
+const identity = createSelector(route.baseSelector, (routeState) => routeState);
+
+export default {
+  identity
+}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/ui/readme.md 1`] = `
+"# UI
+\`ui\` is for reusable components, which should have 0 concept of anything else
+ that is in your app.
+
+## Examples
+### Components that belong in ui.
+UI components should be simple, pure, and require no context of the application.
+Try to imagine that one day, you want to publish an npm package, based on your
+ui elements. It should be as easy as copying this folder, and putting a
+package.json file in it (and maybe a build system). Think of this as your own
+personal bootstrap.
+  * Button - simple ui component. It requires no context, or anything to
+    be loaded in your app.
+  * Grid - Meta component for arranging other components or children
+  * Form inputs - keep your UI consistent by defining form inputs here.
+  * Avatar - Takes an image, and creates a specific size.
+  * Loader - Spinner or progress bar to show throughout the application.
+
+### Components that do not belong in ui.
+UI components that are specific to something in your application belong in
+components.
+  * UserAvatar - maybe it contains a link to user profiles, has knowledge of the
+    user model, etc...
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/ui/testUi/index.ts 1`] = `
+"import { TestUi } from './testUi'
+
+export default TestUi
+
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `
+"import * as React from 'react'
+import { storiesOf } from '@storybook/react';
+import {TestUi} from './testUi';
+
+storiesOf('ui/testUi', module)
+  .add('with text', () => (
+    <TestUi>Hello TestUi</TestUi>
+  ));
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestuiProps {
+  children?: React.ReactNode
+}
+export const TestUi = (props: TestuiProps) => {
+  return (
+    <div> TestUi { props.children } </div>
+  )
+}
+
+
+"
+`;
 
 exports[`generating component should generate a new component based on testRoutes: apr g component --name testComponent2 --route src/routes/testRoute --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/components/testComponent2/index.ts
        added: src/routes/testRoute/components/testComponent2/testComponent2.tsx
+       added: src/routes/testRoute/components/testComponent2/testComponent2.story.tsx
 ,"
 `;
 
@@ -76,6 +475,7 @@ exports[`generating component should generate a new component based on testRoute
 Array [
   "<project-root>playground/src/components/RootLayout/index.tsx",
   "<project-root>playground/src/components/testComponent/index.ts",
+  "<project-root>playground/src/components/testComponent/testComponent.story.tsx",
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
@@ -83,6 +483,7 @@ Array [
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/routes/testRoute/components/testComponent2/index.ts",
+  "<project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.story.tsx",
   "<project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx",
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
@@ -109,79 +510,511 @@ Array [
 ]
 `;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `"bd9fea18708e85d7a8117d761192c9b4"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import styled from \\"styled-components\\";
+const Wrapper = styled.div\`
+  display: flex;
+  flex-direction: row;
+\`;
+const Nav = styled.div\`
+  flex: 0;
+  padding: 10px;
+  margin: 10px;
+  min-width: 300px;
+  border: 1px solid lightgreen;
+  border-radius: 20px;
+\`;
+export default class RootLayout extends React.PureComponent {
+  render() {
+    return (
+      <Wrapper>
+        <Nav>
+          <ul>
+            <li>
+              link 1
+            </li>
+            <li>
+              link 2
+            </li>
+          </ul>
+        </Nav>
+        <div>{this.props.children}</div>
+      </Wrapper>
+    );
+  }
+}
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/components/testComponent/index.ts 1`] = `"66e837ed03ae52c1741c39138f6b1e59"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/components/testComponent/index.ts 1`] = `
+"import { TestComponent } from './testComponent'
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/components/testComponent/testComponent.tsx 1`] = `"c1fba66f368a7c6a62496fecf5d6bb1b"`;
+export default TestComponent
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/ducks/index.ts 1`] = `"476e29b73b3d5d1e635bc9b8a83d6aa4"`;
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/sagas/index.ts 1`] = `"e23efdf8bcee4e5476fe3aa56d536e75"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/components/testComponent/testComponent.story.tsx 1`] = `
+"import * as React from 'react'
+import { storiesOf } from '@storybook/react';
+import {TestComponent} from './testComponent';
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/selectors/index.ts 1`] = `"6c8425d082718860d737b83973731057"`;
+storiesOf('app//_components/testComponent', module)
+  .add('with text', () => (
+    <TestComponent>Hello TestComponent</TestComponent>
+  ));
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/readme.md 1`] = `"1f1dcc180a5f38ad42d8dcea10766c79"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/components/testComponent/testComponent.tsx 1`] = `
+"import * as React from 'react'
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `"c6683951ee4ebd52ab679eac643dd4aa"`;
+export interface TestcomponentProps {
+  children?: React.ReactNode
+}
+export const TestComponent = (props: TestcomponentProps) => {
+  return (
+    <div> TestComponent { props.children }</div>
+  )
+}
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `"2446c766091d4ffc3bd33d366fd04fbd"`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/index.ts 1`] = `"cc2c8bd60d2ca37ca3a1be1623d276d5"`;
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { createHashHistory } from \\"history\\";
+import { render, unmountComponentAtNode } from \\"react-dom\\";
+import initialReducers, {initialState} from \\"./redux/ducks\\";
+const el = document.getElementById(\\"root\\");
+if (!el) throw new Error(\\"no el\\");
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"6bd41dc838fe659b45219c0a9ee91e5a"`;
+const renderApp = (jsx: JSX.Element) => {
+  render(jsx, el);
+  return () => unmountComponentAtNode(el);
+};
+const history = createHashHistory();
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
+export const app = createApp({
+  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+  history,
+  initialState,
+  initialReducers,
+  RouteNotFoundComponent: () => <div>Not Found</div>,
+  LoadingComponent: () => <h3>Loading...</h3>,
+  render: renderApp,
+  saga: import('./redux/sagas/index'),
+  layout: import(\\"./components/RootLayout\\")
+});
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `"85f9a89021625dbd6a152f541a920c29"`;
+app.init().catch(e => console.error(\\"Error Starting application\\", e));
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/ducks/index.ts 1`] = `
+"// 👇 Add your reducers here 👇
+export default {}
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `"b8b115c44607f9bf1df189f677650f79"`;
+// 👇 Add your initial states here 👇
+export const initialState = {
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `"a7b9694f82808a0f9251e0b3946b967f"`;
+}
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `"7219714256642c7a44858c42a80bbf52"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
+/**
+ * rootSaga to load any global sagas you want.
+ *
+ * Included are some common ones, you just need to uncomment them.
+ */
+export default function* rootSaga() {
+  console.log(\\"saga initialized\\");
+  yield all([
+  ]);
+}
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"a41d6164e37356212616d341b28aec9d"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/redux/selectors/index.ts 1`] = `
+"import { createSelector } from 'reselect'
+import {app} from '../..'
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `"45149cd07269f32980273a007a92c198"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/readme.md 1`] = `
+"
+# Routes
+\`routes\` is a folder for holding other routes, which follows the
+[fractal pattern](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af).
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+Each route contains:
+  * a \`routes\` folder for sub routes.
+  * a \`components\` folder for react components for this route.
+  * a \`redux\` folder, for
+    [ducks](https://github.com/erikras/ducks-modular-redux),
+    [sagas](https://redux-saga.js.org/), and anything else related to redux.
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `"d618ef580c6c78402ddc979c9df88c30"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/components/testComponent2/index.ts 1`] = `
+"import { TestComponent2 } from './testComponent2'
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `"959b8d0b1c57ad5f65ab18f42412254a"`;
+export default TestComponent2
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `"b8691136ebd5bcef166911cb3b704695"`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts 1`] = `"e02cddab29983a120f513e8b3e53b90d"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.story.tsx 1`] = `
+"import * as React from 'react'
+import { storiesOf } from '@storybook/react';
+import {TestComponent2} from './testComponent2';
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+storiesOf('app/testRoute/_components/testComponent2', module)
+  .add('with text', () => (
+    <TestComponent2>Hello TestComponent2</TestComponent2>
+  ));
+"
+`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx 1`] = `
+"import * as React from 'react'
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/ui/testUi/index.ts 1`] = `"8a9de13f6510c85917c451b26ebdb783"`;
+export interface Testcomponent2Props {
+  children?: React.ReactNode
+}
+export const TestComponent2 = (props: Testcomponent2Props) => {
+  return (
+    <div> TestComponent2 { props.children }</div>
+  )
+}
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `"4b070b3b570f6e9f52e1eba5d2a57c64"`;
 
-exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"0681a3f4331a7f3bef9962b38cc03dde"`;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute')
+const testRouteRoute = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRouteRoute.setComponent(() => import('./layout'))
+testRouteRoute.register()
+export default testRouteRoute;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface TestrouteProps {
+  children?: React.ReactChildren
+}
+
+const testRouteLayout = (props: TestrouteProps) => (
+  <div>
+    <h1>testRoute</h1>
+    { props.children }
+  </div>
+)
+export default testRouteLayout;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `
+"import testRoute from './testRoute';
+export default testRoute;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `
+"import { createSelector } from 'reselect'
+import route from '../../'
+
+const identity = createSelector(route.baseSelector, (routeState) => routeState);
+
+export default {
+  identity
+}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts 1`] = `
+"import { TestComponent3 } from './testComponent3'
+
+export default TestComponent3
+
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.story.tsx 1`] = `
+"import * as React from 'react'
+import { storiesOf } from '@storybook/react';
+import {TestComponent3} from './testComponent3';
+
+storiesOf('app/testRoute/testRoute2/_components/testComponent3', module)
+  .add('with text', () => (
+    <TestComponent3>Hello TestComponent3</TestComponent3>
+  ));
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx 1`] = `
+"import * as React from 'react'
+
+export interface Testcomponent3Props {
+  children?: React.ReactNode
+}
+export const TestComponent3 = (props: Testcomponent3Props) => {
+  return (
+    <div> TestComponent3 { props.children }</div>
+  )
+}
+
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute2')
+const testRoute2Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute2Route.setComponent(() => import('./layout'))
+testRoute2Route.register()
+export default testRoute2Route;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute2Props {
+  children?: React.ReactChildren
+}
+
+const testRoute2Layout = (props: Testroute2Props) => (
+  <div>
+    <h1>testRoute2</h1>
+    { props.children }
+  </div>
+)
+export default testRoute2Layout;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `
+"import testRoute2 from './testRoute2';
+export default testRoute2;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts 1`] = `
+"import { createSelector } from 'reselect'
+import route from '../../'
+
+const identity = createSelector(route.baseSelector, (routeState) => routeState);
+
+export default {
+  identity
+}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute3')
+const testRoute3Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute3Route.setComponent(() => import('./layout'))
+testRoute3Route.register()
+export default testRoute3Route;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute3Props {
+  children?: React.ReactChildren
+}
+
+const testRoute3Layout = (props: Testroute3Props) => (
+  <div>
+    <h1>testRoute3</h1>
+    { props.children }
+  </div>
+)
+export default testRoute3Layout;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute/routes/testRoute2\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts 1`] = `
+"import testRoute3 from './testRoute3';
+export default testRoute3;
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts 1`] = `
+"import { createSelector } from 'reselect'
+import route from '../../'
+
+const identity = createSelector(route.baseSelector, (routeState) => routeState);
+
+export default {
+  identity
+}
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/ui/readme.md 1`] = `
+"# UI
+\`ui\` is for reusable components, which should have 0 concept of anything else
+ that is in your app.
+
+## Examples
+### Components that belong in ui.
+UI components should be simple, pure, and require no context of the application.
+Try to imagine that one day, you want to publish an npm package, based on your
+ui elements. It should be as easy as copying this folder, and putting a
+package.json file in it (and maybe a build system). Think of this as your own
+personal bootstrap.
+  * Button - simple ui component. It requires no context, or anything to
+    be loaded in your app.
+  * Grid - Meta component for arranging other components or children
+  * Form inputs - keep your UI consistent by defining form inputs here.
+  * Avatar - Takes an image, and creates a specific size.
+  * Loader - Spinner or progress bar to show throughout the application.
+
+### Components that do not belong in ui.
+UI components that are specific to something in your application belong in
+components.
+  * UserAvatar - maybe it contains a link to user profiles, has knowledge of the
+    user model, etc...
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/ui/testUi/index.ts 1`] = `
+"import { TestUi } from './testUi'
+
+export default TestUi
+
+
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `
+"import * as React from 'react'
+import { storiesOf } from '@storybook/react';
+import {TestUi} from './testUi';
+
+storiesOf('ui/testUi', module)
+  .add('with text', () => (
+    <TestUi>Hello TestUi</TestUi>
+  ));
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestuiProps {
+  children?: React.ReactNode
+}
+export const TestUi = (props: TestuiProps) => {
+  return (
+    <div> TestUi { props.children } </div>
+  )
+}
+
+
+"
+`;
 
 exports[`generating component should generate a new component based on testRoutes2: apr g component --name testComponent3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts
        added: src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx
+       added: src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.story.tsx
 ,"
 `;
 
@@ -189,6 +1022,7 @@ exports[`generating component should generate a new component based on testRoute
 Array [
   "<project-root>playground/src/components/RootLayout/index.tsx",
   "<project-root>playground/src/components/testComponent/index.ts",
+  "<project-root>playground/src/components/testComponent/testComponent.story.tsx",
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
@@ -196,6 +1030,7 @@ Array [
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/routes/readme.md",
   "<project-root>playground/src/routes/testRoute/components/testComponent2/index.ts",
+  "<project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.story.tsx",
   "<project-root>playground/src/routes/testRoute/components/testComponent2/testComponent2.tsx",
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
@@ -204,6 +1039,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.story.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
@@ -224,71 +1060,437 @@ Array [
 ]
 `;
 
-exports[`generating component should generate a new component: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `"bd9fea18708e85d7a8117d761192c9b4"`;
+exports[`generating component should generate a new component: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import styled from \\"styled-components\\";
+const Wrapper = styled.div\`
+  display: flex;
+  flex-direction: row;
+\`;
+const Nav = styled.div\`
+  flex: 0;
+  padding: 10px;
+  margin: 10px;
+  min-width: 300px;
+  border: 1px solid lightgreen;
+  border-radius: 20px;
+\`;
+export default class RootLayout extends React.PureComponent {
+  render() {
+    return (
+      <Wrapper>
+        <Nav>
+          <ul>
+            <li>
+              link 1
+            </li>
+            <li>
+              link 2
+            </li>
+          </ul>
+        </Nav>
+        <div>{this.props.children}</div>
+      </Wrapper>
+    );
+  }
+}
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/components/testComponent/index.ts 1`] = `"66e837ed03ae52c1741c39138f6b1e59"`;
+exports[`generating component should generate a new component: <project-root>playground/src/components/testComponent/index.ts 1`] = `
+"import { TestComponent } from './testComponent'
 
-exports[`generating component should generate a new component: <project-root>playground/src/components/testComponent/testComponent.tsx 1`] = `"c1fba66f368a7c6a62496fecf5d6bb1b"`;
+export default TestComponent
 
-exports[`generating component should generate a new component: <project-root>playground/src/index.tsx 1`] = `"47298960b890c67952853d9470dcd1d0"`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/redux/ducks/index.ts 1`] = `"476e29b73b3d5d1e635bc9b8a83d6aa4"`;
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/redux/sagas/index.ts 1`] = `"e23efdf8bcee4e5476fe3aa56d536e75"`;
+exports[`generating component should generate a new component: <project-root>playground/src/components/testComponent/testComponent.story.tsx 1`] = `
+"import * as React from 'react'
+import { storiesOf } from '@storybook/react';
+import {TestComponent} from './testComponent';
 
-exports[`generating component should generate a new component: <project-root>playground/src/redux/selectors/index.ts 1`] = `"6c8425d082718860d737b83973731057"`;
+storiesOf('app//_components/testComponent', module)
+  .add('with text', () => (
+    <TestComponent>Hello TestComponent</TestComponent>
+  ));
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/readme.md 1`] = `"1f1dcc180a5f38ad42d8dcea10766c79"`;
+exports[`generating component should generate a new component: <project-root>playground/src/components/testComponent/testComponent.tsx 1`] = `
+"import * as React from 'react'
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/index.ts 1`] = `"cc2c8bd60d2ca37ca3a1be1623d276d5"`;
+export interface TestcomponentProps {
+  children?: React.ReactNode
+}
+export const TestComponent = (props: TestcomponentProps) => {
+  return (
+    <div> TestComponent { props.children }</div>
+  )
+}
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `"77d2bfe700634435ba889dd18bc253a3"`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `"6bd41dc838fe659b45219c0a9ee91e5a"`;
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
+exports[`generating component should generate a new component: <project-root>playground/src/index.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { createHashHistory } from \\"history\\";
+import { render, unmountComponentAtNode } from \\"react-dom\\";
+import initialReducers, {initialState} from \\"./redux/ducks\\";
+const el = document.getElementById(\\"root\\");
+if (!el) throw new Error(\\"no el\\");
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `"85f9a89021625dbd6a152f541a920c29"`;
+const renderApp = (jsx: JSX.Element) => {
+  render(jsx, el);
+  return () => unmountComponentAtNode(el);
+};
+const history = createHashHistory();
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+export const app = createApp({
+  composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+  history,
+  initialState,
+  initialReducers,
+  RouteNotFoundComponent: () => <div>Not Found</div>,
+  LoadingComponent: () => <h3>Loading...</h3>,
+  render: renderApp,
+  saga: import('./redux/sagas/index'),
+  layout: import(\\"./components/RootLayout\\")
+});
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `"7219714256642c7a44858c42a80bbf52"`;
+app.init().catch(e => console.error(\\"Error Starting application\\", e));
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `"746d1b3c83a2fc39add4e85eaf59cbc5"`;
+exports[`generating component should generate a new component: <project-root>playground/src/redux/ducks/index.ts 1`] = `
+"// 👇 Add your reducers here 👇
+export default {}
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `"a41d6164e37356212616d341b28aec9d"`;
+// 👇 Add your initial states here 👇
+export const initialState = {
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
+}
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `"45149cd07269f32980273a007a92c198"`;
+exports[`generating component should generate a new component: <project-root>playground/src/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+/**
+ * rootSaga to load any global sagas you want.
+ *
+ * Included are some common ones, you just need to uncomment them.
+ */
+export default function* rootSaga() {
+  console.log(\\"saga initialized\\");
+  yield all([
+  ]);
+}
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `"d618ef580c6c78402ddc979c9df88c30"`;
+exports[`generating component should generate a new component: <project-root>playground/src/redux/selectors/index.ts 1`] = `
+"import { createSelector } from 'reselect'
+import {app} from '../..'
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `"959b8d0b1c57ad5f65ab18f42412254a"`;
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `"b8691136ebd5bcef166911cb3b704695"`;
+exports[`generating component should generate a new component: <project-root>playground/src/routes/readme.md 1`] = `
+"
+# Routes
+\`routes\` is a folder for holding other routes, which follows the
+[fractal pattern](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af).
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts 1`] = `"4079a6b4f1e6d81cbc94c5a1d60604a9"`;
+Each route contains:
+  * a \`routes\` folder for sub routes.
+  * a \`components\` folder for react components for this route.
+  * a \`redux\` folder, for
+    [ducks](https://github.com/erikras/ducks-modular-redux),
+    [sagas](https://redux-saga.js.org/), and anything else related to redux.
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts 1`] = `"e02cddab29983a120f513e8b3e53b90d"`;
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
 
-exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts 1`] = `"144fb6c9b9d53d42137e09bc4cbbbc26"`;
+export const route = createRouteComposer('testRoute')
+const testRouteRoute = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRouteRoute.setComponent(() => import('./layout'))
+testRouteRoute.register()
+export default testRouteRoute;
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/ui/readme.md 1`] = `"30021987e695b162f2888956063d23d8"`;
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `
+"import * as React from 'react'
 
-exports[`generating component should generate a new component: <project-root>playground/src/ui/testUi/index.ts 1`] = `"8a9de13f6510c85917c451b26ebdb783"`;
+interface TestrouteProps {
+  children?: React.ReactChildren
+}
 
-exports[`generating component should generate a new component: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `"4b070b3b570f6e9f52e1eba5d2a57c64"`;
+const testRouteLayout = (props: TestrouteProps) => (
+  <div>
+    <h1>testRoute</h1>
+    { props.children }
+  </div>
+)
+export default testRouteLayout;
+"
+`;
 
-exports[`generating component should generate a new component: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `"0681a3f4331a7f3bef9962b38cc03dde"`;
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `
+"import testRoute from './testRoute';
+export default testRoute;
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `
+"import { createSelector } from 'reselect'
+import route from '../../'
+
+const identity = createSelector(route.baseSelector, (routeState) => routeState);
+
+export default {
+  identity
+}
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute2')
+const testRoute2Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute2Route.setComponent(() => import('./layout'))
+testRoute2Route.register()
+export default testRoute2Route;
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute2Props {
+  children?: React.ReactChildren
+}
+
+const testRoute2Layout = (props: Testroute2Props) => (
+  <div>
+    <h1>testRoute2</h1>
+    { props.children }
+  </div>
+)
+export default testRoute2Layout;
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts 1`] = `
+"import testRoute2 from './testRoute2';
+export default testRoute2;
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts 1`] = `
+"import { createSelector } from 'reselect'
+import route from '../../'
+
+const identity = createSelector(route.baseSelector, (routeState) => routeState);
+
+export default {
+  identity
+}
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `
+"import { app } from 'app'
+import { createRouteComposer } from 'action-packed-react/routeMatcher';
+
+export const route = createRouteComposer('testRoute3')
+const testRoute3Route = app.createSubRoute(
+  route,
+  () => import('./redux/ducks')
+)
+testRoute3Route.setComponent(() => import('./layout'))
+testRoute3Route.register()
+export default testRoute3Route;
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `
+"import * as React from 'react'
+
+interface Testroute3Props {
+  children?: React.ReactChildren
+}
+
+const testRoute3Layout = (props: Testroute3Props) => (
+  <div>
+    <h1>testRoute3</h1>
+    { props.children }
+  </div>
+)
+export default testRoute3Layout;
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/ducks/index.ts 1`] = `
+"/**
+ * Run \`apr g duck --route src/routes/testRoute/routes/testRoute2\` to add a duck
+ */
+export default {}
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/sagas/index.ts 1`] = `
+"import { all } from \\"redux-saga/effects\\";
+
+export default function* rootSaga() {
+  yield all([
+  ]);
+}
+
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/index.ts 1`] = `
+"import testRoute3 from './testRoute3';
+export default testRoute3;
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts 1`] = `
+"import { createSelector } from 'reselect'
+import route from '../../'
+
+const identity = createSelector(route.baseSelector, (routeState) => routeState);
+
+export default {
+  identity
+}
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/ui/readme.md 1`] = `
+"# UI
+\`ui\` is for reusable components, which should have 0 concept of anything else
+ that is in your app.
+
+## Examples
+### Components that belong in ui.
+UI components should be simple, pure, and require no context of the application.
+Try to imagine that one day, you want to publish an npm package, based on your
+ui elements. It should be as easy as copying this folder, and putting a
+package.json file in it (and maybe a build system). Think of this as your own
+personal bootstrap.
+  * Button - simple ui component. It requires no context, or anything to
+    be loaded in your app.
+  * Grid - Meta component for arranging other components or children
+  * Form inputs - keep your UI consistent by defining form inputs here.
+  * Avatar - Takes an image, and creates a specific size.
+  * Loader - Spinner or progress bar to show throughout the application.
+
+### Components that do not belong in ui.
+UI components that are specific to something in your application belong in
+components.
+  * UserAvatar - maybe it contains a link to user profiles, has knowledge of the
+    user model, etc...
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/ui/testUi/index.ts 1`] = `
+"import { TestUi } from './testUi'
+
+export default TestUi
+
+
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/ui/testUi/testUi.story.tsx 1`] = `
+"import * as React from 'react'
+import { storiesOf } from '@storybook/react';
+import {TestUi} from './testUi';
+
+storiesOf('ui/testUi', module)
+  .add('with text', () => (
+    <TestUi>Hello TestUi</TestUi>
+  ));
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/ui/testUi/testUi.tsx 1`] = `
+"import * as React from 'react'
+
+export interface TestuiProps {
+  children?: React.ReactNode
+}
+export const TestUi = (props: TestuiProps) => {
+  return (
+    <div> TestUi { props.children } </div>
+  )
+}
+
+
+"
+`;
 
 exports[`generating component should generate a new component: apr g component --name testComponent --route src --autoLink 1`] = `
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/components/testComponent/index.ts
        added: src/components/testComponent/testComponent.tsx
+       added: src/components/testComponent/testComponent.story.tsx
 ,"
 `;
 
@@ -296,6 +1498,7 @@ exports[`generating component should generate a new component: file-list 1`] = `
 Array [
   "<project-root>playground/src/components/RootLayout/index.tsx",
   "<project-root>playground/src/components/testComponent/index.ts",
+  "<project-root>playground/src/components/testComponent/testComponent.story.tsx",
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
