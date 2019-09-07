@@ -102,6 +102,75 @@ import {app} from '../..'
 "
 `;
 
+exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import { routeFactory } from \\"./route\\";
+import { createMemoryHistory } from \\"history\\";
+
+// this is a gross hack, until i make a storybook addon
+// to handle this gracefully
+
+let onMount: () => void = () => {};
+let appJsx: null | React.ReactElement = null;
+
+export const history = createMemoryHistory();
+export const route = routeFactory(
+  jsx => {
+    appJsx = jsx;
+    console.log(\\"trigger re-render\\");
+    onMount();
+    return () => {
+      appJsx = null as any;
+    };
+  },
+  { history }
+);
+
+export class AppStory extends React.Component {
+  componentDidMount() {
+    onMount = this.forceUpdate;
+  }
+  componentWillUnmount() {
+    onMount = () => {};
+  }
+
+  render() {
+    return appJsx;
+  }
+}
+storiesOf(\\"app\\", module).add(\\"with text\\", () => <AppStory />);
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/route.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { History } from \\"history\\";
+import initialReducers, { initialState } from \\"./redux/ducks\\";
+import { IRender } from \\"action-packed-react/types\\";
+export const routeFactory = (renderApp: IRender, { history }: { history: History }) => {
+  const app = createApp({
+    composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+    history,
+    initialState,
+    initialReducers,
+    RouteNotFoundComponent: () => <div>Not Found</div>,
+    LoadingComponent: () => <h3>Loading...</h3>,
+    render: renderApp,
+    saga: import(\\"./redux/sagas/index\\"),
+    layout: import(\\"./components/RootLayout\\")
+  });
+
+  app.init().catch(e => console.error(\\"Error Starting application\\", e));
+  return app;
+};
+export type Parent = ReturnType<typeof routeFactory>
+
+
+"
+`;
+
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/readme.md 1`] = `
 "
 # Routes
@@ -186,6 +255,48 @@ export default {
 "
 `;
 
+exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import {AppStory, history } from 'app/route.story'
+import { route as parent } from \\"../../route.story\\";
+import testRouteRoute from \\"./route\\";
+export const route = testRouteRoute(parent);
+
+class NavigateOnMount extends React.Component {
+  componentDidMount() {
+    history.push(route.routeComposer.createUrl({}));
+  }
+  render () {
+    return <AppStory />
+  }
+}
+storiesOf(\\"app//testRoute\\", module).add(\\"with text\\", () => {
+  return <NavigateOnMount />;
+});
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
+"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+import { Parent } from '../../route';
+export const route = createRouteComposer('testRoute')
+const testRouteRoute = (app: Parent) => {
+  const testRouteRoute = app.createSubRoute(
+    route,
+    () => import('./redux/ducks')
+  )
+  testRouteRoute.setComponent(() => import('./layout'))
+  testRouteRoute.register()
+  return testRouteRoute;
+}
+
+export default testRouteRoute
+export type Parent = ReturnType<typeof testRouteRoute>
+
+"
+`;
+
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
 "import { app } from 'app'
 import { createRouteComposer } from 'action-packed-react/routeMatcher';
@@ -252,6 +363,48 @@ const identity = createSelector(route.baseSelector, (routeState) => routeState);
 export default {
   identity
 }
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import {AppStory, history } from 'app/route.story'
+import { route as parent } from \\"../../route.story\\";
+import testRoute2Route from \\"./route\\";
+export const route = testRoute2Route(parent);
+
+class NavigateOnMount extends React.Component {
+  componentDidMount() {
+    history.push(route.routeComposer.createUrl({}));
+  }
+  render () {
+    return <AppStory />
+  }
+}
+storiesOf(\\"app/testRoute/testRoute2\\", module).add(\\"with text\\", () => {
+  return <NavigateOnMount />;
+});
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
+"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+import { Parent } from '../../route';
+export const route = createRouteComposer('testRoute2')
+const testRoute2Route = (app: Parent) => {
+  const testRoute2Route = app.createSubRoute(
+    route,
+    () => import('./redux/ducks')
+  )
+  testRoute2Route.setComponent(() => import('./layout'))
+  testRoute2Route.register()
+  return testRoute2Route;
+}
+
+export default testRoute2Route
+export type Parent = ReturnType<typeof testRoute2Route>
+
 "
 `;
 
@@ -462,6 +615,75 @@ import {app} from '../..'
 "
 `;
 
+exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import { routeFactory } from \\"./route\\";
+import { createMemoryHistory } from \\"history\\";
+
+// this is a gross hack, until i make a storybook addon
+// to handle this gracefully
+
+let onMount: () => void = () => {};
+let appJsx: null | React.ReactElement = null;
+
+export const history = createMemoryHistory();
+export const route = routeFactory(
+  jsx => {
+    appJsx = jsx;
+    console.log(\\"trigger re-render\\");
+    onMount();
+    return () => {
+      appJsx = null as any;
+    };
+  },
+  { history }
+);
+
+export class AppStory extends React.Component {
+  componentDidMount() {
+    onMount = this.forceUpdate;
+  }
+  componentWillUnmount() {
+    onMount = () => {};
+  }
+
+  render() {
+    return appJsx;
+  }
+}
+storiesOf(\\"app\\", module).add(\\"with text\\", () => <AppStory />);
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/route.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { History } from \\"history\\";
+import initialReducers, { initialState } from \\"./redux/ducks\\";
+import { IRender } from \\"action-packed-react/types\\";
+export const routeFactory = (renderApp: IRender, { history }: { history: History }) => {
+  const app = createApp({
+    composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+    history,
+    initialState,
+    initialReducers,
+    RouteNotFoundComponent: () => <div>Not Found</div>,
+    LoadingComponent: () => <h3>Loading...</h3>,
+    render: renderApp,
+    saga: import(\\"./redux/sagas/index\\"),
+    layout: import(\\"./components/RootLayout\\")
+  });
+
+  app.init().catch(e => console.error(\\"Error Starting application\\", e));
+  return app;
+};
+export type Parent = ReturnType<typeof routeFactory>
+
+
+"
+`;
+
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/readme.md 1`] = `
 "
 # Routes
@@ -546,6 +768,48 @@ export default {
 "
 `;
 
+exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import {AppStory, history } from 'app/route.story'
+import { route as parent } from \\"../../route.story\\";
+import testRouteRoute from \\"./route\\";
+export const route = testRouteRoute(parent);
+
+class NavigateOnMount extends React.Component {
+  componentDidMount() {
+    history.push(route.routeComposer.createUrl({}));
+  }
+  render () {
+    return <AppStory />
+  }
+}
+storiesOf(\\"app//testRoute\\", module).add(\\"with text\\", () => {
+  return <NavigateOnMount />;
+});
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
+"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+import { Parent } from '../../route';
+export const route = createRouteComposer('testRoute')
+const testRouteRoute = (app: Parent) => {
+  const testRouteRoute = app.createSubRoute(
+    route,
+    () => import('./redux/ducks')
+  )
+  testRouteRoute.setComponent(() => import('./layout'))
+  testRouteRoute.register()
+  return testRouteRoute;
+}
+
+export default testRouteRoute
+export type Parent = ReturnType<typeof testRouteRoute>
+
+"
+`;
+
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts 1`] = `
 "import { app } from 'app'
 import { createRouteComposer } from 'action-packed-react/routeMatcher';
@@ -615,6 +879,48 @@ export default {
 "
 `;
 
+exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import {AppStory, history } from 'app/route.story'
+import { route as parent } from \\"../../route.story\\";
+import testRoute2Route from \\"./route\\";
+export const route = testRoute2Route(parent);
+
+class NavigateOnMount extends React.Component {
+  componentDidMount() {
+    history.push(route.routeComposer.createUrl({}));
+  }
+  render () {
+    return <AppStory />
+  }
+}
+storiesOf(\\"app/testRoute/testRoute2\\", module).add(\\"with text\\", () => {
+  return <NavigateOnMount />;
+});
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
+"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+import { Parent } from '../../route';
+export const route = createRouteComposer('testRoute2')
+const testRoute2Route = (app: Parent) => {
+  const testRoute2Route = app.createSubRoute(
+    route,
+    () => import('./redux/ducks')
+  )
+  testRoute2Route.setComponent(() => import('./layout'))
+  testRoute2Route.register()
+  return testRoute2Route;
+}
+
+export default testRoute2Route
+export type Parent = ReturnType<typeof testRoute2Route>
+
+"
+`;
+
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts 1`] = `
 "import { app } from 'app'
 import { createRouteComposer } from 'action-packed-react/routeMatcher';
@@ -681,6 +987,48 @@ const identity = createSelector(route.baseSelector, (routeState) => routeState);
 export default {
   identity
 }
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import {AppStory, history } from 'app/route.story'
+import { route as parent } from \\"../../route.story\\";
+import testRoute3Route from \\"./route\\";
+export const route = testRoute3Route(parent);
+
+class NavigateOnMount extends React.Component {
+  componentDidMount() {
+    history.push(route.routeComposer.createUrl({}));
+  }
+  render () {
+    return <AppStory />
+  }
+}
+storiesOf(\\"app/testRoute/testRoute2/testRoute3\\", module).add(\\"with text\\", () => {
+  return <NavigateOnMount />;
+});
+"
+`;
+
+exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
+"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+import { Parent } from '../../route';
+export const route = createRouteComposer('testRoute3')
+const testRoute3Route = (app: Parent) => {
+  const testRoute3Route = app.createSubRoute(
+    route,
+    () => import('./redux/ducks')
+  )
+  testRoute3Route.setComponent(() => import('./layout'))
+  testRoute3Route.register()
+  return testRoute3Route;
+}
+
+export default testRoute3Route
+export type Parent = ReturnType<typeof testRoute3Route>
+
 "
 `;
 
@@ -897,6 +1245,75 @@ import {app} from '../..'
 "
 `;
 
+exports[`generating route should generate a new route: <project-root>playground/src/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import { routeFactory } from \\"./route\\";
+import { createMemoryHistory } from \\"history\\";
+
+// this is a gross hack, until i make a storybook addon
+// to handle this gracefully
+
+let onMount: () => void = () => {};
+let appJsx: null | React.ReactElement = null;
+
+export const history = createMemoryHistory();
+export const route = routeFactory(
+  jsx => {
+    appJsx = jsx;
+    console.log(\\"trigger re-render\\");
+    onMount();
+    return () => {
+      appJsx = null as any;
+    };
+  },
+  { history }
+);
+
+export class AppStory extends React.Component {
+  componentDidMount() {
+    onMount = this.forceUpdate;
+  }
+  componentWillUnmount() {
+    onMount = () => {};
+  }
+
+  render() {
+    return appJsx;
+  }
+}
+storiesOf(\\"app\\", module).add(\\"with text\\", () => <AppStory />);
+"
+`;
+
+exports[`generating route should generate a new route: <project-root>playground/src/route.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { History } from \\"history\\";
+import initialReducers, { initialState } from \\"./redux/ducks\\";
+import { IRender } from \\"action-packed-react/types\\";
+export const routeFactory = (renderApp: IRender, { history }: { history: History }) => {
+  const app = createApp({
+    composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+    history,
+    initialState,
+    initialReducers,
+    RouteNotFoundComponent: () => <div>Not Found</div>,
+    LoadingComponent: () => <h3>Loading...</h3>,
+    render: renderApp,
+    saga: import(\\"./redux/sagas/index\\"),
+    layout: import(\\"./components/RootLayout\\")
+  });
+
+  app.init().catch(e => console.error(\\"Error Starting application\\", e));
+  return app;
+};
+export type Parent = ReturnType<typeof routeFactory>
+
+
+"
+`;
+
 exports[`generating route should generate a new route: <project-root>playground/src/routes/readme.md 1`] = `
 "
 # Routes
@@ -978,6 +1395,48 @@ const identity = createSelector(route.baseSelector, (routeState) => routeState);
 export default {
   identity
 }
+"
+`;
+
+exports[`generating route should generate a new route: <project-root>playground/src/routes/testRoute/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import {AppStory, history } from 'app/route.story'
+import { route as parent } from \\"../../route.story\\";
+import testRouteRoute from \\"./route\\";
+export const route = testRouteRoute(parent);
+
+class NavigateOnMount extends React.Component {
+  componentDidMount() {
+    history.push(route.routeComposer.createUrl({}));
+  }
+  render () {
+    return <AppStory />
+  }
+}
+storiesOf(\\"app//testRoute\\", module).add(\\"with text\\", () => {
+  return <NavigateOnMount />;
+});
+"
+`;
+
+exports[`generating route should generate a new route: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
+"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+import { Parent } from '../../route';
+export const route = createRouteComposer('testRoute')
+const testRouteRoute = (app: Parent) => {
+  const testRouteRoute = app.createSubRoute(
+    route,
+    () => import('./redux/ducks')
+  )
+  testRouteRoute.setComponent(() => import('./layout'))
+  testRouteRoute.register()
+  return testRouteRoute;
+}
+
+export default testRouteRoute
+export type Parent = ReturnType<typeof testRouteRoute>
+
 "
 `;
 

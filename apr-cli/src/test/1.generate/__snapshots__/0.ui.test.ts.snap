@@ -102,6 +102,75 @@ import {app} from '../..'
 "
 `;
 
+exports[`generating ui should generate a new ui component: <project-root>playground/src/route.story.tsx 1`] = `
+"import * as React from \\"react\\";
+import { storiesOf } from \\"@storybook/react\\";
+import { routeFactory } from \\"./route\\";
+import { createMemoryHistory } from \\"history\\";
+
+// this is a gross hack, until i make a storybook addon
+// to handle this gracefully
+
+let onMount: () => void = () => {};
+let appJsx: null | React.ReactElement = null;
+
+export const history = createMemoryHistory();
+export const route = routeFactory(
+  jsx => {
+    appJsx = jsx;
+    console.log(\\"trigger re-render\\");
+    onMount();
+    return () => {
+      appJsx = null as any;
+    };
+  },
+  { history }
+);
+
+export class AppStory extends React.Component {
+  componentDidMount() {
+    onMount = this.forceUpdate;
+  }
+  componentWillUnmount() {
+    onMount = () => {};
+  }
+
+  render() {
+    return appJsx;
+  }
+}
+storiesOf(\\"app\\", module).add(\\"with text\\", () => <AppStory />);
+"
+`;
+
+exports[`generating ui should generate a new ui component: <project-root>playground/src/route.tsx 1`] = `
+"import * as React from \\"react\\";
+import { createApp } from \\"action-packed-react\\";
+import { History } from \\"history\\";
+import initialReducers, { initialState } from \\"./redux/ducks\\";
+import { IRender } from \\"action-packed-react/types\\";
+export const routeFactory = (renderApp: IRender, { history }: { history: History }) => {
+  const app = createApp({
+    composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
+    history,
+    initialState,
+    initialReducers,
+    RouteNotFoundComponent: () => <div>Not Found</div>,
+    LoadingComponent: () => <h3>Loading...</h3>,
+    render: renderApp,
+    saga: import(\\"./redux/sagas/index\\"),
+    layout: import(\\"./components/RootLayout\\")
+  });
+
+  app.init().catch(e => console.error(\\"Error Starting application\\", e));
+  return app;
+};
+export type Parent = ReturnType<typeof routeFactory>
+
+
+"
+`;
+
 exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/readme.md 1`] = `
 "
 # Routes
