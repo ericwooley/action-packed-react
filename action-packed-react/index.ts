@@ -1,3 +1,5 @@
+import { asMountableComponent } from './asMountableComponent'
+import { navigateOnMount } from './navigateOnMount'
 import { ReactChildren, createElement } from 'react'
 import { createStore, combineReducers, Reducer, Store, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
@@ -29,6 +31,7 @@ import { createSagaForPack } from './runSaga'
 function* emptySaga(): IterableIterator<any> {
   return null
 }
+const PassThroughComponent = (props: { children: any }) => props.children
 const EmptyComponent = createElement('div')
 const reducerBase = { _route: routeReducer }
 type EmptyKeys = keyof {}
@@ -38,25 +41,69 @@ export function createApp<R extends { [key: string]: Reducer }>({
   initialReducers,
   history,
   useHashHistory = true,
-  render,
   layout,
   RouteNotFoundComponent,
   LoadingComponent,
   saga,
-  composeEnhancers = compose
+  composeEnhancers = compose,
+  baseRoute = '/'
 }: IOptions<R>) {
   type IInitialState = BareBonesState & ReducerToState<R>
   let currentReducerObject: typeof reducerBase & R = Object.assign({}, reducerBase, initialReducers)
   const combinedInitialState = Object.assign({}, initialState, {
     _route: routeInitialState
   })
-  const routeMap: IRoutesMap = {}
+  const appRoute = createRouteComposer(baseRoute)
+  const routeMap: IRoutesMap = {
+    [baseRoute]: {
+      onRouteMatch: () => null,
+      route: appRoute,
+      initialState: initialState,
+      loader: async () => {
+        return {
+          initialState: initialState,
+          routeComposer: appRoute,
+          component: PassThroughComponent,
+          reducer: initialReducers,
+          saga: saga || (emptySaga as any)
+        }
+      }
+    }
+  }
   const sagaMiddleware = createSagaMiddleware()
   const store = createStore(
     combineReducers(currentReducerObject),
     combinedInitialState,
     composeEnhancers(applyMiddleware(sagaMiddleware))
   )
+  store.dispatch(addUserRoute(baseRoute))
+  async function init() {
+    let component: React.ComponentType<any> = await Promise.resolve(layout as any)
+    component = (component as any).default || component
+    store.dispatch(
+      updateHistory({
+        pathname: history.location.pathname,
+        hash: history.location.hash,
+        search: history.location.search,
+        action: 'REPLACE',
+        state: history.location.state,
+        key: history.location.key
+      })
+    )
+    return mount(
+      {
+        pathname: '',
+        activeRoute: '',
+        routeMap,
+        matchingRoutes: [],
+        component,
+        RouteNotFoundComponent,
+        LoadingComponent
+      },
+      store
+    )
+  }
+  const AppComponent = asMountableComponent(LoadingComponent, init)
   sagaMiddleware.run(function* sagaRouteManager(): any {
     if (saga) {
       try {
@@ -72,7 +119,9 @@ export function createApp<R extends { [key: string]: Reducer }>({
     let routeMountFork
     while (true) {
       yield take([updateHistory._type, addUserRoute._type])
-      if (routeMountFork) yield cancel(routeMountFork)
+      if (routeMountFork) {
+        yield cancel(routeMountFork)
+      }
       routeMountFork = yield fork(function*(): any {
         const currentPath = yield select(selectors.currentPath)
 
@@ -116,12 +165,26 @@ export function createApp<R extends { [key: string]: Reducer }>({
               .map(call)
           )
           yield all(bundles.map(({ pack }) => spawn(createSagaForPack, pack)))
+          const newReducers = bundles.map(c => c.pack.reducer)
           // no more yield here, react can't have another chance to interact with state
-          const reducers = [currentReducerObject, ...bundles.map(c => c.pack.reducer)]
+          const reducers = [currentReducerObject, ...newReducers]
           // console.log('----> adding reducer for', newlyMatchingRoutes)
           currentReducerObject = Object.assign({}, ...reducers)
           store.replaceReducer(combineReducers(currentReducerObject))
           store.dispatch(activateRoute(currentPath))
+          bundles
+            .filter(r => r.pack.initialState)
+            .forEach(r => {
+              Object.keys(r.pack.reducer)
+                .map(k => ({
+                  reducer: r.pack.reducer[k],
+                  initialState: r.pack.initialState && r.pack.initialState[k]
+                }))
+                .filter(r => r.reducer && r.initialState)
+                .forEach(({ reducer, initialState }) => {
+                  store.dispatch(reducer.actionCreators.replaceState(initialState))
+                })
+            })
           yield all(
             noLongerMatchingRoutes
               .map(route => async () => {
@@ -179,7 +242,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
               : 'Reducer must not share any keys with parent route reducers'
             : ISubReducers)
       >,
-      options: ICreateRouteOptions = {}
+      options: ICreateRouteOptions<ReducerToState<ISubReducers>> = {}
     ) => {
       type IRouteComponent = React.ComponentType<IComponentProps>
       type ILoadRouteComponent = () => Promise<{ default: IRouteComponent } | IRouteComponent>
@@ -201,7 +264,10 @@ export function createApp<R extends { [key: string]: Reducer }>({
 
       type ICompleteState = ReducerToState<ISubReducers & IParentReducers>
       const subRoute = {
+        navigateOnMount: (routeProps: IFullRouteProps, renderFullApp = false) =>
+          navigateOnMount(AppComponent, { history, routeComposer, routeProps, renderFullApp }),
         Link: createLink(history, routeComposer, useHashHistory),
+        parent: parentRoute,
         routeComposer,
         fullRoute: combinedRoute,
         routeSegment: route,
@@ -212,6 +278,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
             onRouteMatch,
             route: routeComposer,
             parent: routeMap[parentRoute.route],
+            initialState: options.initialState,
             loader: async () => {
               const [loadedReducer, loadedComponent, loadedSaga] = await Promise.all([
                 reducer
@@ -227,6 +294,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
                 saga()
               ])
               return {
+                initialState: options.initialState,
                 routeComposer: routeComposer,
                 component: loadedComponent,
                 reducer: loadedReducer,
@@ -267,40 +335,20 @@ export function createApp<R extends { [key: string]: Reducer }>({
       })
     )
   })
+
   return {
+    AppComponent,
+    routeComposer: appRoute,
+    NavigateOnMount: navigateOnMount(AppComponent, {
+      history,
+      routeComposer: appRoute,
+      routeProps: {},
+      renderFullApp: true
+    }),
     shutDown: () => {
       unlisten()
     },
-    init: async () => {
-      let component: React.ComponentType<any> = await Promise.resolve(layout as any)
-      component = (component as any).default || component
-      return new Promise(r => {
-        mount(
-          {
-            pathname: '',
-            activeRoute: '',
-            routeMap,
-            matchingRoutes: [],
-            component,
-            RouteNotFoundComponent,
-            LoadingComponent,
-            onMount: r
-          },
-          store,
-          render
-        )
-        store.dispatch(
-          updateHistory({
-            pathname: history.location.pathname,
-            hash: history.location.hash,
-            search: history.location.search,
-            action: 'REPLACE',
-            state: history.location.state,
-            key: history.location.key
-          })
-        )
-      })
-    },
+    init,
     createSubRoute: createSubRoute<IInitialState>(createRouteComposer('')),
     store: store as Store<IInitialState>,
     baseSelector: (s: IInitialState) => s

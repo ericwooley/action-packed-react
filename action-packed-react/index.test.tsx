@@ -64,28 +64,26 @@ class ProductSearchComponent extends React.Component<{
 type OnMountWrap = (r: ReturnType<typeof mount>) => any
 const createBasicApp = (onMountWrap?: OnMountWrap) => {
   const history = createMemoryHistory()
+  const app = createApp({
+    useHashHistory: false,
+    RouteNotFoundComponent: () => <h1>Not Found</h1>,
+    LoadingComponent: () => <div>Loading...</div>,
+    layout: props => <>{props.children}</>,
+    history: history,
+    initialState: {
+      str: '',
+      num: 15
+    },
+    initialReducers: {
+      str: () => 'test',
+      num: () => 12
+    }
+  })
+  const wrapper = mount(<app.AppComponent />)
+  if (onMountWrap) onMountWrap(wrapper)
   return {
     history,
-    app: createApp({
-      useHashHistory: false,
-      RouteNotFoundComponent: () => <h1>Not Found</h1>,
-      LoadingComponent: () => <div>Loading...</div>,
-      layout: props => <>{props.children}</>,
-      history: history,
-      initialState: {
-        str: '',
-        num: 15
-      },
-      initialReducers: {
-        str: () => 'test',
-        num: () => 12
-      },
-      render: jsx => {
-        const wrapper = mount(jsx)
-        if (onMountWrap) onMountWrap(wrapper)
-        return noop
-      }
-    })
+    app
   }
 }
 
@@ -245,7 +243,7 @@ describe('the wooley way fe', () => {
               }
             })
           )
-          productRoute.register();
+          productRoute.register()
           await app.init()
           history.push('/products')
         })
@@ -269,7 +267,7 @@ describe('the wooley way fe', () => {
               }
             })
           )
-          productsSubRoute.register();
+          productsSubRoute.register()
           await app.init()
           history.push('/products/search')
         })

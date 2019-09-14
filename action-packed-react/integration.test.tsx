@@ -40,27 +40,20 @@ describe('basic test', () => {
       initialReducers: {
         str: () => 'test',
         num: () => 12
-      },
-      render: jsx => {
-        mount(jsx)
-        return () => null
       }
     })
+    mount(<app.AppComponent />)
     // (window as any).app = app;
     // console.log("state", app.store.getState());
 
-    const subRoute2 = app.createSubRoute(
-      createRouteComposer<{}>('test'),
-      async () => ({test: () => null})
-    )
-    subRoute2.setComponent(
-      async () => () => <InnerLayout />,
-    )
+    const subRoute2 = app.createSubRoute(createRouteComposer<{}>('test'), async () => ({
+      test: () => null
+    }))
+    subRoute2.setComponent(async () => () => <InnerLayout />)
     // is not any...
     const subRoute3 = subRoute2.createSubRoute(
       createRouteComposer<{ id: string }>('test/:id'),
-      async () => ({ bob: () => null }),
-
+      async () => ({ bob: () => null })
     )
     subRoute3.setComponent(async () => (props: any) => (
       <div>
@@ -71,5 +64,3 @@ describe('basic test', () => {
     await app.init()
   })
 })
-
-
