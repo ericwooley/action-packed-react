@@ -45,7 +45,6 @@ export interface IOptions<
   onMount?: () => any
   RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
   LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
-  ExactMatchComponent?: React.ComponentType<Partial<IPathMatcherProps>>
   layout:
     | React.ComponentType
     | (Promise<(React.ComponentType) | ({ default: React.ComponentType })>)
