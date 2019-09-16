@@ -87,7 +87,7 @@ export const createActionPack = <TState, T, M extends object = {}>(
   ac._type = type
   return ac as IActionPack<T, TState, M>
 }
-
+let reducerNonce = 0
 /**
  * Create a reducer with actionCreators as a property, which uses the
  * actionPack handlers to reduce state.
@@ -118,6 +118,13 @@ export const createReducerFromActionPack = <T>(
   initialState: T,
   actionPacks: { [key: string]: IActionPack<any, T, any> }
 ): Reducer<T> & { actionCreators: typeof actionPacks } => {
+  let reducerId = reducerNonce
+  reducerNonce += 1
+  const replaceStateType = `@APR/REPLACE_STATE_${reducerId}`
+  actionPacks = {
+    ...actionPacks,
+    replaceState: createActionPack<T, T>(replaceStateType, (state, action) => action.payload)
+  }
   const handlerMap = Object.values(actionPacks).reduce(
     (hmap, handler) => {
       hmap[handler._type] = handler
@@ -127,6 +134,7 @@ export const createReducerFromActionPack = <T>(
       [key: string]: IActionPack<T, any, any>
     }
   )
+
   const reducer = (state: T | undefined = initialState, action: AnyAction) => {
     if (handlerMap[action.type]) {
       const updatedState = handlerMap[action.type]._handler(state, action as IAction<any>)

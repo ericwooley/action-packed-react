@@ -2,7 +2,7 @@ import * as React from 'react'
 import { BareBonesState } from '.'
 import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
-import { IRender, IRoutesMap } from './types'
+import { IRoutesMap } from './types'
 import { selectors } from './routeReducer'
 import { getVariablesForRoute } from './routeMatcher'
 
@@ -14,22 +14,16 @@ export interface IPathMatcherProps {
   RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
   LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
   component: React.ComponentType<any>
-  onMount: () => any
 }
 export class PathMatcher extends React.Component<IPathMatcherProps> {
   routeMap: IRoutesMap
   constructor(props: any) {
     super(props)
     this.routeMap = this.props.routeMap
-  }
-  componentDidMount() {
-    this.props.onMount()
-  }
-  shouldComponentUpdate(nextProps: IPathMatcherProps) {
-    return nextProps.activeRoute !== this.props.activeRoute
+    this.buildChildren().catch(e => console.error('Error building children', e))
   }
   componentDidUpdate(lastProps: IPathMatcherProps) {
-    if (lastProps.activeRoute !== this.props.activeRoute) {
+    if (lastProps.activeRoute !== this.props.activeRoute || !this.routeChildren) {
       this.buildChildren().catch(e => console.error('Error building children', e))
     }
   }
@@ -82,15 +76,11 @@ const ConnectedPathMatcher = connect(
   {}
 )(PathMatcher)
 
-export const mount = (
-  initialProps: IPathMatcherProps,
-  store: Store,
-  render: IRender // typeof ReactDOM.render
-) => {
+export const mount = (initialProps: IPathMatcherProps, store: Store) => {
   const comp: React.ReactElement<any> = (
     <Provider store={store}>
       <ConnectedPathMatcher {...initialProps} />
     </Provider>
   )
-  return render(comp)
+  return comp
 }

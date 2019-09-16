@@ -22,21 +22,13 @@ Object {
 
 exports[`the wooley way fe child route with matching route should mount navigate sub-* routes 1`] = `"<h1>ProductsComponent 1</h1><p></p>"`;
 
-exports[`the wooley way fe child route with matching route should mount navigate sub-* routes 2`] = `"<h1>ProductsComponent 1</h1><p></p>"`;
-
-exports[`the wooley way fe child route with matching route should mount navigate sub-* routes: products full dom 1`] = `""`;
-
-exports[`the wooley way fe child route with matching route should mount navigate sub-* routes: products full dom 2`] = `""`;
+exports[`the wooley way fe child route with matching route should mount navigate sub-* routes: products full dom 1`] = `"<div>Loading...</div>"`;
 
 exports[`the wooley way fe child route with matching route should mount on navigate 1`] = `"<h1>ProductsComponent 2</h1><p></p>"`;
 
-exports[`the wooley way fe child route with matching route should mount on navigate 2`] = `"<h1>ProductsComponent 2</h1><p></p>"`;
+exports[`the wooley way fe child route with matching route should mount on navigate: products-full-dom 1`] = `"<div>Loading...</div>"`;
 
-exports[`the wooley way fe child route with matching route should mount on navigate: products-full-dom 1`] = `""`;
-
-exports[`the wooley way fe child route with matching route should mount on navigate: products-full-dom 2`] = `""`;
-
-exports[`the wooley way fe child route with matching route should mount/unmount the proper state on subRoutes: after unmount 1`] = `""`;
+exports[`the wooley way fe child route with matching route should mount/unmount the proper state on subRoutes: after unmount 1`] = `"<div>Loading...</div>"`;
 
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state on subRoutes: mount 1`] = `
 Object {
@@ -66,8 +58,17 @@ Object {
         "search": "",
         "state": undefined,
       },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "2",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
     ],
     "userRoutes": Array [
+      "/",
       "/products/search",
     ],
   },
@@ -95,7 +96,9 @@ Object {
       "search": "",
     },
     "history": Array [],
-    "userRoutes": Array [],
+    "userRoutes": Array [
+      "/",
+    ],
   },
   "num": 12,
   "str": "test",
@@ -131,15 +134,24 @@ Object {
         "state": undefined,
       },
       Object {
-        "action": "PUSH",
+        "action": "REPLACE",
         "hash": "",
         "key": "2",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "3",
         "pathname": "/products/search",
         "search": "",
         "state": undefined,
       },
     ],
     "userRoutes": Array [
+      "/",
       "/products/search",
     ],
   },
@@ -155,9 +167,7 @@ Object {
 }
 `;
 
-exports[`the wooley way fe child route with matching route should mount/unmount the proper state: full after product unmount 1`] = `""`;
-
-exports[`the wooley way fe child route with matching route should mount/unmount the proper state: full after product unmount 2`] = `""`;
+exports[`the wooley way fe child route with matching route should mount/unmount the proper state: full after product unmount 1`] = `"<div>Loading...</div>"`;
 
 exports[`the wooley way fe child route with matching route should mount/unmount the proper state: mount 1`] = `
 Object {
@@ -195,8 +205,17 @@ Object {
         "search": "",
         "state": undefined,
       },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "3",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
     ],
     "userRoutes": Array [
+      "/",
       "/products",
     ],
   },
@@ -232,8 +251,18 @@ Object {
         "pathname": "/",
         "search": "",
       },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "1",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
     ],
-    "userRoutes": Array [],
+    "userRoutes": Array [
+      "/",
+    ],
   },
   "num": 12,
   "str": "test",
@@ -277,76 +306,24 @@ Object {
         "state": undefined,
       },
       Object {
-        "action": "PUSH",
+        "action": "REPLACE",
         "hash": "",
         "key": "3",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "4",
         "pathname": "/products",
         "search": "",
         "state": undefined,
       },
     ],
     "userRoutes": Array [
-      "/products",
-    ],
-  },
-  "num": 12,
-  "products": Object {
-    "products": Array [
-      Object {
-        "type": "test",
-      },
-    ],
-  },
-  "str": "test",
-}
-`;
-
-exports[`the wooley way fe child route with matching route should mount/unmount the proper state: unmount 2`] = `
-Object {
-  "_route": Object {
-    "activeRoute": "/",
-    "currentLocation": Object {
-      "action": "PUSH",
-      "hash": "",
-      "key": "<key>",
-      "pathname": "/",
-      "search": "",
-      "state": undefined,
-    },
-    "history": Array [
-      Object {
-        "action": "PUSH",
-        "hash": "",
-        "key": "0",
-        "pathname": "/",
-        "search": "",
-      },
-      Object {
-        "action": "REPLACE",
-        "hash": "",
-        "key": "1",
-        "pathname": "/",
-        "search": "",
-        "state": undefined,
-      },
-      Object {
-        "action": "REPLACE",
-        "hash": "",
-        "key": "2",
-        "pathname": "/",
-        "search": "",
-        "state": undefined,
-      },
-      Object {
-        "action": "PUSH",
-        "hash": "",
-        "key": "3",
-        "pathname": "/products",
-        "search": "",
-        "state": undefined,
-      },
-    ],
-    "userRoutes": Array [
+      "/",
       "/products",
     ],
   },
@@ -367,14 +344,25 @@ Object {
   "_route": Object {
     "activeRoute": "/",
     "currentLocation": Object {
-      "action": "PUSH",
+      "action": "REPLACE",
       "hash": "",
       "key": "<key>",
       "pathname": "/",
       "search": "",
+      "state": undefined,
     },
-    "history": Array [],
-    "userRoutes": Array [],
+    "history": Array [
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "0",
+        "pathname": "/",
+        "search": "",
+      },
+    ],
+    "userRoutes": Array [
+      "/",
+    ],
   },
   "num": 12,
   "str": "test",
@@ -386,14 +374,25 @@ Object {
   "_route": Object {
     "activeRoute": "/",
     "currentLocation": Object {
-      "action": "PUSH",
+      "action": "REPLACE",
       "hash": "",
       "key": "<key>",
       "pathname": "/",
       "search": "",
+      "state": undefined,
     },
-    "history": Array [],
-    "userRoutes": Array [],
+    "history": Array [
+      Object {
+        "action": "PUSH",
+        "hash": "",
+        "key": "0",
+        "pathname": "/",
+        "search": "",
+      },
+    ],
+    "userRoutes": Array [
+      "/",
+    ],
   },
   "num": 12,
   "str": "test",
@@ -420,8 +419,18 @@ Object {
         "pathname": "/",
         "search": "",
       },
+      Object {
+        "action": "REPLACE",
+        "hash": "",
+        "key": "1",
+        "pathname": "/",
+        "search": "",
+        "state": undefined,
+      },
     ],
-    "userRoutes": Array [],
+    "userRoutes": Array [
+      "/",
+    ],
   },
   "num": 12,
   "str": "test",
