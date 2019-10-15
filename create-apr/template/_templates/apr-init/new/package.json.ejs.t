@@ -29,5 +29,8 @@ to: package.json
     "styled-components": "^4.3.2"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
 }
