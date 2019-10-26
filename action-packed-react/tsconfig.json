@@ -20,12 +20,12 @@
     "outDir": "dist/lib",
     "jsx": "react",
     "typeRoots": ["node_modules/@types", "../node_modules/@types", "types"],
-    "rootDir": "./",
+    "rootDir": "./src",
     "skipLibCheck": true
   },
-  "include": ["**/*"],
+  "include": ["src/**/*"],
   "exclude": [
-    "__snapshots__/**/*",
+    "**/__snapshots__/**/*",
     "dist/**/*",
     "**/*.test.ts*"
   ]
