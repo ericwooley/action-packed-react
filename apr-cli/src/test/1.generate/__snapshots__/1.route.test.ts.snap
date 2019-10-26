@@ -40,7 +40,7 @@ export default class RootLayout extends React.PureComponent {
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import { routeFactory } from \\"./route\\";
-import { render, unmountComponentAtNode } from \\"react-dom\\";
+import { render } from \\"react-dom\\";
 import { createHashHistory } from \\"history\\";
 const el = document.getElementById(\\"root\\");
 if (!el) throw new Error(\\"no el\\");
@@ -491,7 +491,7 @@ export default class RootLayout extends React.PureComponent {
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import { routeFactory } from \\"./route\\";
-import { render, unmountComponentAtNode } from \\"react-dom\\";
+import { render } from \\"react-dom\\";
 import { createHashHistory } from \\"history\\";
 const el = document.getElementById(\\"root\\");
 if (!el) throw new Error(\\"no el\\");
@@ -1047,7 +1047,7 @@ export default class RootLayout extends React.PureComponent {
 exports[`generating route should generate a new route: <project-root>playground/src/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import { routeFactory } from \\"./route\\";
-import { render, unmountComponentAtNode } from \\"react-dom\\";
+import { render } from \\"react-dom\\";
 import { createHashHistory } from \\"history\\";
 const el = document.getElementById(\\"root\\");
 if (!el) throw new Error(\\"no el\\");
