@@ -33,6 +33,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-typescript": "^7.6.3",
     "@storybook/addon-info": "^5.1.11",
     "@storybook/react": "^5.1.11",
     "@types/storybook__react": "^4.0.2",
@@ -50,8 +51,8 @@
     "jscodeshift": "^0.6.4",
     "react-docgen-typescript-loader": "^3.2.0",
     "remeda": "^0.0.11",
+    "source-map-loader": "^0.2.4",
     "supports-color": "^7.0.0",
-    "ts-loader": "^6.0.4",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0",
