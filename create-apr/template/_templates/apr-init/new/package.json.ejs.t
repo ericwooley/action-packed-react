@@ -11,7 +11,7 @@ to: package.json
     "build": "apr build",
     "start": "apr dev",
     "lint": "tslint --project tsconfig.json",
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "dependencies":{
     "action-packed-react": "0.0.0",

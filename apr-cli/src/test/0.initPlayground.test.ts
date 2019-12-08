@@ -1,5 +1,5 @@
 import { spawnSync } from "child_process";
-import { snapshotPlayground } from "./utils/getAllSourceFiles";
+import { snapshotPlayground, stopWatching } from "./utils/getAllSourceFiles";
 import axios from "axios";
 
 beforeAll(() => {
