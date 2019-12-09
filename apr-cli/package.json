@@ -8,7 +8,7 @@
     "apr": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && chmod +x dist/index.js",
     "start": "tsc --watch",
     "test": "yarn jest --clearCache && yarn jest --runInBand --no-cache --bail",
     "lint": "tslint  --project tsconfig.json"
