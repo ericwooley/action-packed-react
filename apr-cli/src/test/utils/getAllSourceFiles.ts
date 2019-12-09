@@ -38,33 +38,41 @@ export const getAllFilesSource = (files: string[]) => {
   );
 };
 
-let filesChanged: string[] = [];
-const watcher = chokidar.watch(playGroundRoot, {
-  ignored: [/(^|[\/\\])\../, /.*node_modules.*/, /yarn.lock/],
-  persistent: true
-});
-watcher
-  .on("add", path => {
-    log(`File ${path} has been added`);
-    filesChanged.push(path);
-  })
-  .on("change", path => {
-    log(`File ${path} has been changed`);
-    filesChanged.push(path);
-  })
-  .on("unlink", path => {
-    log(`File ${path} has been removed`);
+export class PlaygroundWatcher {
+  watcher = chokidar.watch(playGroundRoot, {
+    ignored: [/(^|[\/\\])\../, /.*node_modules.*/, /yarn.lock/],
+    persistent: true
   });
+  filesChanged: string[] = [];
+  filesRemoved: string[] = [];
+  constructor() {
+    this.watcher
+      .on("add", path => {
+        log(`File ${path} has been added`);
+        this.filesChanged.push(path);
+      })
+      .on("change", path => {
+        log(`File ${path} has been changed`);
+        this.filesChanged.push(path);
+      })
+      .on("unlink", path => {
+        log(`File ${path} has been removed`);
+      });
+  }
+  resetList = () => {
+    this.filesChanged = [];
+    this.filesRemoved = [];
+  };
+  stop = () => this.watcher.close();
+}
 
-export const stopWatching = async () => {
-  return watcher.close();
-};
 export const getAllAllPlaygroundFileSources = async () => getAllFilesSource(await getAllFiles());
-export const snapshotPlayground = async () => {
+export const snapshotPlayground = async (watcher: PlaygroundWatcher) => {
   const filesWithSources = await getAllAllPlaygroundFileSources();
   expect(filesWithSources.map(({ path }) => cleanSourcePath(path))).toMatchSnapshot("file-list");
+  expect(watcher.filesChanged.map(path => cleanSourcePath(path))).toMatchSnapshot("files-changed");
   await Promise.all(
-    filesChanged.map(async path => {
+    watcher.filesChanged.map(async path => {
       await new Promise((res, rej) =>
         fs.readFile(path, (err, data) => {
           if (err) return rej(err);
@@ -74,5 +82,5 @@ export const snapshotPlayground = async () => {
       );
     })
   );
-  filesChanged = [];
+  watcher.resetList()
 };

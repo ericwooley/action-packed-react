@@ -83,3 +83,11 @@ Array [
   "<project-root>playground/src/ui/readme.md",
 ]
 `;
+
+exports[`setup should create the initial files: files-changed 1`] = `
+Array [
+  "<project-root>playground/apr.config.js",
+  "<project-root>playground/package.json",
+  "<project-root>playground/tsconfig.json",
+]
+`;

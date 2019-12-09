@@ -95,3 +95,11 @@ Array [
   "<project-root>playground/src/ui/testUi/testUi.tsx",
 ]
 `;
+
+exports[`generating ui should generate a new ui component: files-changed 1`] = `
+Array [
+  "<project-root>playground/apr.config.js",
+  "<project-root>playground/package.json",
+  "<project-root>playground/tsconfig.json",
+]
+`;
