@@ -584,6 +584,8 @@ exports[`generating saga should generate a new saga: <project-root>playground/pa
   \\"author\\": \\"\\",
   \\"license\\": \\"MIT\\",
   \\"dependencies\\": {
+    \\"action-packed-react\\": \\"<project-root>action-packed-react\\",
+    \\"apr-cli\\": \\"<project-root>apr-cli\\",
     \\"history\\": \\"^4.10.1\\",
     \\"react\\": \\"^16.12.0\\",
     \\"react-dom\\": \\"^16.12.0\\",

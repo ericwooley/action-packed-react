@@ -25,6 +25,8 @@ exports[`generating ui should generate a new ui component: <project-root>playgro
   \\"author\\": \\"\\",
   \\"license\\": \\"MIT\\",
   \\"dependencies\\": {
+    \\"action-packed-react\\": \\"<project-root>action-packed-react\\",
+    \\"apr-cli\\": \\"<project-root>apr-cli\\",
     \\"history\\": \\"^4.10.1\\",
     \\"react\\": \\"^16.12.0\\",
     \\"react-dom\\": \\"^16.12.0\\",
