@@ -1,14 +1,11 @@
 import glob from "glob";
-import path from "path";
+import path, { join } from "path";
 import fs from "fs";
 import debug from "debug";
 import { cleanSourcePath } from "./cleanSourcePath";
-import chokidar from "chokidar";
 
 const log = debug("apr:test:files");
 const playGroundSrc = path.join(__dirname, "../../../../playground/src/**/*");
-const playGroundRoot = path.join(__dirname, "../../../../playground/");
-
 export const getAllFiles = () => {
   log("searching", playGroundSrc, "for files to diff");
   return new Promise<string[]>((r, rej) =>
@@ -38,53 +35,11 @@ export const getAllFilesSource = (files: string[]) => {
   );
 };
 
-export class PlaygroundWatcher {
-  watcher = chokidar.watch(playGroundRoot, {
-    ignored: [/(^|[\/\\])\../, /.*node_modules.*/, /yarn.lock/],
-    persistent: true
-  });
-  filesChanged: string[] = [];
-  filesRemoved: string[] = [];
-  constructor() {
-    this.watcher
-      .on("add", path => {
-        log(`File ${path} has been added`);
-        this.filesChanged.push(path);
-        this.filesChanged.sort();
-      })
-      .on("change", path => {
-        log(`File ${path} has been changed`);
-        this.filesChanged.push(path);
-        this.filesChanged.sort();
-      })
-      .on("unlink", path => {
-        log(`File ${path} has been removed`);
-        this.filesRemoved.push(path);
-        this.filesRemoved.sort();
-      });
-  }
-  resetList = () => {
-    this.filesChanged = [];
-    this.filesRemoved = [];
-  };
-  stop = () => this.watcher.close();
-}
-
 export const getAllAllPlaygroundFileSources = async () => getAllFilesSource(await getAllFiles());
-export const snapshotPlayground = async (watcher: PlaygroundWatcher) => {
+export const snapshotPlayground = async () => {
   const filesWithSources = await getAllAllPlaygroundFileSources();
   expect(filesWithSources.map(({ path }) => cleanSourcePath(path))).toMatchSnapshot("file-list");
-  expect(watcher.filesChanged.map(path => cleanSourcePath(path))).toMatchSnapshot("files-changed");
-  await Promise.all(
-    watcher.filesChanged.map(async path => {
-      await new Promise((res, rej) =>
-        fs.readFile(path, (err, data) => {
-          if (err) return rej(err);
-          expect(cleanSourcePath(data.toString())).toMatchSnapshot(cleanSourcePath(path));
-          res();
-        })
-      );
-    })
-  );
-  watcher.resetList();
+  filesWithSources.forEach(({ path, contents }) => {
+    expect(cleanSourcePath(contents)).toMatchSnapshot(cleanSourcePath(path));
+  });
 };
