@@ -283,7 +283,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
               const [loadedReducer, loadedComponent, loadedSaga] = await Promise.all<
                 ISubReducers,
                 IRouteComponent,
-                ()=>IterableIterator<any>
+                () => IterableIterator<any>
               >([
                 reducer
                   ? reducer().then((r: any) =>

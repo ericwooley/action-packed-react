@@ -1,9 +1,7 @@
-{
+module.exports = {
   "extends": ["standard", "plugin:jest/recommended"],
-  "ignore": "**/*.tsx?",
   "plugins": ["jest"],
   "env": {
     "jest/globals": true
   }
 }
-

@@ -9,10 +9,7 @@ module.exports = curry((env, allLoaders) => [
     test: /\.tsx?$/,
     loader: 'babel-loader',
     include: [projectSrc],
-    options: {
-      presets: ['@babel/react', '@babel/typescript', ['@babel/env', { modules: false }]],
-      plugins: []
-    }
+    options: require('./babel.config')
   },
   {
     id: 'js-source-maps',

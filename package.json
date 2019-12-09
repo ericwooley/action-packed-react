@@ -17,7 +17,8 @@
   },
   "workspaces": {
     "nohoist": [
-      "**/@types/*"
+      "**/@types/*",
+      "**/@babel/*"
     ],
     "packages": [
       "action-packed-react",
