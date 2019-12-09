@@ -44,7 +44,6 @@
     "@babel/runtime": "^7.7.6",
     "@storybook/addon-info": "^5.2.8",
     "@storybook/react": "^5.2.8",
-    "action-packed-react": "*",
     "ast-types": "^0.13.2",
     "babel-loader": "^8.0.6",
     "chalk": "^3.0.0",
