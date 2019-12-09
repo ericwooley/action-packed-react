@@ -197,12 +197,12 @@ Array [
 exports[`generating route should generate a new route based on testRoutes: files-changed 1`] = `
 Array [
   "<project-root>playground/apr.config.js",
-  "<project-root>playground/package.json",
-  "<project-root>playground/tsconfig.json",
   "<project-root>playground/html/index.html",
+  "<project-root>playground/package.json",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/route.story.tsx",
   "<project-root>playground/src/route.tsx",
+  "<project-root>playground/tsconfig.json",
 ]
 `;
 
@@ -411,12 +411,12 @@ Array [
 exports[`generating route should generate a new route based on testRoutes2: files-changed 1`] = `
 Array [
   "<project-root>playground/apr.config.js",
-  "<project-root>playground/package.json",
-  "<project-root>playground/tsconfig.json",
   "<project-root>playground/html/index.html",
+  "<project-root>playground/package.json",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/route.story.tsx",
   "<project-root>playground/src/route.tsx",
+  "<project-root>playground/tsconfig.json",
 ]
 `;
 

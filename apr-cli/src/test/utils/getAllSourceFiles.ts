@@ -50,13 +50,17 @@ export class PlaygroundWatcher {
       .on("add", path => {
         log(`File ${path} has been added`);
         this.filesChanged.push(path);
+        this.filesChanged.sort();
       })
       .on("change", path => {
         log(`File ${path} has been changed`);
         this.filesChanged.push(path);
+        this.filesChanged.sort();
       })
       .on("unlink", path => {
         log(`File ${path} has been removed`);
+        this.filesRemoved.push(path);
+        this.filesRemoved.sort();
       });
   }
   resetList = () => {
@@ -82,5 +86,5 @@ export const snapshotPlayground = async (watcher: PlaygroundWatcher) => {
       );
     })
   );
-  watcher.resetList()
+  watcher.resetList();
 };
