@@ -77,7 +77,7 @@ export const TestComponent = (props: TestcomponentProps) => {
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import { routeFactory } from \\"./route\\";
-import { render, unmountComponentAtNode } from \\"react-dom\\";
+import { render } from \\"react-dom\\";
 import { createHashHistory } from \\"history\\";
 const el = document.getElementById(\\"root\\");
 if (!el) throw new Error(\\"no el\\");
@@ -340,7 +340,7 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+"import { createRouteComposer } from 'action-packed-react';
 import { Parent } from '../../route';
 export const route = createRouteComposer('testRoute')
 const testRouteRoute = (app: Parent) => {
@@ -474,7 +474,7 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+"import { createRouteComposer } from 'action-packed-react';
 import { Parent } from '../../route';
 export const route = createRouteComposer('testRoute2')
 const testRoute2Route = (app: Parent) => {
@@ -571,7 +571,7 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+"import { createRouteComposer } from 'action-packed-react';
 import { Parent } from '../../route';
 export const route = createRouteComposer('testRoute3')
 const testRoute3Route = (app: Parent) => {
@@ -796,7 +796,7 @@ export const TestComponent = (props: TestcomponentProps) => {
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import { routeFactory } from \\"./route\\";
-import { render, unmountComponentAtNode } from \\"react-dom\\";
+import { render } from \\"react-dom\\";
 import { createHashHistory } from \\"history\\";
 const el = document.getElementById(\\"root\\");
 if (!el) throw new Error(\\"no el\\");
@@ -1059,7 +1059,7 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+"import { createRouteComposer } from 'action-packed-react';
 import { Parent } from '../../route';
 export const route = createRouteComposer('testRoute')
 const testRouteRoute = (app: Parent) => {
@@ -1215,7 +1215,7 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+"import { createRouteComposer } from 'action-packed-react';
 import { Parent } from '../../route';
 export const route = createRouteComposer('testRoute2')
 const testRoute2Route = (app: Parent) => {
@@ -1312,7 +1312,7 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+"import { createRouteComposer } from 'action-packed-react';
 import { Parent } from '../../route';
 export const route = createRouteComposer('testRoute3')
 const testRoute3Route = (app: Parent) => {
@@ -1538,7 +1538,7 @@ export const TestComponent = (props: TestcomponentProps) => {
 exports[`generating duck should generate a new duck: <project-root>playground/src/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import { routeFactory } from \\"./route\\";
-import { render, unmountComponentAtNode } from \\"react-dom\\";
+import { render } from \\"react-dom\\";
 import { createHashHistory } from \\"history\\";
 const el = document.getElementById(\\"root\\");
 if (!el) throw new Error(\\"no el\\");
@@ -1779,7 +1779,7 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating duck should generate a new duck: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+"import { createRouteComposer } from 'action-packed-react';
 import { Parent } from '../../route';
 export const route = createRouteComposer('testRoute')
 const testRouteRoute = (app: Parent) => {
@@ -1913,7 +1913,7 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating duck should generate a new duck: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+"import { createRouteComposer } from 'action-packed-react';
 import { Parent } from '../../route';
 export const route = createRouteComposer('testRoute2')
 const testRoute2Route = (app: Parent) => {
@@ -2010,7 +2010,7 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 `;
 
 exports[`generating duck should generate a new duck: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react/routeMatcher';
+"import { createRouteComposer } from 'action-packed-react';
 import { Parent } from '../../route';
 export const route = createRouteComposer('testRoute3')
 const testRoute3Route = (app: Parent) => {

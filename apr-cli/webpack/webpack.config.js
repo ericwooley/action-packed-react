@@ -5,7 +5,7 @@ const log = debug('apr:webpack')
 const loaders = require('./loaders')
 const aliasModules = require('./alias')
 
-const entry = path.join(process.cwd(), './src/index.tsx')
+const entry = [require.resolve('@babel/polyfill'), path.join(process.cwd(), './src/index.tsx')]
 const mode = 'development'
 const alias = aliasModules(mode, {})
 const rules = loaders(mode)

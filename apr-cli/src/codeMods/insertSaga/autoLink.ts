@@ -5,7 +5,7 @@ import debug from "debug";
 import { join } from "path";
 import { red } from "../../utils/colors";
 const log = debug("apr:saga:autoLink");
-const whichPromise = promisify(which);
+const whichPromise = promisify<string, string>(which as any);
 // example route: "src/routes/testRoute/routes/testRoute2"
 // example  name: "myNewDuck"
 export async function autoLink({ name, route }: { name: string; route: string }) {
@@ -29,5 +29,5 @@ export async function autoLink({ name, route }: { name: string; route: string })
     console.error(red("Error running codemod"));
     console.error(linkChild.output.toString());
   }
-  spawnSync(tslintCommand, [sagaIndexPath, '--fix'], {stdio: 'inherit'})
+  spawnSync(tslintCommand, [sagaIndexPath, "--fix"], { stdio: "inherit" });
 }

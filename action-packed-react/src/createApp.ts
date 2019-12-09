@@ -127,19 +127,19 @@ export function createApp<R extends { [key: string]: Reducer }>({
 
         const outdatedPath = yield select(selectors.activePath)
         if (currentPath !== outdatedPath) {
-          const matchingRouteMap: ReturnType<
-            typeof selectors.nextPathMatchingRouteMap
-          > = yield select(selectors.nextPathMatchingRouteMap)
+          const matchingRouteMap: ReturnType<typeof selectors.nextPathMatchingRouteMap> = yield select(
+            selectors.nextPathMatchingRouteMap
+          )
           const matchingRoutes: ReturnType<typeof selectors.nextPathMatchingRoutes> = yield select(
             selectors.nextPathMatchingRoutes
           )
 
-          const oldMatchingRouteMap: ReturnType<
-            typeof selectors.activePathMatchingRouteMap
-          > = yield select(selectors.activePathMatchingRouteMap)
-          const oldMatchingRoutes: ReturnType<
-            typeof selectors.activePathMatchingRoutes
-          > = yield select(selectors.activePathMatchingRoutes)
+          const oldMatchingRouteMap: ReturnType<typeof selectors.activePathMatchingRouteMap> = yield select(
+            selectors.activePathMatchingRouteMap
+          )
+          const oldMatchingRoutes: ReturnType<typeof selectors.activePathMatchingRoutes> = yield select(
+            selectors.activePathMatchingRoutes
+          )
           const noLongerMatchingRoutes = oldMatchingRoutes.filter(r => !matchingRouteMap[r])
           const newlyMatchingRoutes = matchingRoutes.filter(r => !oldMatchingRouteMap[r])
           // console.log('-------> routes', {
@@ -280,12 +280,16 @@ export function createApp<R extends { [key: string]: Reducer }>({
             parent: routeMap[parentRoute.route],
             initialState: options.initialState,
             loader: async () => {
-              const [loadedReducer, loadedComponent, loadedSaga] = await Promise.all([
+              const [loadedReducer, loadedComponent, loadedSaga] = await Promise.all<
+                ISubReducers,
+                IRouteComponent,
+                () => IterableIterator<any>
+              >([
                 reducer
                   ? reducer().then((r: any) =>
                       r.default ? (r.default as ISubReducers) : (r as ISubReducers)
                     )
-                  : Promise.resolve({}),
+                  : Promise.resolve({} as ISubReducers),
                 component().then(c =>
                   (c as { default: IRouteComponent }).default
                     ? (c as { default: IRouteComponent }).default
@@ -310,11 +314,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
         connect: <T, OwnProps, H>(
           mapStateToProps: (state: ICompleteState, ownProps: OwnProps) => T,
           handlers?: H
-        ) =>
-          connect(
-            mapStateToProps,
-            handlers
-          ),
+        ) => connect(mapStateToProps, handlers),
         createSubRoute: createSubRoute<ISubReducers & IParentReducers, IFullRouteProps>(
           routeComposer
         )

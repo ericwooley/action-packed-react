@@ -1,7 +1,7 @@
 import { createReducerFromActionPack, createActionPack } from './createReducer'
 import { IRouteState, IRouteStatus } from './types'
 import { createSelector } from 'reselect'
-import { BareBonesState } from '.'
+import { BareBonesState } from './createApp'
 import { routeMatchesPath, getVariablesForRoute } from './routeMatcher'
 export const initialState: IRouteState = {
   history: [],
