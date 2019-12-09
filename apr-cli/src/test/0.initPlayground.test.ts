@@ -4,7 +4,7 @@ import axios from "axios";
 
 beforeAll(() => {
   process.chdir("../");
-  spawnSync("yarn", ["playground-init"], { stdio: "inherit" });
+  spawnSync("yarn", ["playground-init", "--dev"], { stdio: "inherit" });
 });
 describe("setup", () => {
   it("should create the initial files", async () => {

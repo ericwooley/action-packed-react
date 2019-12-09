@@ -27,7 +27,6 @@ if (argv.dev) {
   process.chdir(join(__dirname, '../apr-cli/'))
   spawnSync('yarn', ['link'], { stdio: 'inherit' })
   process.chdir(join(__dirname, '../playground/'))
-  console.log('yarn', ['add', aprCliPath, aprPath], { stdio: 'inherit' })
   spawnSync('yarn', ['add', aprCliPath, aprPath], { stdio: 'inherit' })
   process.cwd(currentPath)
 } else {

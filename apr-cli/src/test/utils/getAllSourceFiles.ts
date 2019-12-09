@@ -40,7 +40,7 @@ export const getAllFilesSource = (files: string[]) => {
 
 let filesChanged: string[] = [];
 const watcher = chokidar.watch(playGroundRoot, {
-  ignored: [/(^|[\/\\])\../, /.*node_modules.*/],
+  ignored: [/(^|[\/\\])\../, /.*node_modules.*/, /yarn.lock/],
   persistent: true
 });
 watcher
