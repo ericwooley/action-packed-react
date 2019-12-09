@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc --watch",
-    "test": "yarn jest --clearCache && yarn jest --runInBand --no-cache",
+    "test": "yarn jest --clearCache && yarn jest --runInBand --no-cache --bail",
     "lint": "tslint  --project tsconfig.json"
   },
   "jest": {

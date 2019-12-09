@@ -10,6 +10,9 @@
     "clean-pg": "./scripts/clean-playground.sh",
     "playground-init": "./scripts/init-playground.sh"
   },
+  "engines": {
+    "node": "^12.13.1"
+  },
   "husky": {
     "hooks": {
       "pre-push": "yarn workspaces run test || (cat playground.log && false)"

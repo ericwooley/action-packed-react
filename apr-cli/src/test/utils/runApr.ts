@@ -14,11 +14,11 @@ export const runApr = (args: string[] | string, { snapshotOutput = false, autoLi
   process.chdir(join(__dirname, "../../../../playground"));
   log("running: ", prettyCommand);
   const result = spawnSync("apr", args);
+  log("prettycommand result:", result)
   const output = cleanSourcePath( result.output.toString());
   log("exit status for", prettyCommand, result.status);
   log("output for", prettyCommand, "\n", output);
   if (result.status !== 0) {
-
     throw new Error("Unsuccessful apr command: " + ["apr", ...args].join(" "));
   }
   if (snapshotOutput) {
