@@ -1,7 +1,7 @@
 ---
 to: <%=route%>/routes/<%=name%>/route.ts
 ---
-import { createRouteComposer } from 'action-packed-react/routeMatcher';
+import { createRouteComposer } from 'action-packed-react';
 import { Parent } from '../../route';
 export const route = createRouteComposer('<%=name%>')
 const <%=name%>Route = (app: Parent) => {

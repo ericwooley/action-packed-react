@@ -18,13 +18,13 @@
   "workspaces": {
     "nohoist": [
       "**/@types/*",
-      "**/@babel/*"
+      "**/@babel/*",
+      "**/playground/**/*"
     ],
     "packages": [
       "action-packed-react",
       "create-apr",
-      "apr-cli",
-      "playground"
+      "apr-cli"
     ]
   },
   "devDependencies": {

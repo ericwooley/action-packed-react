@@ -7,14 +7,14 @@ module.exports = curry((env, allLoaders) => [
   {
     id: 'typescript',
     test: /\.tsx?$/,
-    loader: 'babel-loader',
+    loader: require.resolve('babel-loader'),
     include: [projectSrc],
     options: require('./babel.config')
   },
   {
     id: 'js-source-maps',
     test: /\.js$/,
-    use: ['source-map-loader'],
+    use: [require.resolve('source-map-loader')],
     enforce: 'pre'
   }
 ])

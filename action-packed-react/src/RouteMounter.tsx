@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { BareBonesState } from '.'
+import { BareBonesState } from './createApp'
 import { Provider, connect } from 'react-redux'
 import { Store } from 'redux'
 import { IRoutesMap } from './types'

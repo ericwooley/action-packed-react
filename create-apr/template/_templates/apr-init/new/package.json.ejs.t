@@ -16,8 +16,6 @@ to: package.json
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "action-packed-react": "*",
-    "apr-cli": "*",
     "history": "^4.10.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -31,7 +29,6 @@ to: package.json
     "@types/react": "^16.9.15",
     "@types/react-dom": "^16.9.4",
     "@types/styled-components": "^4.4.0",
-    "apr-cli": "0.0.0",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0"
   }
