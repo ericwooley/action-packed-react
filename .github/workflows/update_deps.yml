@@ -1,9 +1,6 @@
 on:
-  push:
-    branches:
-      - '*'
   schedule:
-  - cron: '* * * * *' # every 2 minutes for debug
+  - cron: '0 9 * * *'
 name: Update
 jobs:
   package-update:
