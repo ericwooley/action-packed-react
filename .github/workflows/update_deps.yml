@@ -1,6 +1,6 @@
 on:
   schedule:
-  - cron: 0 8 * * * # every day at 7 am.
+  - cron: 2 * * * * # every 2 minutes for debug
 name: Update
 jobs:
   package-update:
@@ -8,14 +8,14 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: set remote url
-      run: git remote set-url --push origin https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+      run: git remote set-url --push origin https://$GITHUB_ACTOR:${{ secrets.githubAccessToken }}@github.com/$GITHUB_REPOSITORY
     - name: package-update
       uses: taichi/actions-package-update@master
       env:
         AUTHOR_EMAIL: ericwooley@gmail.com
         AUTHOR_NAME: Eric Wooley
         EXECUTE: "true"
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.githubAccessToken }}
         LOG_LEVEL: debug
         UPDATE_COMMAND: yarn
         with:
