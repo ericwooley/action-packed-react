@@ -1,6 +1,6 @@
 on:
   schedule:
-  - cron: 2 * * * * # every 2 minutes for debug
+  - cron: "* * * * *" # every 2 minutes for debug
 name: Update
 jobs:
   package-update:
