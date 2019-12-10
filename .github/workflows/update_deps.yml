@@ -1,6 +1,6 @@
 on:
   schedule:
-  - cron: 0 0 * * 3
+  - cron: 0 0 7 ? * * * # every day at 7 am.
 name: Update
 jobs:
   package-update:
