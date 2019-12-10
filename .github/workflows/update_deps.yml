@@ -21,5 +21,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.githubAccessToken }}
         LOG_LEVEL: debug
         UPDATE_COMMAND: yarn
-        with:
-          args: upgrade --latest
+      with:
+        args: upgrade --latest
