@@ -1,7 +1,7 @@
 ---
 to: <%=route%>/redux/ducks/<%= name %>/<%= name %>.ts
 ---
-import { createActionPack, createReducerFromActionPack } from "action-packed-react/createReducer";
+import { createActionPack, createReducerFromActionPack } from "action-packed-react";
 
 const ns = (type: string) => `<%=route%>/<%= name %>/${type}`
 
