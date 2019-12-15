@@ -29,6 +29,9 @@ to: package.json
     "@types/react": "^16.9.15",
     "@types/react-dom": "^16.9.4",
     "@types/styled-components": "^4.4.0",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.17",
+    "ts-jest": "^24.2.0",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0"
   }

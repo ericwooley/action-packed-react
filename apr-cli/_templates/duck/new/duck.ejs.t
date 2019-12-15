@@ -5,14 +5,9 @@ import { createActionPack, createReducerFromActionPack } from "action-packed-rea
 
 const ns = (type: string) => `<%=route%>/<%= name %>/${type}`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const <%= name %> = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns("CONFIRM"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns("RESET"), () => initialState)
 });

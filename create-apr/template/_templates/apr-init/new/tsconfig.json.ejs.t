@@ -18,5 +18,6 @@ to: tsconfig.json
       "app/*": ["*"]
     }
   },
-  "exclude": ["**/*.test.ts*", ""]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }
