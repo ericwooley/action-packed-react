@@ -397,9 +397,9 @@ storiesOf(\\"app/testRoute\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute')
-const testRouteRoute = (app: Parent) => {
+const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -559,9 +559,9 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute2')
-const testRoute2Route = (app: Parent) => {
+const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -656,9 +656,9 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute3')
-const testRoute3Route = (app: Parent) => {
+const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1222,9 +1222,9 @@ storiesOf(\\"app/testRoute\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute')
-const testRouteRoute = (app: Parent) => {
+const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1406,9 +1406,9 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute2')
-const testRoute2Route = (app: Parent) => {
+const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1503,9 +1503,9 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute3')
-const testRoute3Route = (app: Parent) => {
+const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -2049,9 +2049,9 @@ storiesOf(\\"app/testRoute\\", module)
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute')
-const testRouteRoute = (app: Parent) => {
+const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -2211,9 +2211,9 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute2')
-const testRoute2Route = (app: Parent) => {
+const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -2308,9 +2308,9 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute3')
-const testRoute3Route = (app: Parent) => {
+const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')

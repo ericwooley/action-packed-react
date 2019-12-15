@@ -2,9 +2,9 @@
 to: <%=route%>/routes/<%=name%>/route.ts
 ---
 import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('<%=name%>')
-const <%=name%>Route = (app: Parent) => {
+const <%=name%>Route = (app: RouteParent) => {
   const <%=name%>Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
