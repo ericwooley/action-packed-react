@@ -103,21 +103,27 @@ export const initialState = {
 "
 `;
 
+exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts 1`] = `
+"import { initialState, testDuck } from \\"./testDuck\\";
+
+describe(\\"testDuck\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/testDuck/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -275,21 +281,27 @@ export default {
 "
 `;
 
+exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts 1`] = `
+"import { initialState, testDuck2 } from \\"./testDuck2\\";
+
+describe(\\"testDuck2\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck2(initialState, testDuck2.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck2 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -658,6 +670,7 @@ exports[`generating duck should generate a new duck based on testRoutes: apr g d
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts
+       added: src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -675,6 +688,7 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
+  "<project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
@@ -687,6 +701,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
@@ -822,21 +837,27 @@ export const initialState = {
 "
 `;
 
+exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts 1`] = `
+"import { initialState, testDuck } from \\"./testDuck\\";
+
+describe(\\"testDuck\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/testDuck/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -994,21 +1015,27 @@ export default {
 "
 `;
 
+exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts 1`] = `
+"import { initialState, testDuck2 } from \\"./testDuck2\\";
+
+describe(\\"testDuck2\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck2(initialState, testDuck2.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck2 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1150,21 +1177,27 @@ export default {
 "
 `;
 
+exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts 1`] = `
+"import { initialState, testDuck3 } from \\"./testDuck3\\";
+
+describe(\\"testDuck3\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck3(initialState, testDuck3.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/routes/testRoute/routes/testRoute2/testDuck3/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck3 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1399,6 +1432,7 @@ exports[`generating duck should generate a new duck based on testRoutes2: apr g 
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts
+       added: src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -1416,6 +1450,7 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
+  "<project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
@@ -1428,6 +1463,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
@@ -1440,6 +1476,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
@@ -1564,21 +1601,27 @@ export const initialState = {
 "
 `;
 
+exports[`generating duck should generate a new duck: <project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts 1`] = `
+"import { initialState, testDuck } from \\"./testDuck\\";
+
+describe(\\"testDuck\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating duck should generate a new duck: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/testDuck/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -2097,6 +2140,7 @@ exports[`generating duck should generate a new duck: apr g duck --name testDuck 
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/redux/ducks/testDuck/testDuck.ts
+       added: src/redux/ducks/testDuck/testDuck.test.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -2114,6 +2158,7 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
+  "<project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
