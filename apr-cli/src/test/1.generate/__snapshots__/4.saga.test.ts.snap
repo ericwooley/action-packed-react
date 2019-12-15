@@ -144,6 +144,19 @@ export default function* rootSaga() {
 "
 `;
 
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/sagas/testSaga.test.ts 1`] = `
+"import { testSaga } from './testSaga';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga',() => {
+  it('should exist', () => {
+    expect(testSaga).toBeTruthy()
+  })
+})
+"
+`;
+
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `
 "import { call } from 'redux-saga/effects';
 
@@ -323,6 +336,19 @@ export default function* rootSaga() {
   yield all([call(testSaga2)]);
 }
 
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.test.ts 1`] = `
+"import { testSaga2 } from './testSaga2';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga2',() => {
+  it('should exist', () => {
+    expect(testSaga2).toBeTruthy()
+  })
+})
 "
 `;
 
@@ -716,6 +742,7 @@ exports[`generating saga should generate a new saga based on testRoutes: apr g s
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/redux/sagas/testSaga2.ts
+       added: src/routes/testRoute/redux/sagas/testSaga2.test.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -736,6 +763,7 @@ Array [
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/testSaga.test.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/route.story.tsx",
@@ -750,6 +778,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
@@ -924,6 +953,19 @@ export default function* rootSaga() {
   console.log(\\"saga initialized\\");
   yield all([call(testSaga)]);
 }
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/sagas/testSaga.test.ts 1`] = `
+"import { testSaga } from './testSaga';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga',() => {
+  it('should exist', () => {
+    expect(testSaga).toBeTruthy()
+  })
+})
 "
 `;
 
@@ -1109,6 +1151,19 @@ export default function* rootSaga() {
 "
 `;
 
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.test.ts 1`] = `
+"import { testSaga2 } from './testSaga2';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga2',() => {
+  it('should exist', () => {
+    expect(testSaga2).toBeTruthy()
+  })
+})
+"
+`;
+
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts 1`] = `
 "import { call } from 'redux-saga/effects';
 
@@ -1277,6 +1332,19 @@ export default function* rootSaga() {
   yield all([call(testSaga3)]);
 }
 
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.test.ts 1`] = `
+"import { testSaga3 } from './testSaga3';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga3',() => {
+  it('should exist', () => {
+    expect(testSaga3).toBeTruthy()
+  })
+})
 "
 `;
 
@@ -1508,6 +1576,7 @@ exports[`generating saga should generate a new saga based on testRoutes2: apr g 
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts
+       added: src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.test.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -1528,6 +1597,7 @@ Array [
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/testSaga.test.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/route.story.tsx",
@@ -1542,6 +1612,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
@@ -1556,6 +1627,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.test.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
@@ -1717,6 +1789,19 @@ export default function* rootSaga() {
   console.log(\\"saga initialized\\");
   yield all([call(testSaga)]);
 }
+"
+`;
+
+exports[`generating saga should generate a new saga: <project-root>playground/src/redux/sagas/testSaga.test.ts 1`] = `
+"import { testSaga } from './testSaga';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga',() => {
+  it('should exist', () => {
+    expect(testSaga).toBeTruthy()
+  })
+})
 "
 `;
 
@@ -2283,6 +2368,7 @@ exports[`generating saga should generate a new saga: apr g saga --name testSaga 
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/redux/sagas/testSaga.ts
+       added: src/redux/sagas/testSaga.test.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -2303,6 +2389,7 @@ Array [
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/testSaga.test.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/route.story.tsx",

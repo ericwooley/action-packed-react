@@ -37,43 +37,6 @@ export default class RootLayout extends React.PureComponent {
 "
 `;
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/components/testComponent/index.ts 1`] = `
-"import { TestComponent } from './testComponent'
-
-export default TestComponent
-
-
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/components/testComponent/testComponent.story.tsx 1`] = `
-"import * as React from 'react'
-import { storiesOf } from '@storybook/react';
-import {TestComponent} from './testComponent';
-
-storiesOf('app//_components/testComponent', module)
-  .add('with text', () => (
-    <TestComponent>Hello TestComponent</TestComponent>
-  ));
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/components/testComponent/testComponent.tsx 1`] = `
-"import * as React from 'react'
-
-export interface TestcomponentProps {
-  children?: React.ReactNode
-}
-export const TestComponent = (props: TestcomponentProps) => {
-  return (
-    <div> TestComponent { props.children }</div>
-  )
-}
-
-
-"
-`;
-
 exports[`generating ui should generate a new ui component: <project-root>playground/src/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import { routeFactory } from \\"./route\\";
@@ -100,31 +63,6 @@ export const initialState = {
 "
 `;
 
-exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts 1`] = `
-"import { initialState, testDuck } from \\"./testDuck\\";
-
-describe(\\"testDuck\\", () => {
-  it(\\"should reset\\", () => {
-    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
-  });
-});
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
-
-const ns = (type: string) => \`src/testDuck/\${type}\`
-
-export const initialState = { };
-
-type UIState = typeof initialState;
-export const testDuck = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
-});
-"
-`;
-
 exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/sagas/index.ts 1`] = `
 "import { all } from \\"redux-saga/effects\\";
 
@@ -137,28 +75,6 @@ export default function* rootSaga() {
   console.log(\\"saga initialized\\");
   yield all([
   ]);
-}
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/sagas/testSaga.test.ts 1`] = `
-"import { testSaga } from './testSaga';
-
-// There are a lot of strategies for testing sagas
-// https://redux-saga.js.org/docs/advanced/Testing.html
-describe('testSaga',() => {
-  it('should exist', () => {
-    expect(testSaga).toBeTruthy()
-  })
-})
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/redux/sagas/testSaga.ts 1`] = `
-"import { call } from 'redux-saga/effects';
-
-export function* testSaga () {
-  yield call(() => console.log('my new saga'));
 }
 "
 `;
@@ -225,106 +141,6 @@ Each route contains:
   * a \`redux\` folder, for
     [ducks](https://github.com/erikras/ducks-modular-redux),
     [sagas](https://redux-saga.js.org/), and anything else related to redux.
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/testRoute/index.ts 1`] = `
-"import parent from '../../'
-import testRouteRoute from './route'
-export default testRouteRoute(parent)
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `
-"import * as React from 'react'
-
-interface TestrouteProps {
-  children?: React.ReactChildren
-}
-
-const testRouteLayout = (props: TestrouteProps) => (
-  <div>
-    <h1>testRoute</h1>
-    { props.children }
-  </div>
-)
-export default testRouteLayout;
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/testRoute/redux/ducks/index.ts 1`] = `
-"import { testDuck2, initialState as testDuck2InitialState } from './testDuck2/testDuck2'
-/**
- * Run \`apr g duck --route src\` to add a duck
- */
-export default {
- testDuck2
-};
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/testRoute/redux/sagas/index.ts 1`] = `
-"import { testSaga2 } from './testSaga2'
-import { all, call } from \\"redux-saga/effects\\";
-
-export default function* rootSaga() {
-  yield all([call(testSaga2)]);
-}
-
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/testRoute/redux/selectors/index.ts 1`] = `
-"import testRoute from './testRoute';
-export default testRoute;
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts 1`] = `
-"import { createSelector } from 'reselect'
-import route from '../../'
-
-const identity = createSelector(route.baseSelector, (routeState) => routeState);
-
-export default {
-  identity
-}
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/testRoute/route.story.tsx 1`] = `
-"import * as React from \\"react\\";
-import { storiesOf } from \\"@storybook/react\\";
-import { route as parent } from \\"../../route.story\\";
-import testRouteRoute from \\"./route\\";
-
-export const route = testRouteRoute(parent);
-const AppComponent = route.navigateOnMount({}, true)
-storiesOf(\\"app/testRoute\\", module)
-  .add(\\"Default Route\\", () => {
-    return <AppComponent />;
-  });
-
-"
-`;
-
-exports[`generating ui should generate a new ui component: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
-export const route = createRouteComposer('testRoute')
-const testRouteRoute = (app: Parent) => {
-  const testRouteRoute = app.createSubRoute(
-    route,
-    () => import('./redux/ducks')
-  )
-  testRouteRoute.setComponent(() => import('./layout'))
-  testRouteRoute.register()
-  return testRouteRoute;
-}
-
-export default testRouteRoute
-export type Parent = ReturnType<typeof testRouteRoute>
-
 "
 `;
 
