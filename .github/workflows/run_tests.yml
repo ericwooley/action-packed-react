@@ -23,3 +23,12 @@ jobs:
         run: yarn workspaces run lint
       - name: test
         run: yarn workspaces run test || (cat playground.log && false)
+      - name: playground test
+        run: pushd playground && yarn test && popd;
+      - name: build storybook
+        run: pushd playground && yarn build-storybook && popd;
+      - name: build app
+        run: pushd playground && yarn build && popd;
+
+
+
