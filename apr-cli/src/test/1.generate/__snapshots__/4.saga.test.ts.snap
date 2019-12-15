@@ -103,21 +103,27 @@ export const initialState = {
 "
 `;
 
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts 1`] = `
+"import { initialState, testDuck } from \\"./testDuck\\";
+
+describe(\\"testDuck\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/testDuck/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -135,6 +141,19 @@ export default function* rootSaga() {
   console.log(\\"saga initialized\\");
   yield all([call(testSaga)]);
 }
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/redux/sagas/testSaga.test.ts 1`] = `
+"import { testSaga } from './testSaga';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga',() => {
+  it('should exist', () => {
+    expect(testSaga).toBeTruthy()
+  })
+})
 "
 `;
 
@@ -284,21 +303,27 @@ export default {
 "
 `;
 
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts 1`] = `
+"import { initialState, testDuck2 } from \\"./testDuck2\\";
+
+describe(\\"testDuck2\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck2(initialState, testDuck2.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck2 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -311,6 +336,19 @@ export default function* rootSaga() {
   yield all([call(testSaga2)]);
 }
 
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.test.ts 1`] = `
+"import { testSaga2 } from './testSaga2';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga2',() => {
+  it('should exist', () => {
+    expect(testSaga2).toBeTruthy()
+  })
+})
 "
 `;
 
@@ -359,9 +397,9 @@ storiesOf(\\"app/testRoute\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute')
-const testRouteRoute = (app: Parent) => {
+const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -449,21 +487,27 @@ export default {
 "
 `;
 
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts 1`] = `
+"import { initialState, testDuck3 } from \\"./testDuck3\\";
+
+describe(\\"testDuck3\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck3(initialState, testDuck3.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/routes/testRoute/routes/testRoute2/testDuck3/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck3 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -515,9 +559,9 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute2')
-const testRoute2Route = (app: Parent) => {
+const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -612,9 +656,9 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute3')
-const testRoute3Route = (app: Parent) => {
+const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -627,6 +671,18 @@ const testRoute3Route = (app: Parent) => {
 export default testRoute3Route
 export type Parent = ReturnType<typeof testRoute3Route>
 
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/stories.test.ts 1`] = `
+"import initStoryshots, {
+  multiSnapshotWithOptions
+} from '@storybook/addon-storyshots'
+
+initStoryshots({
+  integrityOptions: { cwd: __dirname },
+  test: multiSnapshotWithOptions({})
+})
 "
 `;
 
@@ -698,6 +754,7 @@ exports[`generating saga should generate a new saga based on testRoutes: apr g s
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/redux/sagas/testSaga2.ts
+       added: src/routes/testRoute/redux/sagas/testSaga2.test.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -715,8 +772,10 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
+  "<project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/testSaga.test.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/route.story.tsx",
@@ -728,8 +787,10 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
@@ -741,6 +802,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
@@ -755,6 +817,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts",
+  "<project-root>playground/src/stories.test.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",
@@ -865,21 +928,27 @@ export const initialState = {
 "
 `;
 
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts 1`] = `
+"import { initialState, testDuck } from \\"./testDuck\\";
+
+describe(\\"testDuck\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/testDuck/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -897,6 +966,19 @@ export default function* rootSaga() {
   console.log(\\"saga initialized\\");
   yield all([call(testSaga)]);
 }
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/redux/sagas/testSaga.test.ts 1`] = `
+"import { testSaga } from './testSaga';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga',() => {
+  it('should exist', () => {
+    expect(testSaga).toBeTruthy()
+  })
+})
 "
 `;
 
@@ -1046,21 +1128,27 @@ export default {
 "
 `;
 
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts 1`] = `
+"import { initialState, testDuck2 } from \\"./testDuck2\\";
+
+describe(\\"testDuck2\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck2(initialState, testDuck2.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck2 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1073,6 +1161,19 @@ export default function* rootSaga() {
   yield all([call(testSaga2)]);
 }
 
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.test.ts 1`] = `
+"import { testSaga2 } from './testSaga2';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga2',() => {
+  it('should exist', () => {
+    expect(testSaga2).toBeTruthy()
+  })
+})
 "
 `;
 
@@ -1121,9 +1222,9 @@ storiesOf(\\"app/testRoute\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute')
-const testRouteRoute = (app: Parent) => {
+const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1211,21 +1312,27 @@ export default {
 "
 `;
 
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts 1`] = `
+"import { initialState, testDuck3 } from \\"./testDuck3\\";
+
+describe(\\"testDuck3\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck3(initialState, testDuck3.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/routes/testRoute/routes/testRoute2/testDuck3/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck3 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1238,6 +1345,19 @@ export default function* rootSaga() {
   yield all([call(testSaga3)]);
 }
 
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.test.ts 1`] = `
+"import { testSaga3 } from './testSaga3';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga3',() => {
+  it('should exist', () => {
+    expect(testSaga3).toBeTruthy()
+  })
+})
 "
 `;
 
@@ -1286,9 +1406,9 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute2')
-const testRoute2Route = (app: Parent) => {
+const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1383,9 +1503,9 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute3')
-const testRoute3Route = (app: Parent) => {
+const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1398,6 +1518,18 @@ const testRoute3Route = (app: Parent) => {
 export default testRoute3Route
 export type Parent = ReturnType<typeof testRoute3Route>
 
+"
+`;
+
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/stories.test.ts 1`] = `
+"import initStoryshots, {
+  multiSnapshotWithOptions
+} from '@storybook/addon-storyshots'
+
+initStoryshots({
+  integrityOptions: { cwd: __dirname },
+  test: multiSnapshotWithOptions({})
+})
 "
 `;
 
@@ -1469,6 +1601,7 @@ exports[`generating saga should generate a new saga based on testRoutes2: apr g 
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts
+       added: src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.test.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -1486,8 +1619,10 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
+  "<project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/testSaga.test.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/route.story.tsx",
@@ -1499,8 +1634,10 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/testSaga2.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/testRoute.ts",
@@ -1512,8 +1649,10 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.test.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/testRoute2.ts",
@@ -1527,6 +1666,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts",
+  "<project-root>playground/src/stories.test.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",
@@ -1637,21 +1777,27 @@ export const initialState = {
 "
 `;
 
+exports[`generating saga should generate a new saga: <project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts 1`] = `
+"import { initialState, testDuck } from \\"./testDuck\\";
+
+describe(\\"testDuck\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating saga should generate a new saga: <project-root>playground/src/redux/ducks/testDuck/testDuck.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/testDuck/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1669,6 +1815,19 @@ export default function* rootSaga() {
   console.log(\\"saga initialized\\");
   yield all([call(testSaga)]);
 }
+"
+`;
+
+exports[`generating saga should generate a new saga: <project-root>playground/src/redux/sagas/testSaga.test.ts 1`] = `
+"import { testSaga } from './testSaga';
+
+// There are a lot of strategies for testing sagas
+// https://redux-saga.js.org/docs/advanced/Testing.html
+describe('testSaga',() => {
+  it('should exist', () => {
+    expect(testSaga).toBeTruthy()
+  })
+})
 "
 `;
 
@@ -1818,21 +1977,27 @@ export default {
 "
 `;
 
+exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts 1`] = `
+"import { initialState, testDuck2 } from \\"./testDuck2\\";
+
+describe(\\"testDuck2\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck2(initialState, testDuck2.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/routes/testRoute/testDuck2/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck2 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1884,9 +2049,9 @@ storiesOf(\\"app/testRoute\\", module)
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute')
-const testRouteRoute = (app: Parent) => {
+const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1974,21 +2139,27 @@ export default {
 "
 `;
 
+exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts 1`] = `
+"import { initialState, testDuck3 } from \\"./testDuck3\\";
+
+describe(\\"testDuck3\\", () => {
+  it(\\"should reset\\", () => {
+    expect(testDuck3(initialState, testDuck3.actionCreators.reset(undefined)));
+  });
+});
+"
+`;
+
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts 1`] = `
-"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react/createReducer\\";
+"import { createActionPack, createReducerFromActionPack } from \\"action-packed-react\\";
 
 const ns = (type: string) => \`src/routes/testRoute/routes/testRoute2/testDuck3/\${type}\`
 
-export const initialState = {
-  confirmed: false
-};
+export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck3 = createReducerFromActionPack(initialState, {
-  confirm: createActionPack<UIState, boolean>(ns(\\"CONFIRM\\"), (state, action) => ({
-    ...state,
-    confirmed: action.payload
-  }))
+  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -2040,9 +2211,9 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute2')
-const testRoute2Route = (app: Parent) => {
+const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -2137,9 +2308,9 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute3')
-const testRoute3Route = (app: Parent) => {
+const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -2152,6 +2323,18 @@ const testRoute3Route = (app: Parent) => {
 export default testRoute3Route
 export type Parent = ReturnType<typeof testRoute3Route>
 
+"
+`;
+
+exports[`generating saga should generate a new saga: <project-root>playground/src/stories.test.ts 1`] = `
+"import initStoryshots, {
+  multiSnapshotWithOptions
+} from '@storybook/addon-storyshots'
+
+initStoryshots({
+  integrityOptions: { cwd: __dirname },
+  test: multiSnapshotWithOptions({})
+})
 "
 `;
 
@@ -2223,6 +2406,7 @@ exports[`generating saga should generate a new saga: apr g saga --name testSaga 
 ",
 Loaded templates: <project-root>apr-cli/_templates/
        added: src/redux/sagas/testSaga.ts
+       added: src/redux/sagas/testSaga.test.ts
 ,Warning: The 'await-promise' rule requires type information.
 Warning: The 'deprecation' rule requires type information.
 Warning: The 'no-floating-promises' rule requires type information.
@@ -2240,8 +2424,10 @@ Array [
   "<project-root>playground/src/components/testComponent/testComponent.tsx",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
+  "<project-root>playground/src/redux/ducks/testDuck/testDuck.test.ts",
   "<project-root>playground/src/redux/ducks/testDuck/testDuck.ts",
   "<project-root>playground/src/redux/sagas/index.ts",
+  "<project-root>playground/src/redux/sagas/testSaga.test.ts",
   "<project-root>playground/src/redux/sagas/testSaga.ts",
   "<project-root>playground/src/redux/selectors/index.ts",
   "<project-root>playground/src/route.story.tsx",
@@ -2253,6 +2439,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/index.ts",
   "<project-root>playground/src/routes/testRoute/layout.tsx",
   "<project-root>playground/src/routes/testRoute/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts",
   "<project-root>playground/src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts",
   "<project-root>playground/src/routes/testRoute/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/redux/selectors/index.ts",
@@ -2265,6 +2452,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/index.ts",
+  "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/sagas/index.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/redux/selectors/index.ts",
@@ -2279,6 +2467,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts",
+  "<project-root>playground/src/stories.test.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",

@@ -1,0 +1,6 @@
+---
+to: .babelrc
+---
+{
+  "plugins": ["macros"]
+}

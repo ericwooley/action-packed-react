@@ -297,9 +297,9 @@ storiesOf(\\"app/testRoute\\", module)
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute')
-const testRouteRoute = (app: Parent) => {
+const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -394,9 +394,9 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute2')
-const testRoute2Route = (app: Parent) => {
+const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -491,9 +491,9 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 
 exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute3')
-const testRoute3Route = (app: Parent) => {
+const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -506,6 +506,18 @@ const testRoute3Route = (app: Parent) => {
 export default testRoute3Route
 export type Parent = ReturnType<typeof testRoute3Route>
 
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes: <project-root>playground/src/stories.test.ts 1`] = `
+"import initStoryshots, {
+  multiSnapshotWithOptions
+} from '@storybook/addon-storyshots'
+
+initStoryshots({
+  integrityOptions: { cwd: __dirname },
+  test: multiSnapshotWithOptions({})
+})
 "
 `;
 
@@ -622,6 +634,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts",
+  "<project-root>playground/src/stories.test.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",
@@ -926,9 +939,9 @@ storiesOf(\\"app/testRoute\\", module)
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute')
-const testRouteRoute = (app: Parent) => {
+const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1060,9 +1073,9 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute2')
-const testRoute2Route = (app: Parent) => {
+const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1157,9 +1170,9 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 
 exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute3')
-const testRoute3Route = (app: Parent) => {
+const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1172,6 +1185,18 @@ const testRoute3Route = (app: Parent) => {
 export default testRoute3Route
 export type Parent = ReturnType<typeof testRoute3Route>
 
+"
+`;
+
+exports[`generating component should generate a new component based on testRoutes2: <project-root>playground/src/stories.test.ts 1`] = `
+"import initStoryshots, {
+  multiSnapshotWithOptions
+} from '@storybook/addon-storyshots'
+
+initStoryshots({
+  integrityOptions: { cwd: __dirname },
+  test: multiSnapshotWithOptions({})
+})
 "
 `;
 
@@ -1291,6 +1316,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts",
+  "<project-root>playground/src/stories.test.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",
@@ -1558,9 +1584,9 @@ storiesOf(\\"app/testRoute\\", module)
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute')
-const testRouteRoute = (app: Parent) => {
+const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1655,9 +1681,9 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute2')
-const testRoute2Route = (app: Parent) => {
+const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1752,9 +1778,9 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 
 exports[`generating component should generate a new component: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
 "import { createRouteComposer } from 'action-packed-react';
-import { Parent } from '../../route';
+import { Parent as RouteParent } from '../../route';
 export const route = createRouteComposer('testRoute3')
-const testRoute3Route = (app: Parent) => {
+const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
     () => import('./redux/ducks')
@@ -1767,6 +1793,18 @@ const testRoute3Route = (app: Parent) => {
 export default testRoute3Route
 export type Parent = ReturnType<typeof testRoute3Route>
 
+"
+`;
+
+exports[`generating component should generate a new component: <project-root>playground/src/stories.test.ts 1`] = `
+"import initStoryshots, {
+  multiSnapshotWithOptions
+} from '@storybook/addon-storyshots'
+
+initStoryshots({
+  integrityOptions: { cwd: __dirname },
+  test: multiSnapshotWithOptions({})
+})
 "
 `;
 
@@ -1880,6 +1918,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts",
+  "<project-root>playground/src/stories.test.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",

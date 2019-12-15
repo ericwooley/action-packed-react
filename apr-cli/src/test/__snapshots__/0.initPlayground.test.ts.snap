@@ -144,6 +144,18 @@ Each route contains:
 "
 `;
 
+exports[`setup should create the initial files: <project-root>playground/src/stories.test.ts 1`] = `
+"import initStoryshots, {
+  multiSnapshotWithOptions
+} from '@storybook/addon-storyshots'
+
+initStoryshots({
+  integrityOptions: { cwd: __dirname },
+  test: multiSnapshotWithOptions({})
+})
+"
+`;
+
 exports[`setup should create the initial files: <project-root>playground/src/ui/readme.md 1`] = `
 "# UI
 \`ui\` is for reusable components, which should have 0 concept of anything else
@@ -181,6 +193,7 @@ Array [
   "<project-root>playground/src/route.story.tsx",
   "<project-root>playground/src/route.tsx",
   "<project-root>playground/src/routes/readme.md",
+  "<project-root>playground/src/stories.test.ts",
   "<project-root>playground/src/ui/readme.md",
 ]
 `;
