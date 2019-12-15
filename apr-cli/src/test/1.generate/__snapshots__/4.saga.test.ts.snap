@@ -674,6 +674,18 @@ export type Parent = ReturnType<typeof testRoute3Route>
 "
 `;
 
+exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/stories.test.ts 1`] = `
+"import initStoryshots, {
+  multiSnapshotWithOptions
+} from '@storybook/addon-storyshots'
+
+initStoryshots({
+  integrityOptions: { cwd: __dirname },
+  test: multiSnapshotWithOptions({})
+})
+"
+`;
+
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/ui/readme.md 1`] = `
 "# UI
 \`ui\` is for reusable components, which should have 0 concept of anything else
@@ -805,6 +817,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts",
+  "<project-root>playground/src/stories.test.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",
@@ -1508,6 +1521,18 @@ export type Parent = ReturnType<typeof testRoute3Route>
 "
 `;
 
+exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/stories.test.ts 1`] = `
+"import initStoryshots, {
+  multiSnapshotWithOptions
+} from '@storybook/addon-storyshots'
+
+initStoryshots({
+  integrityOptions: { cwd: __dirname },
+  test: multiSnapshotWithOptions({})
+})
+"
+`;
+
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/ui/readme.md 1`] = `
 "# UI
 \`ui\` is for reusable components, which should have 0 concept of anything else
@@ -1641,6 +1666,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts",
+  "<project-root>playground/src/stories.test.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",
@@ -2300,6 +2326,18 @@ export type Parent = ReturnType<typeof testRoute3Route>
 "
 `;
 
+exports[`generating saga should generate a new saga: <project-root>playground/src/stories.test.ts 1`] = `
+"import initStoryshots, {
+  multiSnapshotWithOptions
+} from '@storybook/addon-storyshots'
+
+initStoryshots({
+  integrityOptions: { cwd: __dirname },
+  test: multiSnapshotWithOptions({})
+})
+"
+`;
+
 exports[`generating saga should generate a new saga: <project-root>playground/src/ui/readme.md 1`] = `
 "# UI
 \`ui\` is for reusable components, which should have 0 concept of anything else
@@ -2429,6 +2467,7 @@ Array [
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/redux/selectors/testRoute3.ts",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.story.tsx",
   "<project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts",
+  "<project-root>playground/src/stories.test.ts",
   "<project-root>playground/src/ui/readme.md",
   "<project-root>playground/src/ui/testUi/index.ts",
   "<project-root>playground/src/ui/testUi/testUi.story.tsx",

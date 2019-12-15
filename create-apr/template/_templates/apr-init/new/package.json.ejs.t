@@ -9,6 +9,7 @@ to: package.json
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "apr build",
+    "build-storybook": "build-storybook -c .storybook -o .storybook-dist",
     "start": "apr dev",
     "storybook": "start-storybook",
     "lint": "tslint --project tsconfig.json",
