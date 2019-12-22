@@ -8,6 +8,7 @@
   "module": "./dist/lib/index.js",
   "types": "./dist/types/",
   "author": "Eric Wooley <ericwooley@gmail.com>",
+  "include": ["./dist/"],
   "repository": {
     "type": "git",
     "url": ""
@@ -17,6 +18,7 @@
     "node": ">=6.0.0"
   },
   "scripts": {
+    "prepublish": "yarn build",
     "lint": "tslint  --project tsconfig.json",
     "prebuild": "rimraf dist",
     "build": "yarn tsc",
