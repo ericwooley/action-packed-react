@@ -3,7 +3,7 @@ import { snapshotPlayground } from "./utils/getAllSourceFiles";
 import axios from "axios";
 
 beforeAll(() => {
-  process.chdir("../");
+  process.chdir("../../");
   spawnSync("yarn", ["playground-init"], { stdio: "inherit" });
 });
 describe("setup", () => {

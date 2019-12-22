@@ -18,8 +18,6 @@ to: package.json
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "action-packed-react": "/home/ericwooley/projects/action-packed-react/action-packed-react",
-    "apr-cli": "/home/ericwooley/projects/action-packed-react/apr-cli",
     "history": "^4.10.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
