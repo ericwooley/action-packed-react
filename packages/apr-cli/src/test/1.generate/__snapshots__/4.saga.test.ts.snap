@@ -752,7 +752,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating saga should generate a new saga based on testRoutes: apr g saga --name testSaga2 --route src/routes/testRoute --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/routes/testRoute/redux/sagas/testSaga2.ts
        added: src/routes/testRoute/redux/sagas/testSaga2.test.ts
 ,Warning: The 'await-promise' rule requires type information.
@@ -1599,7 +1599,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating saga should generate a new saga based on testRoutes2: apr g saga --name testSaga3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.ts
        added: src/routes/testRoute/routes/testRoute2/redux/sagas/testSaga3.test.ts
 ,Warning: The 'await-promise' rule requires type information.
@@ -2404,7 +2404,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating saga should generate a new saga: apr g saga --name testSaga --route src --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/redux/sagas/testSaga.ts
        added: src/redux/sagas/testSaga.test.ts
 ,Warning: The 'await-promise' rule requires type information.

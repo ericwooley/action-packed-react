@@ -416,7 +416,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating route should generate a new route based on testRoutes: apr g route --name testRoute2 --route src/routes/testRoute --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/components/.gitkeep
        added: src/routes/testRoute/routes/testRoute2/index.ts
        added: src/routes/testRoute/routes/testRoute2/layout.tsx
@@ -977,7 +977,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating route should generate a new route based on testRoutes2: apr g route --name testRoute3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/components/.gitkeep
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/index.ts
        added: src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx
@@ -1352,7 +1352,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating route should generate a new route: apr g route --name testRoute --route src --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/routes/testRoute/components/.gitkeep
        added: src/routes/testRoute/index.ts
        added: src/routes/testRoute/layout.tsx
