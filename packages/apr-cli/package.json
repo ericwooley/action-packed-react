@@ -8,6 +8,8 @@
     "apr": "./dist/index.js"
   },
   "scripts": {
+    "prepublish": "yarn build",
+    "prebuild": "rm -rf dist",
     "build": "tsc && chmod +x dist/index.js",
     "start": "tsc --watch",
     "test": "yarn jest --clearCache && yarn jest --runInBand --no-cache --bail",
