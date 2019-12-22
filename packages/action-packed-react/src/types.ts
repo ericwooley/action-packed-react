@@ -1,4 +1,4 @@
-import { initialState } from './routeReducer';
+import { initialState } from './routeReducer'
 import { History, Action } from 'history'
 import { Reducer, compose } from 'redux'
 import { IRouteComposer } from './routeMatcher'
@@ -45,9 +45,8 @@ export interface IOptions<
   onMount?: () => any
   RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
   LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
-  layout:
-    | React.ComponentType
-    | (Promise<(React.ComponentType) | ({ default: React.ComponentType })>)
+  Component?: React.ComponentType<any>
+  layout: React.ComponentType | Promise<React.ComponentType | { default: React.ComponentType }>
   saga?: Saga | Promise<{ default: Saga } | Saga>
   composeEnhancers?: typeof compose
   baseRoute?: string
@@ -73,7 +72,7 @@ export interface IRouteOptionsCreator<
 export interface IRoutesMapValue {
   route: IRouteComposer<any>
   parent?: IRoutesMapValue
-  initialState?: object,
+  initialState?: object
   loader: IRouteOptionsCreator<any, any, any>
   onRouteMatch: () => any
 }

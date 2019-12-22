@@ -44,6 +44,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
   layout,
   RouteNotFoundComponent,
   LoadingComponent,
+  Component = PassThroughComponent,
   saga,
   composeEnhancers = compose,
   baseRoute = '/'
@@ -63,7 +64,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
         return {
           initialState: initialState,
           routeComposer: appRoute,
-          component: PassThroughComponent,
+          component: Component,
           reducer: initialReducers,
           saga: saga || (emptySaga as any)
         }
@@ -339,6 +340,10 @@ export function createApp<R extends { [key: string]: Reducer }>({
   return {
     AppComponent,
     routeComposer: appRoute,
+    connect: <T, OwnProps, H>(
+      mapStateToProps: (state: IInitialState, ownProps: OwnProps) => T,
+      handlers?: H
+    ) => connect(mapStateToProps, handlers),
     NavigateOnMount: navigateOnMount(AppComponent, {
       history,
       routeComposer: appRoute,
