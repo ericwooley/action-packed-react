@@ -5,7 +5,7 @@ import debug from "debug";
 import { cleanSourcePath } from "./cleanSourcePath";
 
 const log = debug("apr:test:files");
-const playGroundSrc = path.join(__dirname, "../../../../playground/src/**/*");
+const playGroundSrc = path.join(__dirname, "../../../../../playground/src/**/*");
 export const getAllFiles = () => {
   log("searching", playGroundSrc, "for files to diff");
   return new Promise<string[]>((r, rej) =>

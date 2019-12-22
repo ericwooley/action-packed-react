@@ -11,7 +11,7 @@ export const runApr = (args: string[] | string, { snapshotOutput = false, autoLi
     args.push('--autoLink')
   }
   const prettyCommand = ["apr", ...args].join(" ");
-  process.chdir(join(__dirname, "../../../../playground"));
+  process.chdir(join(__dirname, "../../../../../playground"));
   log("running: ", prettyCommand);
   const result = spawnSync("apr", args);
   const output = cleanSourcePath( result.output.toString());
