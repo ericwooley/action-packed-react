@@ -25,9 +25,7 @@
       "**/playground/**/*"
     ],
     "packages": [
-      "action-packed-react",
-      "create-apr",
-      "apr-cli"
+      "packages/*"
     ]
   },
   "devDependencies": {
