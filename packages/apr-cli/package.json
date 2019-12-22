@@ -1,6 +1,6 @@
 {
   "name": "apr-cli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Cli for action packed react",
   "main": "dist/index.js",
   "author": "Eric Wooley <ericwooley@gmail.com>",

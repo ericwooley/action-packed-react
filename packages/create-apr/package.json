@@ -1,6 +1,6 @@
 {
   "name": "create-apr",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "action packed react starter",
   "main": "bin.js",
   "author": "Eric Wooley <ericwooley@gmail.com>",
@@ -13,10 +13,10 @@
     "lint": "echo 'No lint yet'; exit 0;"
   },
   "dependencies": {
+    "apr-cli": "^0.0.1",
     "debug": "^4.1.1",
     "hygen": "^4.0.9",
-    "yargs-parser": "^13.1.1",
-    "apr-cli": "*"
+    "yargs-parser": "^13.1.1"
   },
   "devDependencies": {
     "@types/yargs-parser": "^13.0.0"

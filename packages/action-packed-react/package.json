@@ -1,6 +1,6 @@
 {
   "name": "action-packed-react",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "keywords": [],
   "main": "./dist/lib/index.js",
@@ -8,7 +8,9 @@
   "module": "./dist/lib/index.js",
   "types": "./dist/types/",
   "author": "Eric Wooley <ericwooley@gmail.com>",
-  "include": ["./dist/"],
+  "include": [
+    "./dist/"
+  ],
   "repository": {
     "type": "git",
     "url": ""
