@@ -680,7 +680,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating duck should generate a new duck based on testRoutes: apr g duck --name testDuck2 --route src/routes/testRoute --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/routes/testRoute/redux/ducks/testDuck2/testDuck2.ts
        added: src/routes/testRoute/redux/ducks/testDuck2/testDuck2.test.ts
 ,Warning: The 'await-promise' rule requires type information.
@@ -1455,7 +1455,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating duck should generate a new duck based on testRoutes2: apr g duck --name testDuck3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.ts
        added: src/routes/testRoute/routes/testRoute2/redux/ducks/testDuck3/testDuck3.test.ts
 ,Warning: The 'await-promise' rule requires type information.
@@ -2176,7 +2176,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating duck should generate a new duck: apr g duck --name testDuck --route src --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/redux/ducks/testDuck/testDuck.ts
        added: src/redux/ducks/testDuck/testDuck.test.ts
 ,Warning: The 'await-promise' rule requires type information.

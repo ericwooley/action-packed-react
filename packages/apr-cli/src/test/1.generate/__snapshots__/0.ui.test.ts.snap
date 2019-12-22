@@ -222,7 +222,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating ui should generate a new ui component: apr g ui --name testUi --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/ui/testUi/index.ts
        added: src/ui/testUi/testUi.tsx
        added: src/ui/testUi/testUi.story.tsx

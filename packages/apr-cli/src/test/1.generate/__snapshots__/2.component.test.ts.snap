@@ -587,7 +587,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating component should generate a new component based on testRoutes: apr g component --name testComponent2 --route src/routes/testRoute --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/routes/testRoute/components/testComponent2/index.ts
        added: src/routes/testRoute/components/testComponent2/testComponent2.tsx
        added: src/routes/testRoute/components/testComponent2/testComponent2.story.tsx
@@ -1266,7 +1266,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating component should generate a new component based on testRoutes2: apr g component --name testComponent3 --route src/routes/testRoute/routes/testRoute2 --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/routes/testRoute/routes/testRoute2/components/testComponent3/index.ts
        added: src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.tsx
        added: src/routes/testRoute/routes/testRoute2/components/testComponent3/testComponent3.story.tsx
@@ -1874,7 +1874,7 @@ export const TestUi = (props: TestuiProps) => {
 
 exports[`generating component should generate a new component: apr g component --name testComponent --route src --autoLink 1`] = `
 ",
-Loaded templates: <project-root>apr-cli/_templates/
+Loaded templates: <project-root>packages/apr-cli/_templates/
        added: src/components/testComponent/index.ts
        added: src/components/testComponent/testComponent.tsx
        added: src/components/testComponent/testComponent.story.tsx
