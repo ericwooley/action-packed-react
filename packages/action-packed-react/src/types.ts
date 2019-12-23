@@ -45,11 +45,13 @@ export interface IOptions<
   onMount?: () => any
   RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
   LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
-  layout: React.ComponentType | Promise<React.ComponentType | { default: React.ComponentType }>
+  layout: AnyRouteComponent | Promise<AnyRouteComponent | { default: AnyRouteComponent }>
   saga?: Saga | Promise<{ default: Saga } | Saga>
   composeEnhancers?: typeof compose
   baseRoute?: string
 }
+
+type AnyRouteComponent = React.ComponentType<IRouteComponentProps<any>>
 
 export interface IRouteOptions<T extends ReducerObj, U> {
   component: React.ComponentType<U>
