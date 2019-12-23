@@ -55,12 +55,19 @@ export default class RootLayout extends React.PureComponent {
 `;
 
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/global.css 1`] = `
-"/***************
+"
+
+@import url(\\"https://fonts.googleapis.com/css?family=Roboto&display=swap\\");
+body {
+  font-family: \\"Roboto\\", sans-serif;
+}
+
+/***************
 We recommend tailwaind.
 
-https://tailwindcss.com/docs/installation
+https://tailwindcss.com/docs/
 
-Install using these ☝️ instructions, and uncomment the following lines
+Checkout the docs ☝️, and uncomment the following lines
 ****************/
 
 /*
@@ -557,12 +564,19 @@ export default class RootLayout extends React.PureComponent {
 `;
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/global.css 1`] = `
-"/***************
+"
+
+@import url(\\"https://fonts.googleapis.com/css?family=Roboto&display=swap\\");
+body {
+  font-family: \\"Roboto\\", sans-serif;
+}
+
+/***************
 We recommend tailwaind.
 
-https://tailwindcss.com/docs/installation
+https://tailwindcss.com/docs/
 
-Install using these ☝️ instructions, and uncomment the following lines
+Checkout the docs ☝️, and uncomment the following lines
 ****************/
 
 /*
@@ -1164,12 +1178,19 @@ export default class RootLayout extends React.PureComponent {
 `;
 
 exports[`generating route should generate a new route: <project-root>playground/src/global.css 1`] = `
-"/***************
+"
+
+@import url(\\"https://fonts.googleapis.com/css?family=Roboto&display=swap\\");
+body {
+  font-family: \\"Roboto\\", sans-serif;
+}
+
+/***************
 We recommend tailwaind.
 
-https://tailwindcss.com/docs/installation
+https://tailwindcss.com/docs/
 
-Install using these ☝️ instructions, and uncomment the following lines
+Checkout the docs ☝️, and uncomment the following lines
 ****************/
 
 /*

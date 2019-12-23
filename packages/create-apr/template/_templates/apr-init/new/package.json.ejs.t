@@ -43,7 +43,9 @@ to: package.json
     "@types/styled-components": "^4.4.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
+    "react-test-renderer": "^16.12.0",
     "require-context.macro": "^1.2.2",
     "ts-jest": "^24.2.0"
   }

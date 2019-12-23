@@ -1,12 +1,19 @@
 ---
 to: src/global.css
 ---
+
+
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+body {
+  font-family: "Roboto", sans-serif;
+}
+
 /***************
 We recommend tailwaind.
 
-https://tailwindcss.com/docs/installation
+https://tailwindcss.com/docs/
 
-Install using these ☝️ instructions, and uncomment the following lines
+Checkout the docs ☝️, and uncomment the following lines
 ****************/
 
 /*
