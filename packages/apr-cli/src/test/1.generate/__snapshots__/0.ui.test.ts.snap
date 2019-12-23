@@ -37,6 +37,25 @@ export default class RootLayout extends React.PureComponent {
 "
 `;
 
+exports[`generating ui should generate a new ui component: <project-root>playground/src/global.css 1`] = `
+"/***************
+We recommend tailwaind.
+
+https://tailwindcss.com/docs/installation
+
+Install using these ☝️ instructions, and uncomment the following lines
+****************/
+
+/*
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+*/
+"
+`;
+
 exports[`generating ui should generate a new ui component: <project-root>playground/src/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import { routeFactory } from \\"./route\\";
@@ -107,6 +126,7 @@ exports[`generating ui should generate a new ui component: <project-root>playgro
 import { createApp } from \\"action-packed-react\\";
 import { History } from \\"history\\";
 import initialReducers, { initialState } from \\"./redux/ducks\\";
+import \\"./global.css\\"
 
 export const routeFactory = ({ history }: { history: History }) => {
   const app = createApp({
@@ -232,6 +252,7 @@ Loaded templates: <project-root>packages/apr-cli/_templates/
 exports[`generating ui should generate a new ui component: file-list 1`] = `
 Array [
   "<project-root>playground/src/components/RootLayout/index.tsx",
+  "<project-root>playground/src/global.css",
   "<project-root>playground/src/index.tsx",
   "<project-root>playground/src/redux/ducks/index.ts",
   "<project-root>playground/src/redux/sagas/index.ts",

@@ -5,6 +5,7 @@ import * as React from "react";
 import { createApp } from "action-packed-react";
 import { History } from "history";
 import initialReducers, { initialState } from "./redux/ducks";
+import "./global.css"
 
 export const routeFactory = ({ history }: { history: History }) => {
   const app = createApp({

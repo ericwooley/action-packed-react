@@ -1,7 +1,6 @@
-const R = require('remeda')
-const typescript = require('./typescript')
+const typescript = require('./defaults/typescript')
+const css = require('./defaults/css')
 
 module.exports = env => {
-  const loaders = [typescript].map(loader => loader(env))
-  return R.pipe(...loaders)([]).map(({ id, ...loader }) => loader)
+  return [typescript, css].map(loader => loader(env)).map(({ id, ...loader }) => loader)
 }

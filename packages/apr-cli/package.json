@@ -48,6 +48,7 @@
     "babel-loader": "^8.0.6",
     "chalk": "^3.0.0",
     "cosmiconfig": "^6.0.0",
+    "css-loader": "^3.4.0",
     "debug": "^4.1.1",
     "enquirer": "^2.3.2",
     "file-loader": "^5.0.2",
