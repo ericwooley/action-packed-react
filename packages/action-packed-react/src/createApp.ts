@@ -42,7 +42,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
   history,
   useHashHistory = true,
   layout,
-  component,
+  component = PassThroughComponent,
   RouteNotFoundComponent,
   LoadingComponent,
   saga,

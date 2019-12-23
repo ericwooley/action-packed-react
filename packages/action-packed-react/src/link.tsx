@@ -25,10 +25,10 @@ export function createLink<T extends IRouteLimitations>(
   useHashHistory: boolean
 ) {
   class APRLink extends React.PureComponent<
-   Partial<React.HTMLProps<HTMLAnchorElement>> & Partial<IRouteProps> & T & ILinkProps
+    Partial<React.HTMLProps<HTMLAnchorElement>> & Partial<IRouteProps> & T & ILinkProps
   > {
     componentDidMount() {
-      if(this.props.redirect) {
+      if (this.props.redirect) {
         this.navigate()
       }
     }
@@ -45,14 +45,8 @@ export function createLink<T extends IRouteLimitations>(
       }
     }
     render() {
-      const {
-        activeClass = '',
-        currentPath,
-        replace,
-        dispatch,
-        redirect,
-        ...restProps
-      } = this.props as any
+      const { activeClass = '', currentPath, replace, dispatch, redirect, ...restProps } = this
+        .props as any
       return (
         <a
           {...restProps}

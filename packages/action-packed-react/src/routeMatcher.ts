@@ -1,5 +1,5 @@
 import { IRouteProps } from './link'
-import {curry} from 'lodash'
+import { curry } from 'lodash'
 
 /**
  * Get the routes which match the path.
@@ -7,42 +7,52 @@ import {curry} from 'lodash'
  * @param routeState routeState which contains the current path
  * @returns {string[]} array of paths which math the current route
  */
-export function routeMatcher(
-  routeMap: { [key: string]: any },
-  routeState: { pathname: string }
-) {
+export function routeMatcher(routeMap: { [key: string]: any }, routeState: { pathname: string }) {
   const path = routeState.pathname
   const routes = Object.keys(routeMap)
   return routes.filter(routeMatchesPath(path))
 }
 
+const routeMatchesPathWithOptions = curry(
+  ({ exact }: { exact: boolean }, path: string, route: string) => {
+    const segments = path
+      .toLowerCase()
+      .split('/')
+      .filter(s => !!s)
+    const routeSegments = route
+      .toLowerCase()
+      .split('/')
+      .filter(r => !!r)
+    if (segments.length < routeSegments.length) return false
+    if(exact && segments.length !== routeSegments.length) {
+      return false
+    }
+    const misMatch = segments.find((segment, i) => {
+      const route = routeSegments[i]
+      if (!route) return false
+      if (route.indexOf(':') === 0) return false
+      return route !== segment
+    })
+
+    return !misMatch
+  }
+)
 /**
  * Curried function which takes a path and a route, then matches the route
  * to the path.
  *
  * use `/:param/` for url params
  */
-export const routeMatchesPath = curry((path: string, route: string) => {
-  const segments = path
-    .toLowerCase()
-    .split('/')
-    .filter(s => !!s)
-  const routeSegments = route
-    .toLowerCase()
-    .split('/')
-    .filter(r => !!r)
-  if (segments.length < routeSegments.length) return false
-
-  const misMatch = segments.find((segment, i) => {
-    const route = routeSegments[i]
-    if (!route) return false
-    if (route.indexOf(':') === 0) return false
-    return route !== segment
-  })
-  return !misMatch
-})
-
-
+export const routeMatchesPath = routeMatchesPathWithOptions({ exact: false })
+/**
+ * Curried function which takes a path and a route, then matches the route
+ * to the path.
+ *
+ * use `/:param/` for url params
+ *
+ * Will fail if segments are different length
+ */
+export const routeMatchesPathExactly = routeMatchesPathWithOptions({ exact: true })
 const segmentIsVariable = (segment: string) => segment.indexOf(':') === 0
 const varNameFromSegment = (segment: string) => segment.slice(1)
 /**

@@ -44,9 +44,6 @@ describe('basic test', () => {
       }
     })
     mount(<app.AppComponent />)
-    // (window as any).app = app;
-    // console.log("state", app.store.getState());
-
     const subRoute2 = app.createSubRoute(createRouteComposer<{}>('test'), async () => ({
       test: () => null
     }))

@@ -1,5 +1,6 @@
 import {
   routeMatchesPath,
+  routeMatchesPathExactly,
   getVariablesForRoute,
   routeMatcher,
   createRouteComposer
@@ -21,6 +22,18 @@ describe('routeMatcher', () => {
     })
     it('should match a path that is too short', () => {
       expect(routeMatchesPath('/home/test')('/home')).toBeTruthy()
+    })
+    it('should fail if exact is required, and is not exact', () => {
+      expect(routeMatchesPathExactly('/home/test', '/home')).toBeFalsy()
+    })
+    it('should pass if exact is required, and is exact', () => {
+      expect(routeMatchesPathExactly('/home', '/home')).toBeTruthy()
+    })
+    it('should work exactly with variables', () => {
+      expect(routeMatchesPathExactly('/home/something', '/home/:test')).toBeTruthy()
+    })
+    it('should fail exactly with variables', () => {
+      expect(routeMatchesPathExactly('/home', '/home/:test')).toBeFalsy()
     })
   })
   describe('getVariablesForRoute', () => {
