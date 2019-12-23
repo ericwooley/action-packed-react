@@ -42,9 +42,9 @@ export function createApp<R extends { [key: string]: Reducer }>({
   history,
   useHashHistory = true,
   layout,
+  component,
   RouteNotFoundComponent,
   LoadingComponent,
-  Component = PassThroughComponent,
   saga,
   composeEnhancers = compose,
   baseRoute = '/'
@@ -64,7 +64,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
         return {
           initialState: initialState,
           routeComposer: appRoute,
-          component: Component,
+          component,
           reducer: initialReducers,
           saga: saga || (emptySaga as any)
         }

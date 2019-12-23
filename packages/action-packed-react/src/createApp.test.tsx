@@ -70,6 +70,9 @@ const createBasicApp = (onMountWrap?: OnMountWrap) => {
     LoadingComponent: () => <div>Loading...</div>,
     layout: props => <>{props.children}</>,
     history: history,
+    component: (props: { children: React.ReactChildren }) => (
+      <div>Route default {props.children}</div>
+    ),
     initialState: {
       str: '',
       num: 15

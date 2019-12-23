@@ -33,6 +33,7 @@ describe('basic test', () => {
       history,
       LoadingComponent: () => <h1>Loading</h1>,
       RouteNotFoundComponent: () => <div>NotFound</div>,
+      component: () => <div>Initial Route</div>,
       initialState: {
         str: '',
         num: 15

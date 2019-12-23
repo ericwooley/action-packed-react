@@ -45,7 +45,7 @@ export interface IOptions<
   onMount?: () => any
   RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
   LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
-  Component?: React.ComponentType<any>
+  component: React.ComponentType<any>
   layout: React.ComponentType | Promise<React.ComponentType | { default: React.ComponentType }>
   saga?: Saga | Promise<{ default: Saga } | Saga>
   composeEnhancers?: typeof compose
