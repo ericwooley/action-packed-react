@@ -58,12 +58,6 @@ const commands: { [key: string]: typeof help } = {
     examples: ["apr g # interactive", "apr g component <component name>"],
     exec: require("./generate")
   },
-  storybook: {
-    command: "storybook",
-    description: "start the storybook dev server",
-    examples: ["apr s", "apr storybook"],
-    exec: require("./storybook")
-  },
   routes: {
     command: "routes",
     description: "list all routes",
