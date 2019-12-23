@@ -45,7 +45,6 @@ export interface IOptions<
   onMount?: () => any
   RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
   LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
-  component: React.ComponentType<any>
   layout: React.ComponentType | Promise<React.ComponentType | { default: React.ComponentType }>
   saga?: Saga | Promise<{ default: Saga } | Saga>
   composeEnhancers?: typeof compose
@@ -90,4 +89,12 @@ export interface ICreateRouteOptions<InitialState> {
   onRouteMatch?: () => any
   onMount?: () => any
   onUnMount?: () => any
+}
+
+export type IEmptyRouteComposer = IRouteComposer<{}>
+
+export interface IRouteComponentProps<T extends IRouteComposer<T>> {
+  exactUrlMatch: boolean
+  params: T
+  children: React.ReactChild | React.ReactChildren
 }

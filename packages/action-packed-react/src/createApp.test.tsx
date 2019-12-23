@@ -5,6 +5,8 @@ import { mount, render, ReactWrapper } from 'enzyme'
 import { Provider } from 'react-redux'
 import { createActionPack, createReducerFromActionPack } from './createReducer'
 import { createRouteComposer } from './routeMatcher'
+import { IRouteProps } from './link'
+import { IEmptyRouteComposer, IRouteComponentProps } from './types'
 export const mountAlert = <IProps, T>(
   C: React.ComponentType<IProps>,
   { didMount, willUnmount }: { didMount?: () => any; willUnmount?: () => any }
@@ -68,11 +70,8 @@ const createBasicApp = (onMountWrap?: OnMountWrap) => {
     useHashHistory: false,
     RouteNotFoundComponent: () => <h1>Not Found</h1>,
     LoadingComponent: () => <div>Loading...</div>,
-    layout: props => <>{props.children}</>,
+    layout: (props ) => <>{props.children}</>,
     history: history,
-    component: (props: { children: React.ReactChildren }) => (
-      <div>Route default {props.children}</div>
-    ),
     initialState: {
       str: '',
       num: 15
