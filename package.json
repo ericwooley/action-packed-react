@@ -44,6 +44,6 @@
     "tslint-react": "^4.1.0"
   },
   "dependencies": {
-    "eslint": "^6.7.2"
+    "eslint": "^6.8.0"
   }
 }
