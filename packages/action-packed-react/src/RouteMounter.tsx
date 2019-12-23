@@ -15,6 +15,7 @@ export interface IPathMatcherProps {
   LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
   component: React.ComponentType<any>
 }
+const emptyObject = {}
 export class PathMatcher extends React.Component<IPathMatcherProps> {
   routeMap: IRoutesMap
   constructor(props: any) {
@@ -64,7 +65,14 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
   render() {
     const content = this.routeChildren
     const RootComponent = this.props.component
-    return <RootComponent>{content}</RootComponent>
+    return (
+      <RootComponent
+        exactUrlMatch={routeMatchesPathExactly('/', this.props.activeRoute)}
+        params={emptyObject}
+      >
+        {content}
+      </RootComponent>
+    )
   }
 }
 
