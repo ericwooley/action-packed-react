@@ -18,7 +18,8 @@ module.exports = async function build(options: Arguments) {
   const buildCommand = which.sync("webpack");
   const args = [
     "--config",
-    join(__dirname, "../webpack/webpack.config.js"),
+    // it's js after build
+    join(__dirname, "./webpack/webpack.config.js"),
     "--env.production",
     ...extraArgs
   ];

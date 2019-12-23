@@ -61,6 +61,7 @@
     "remeda": "^0.0.14",
     "source-map-loader": "^0.2.4",
     "supports-color": "^7.1.0",
+    "tailwindcss": "^1.1.4",
     "tslint": "^5.20.1",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
