@@ -197,10 +197,8 @@ export default testRouteRoute(parent)
 
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `
 "import * as React from 'react'
-
-interface TestrouteProps {
-  children?: React.ReactChildren
-}
+import { RouteProps } from './route'
+interface TestrouteProps extends RouteProps {}
 
 const testRouteLayout = (props: TestrouteProps) => (
   <div>
@@ -266,9 +264,11 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
 import { Parent as RouteParent } from '../../route';
-export const route = createRouteComposer('testRoute')
+type Params = {}
+export const route = createRouteComposer<Params>('testRoute')
+export type RouteProps = IRouteComponentProps<Params>
 const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
@@ -294,10 +294,8 @@ export default testRoute2Route(parent)
 
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `
 "import * as React from 'react'
-
-interface Testroute2Props {
-  children?: React.ReactChildren
-}
+import { RouteProps } from './route'
+interface Testroute2Props extends RouteProps {}
 
 const testRoute2Layout = (props: Testroute2Props) => (
   <div>
@@ -363,9 +361,11 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating route should generate a new route based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
 import { Parent as RouteParent } from '../../route';
-export const route = createRouteComposer('testRoute2')
+type Params = {}
+export const route = createRouteComposer<Params>('testRoute2')
+export type RouteProps = IRouteComponentProps<Params>
 const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
@@ -706,10 +706,8 @@ export default testRouteRoute(parent)
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `
 "import * as React from 'react'
-
-interface TestrouteProps {
-  children?: React.ReactChildren
-}
+import { RouteProps } from './route'
+interface TestrouteProps extends RouteProps {}
 
 const testRouteLayout = (props: TestrouteProps) => (
   <div>
@@ -775,9 +773,11 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
 import { Parent as RouteParent } from '../../route';
-export const route = createRouteComposer('testRoute')
+type Params = {}
+export const route = createRouteComposer<Params>('testRoute')
+export type RouteProps = IRouteComponentProps<Params>
 const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
@@ -803,10 +803,8 @@ export default testRoute2Route(parent)
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/layout.tsx 1`] = `
 "import * as React from 'react'
-
-interface Testroute2Props {
-  children?: React.ReactChildren
-}
+import { RouteProps } from './route'
+interface Testroute2Props extends RouteProps {}
 
 const testRoute2Layout = (props: Testroute2Props) => (
   <div>
@@ -872,9 +870,11 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
 import { Parent as RouteParent } from '../../route';
-export const route = createRouteComposer('testRoute2')
+type Params = {}
+export const route = createRouteComposer<Params>('testRoute2')
+export type RouteProps = IRouteComponentProps<Params>
 const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
@@ -900,10 +900,8 @@ export default testRoute3Route(parent)
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/layout.tsx 1`] = `
 "import * as React from 'react'
-
-interface Testroute3Props {
-  children?: React.ReactChildren
-}
+import { RouteProps } from './route'
+interface Testroute3Props extends RouteProps {}
 
 const testRoute3Layout = (props: Testroute3Props) => (
   <div>
@@ -969,9 +967,11 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 `;
 
 exports[`generating route should generate a new route based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
 import { Parent as RouteParent } from '../../route';
-export const route = createRouteComposer('testRoute3')
+type Params = {}
+export const route = createRouteComposer<Params>('testRoute3')
+export type RouteProps = IRouteComponentProps<Params>
 const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
@@ -1320,10 +1320,8 @@ export default testRouteRoute(parent)
 
 exports[`generating route should generate a new route: <project-root>playground/src/routes/testRoute/layout.tsx 1`] = `
 "import * as React from 'react'
-
-interface TestrouteProps {
-  children?: React.ReactChildren
-}
+import { RouteProps } from './route'
+interface TestrouteProps extends RouteProps {}
 
 const testRouteLayout = (props: TestrouteProps) => (
   <div>
@@ -1389,9 +1387,11 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating route should generate a new route: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
 import { Parent as RouteParent } from '../../route';
-export const route = createRouteComposer('testRoute')
+type Params = {}
+export const route = createRouteComposer<Params>('testRoute')
+export type RouteProps = IRouteComponentProps<Params>
 const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,

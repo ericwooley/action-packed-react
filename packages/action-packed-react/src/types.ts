@@ -1,4 +1,3 @@
-import { initialState } from './routeReducer'
 import { History, Action } from 'history'
 import { Reducer, compose } from 'redux'
 import { IRouteComposer } from './routeMatcher'
@@ -95,8 +94,8 @@ export interface ICreateRouteOptions<InitialState> {
 
 export type IEmptyRouteComposer = IRouteComposer<{}>
 
-export interface IRouteComponentProps<T extends IRouteComposer<T>> {
+export interface IRouteComponentProps<V> {
   exactUrlMatch: boolean
-  params: T
+  params: V
   children: React.ReactChild | React.ReactChildren
 }

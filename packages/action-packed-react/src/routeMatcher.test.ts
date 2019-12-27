@@ -5,6 +5,7 @@ import {
   routeMatcher,
   createRouteComposer
 } from './routeMatcher'
+import { IRouteComponentProps } from './types'
 
 describe('routeMatcher', () => {
   describe('routeMatchesPath', () => {
@@ -48,18 +49,14 @@ describe('routeMatcher', () => {
         id: '12',
         friendId: '37'
       }
-      expect(
-        getVariablesForRoute('/home/:id/:friendId', '/home/12/37')
-      ).toEqual(expected)
+      expect(getVariablesForRoute('/home/:id/:friendId', '/home/12/37')).toEqual(expected)
     })
     it('should return the variables for multiple', () => {
       const expected = {
         id: '12',
         friendId: '37'
       }
-      expect(
-        getVariablesForRoute('/home/:id/:friendId', '/home/12/37')
-      ).toEqual(expected)
+      expect(getVariablesForRoute('/home/:id/:friendId', '/home/12/37')).toEqual(expected)
     })
     it('should return the variables for none', () => {
       const expected = {}
@@ -86,9 +83,7 @@ describe('routeMatcher', () => {
       createRouteComposer<{ thing: string }>('/test/:thing')
     })
     it('should return a function which inserts variables into the route', () => {
-      const routeComposer = createRouteComposer<{ thing: string }>(
-        '/test/:thing'
-      )
+      const routeComposer = createRouteComposer<{ thing: string }>('/test/:thing')
       expect(routeComposer).toMatchSnapshot()
       expect(
         routeComposer.createUrl({
@@ -107,6 +102,22 @@ describe('routeMatcher', () => {
           jobs: 'works'
         })
       ).toMatchInlineSnapshot(`"/test/stuff/steve/works"`)
+    })
+    it('should work with types', () => {
+      type Params = {
+        jobs: string,
+        thing: string
+      }
+      const routeComposer = createRouteComposer<Params>('/test/:thing/steve/:jobs')
+      type PropTypes = IRouteComponentProps<Params>
+      const test: PropTypes = {
+        exactUrlMatch: true,
+        children: 'whatever',
+        params: {
+          jobs: 'test',
+          thing: 'test'
+        }
+      }
     })
   })
 })

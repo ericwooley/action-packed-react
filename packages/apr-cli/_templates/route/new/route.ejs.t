@@ -1,9 +1,11 @@
 ---
 to: <%=route%>/routes/<%=name%>/route.ts
 ---
-import { createRouteComposer } from 'action-packed-react';
+import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
 import { Parent as RouteParent } from '../../route';
-export const route = createRouteComposer('<%=name%>')
+type Params = {}
+export const route = createRouteComposer<Params>('<%=name%>')
+export type RouteProps = IRouteComponentProps<Params>
 const <%=name%>Route = (app: RouteParent) => {
   const <%=name%>Route = app.createSubRoute(
     route,
