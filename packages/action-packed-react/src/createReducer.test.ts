@@ -64,4 +64,20 @@ describe('creating reducers', () => {
       })
     })
   })
+  describe('actionPack.actionCreators', () => {
+    interface InitialState {
+      test: string
+    }
+    const initialState: InitialState = {
+      test: 'test'
+    }
+    const actionPack = createActionPack<InitialState, string>('updateTest', (state, action) => ({
+      ...state,
+      test: action.payload
+    }))
+    it('should create a reducer', () => {
+      const reducer = createReducerFromActionPack(initialState, { actionPack })
+      expect(reducer.actionCreators.actionPack).toBeDefined()
+    })
+  })
 })

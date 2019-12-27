@@ -114,9 +114,9 @@ let reducerNonce = 0
  * // []
  *
  */
-export const createReducerFromActionPack = <T>(
+export const createReducerFromActionPack = <T, AP extends { [key: string]: IActionPack<any, T, any> }>(
   initialState: T,
-  actionPacks: { [key: string]: IActionPack<any, T, any> }
+  actionPacks: AP
 ): Reducer<T> & { actionCreators: typeof actionPacks } => {
   let reducerId = reducerNonce
   reducerNonce += 1
