@@ -6,7 +6,7 @@
   "main": "./dist/lib/index.js",
   "browser": "./dist/lib/index.js",
   "module": "./dist/lib/index.js",
-  "types": "./dist/types/",
+  "types": "./dist/types/index.d.ts",
   "author": "Eric Wooley <ericwooley@gmail.com>",
   "include": [
     "./dist/"

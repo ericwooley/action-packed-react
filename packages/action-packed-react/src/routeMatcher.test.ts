@@ -6,6 +6,7 @@ import {
   createRouteComposer
 } from './routeMatcher'
 import { IRouteComponentProps } from './types'
+import { createMemoryHistory } from 'history'
 
 describe('routeMatcher', () => {
   describe('routeMatchesPath', () => {
@@ -105,12 +106,13 @@ describe('routeMatcher', () => {
     })
     it('should work with types', () => {
       type Params = {
-        jobs: string,
+        jobs: string
         thing: string
       }
       const routeComposer = createRouteComposer<Params>('/test/:thing/steve/:jobs')
       type PropTypes = IRouteComponentProps<Params>
       const test: PropTypes = {
+        history: createMemoryHistory(),
         exactUrlMatch: true,
         children: 'whatever',
         params: {

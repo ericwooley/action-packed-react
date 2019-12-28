@@ -70,6 +70,8 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
     const RootComponent = this.props.component
     return (
       <RootComponent
+        key="app-root"
+        history={this.props.history}
         exactUrlMatch={routeMatchesPathExactly('/', this.props.activeRoute)}
         params={emptyObject}
       >
