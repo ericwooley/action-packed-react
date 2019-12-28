@@ -222,11 +222,11 @@ export function createApp<R extends { [key: string]: Reducer }>({
     return <
       ISubReducers extends ReducerObj,
       RouteProps extends ParentRouteProps,
-      IComponentProps extends Partial<{
-        exactUrlMatch: boolean,
+      IComponentProps extends {
+        exactUrlMatch: boolean
         params: RouteProps
         children: ReactChildren
-      }>
+      }
     >(
       route: IRouteComposer<RouteProps> | string,
       reducer?: () => Promise<
