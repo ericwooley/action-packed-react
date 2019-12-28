@@ -5,9 +5,11 @@ import { Store } from 'redux'
 import { IRoutesMap } from './types'
 import { selectors } from './routeReducer'
 import { getVariablesForRoute, routeMatchesPathExactly } from './routeMatcher'
+import { History } from 'history'
 
 export interface IPathMatcherProps {
   routeMap: IRoutesMap
+  history: History
   pathname: string
   activeRoute: string
   matchingRoutes: string[]
@@ -54,6 +56,7 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
         <Component
           key={matchingRoutes[index]}
           exactUrlMatch={routeMatchesPathExactly(pack.path, this.props.activeRoute)}
+          history={this.props.history}
           params={getVariablesForRoute(pack.path, this.props.activeRoute)}
         >
           {children}

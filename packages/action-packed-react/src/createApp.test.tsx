@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { createApp, BareBonesState } from './createApp'
-import { createMemoryHistory } from 'history'
+import { createMemoryHistory, History } from 'history'
 import { mount, render, ReactWrapper } from 'enzyme'
 import { Provider } from 'react-redux'
 import { createActionPack, createReducerFromActionPack } from './createReducer'
 import { createRouteComposer } from './routeMatcher'
-import { IRouteProps } from './link'
 import { IEmptyRouteComposer, IRouteComponentProps } from './types'
+
 export const mountAlert = <IProps, T>(
   C: React.ComponentType<IProps>,
   { didMount, willUnmount }: { didMount?: () => any; willUnmount?: () => any }

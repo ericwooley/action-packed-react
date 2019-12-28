@@ -98,7 +98,8 @@ export function createApp<R extends { [key: string]: Reducer }>({
         matchingRoutes: [],
         component,
         RouteNotFoundComponent,
-        LoadingComponent
+        LoadingComponent,
+        history
       },
       store
     )
@@ -222,11 +223,12 @@ export function createApp<R extends { [key: string]: Reducer }>({
     return <
       ISubReducers extends ReducerObj,
       RouteProps extends ParentRouteProps,
-      IComponentProps extends {
+      IComponentProps extends Partial<{
+        history: History
         exactUrlMatch: boolean
         params: RouteProps
         children: ReactChildren
-      }
+      }>
     >(
       route: IRouteComposer<RouteProps> | string,
       reducer?: () => Promise<
