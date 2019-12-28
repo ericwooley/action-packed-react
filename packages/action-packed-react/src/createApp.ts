@@ -223,6 +223,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
       ISubReducers extends ReducerObj,
       RouteProps extends ParentRouteProps,
       IComponentProps extends Partial<{
+        exactUrlMatch: boolean,
         params: RouteProps
         children: ReactChildren
       }>
