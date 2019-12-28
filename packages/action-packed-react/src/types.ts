@@ -95,6 +95,7 @@ export interface ICreateRouteOptions<InitialState> {
 export type IEmptyRouteComposer = IRouteComposer<{}>
 
 export interface IRouteComponentProps<V> {
+  history: History
   exactUrlMatch: boolean
   params: V
   children: React.ReactChild | React.ReactChildren
