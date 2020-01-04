@@ -1,5 +1,5 @@
 import { History, Action } from 'history'
-import { Reducer, compose } from 'redux'
+import { Reducer, compose, Store } from 'redux'
 import { IRouteComposer } from './routeMatcher'
 import { IPathMatcherProps } from './RouteMounter'
 export type Saga = () => IterableIterator<any>
@@ -47,7 +47,8 @@ export interface IOptions<
   layout: AnyRouteComponent | Promise<AnyRouteComponent | { default: AnyRouteComponent }>
   saga?: Saga | Promise<{ default: Saga } | Saga>
   composeEnhancers?: typeof compose
-  baseRoute?: string
+  baseRoute?: string,
+  store?: Store
 }
 
 type AnyRouteComponent = React.ComponentType<IRouteComponentProps<any>>

@@ -3,6 +3,7 @@ import { createApp } from './'
 import { createMemoryHistory } from 'history'
 import { mount } from 'enzyme'
 import { createRouteComposer } from './routeMatcher'
+import { createStore } from './createApp'
 
 describe('basic test', () => {
   it('should be usable', async () => {
@@ -28,11 +29,7 @@ describe('basic test', () => {
     )
     const history = createMemoryHistory()
     // (window as any).hist = history;
-    const app = createApp({
-      layout: Layout,
-      history,
-      LoadingComponent: () => <h1>Loading</h1>,
-      RouteNotFoundComponent: () => <div>NotFound</div>,
+    const storeBundle = createStore({
       initialState: {
         str: '',
         num: 15
@@ -41,6 +38,13 @@ describe('basic test', () => {
         str: () => 'test',
         num: () => 12
       }
+    })
+    const app = createApp({
+      ...storeBundle,
+      layout: Layout,
+      history,
+      LoadingComponent: () => <h1>Loading</h1>,
+      RouteNotFoundComponent: () => <div>NotFound</div>
     })
     mount(<app.AppComponent />)
     const subRoute2 = app.createSubRoute(createRouteComposer<{}>('test'), async () => ({

@@ -2,17 +2,29 @@
 to: src/route.tsx
 ---
 import * as React from "react";
-import { createApp } from "action-packed-react";
+import {
+  createApp,
+  createStore,
+  IRouteComponentProps,
+  IEmptyRouteComposer
+} from "action-packed-react";
 import { History } from "history";
 import initialReducers, { initialState } from "./redux/ducks";
 import "./global.css"
 
+export type RouteProps = IRouteComponentProps<IEmptyRouteComposer>;
+
+export const {store,...bundle} = createStore({
+  initialState,
+  initialReducers,
+});
+
 export const routeFactory = ({ history }: { history: History }) => {
   const app = createApp({
+    store,
+    ...bundle,
     composeEnhancers: (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__,
     history,
-    initialState,
-    initialReducers,
     RouteNotFoundComponent: () => <div>Not Found</div>,
     LoadingComponent: () => <h3>Loading...</h3>,
     saga: import("./redux/sagas/index"),

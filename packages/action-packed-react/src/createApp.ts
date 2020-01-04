@@ -1,7 +1,15 @@
 import { asMountableComponent } from './asMountableComponent'
 import { navigateOnMount } from './navigateOnMount'
 import { ReactChildren, createElement } from 'react'
-import { createStore, combineReducers, Reducer, Store, applyMiddleware, compose } from 'redux'
+import {
+  createStore as createReduxStore,
+  combineReducers,
+  Reducer,
+  Store,
+  applyMiddleware,
+  compose,
+  Middleware
+} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { mount } from './RouteMounter'
 import {
@@ -35,8 +43,45 @@ const PassThroughComponent = (props: { children: any }) => props.children
 const EmptyComponent = createElement('div')
 const reducerBase = { _route: routeReducer }
 type EmptyKeys = keyof {}
+
+export function createStore<
+  IInitialReducers extends { [key: string]: Reducer },
+  InitialState extends ReducerToState<IInitialReducers>
+>({
+  initialState,
+  initialReducers,
+  composeEnhancers = compose,
+  middleware = []
+}: {
+  initialState: InitialState
+  initialReducers: IInitialReducers
+  composeEnhancers?: typeof compose
+  middleware?: Middleware<any>[]
+}) {
+  let currentReducerObject: typeof reducerBase & IInitialReducers = Object.assign(
+    {},
+    reducerBase,
+    initialReducers
+  )
+  const combinedInitialState = Object.assign({}, initialState, {
+    _route: routeInitialState
+  })
+  const sagaMiddleware = createSagaMiddleware()
+  return {
+    store: createReduxStore(
+      combineReducers(currentReducerObject),
+      combinedInitialState,
+      composeEnhancers(applyMiddleware(...[sagaMiddleware, ...middleware]))
+    ) as Store<typeof combinedInitialState>,
+    initialState: combinedInitialState,
+    initialReducers: currentReducerObject
+  }
+}
 export type BareBonesState = ReducerToState<typeof reducerBase>
-export function createApp<R extends { [key: string]: Reducer }>({
+export function createApp<
+  R extends { [key: string]: Reducer },
+  IInitialState extends BareBonesState & ReducerToState<R>
+>({
   initialState,
   initialReducers,
   history,
@@ -45,14 +90,10 @@ export function createApp<R extends { [key: string]: Reducer }>({
   RouteNotFoundComponent,
   LoadingComponent,
   saga,
-  composeEnhancers = compose,
-  baseRoute = '/'
-}: IOptions<R>) {
-  type IInitialState = BareBonesState & ReducerToState<R>
+  baseRoute = '/',
+  store
+}: IOptions<R> & { store: Store<IInitialState> }) {
   let currentReducerObject: typeof reducerBase & R = Object.assign({}, reducerBase, initialReducers)
-  const combinedInitialState = Object.assign({}, initialState, {
-    _route: routeInitialState
-  })
   const appRoute = createRouteComposer(baseRoute)
   const routeMap: IRoutesMap = {
     [baseRoute]: {
@@ -71,11 +112,6 @@ export function createApp<R extends { [key: string]: Reducer }>({
     }
   }
   const sagaMiddleware = createSagaMiddleware()
-  const store = createStore(
-    combineReducers(currentReducerObject),
-    combinedInitialState,
-    composeEnhancers(applyMiddleware(sagaMiddleware))
-  )
   store.dispatch(addUserRoute(baseRoute))
   async function init() {
     let component: React.ComponentType<any> = await Promise.resolve(layout as any)
@@ -311,7 +347,7 @@ export function createApp<R extends { [key: string]: Reducer }>({
           }
           store.dispatch(addUserRoute(combinedRoute))
         },
-        getState: () => (store.getState() as any) as ICompleteState,
+        getState: () => store.getState() as ICompleteState,
         baseSelector: (s: ICompleteState) => s,
         paramSelector: (selectors.params as any) as (s: ICompleteState) => RouteProps,
         connect: <T, OwnProps, H>(

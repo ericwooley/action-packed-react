@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { createApp, BareBonesState } from './createApp'
+import { createApp, BareBonesState, createStore } from './createApp'
 import { createMemoryHistory, History } from 'history'
 import { mount, render, ReactWrapper } from 'enzyme'
 import { Provider } from 'react-redux'
@@ -66,20 +66,25 @@ class ProductSearchComponent extends React.Component<{
 type OnMountWrap = (r: ReturnType<typeof mount>) => any
 const createBasicApp = (onMountWrap?: OnMountWrap) => {
   const history = createMemoryHistory()
+  const initialReducers = {
+    str: () => 'test',
+    num: () => 12
+  }
+  const initialState = {
+    str: '',
+    num: 15
+  }
+  const storeBundle = createStore({
+    initialReducers,
+    initialState
+  })
   const app = createApp({
+    ...storeBundle,
     useHashHistory: false,
     RouteNotFoundComponent: () => <h1>Not Found</h1>,
     LoadingComponent: () => <div>Loading...</div>,
     layout: (props: IRouteComponentProps<IEmptyRouteComposer>) => <>{props.children}</>,
-    history: history,
-    initialState: {
-      str: '',
-      num: 15
-    },
-    initialReducers: {
-      str: () => 'test',
-      num: () => 12
-    }
+    history: history
   })
   const wrapper = mount(<app.AppComponent />)
   if (onMountWrap) onMountWrap(wrapper)
