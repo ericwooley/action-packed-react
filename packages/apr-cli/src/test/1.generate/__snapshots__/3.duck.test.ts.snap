@@ -3,6 +3,8 @@
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import styled from \\"styled-components\\";
+import { RouteProps } from \\"app/route\\";
+
 const Wrapper = styled.div\`
   display: flex;
   flex-direction: row;
@@ -15,7 +17,7 @@ const Nav = styled.div\`
   border: 1px solid lightgreen;
   border-radius: 20px;
 \`;
-export default class RootLayout extends React.PureComponent {
+export default class RootLayout extends React.PureComponent<RouteProps> {
   render() {
     return (
       <Wrapper>
@@ -807,6 +809,8 @@ Array [
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import styled from \\"styled-components\\";
+import { RouteProps } from \\"app/route\\";
+
 const Wrapper = styled.div\`
   display: flex;
   flex-direction: row;
@@ -819,7 +823,7 @@ const Nav = styled.div\`
   border: 1px solid lightgreen;
   border-radius: 20px;
 \`;
-export default class RootLayout extends React.PureComponent {
+export default class RootLayout extends React.PureComponent<RouteProps> {
   render() {
     return (
       <Wrapper>
@@ -1641,6 +1645,8 @@ Array [
 exports[`generating duck should generate a new duck: <project-root>playground/src/components/RootLayout/index.tsx 1`] = `
 "import * as React from \\"react\\";
 import styled from \\"styled-components\\";
+import { RouteProps } from \\"app/route\\";
+
 const Wrapper = styled.div\`
   display: flex;
   flex-direction: row;
@@ -1653,7 +1659,7 @@ const Nav = styled.div\`
   border: 1px solid lightgreen;
   border-radius: 20px;
 \`;
-export default class RootLayout extends React.PureComponent {
+export default class RootLayout extends React.PureComponent<RouteProps> {
   render() {
     return (
       <Wrapper>

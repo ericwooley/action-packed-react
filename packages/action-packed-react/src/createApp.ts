@@ -71,10 +71,11 @@ export function createStore<
     store: createReduxStore(
       combineReducers(currentReducerObject),
       combinedInitialState,
-      composeEnhancers(applyMiddleware(...[sagaMiddleware, ...middleware]))
+      composeEnhancers(applyMiddleware(sagaMiddleware, ...middleware))
     ) as Store<typeof combinedInitialState>,
     initialState: combinedInitialState,
-    initialReducers: currentReducerObject
+    initialReducers: currentReducerObject,
+    sagaMiddleware
   }
 }
 export type BareBonesState = ReducerToState<typeof reducerBase>
@@ -91,8 +92,12 @@ export function createApp<
   LoadingComponent,
   saga,
   baseRoute = '/',
-  store
-}: IOptions<R> & { store: Store<IInitialState> }) {
+  store,
+  sagaMiddleware
+}: IOptions<R> & {
+  store: Store<IInitialState>
+  sagaMiddleware: ReturnType<typeof createSagaMiddleware>
+}) {
   let currentReducerObject: typeof reducerBase & R = Object.assign({}, reducerBase, initialReducers)
   const appRoute = createRouteComposer(baseRoute)
   const routeMap: IRoutesMap = {
@@ -111,7 +116,6 @@ export function createApp<
       }
     }
   }
-  const sagaMiddleware = createSagaMiddleware()
   store.dispatch(addUserRoute(baseRoute))
   async function init() {
     let component: React.ComponentType<any> = await Promise.resolve(layout as any)

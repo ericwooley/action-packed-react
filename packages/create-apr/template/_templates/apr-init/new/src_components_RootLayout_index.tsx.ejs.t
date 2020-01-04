@@ -3,6 +3,8 @@ to: src/components/RootLayout/index.tsx
 ---
 import * as React from "react";
 import styled from "styled-components";
+import { RouteProps } from "app/route";
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -15,7 +17,7 @@ const Nav = styled.div`
   border: 1px solid lightgreen;
   border-radius: 20px;
 `;
-export default class RootLayout extends React.PureComponent {
+export default class RootLayout extends React.PureComponent<RouteProps> {
   render() {
     return (
       <Wrapper>
