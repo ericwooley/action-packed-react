@@ -4,6 +4,7 @@ import { createMemoryHistory } from 'history'
 import { mount } from 'enzyme'
 import { createRouteComposer } from './routeMatcher'
 import { createStore } from './createApp'
+import { createLink } from './link'
 
 describe('basic test', () => {
   it('should be usable', async () => {
@@ -12,10 +13,10 @@ describe('basic test', () => {
         <h1>Layout</h1>
         <ul>
           <li>
-            <subRoute2.Link>Subroute 2</subRoute2.Link>
+            <SubRoute2Link>Subroute 2</SubRoute2Link>
           </li>
           <li>
-            <subRoute3.Link id="2">Subroute 3</subRoute3.Link>
+            <SubRoute3Link id="2">Subroute 3</SubRoute3Link>
           </li>
         </ul>
         {props.children}
@@ -47,15 +48,18 @@ describe('basic test', () => {
       RouteNotFoundComponent: () => <div>NotFound</div>
     })
     mount(<app.AppComponent />)
+    const subRoute2RouteComposer = createRouteComposer<{}>('test')
+    const SubRoute2Link = createLink(subRoute2RouteComposer)
     const subRoute2 = app.createSubRoute(createRouteComposer<{}>('test'), async () => ({
       test: () => null
     }))
     subRoute2.setComponent(async () => () => <InnerLayout />)
+    const subRoute3RouteComposer = createRouteComposer<{ id: string }>('test/:id')
+    const SubRoute3Link = createLink(subRoute3RouteComposer)
     // is not any...
-    const subRoute3 = subRoute2.createSubRoute(
-      createRouteComposer<{ id: string }>('test/:id'),
-      async () => ({ bob: () => null })
-    )
+    const subRoute3 = subRoute2.createSubRoute(subRoute3RouteComposer, async () => ({
+      bob: () => null
+    }))
     subRoute3.setComponent(async () => (props: any) => (
       <div>
         <h1>Waldows World</h1>

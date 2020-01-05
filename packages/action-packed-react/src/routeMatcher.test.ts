@@ -3,7 +3,8 @@ import {
   routeMatchesPathExactly,
   getVariablesForRoute,
   routeMatcher,
-  createRouteComposer
+  createRouteComposer,
+  combineRoutes
 } from './routeMatcher'
 import { IRouteComponentProps } from './types'
 import { createMemoryHistory } from 'history'
@@ -120,6 +121,22 @@ describe('routeMatcher', () => {
           thing: 'test'
         }
       }
+    })
+  })
+  describe('combineRoutes', () => {
+    it('should combine two routes', () => {
+      const routeParent = createRouteComposer('/test/thing')
+      const routeChild = createRouteComposer('thing1/thing2')
+      expect(combineRoutes(routeParent, routeChild).route).toEqual('/test/thing/thing1/thing2')
+    })
+    it('should maintain types', () => {
+      const routeParent = createRouteComposer<{ thing: string }>('/test/:thing')
+      const routeChild = createRouteComposer<{ thing2: string }>('thing1/:thing2')
+      const combined = combineRoutes(routeParent, routeChild)
+      combined.createUrl({
+        thing: 'a thing',
+        thing2: 'a thing 2'
+      })
     })
   })
 })

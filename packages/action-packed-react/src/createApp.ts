@@ -139,7 +139,8 @@ export function createApp<
         component,
         RouteNotFoundComponent,
         LoadingComponent,
-        history
+        history,
+        useHashHistory
       },
       store
     )
@@ -309,7 +310,6 @@ export function createApp<
       const subRoute = {
         navigateOnMount: (routeProps: IFullRouteProps, renderFullApp = false) =>
           navigateOnMount(AppComponent, { history, routeComposer, routeProps, renderFullApp }),
-        Link: createLink(history, routeComposer, useHashHistory),
         parent: parentRoute,
         routeComposer,
         fullRoute: combinedRoute,

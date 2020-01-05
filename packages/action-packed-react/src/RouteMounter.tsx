@@ -5,8 +5,12 @@ import { Store } from 'redux'
 import { IRoutesMap } from './types'
 import { selectors } from './routeReducer'
 import { getVariablesForRoute, routeMatchesPathExactly } from './routeMatcher'
-import { History } from 'history'
+import { History, createMemoryHistory } from 'history'
 
+export const HistoryContext = React.createContext<{ useHashHistory: boolean; history: History }>({
+  useHashHistory: true,
+  history: createMemoryHistory()
+})
 export interface IPathMatcherProps {
   routeMap: IRoutesMap
   history: History
@@ -16,6 +20,7 @@ export interface IPathMatcherProps {
   RouteNotFoundComponent: React.ComponentType<Partial<IPathMatcherProps>>
   LoadingComponent: React.ComponentType<Partial<IPathMatcherProps>>
   component: React.ComponentType<any>
+  useHashHistory: boolean
 }
 const emptyObject = {}
 export class PathMatcher extends React.Component<IPathMatcherProps> {
@@ -23,15 +28,16 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
   constructor(props: any) {
     super(props)
     this.routeMap = this.props.routeMap
-    this.buildChildren().catch(e => console.error('Error building children', e))
+    this.buildChildren(false).catch(e => console.error('Error building children', e))
   }
   componentDidUpdate(lastProps: IPathMatcherProps) {
     if (lastProps.activeRoute !== this.props.activeRoute || !this.routeChildren) {
       this.buildChildren().catch(e => console.error('Error building children', e))
     }
   }
+  unmounting = false
   routeChildren: JSX.Element | undefined
-  buildChildren = async () => {
+  buildChildren = async (forceUpdate = !this.unmounting) => {
     const { RouteNotFoundComponent, LoadingComponent } = this.props
     const matchingRoutes = this.props.matchingRoutes
     const routePacks = matchingRoutes.map(r => ({
@@ -39,7 +45,7 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
       pack: this.routeMap[r]
     }))
     this.routeChildren = <LoadingComponent key="loading" />
-    this.forceUpdate()
+    if (forceUpdate) this.forceUpdate()
     const loadedPacks = await Promise.all(
       routePacks.map(async routePack => {
         const ret = {
@@ -63,20 +69,30 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
         </Component>
       )
     }, null) || <RouteNotFoundComponent {...this.props} />
-    this.forceUpdate()
+    if (forceUpdate) this.forceUpdate()
+  }
+  componentWillUnmount() {
+    this.unmounting = true
   }
   render() {
     const content = this.routeChildren
     const RootComponent = this.props.component
     return (
-      <RootComponent
-        key="app-root"
-        history={this.props.history}
-        exactUrlMatch={routeMatchesPathExactly('/', this.props.activeRoute)}
-        params={emptyObject}
+      <HistoryContext.Provider
+        value={{
+          history: this.props.history,
+          useHashHistory: this.props.useHashHistory
+        }}
       >
-        {content}
-      </RootComponent>
+        <RootComponent
+          key="app-root"
+          history={this.props.history}
+          exactUrlMatch={routeMatchesPathExactly('/', this.props.activeRoute)}
+          params={emptyObject}
+        >
+          {content}
+        </RootComponent>
+      </HistoryContext.Provider>
     )
   }
 }

@@ -24,7 +24,7 @@ const routeMatchesPathWithOptions = curry(
       .split('/')
       .filter(r => !!r)
     if (segments.length < routeSegments.length) return false
-    if(exact && segments.length !== routeSegments.length) {
+    if (exact && segments.length !== routeSegments.length) {
       return false
     }
     const misMatch = segments.find((segment, i) => {
@@ -101,13 +101,26 @@ export const createRouteComposer = <T extends IRouteLimitations = {}>(
      * converts an object into paths, based on the path variables, and object keys.
      */
     createUrl: (args: T) =>
-      segments
+      `/${segments
+        .filter(s => s)
         .map((s: string) => {
           if (segmentIsVariable(s)) {
             return args[varNameFromSegment(s)]
           }
           return s
         })
-        .join('/')
+        .join('/')}`
   }
+}
+
+export const combineRoutes = <
+  ChildRouteProps extends IRouteLimitations,
+  ParentRouteProps extends IRouteLimitations
+>(
+  parentRoute: IRouteComposer<ParentRouteProps>,
+  childRoute: IRouteComposer<ChildRouteProps>
+) => {
+  const combinedRoute = [parentRoute.route, childRoute.route].join('/')
+  type IFullRouteProps = ChildRouteProps & ParentRouteProps
+  return createRouteComposer<IFullRouteProps>(combinedRoute)
 }

@@ -4,8 +4,10 @@ import { createMemoryHistory, History } from 'history'
 import { mount, render, ReactWrapper } from 'enzyme'
 import { Provider } from 'react-redux'
 import { createActionPack, createReducerFromActionPack } from './createReducer'
-import { createRouteComposer } from './routeMatcher'
+import { createRouteComposer, combineRoutes } from './routeMatcher'
 import { IEmptyRouteComposer, IRouteComponentProps } from './types'
+import { createLink } from './link'
+import { HistoryContext } from './RouteMounter'
 
 export const mountAlert = <IProps, T>(
   C: React.ComponentType<IProps>,
@@ -112,10 +114,11 @@ const addProduct = createActionPack<ProductState, { type: string }>(
 )
 
 const productReducer = createReducerFromActionPack(productsState, { addProduct })
+const productRoute = createRouteComposer('products')
+const ProductsLink = createLink(productRoute)
 const createProducts = (baseApp = createBasicApp()) => {
   const { app, history } = baseApp
-  const route = createRouteComposer('products')
-  const products = app.createSubRoute(route, async () => ({ products: productReducer }))
+  const products = app.createSubRoute(productRoute, async () => ({ products: productReducer }))
   products.setComponent(async () => ({ children }: any) => (
     <ProductsComponent productsLen={3} test="" onClick={noop}>
       {children}
@@ -127,18 +130,20 @@ const createProducts = (baseApp = createBasicApp()) => {
     products
   }
 }
+const productSearchRoute = combineRoutes(
+  productRoute,
+  createRouteComposer<{ terms: string }>('search/:terms')
+)
+const ProductSearchLink = createLink(productSearchRoute)
 const createProductsSearch = (parentRoute = createProducts()) => {
   const { products, app, history } = parentRoute
-  const productSearch = products.createSubRoute(
-    createRouteComposer<{ terms: string }>('search/:terms'),
-    async () => ({
-      producer: noop,
-      productSearch: (state: { test: string }, action: { type: string; payload: string }) => ({
-        ...state,
-        test: action.payload
-      })
+  const productSearch = products.createSubRoute(productSearchRoute, async () => ({
+    producer: noop,
+    productSearch: (state: { test: string }, action: { type: string; payload: string }) => ({
+      ...state,
+      test: action.payload
     })
-  )
+  }))
   return { productSearch, products, app, history }
 }
 describe('the wooley way fe', () => {
@@ -342,9 +347,13 @@ describe('the wooley way fe', () => {
       it('should render a link', () => {
         expect(
           mount(
-            <Provider store={productsApp.app.store}>
-              <productsApp.products.Link>products</productsApp.products.Link>
-            </Provider>
+            <HistoryContext.Provider
+              value={{ history: productsApp.history, useHashHistory: false }}
+            >
+              <Provider store={productsApp.app.store}>
+                <ProductsLink>products</ProductsLink>
+              </Provider>
+            </HistoryContext.Provider>
           ).html()
         ).toMatchInlineSnapshot(`"<a href=\\"/products\\">products</a>"`)
       })
@@ -352,9 +361,11 @@ describe('the wooley way fe', () => {
         const spy = jest.fn()
         productsApp.history.listen(spy)
         const link = mount(
-          <Provider store={productsApp.app.store}>
-            <productsApp.products.Link />
-          </Provider>
+          <HistoryContext.Provider value={{ history: productsApp.history, useHashHistory: false }}>
+            <Provider store={productsApp.app.store}>
+              <ProductsLink />
+            </Provider>
+          </HistoryContext.Provider>
         )
         link.find('a').simulate('click')
         expect(link.html()).toMatchInlineSnapshot(`"<a href=\\"/products\\"></a>"`)
@@ -367,9 +378,13 @@ describe('the wooley way fe', () => {
         const spy = jest.fn()
         productSearchApp.history.listen(spy)
         const link = mount(
-          <Provider store={productSearchApp.app.store}>
-            <productSearchApp.productSearch.Link replace={true} terms="whatever" />
-          </Provider>
+          <HistoryContext.Provider
+            value={{ history: productSearchApp.history, useHashHistory: false }}
+          >
+            <Provider store={productSearchApp.app.store}>
+              <ProductSearchLink replace={true} terms="whatever" />
+            </Provider>
+          </HistoryContext.Provider>
         )
         link.find('a').simulate('click')
         await new Promise(r => setTimeout(r, 10))

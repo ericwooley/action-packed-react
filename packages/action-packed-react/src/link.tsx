@@ -3,7 +3,7 @@ import { History } from 'history'
 import { connect } from 'react-redux'
 import { BareBonesState } from './createApp'
 import { IRouteComposer, IRouteLimitations } from './routeMatcher'
-
+import { HistoryContext } from './RouteMounter'
 export interface IRouteProps {
   replace?: boolean
   currentPath?: string
@@ -15,18 +15,14 @@ export interface ILinkProps {
 }
 /** Creates a link component which uses history pushes onto the history object,
  * obeying the hash rules.
- * @param history history object, should match npm history package.
  * @param link IRouteComposer which has methods for manipulating a link.
- * @param useHashHistory If true, all links will prepend # before the link.
  */
-export function createLink<T extends IRouteLimitations>(
-  history: History,
-  link: IRouteComposer<T>,
-  useHashHistory: boolean
-) {
+
+export function createLink<T extends IRouteLimitations>(link: IRouteComposer<T>) {
   class APRLink extends React.PureComponent<
     Partial<React.HTMLProps<HTMLAnchorElement>> & Partial<IRouteProps> & T & ILinkProps
   > {
+    static contextType = HistoryContext
     componentDidMount() {
       if (this.props.redirect) {
         this.navigate()
@@ -39,9 +35,9 @@ export function createLink<T extends IRouteLimitations>(
     navigate = () => {
       const route = link.createUrl(this.props as any)
       if (this.props.replace) {
-        history.replace(route)
+        this.context.history.replace(route)
       } else {
-        history.push(route)
+        this.context.history.push(route)
       }
     }
     render() {
@@ -50,7 +46,7 @@ export function createLink<T extends IRouteLimitations>(
       return (
         <a
           {...restProps}
-          href={`${useHashHistory ? '#' : ''}${link.createUrl(this.props as any)}`}
+          href={`${this.context.useHashHistory ? '#' : ''}${link.createUrl(this.props as any)}`}
           onClick={this.navigate}
         >
           {this.props.children}
