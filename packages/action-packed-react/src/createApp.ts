@@ -29,7 +29,8 @@ import {
   ReducerObj,
   ICreateRouteOptions,
   IRoutesMapValue,
-  IRouteOptions
+  IRouteOptions,
+  IRouteComponentProps
 } from './types'
 import { take, call, all, select, spawn, fork, cancel } from 'redux-saga/effects'
 import { createLink } from './link'
@@ -264,12 +265,7 @@ export function createApp<
     return <
       ISubReducers extends ReducerObj,
       RouteProps extends ParentRouteProps,
-      IComponentProps extends Partial<{
-        history: History
-        exactUrlMatch: boolean
-        params: RouteProps
-        children: ReactChildren
-      }>
+      IComponentProps extends IRouteComponentProps<RouteProps>
     >(
       route: IRouteComposer<RouteProps> | string,
       reducer?: () => Promise<

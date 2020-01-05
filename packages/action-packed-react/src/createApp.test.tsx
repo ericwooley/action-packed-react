@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { createApp, BareBonesState, createStore } from './createApp'
-import { createMemoryHistory, History } from 'history'
+import { createMemoryHistory } from 'history'
 import { mount, render, ReactWrapper } from 'enzyme'
 import { Provider } from 'react-redux'
 import { createActionPack, createReducerFromActionPack } from './createReducer'
@@ -13,7 +13,7 @@ export const mountAlert = <IProps, T>(
   C: React.ComponentType<IProps>,
   { didMount, willUnmount }: { didMount?: () => any; willUnmount?: () => any }
 ) => {
-  return class RouteAlerter extends React.Component<IProps> {
+  return class RouteAlerter extends React.Component<IProps & IRouteComponentProps<{}>> {
     componentDidMount() {
       if (didMount) didMount()
     }
@@ -46,7 +46,7 @@ class ProductsComponent extends React.Component<{
   productsLen: number
   test: string
   onClick: () => any
-  children?: React.ReactChildren
+  children?: React.ReactNode
 }> {
   render() {
     return (

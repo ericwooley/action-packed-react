@@ -153,7 +153,7 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
 
 describe(\\"testDuck\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
+    expect(testDuck(initialState, testDuck.actionCreators.reset()));
   });
 });
 "
@@ -168,7 +168,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -240,13 +240,15 @@ import {
   createApp,
   createStore,
   IRouteComponentProps,
-  IEmptyRouteComposer
+  createRouteComposer
 } from \\"action-packed-react\\";
 import { History } from \\"history\\";
 import initialReducers, { initialState } from \\"./redux/ducks\\";
-import \\"./global.css\\"
+import \\"./global.css\\";
 
-export type RouteProps = IRouteComponentProps<IEmptyRouteComposer>;
+export type RouteParams = {}
+export type RouteProps = IRouteComponentProps<RouteParams>;
+export const route = createRouteComposer<RouteParams>(\\"/\\");
 
 export const {store,...bundle} = createStore({
   initialState,
@@ -364,7 +366,7 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
 
 describe(\\"testDuck2\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck2(initialState, testDuck2.actionCreators.reset(undefined)));
+    expect(testDuck2(initialState, testDuck2.actionCreators.reset()));
   });
 });
 "
@@ -379,7 +381,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck2 = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -452,11 +454,16 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
-import { Parent as RouteParent } from '../../route';
-type Params = {}
-export const route = createRouteComposer<Params>('testRoute')
-export type RouteProps = IRouteComponentProps<Params>
+"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+import {
+  Parent as RouteParent,
+  route as parentRoute,
+  RouteParams as ParentRouteParams
+} from '../../route';
+
+export type RouteParams = ParentRouteParams & {};
+export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute'))
+export type RouteProps = IRouteComponentProps<RouteParams>
 const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
@@ -548,7 +555,7 @@ exports[`generating saga should generate a new saga based on testRoutes: <projec
 
 describe(\\"testDuck3\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck3(initialState, testDuck3.actionCreators.reset(undefined)));
+    expect(testDuck3(initialState, testDuck3.actionCreators.reset()));
   });
 });
 "
@@ -563,7 +570,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck3 = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -614,11 +621,16 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
-import { Parent as RouteParent } from '../../route';
-type Params = {}
-export const route = createRouteComposer<Params>('testRoute2')
-export type RouteProps = IRouteComponentProps<Params>
+"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+import {
+  Parent as RouteParent,
+  route as parentRoute,
+  RouteParams as ParentRouteParams
+} from '../../route';
+
+export type RouteParams = ParentRouteParams & {};
+export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute2'))
+export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
@@ -711,11 +723,16 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
-import { Parent as RouteParent } from '../../route';
-type Params = {}
-export const route = createRouteComposer<Params>('testRoute3')
-export type RouteProps = IRouteComponentProps<Params>
+"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+import {
+  Parent as RouteParent,
+  route as parentRoute,
+  RouteParams as ParentRouteParams
+} from '../../route';
+
+export type RouteParams = ParentRouteParams & {};
+export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute3'))
+export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
@@ -1037,7 +1054,7 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
 
 describe(\\"testDuck\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
+    expect(testDuck(initialState, testDuck.actionCreators.reset()));
   });
 });
 "
@@ -1052,7 +1069,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1124,13 +1141,15 @@ import {
   createApp,
   createStore,
   IRouteComponentProps,
-  IEmptyRouteComposer
+  createRouteComposer
 } from \\"action-packed-react\\";
 import { History } from \\"history\\";
 import initialReducers, { initialState } from \\"./redux/ducks\\";
-import \\"./global.css\\"
+import \\"./global.css\\";
 
-export type RouteProps = IRouteComponentProps<IEmptyRouteComposer>;
+export type RouteParams = {}
+export type RouteProps = IRouteComponentProps<RouteParams>;
+export const route = createRouteComposer<RouteParams>(\\"/\\");
 
 export const {store,...bundle} = createStore({
   initialState,
@@ -1248,7 +1267,7 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
 
 describe(\\"testDuck2\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck2(initialState, testDuck2.actionCreators.reset(undefined)));
+    expect(testDuck2(initialState, testDuck2.actionCreators.reset()));
   });
 });
 "
@@ -1263,7 +1282,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck2 = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1336,11 +1355,16 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
-import { Parent as RouteParent } from '../../route';
-type Params = {}
-export const route = createRouteComposer<Params>('testRoute')
-export type RouteProps = IRouteComponentProps<Params>
+"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+import {
+  Parent as RouteParent,
+  route as parentRoute,
+  RouteParams as ParentRouteParams
+} from '../../route';
+
+export type RouteParams = ParentRouteParams & {};
+export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute'))
+export type RouteProps = IRouteComponentProps<RouteParams>
 const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
@@ -1432,7 +1456,7 @@ exports[`generating saga should generate a new saga based on testRoutes2: <proje
 
 describe(\\"testDuck3\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck3(initialState, testDuck3.actionCreators.reset(undefined)));
+    expect(testDuck3(initialState, testDuck3.actionCreators.reset()));
   });
 });
 "
@@ -1447,7 +1471,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck3 = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1520,11 +1544,16 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
-import { Parent as RouteParent } from '../../route';
-type Params = {}
-export const route = createRouteComposer<Params>('testRoute2')
-export type RouteProps = IRouteComponentProps<Params>
+"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+import {
+  Parent as RouteParent,
+  route as parentRoute,
+  RouteParams as ParentRouteParams
+} from '../../route';
+
+export type RouteParams = ParentRouteParams & {};
+export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute2'))
+export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
@@ -1617,11 +1646,16 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 `;
 
 exports[`generating saga should generate a new saga based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
-import { Parent as RouteParent } from '../../route';
-type Params = {}
-export const route = createRouteComposer<Params>('testRoute3')
-export type RouteProps = IRouteComponentProps<Params>
+"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+import {
+  Parent as RouteParent,
+  route as parentRoute,
+  RouteParams as ParentRouteParams
+} from '../../route';
+
+export type RouteParams = ParentRouteParams & {};
+export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute3'))
+export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,
@@ -1945,7 +1979,7 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
 
 describe(\\"testDuck\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
+    expect(testDuck(initialState, testDuck.actionCreators.reset()));
   });
 });
 "
@@ -1960,7 +1994,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -2032,13 +2066,15 @@ import {
   createApp,
   createStore,
   IRouteComponentProps,
-  IEmptyRouteComposer
+  createRouteComposer
 } from \\"action-packed-react\\";
 import { History } from \\"history\\";
 import initialReducers, { initialState } from \\"./redux/ducks\\";
-import \\"./global.css\\"
+import \\"./global.css\\";
 
-export type RouteProps = IRouteComponentProps<IEmptyRouteComposer>;
+export type RouteParams = {}
+export type RouteProps = IRouteComponentProps<RouteParams>;
+export const route = createRouteComposer<RouteParams>(\\"/\\");
 
 export const {store,...bundle} = createStore({
   initialState,
@@ -2156,7 +2192,7 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
 
 describe(\\"testDuck2\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck2(initialState, testDuck2.actionCreators.reset(undefined)));
+    expect(testDuck2(initialState, testDuck2.actionCreators.reset()));
   });
 });
 "
@@ -2171,7 +2207,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck2 = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -2222,11 +2258,16 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
-import { Parent as RouteParent } from '../../route';
-type Params = {}
-export const route = createRouteComposer<Params>('testRoute')
-export type RouteProps = IRouteComponentProps<Params>
+"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+import {
+  Parent as RouteParent,
+  route as parentRoute,
+  RouteParams as ParentRouteParams
+} from '../../route';
+
+export type RouteParams = ParentRouteParams & {};
+export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute'))
+export type RouteProps = IRouteComponentProps<RouteParams>
 const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
     route,
@@ -2318,7 +2359,7 @@ exports[`generating saga should generate a new saga: <project-root>playground/sr
 
 describe(\\"testDuck3\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck3(initialState, testDuck3.actionCreators.reset(undefined)));
+    expect(testDuck3(initialState, testDuck3.actionCreators.reset()));
   });
 });
 "
@@ -2333,7 +2374,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck3 = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState, boolean>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -2384,11 +2425,16 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
-import { Parent as RouteParent } from '../../route';
-type Params = {}
-export const route = createRouteComposer<Params>('testRoute2')
-export type RouteProps = IRouteComponentProps<Params>
+"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+import {
+  Parent as RouteParent,
+  route as parentRoute,
+  RouteParams as ParentRouteParams
+} from '../../route';
+
+export type RouteParams = ParentRouteParams & {};
+export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute2'))
+export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
     route,
@@ -2481,11 +2527,16 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 `;
 
 exports[`generating saga should generate a new saga: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps } from 'action-packed-react';
-import { Parent as RouteParent } from '../../route';
-type Params = {}
-export const route = createRouteComposer<Params>('testRoute3')
-export type RouteProps = IRouteComponentProps<Params>
+"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+import {
+  Parent as RouteParent,
+  route as parentRoute,
+  RouteParams as ParentRouteParams
+} from '../../route';
+
+export type RouteParams = ParentRouteParams & {};
+export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute3'))
+export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
     route,

@@ -6,13 +6,15 @@ import {
   createApp,
   createStore,
   IRouteComponentProps,
-  IEmptyRouteComposer
+  createRouteComposer
 } from "action-packed-react";
 import { History } from "history";
 import initialReducers, { initialState } from "./redux/ducks";
-import "./global.css"
+import "./global.css";
 
-export type RouteProps = IRouteComponentProps<IEmptyRouteComposer>;
+export type RouteParams = {}
+export type RouteProps = IRouteComponentProps<RouteParams>;
+export const route = createRouteComposer<RouteParams>("/");
 
 export const {store,...bundle} = createStore({
   initialState,
