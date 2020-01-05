@@ -9,5 +9,5 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const <%= name %> = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState>(ns("RESET"), () => initialState)
+  reset: createActionPack<UIState, undefined>(ns("RESET"), () => initialState)
 });

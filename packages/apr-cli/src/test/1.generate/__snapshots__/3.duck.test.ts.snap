@@ -153,7 +153,7 @@ exports[`generating duck should generate a new duck based on testRoutes: <projec
 
 describe(\\"testDuck\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck(initialState, testDuck.actionCreators.reset()));
+    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
   });
 });
 "
@@ -168,7 +168,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState, undefined>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -344,7 +344,7 @@ exports[`generating duck should generate a new duck based on testRoutes: <projec
 
 describe(\\"testDuck2\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck2(initialState, testDuck2.actionCreators.reset()));
+    expect(testDuck2(initialState, testDuck2.actionCreators.reset(undefined)));
   });
 });
 "
@@ -359,7 +359,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck2 = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState, undefined>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -976,7 +976,7 @@ exports[`generating duck should generate a new duck based on testRoutes2: <proje
 
 describe(\\"testDuck\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck(initialState, testDuck.actionCreators.reset()));
+    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
   });
 });
 "
@@ -991,7 +991,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState, undefined>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1167,7 +1167,7 @@ exports[`generating duck should generate a new duck based on testRoutes2: <proje
 
 describe(\\"testDuck2\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck2(initialState, testDuck2.actionCreators.reset()));
+    expect(testDuck2(initialState, testDuck2.actionCreators.reset(undefined)));
   });
 });
 "
@@ -1182,7 +1182,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck2 = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState, undefined>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1334,7 +1334,7 @@ exports[`generating duck should generate a new duck based on testRoutes2: <proje
 
 describe(\\"testDuck3\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck3(initialState, testDuck3.actionCreators.reset()));
+    expect(testDuck3(initialState, testDuck3.actionCreators.reset(undefined)));
   });
 });
 "
@@ -1349,7 +1349,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck3 = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState, undefined>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
@@ -1829,7 +1829,7 @@ exports[`generating duck should generate a new duck: <project-root>playground/sr
 
 describe(\\"testDuck\\", () => {
   it(\\"should reset\\", () => {
-    expect(testDuck(initialState, testDuck.actionCreators.reset()));
+    expect(testDuck(initialState, testDuck.actionCreators.reset(undefined)));
   });
 });
 "
@@ -1844,7 +1844,7 @@ export const initialState = { };
 
 type UIState = typeof initialState;
 export const testDuck = createReducerFromActionPack(initialState, {
-  reset: createActionPack<UIState>(ns(\\"RESET\\"), () => initialState)
+  reset: createActionPack<UIState, undefined>(ns(\\"RESET\\"), () => initialState)
 });
 "
 `;
