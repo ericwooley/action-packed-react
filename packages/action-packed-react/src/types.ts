@@ -100,4 +100,5 @@ export interface IRouteComponentProps<V> {
   exactUrlMatch: boolean
   params: V
   children: React.ReactChild | React.ReactChildren
+  currentRoute: string
 }

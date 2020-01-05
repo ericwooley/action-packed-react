@@ -62,6 +62,7 @@ export class PathMatcher extends React.Component<IPathMatcherProps> {
         <Component
           key={matchingRoutes[index]}
           exactUrlMatch={routeMatchesPathExactly(pack.path, this.props.activeRoute)}
+          currentRoute={this.props.activeRoute}
           history={this.props.history}
           params={getVariablesForRoute(pack.path, this.props.activeRoute)}
         >

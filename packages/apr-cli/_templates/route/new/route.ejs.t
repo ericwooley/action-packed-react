@@ -1,7 +1,7 @@
 ---
 to: <%=route%>/routes/<%=name%>/route.ts
 ---
-import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+import { createRouteComposer, IRouteComponentProps, combineRoutes, createLink } from 'action-packed-react';
 import {
   Parent as RouteParent,
   route as parentRoute,
@@ -10,6 +10,7 @@ import {
 
 export type RouteParams = ParentRouteParams & {};
 export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('<%=name%>'))
+export const <%= h.changeCase.pascal(name) %>Link = createLink(route);
 export type RouteProps = IRouteComponentProps<RouteParams>
 const <%=name%>Route = (app: RouteParent) => {
   const <%=name%>Route = app.createSubRoute(

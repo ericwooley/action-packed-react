@@ -15,14 +15,15 @@ export interface ILinkProps {
 }
 /** Creates a link component which uses history pushes onto the history object,
  * obeying the hash rules.
- * @param link IRouteComposer which has methods for manipulating a link.
+ * @param routeComposer IRouteComposer which has methods for manipulating a link.
  */
 
-export function createLink<T extends IRouteLimitations>(link: IRouteComposer<T>) {
+export function createLink<T extends IRouteLimitations>(routeComposer: IRouteComposer<T>) {
   class APRLink extends React.PureComponent<
     Partial<React.HTMLProps<HTMLAnchorElement>> & Partial<IRouteProps> & T & ILinkProps
   > {
     static contextType = HistoryContext
+    static route = routeComposer
     componentDidMount() {
       if (this.props.redirect) {
         this.navigate()
@@ -33,7 +34,7 @@ export function createLink<T extends IRouteLimitations>(link: IRouteComposer<T>)
       if (this.props.onClick) this.props.onClick(e)
     }
     navigate = () => {
-      const route = link.createUrl(this.props as any)
+      const route = routeComposer.createUrl(this.props as any)
       if (this.props.replace) {
         this.context.history.replace(route)
       } else {
@@ -46,7 +47,7 @@ export function createLink<T extends IRouteLimitations>(link: IRouteComposer<T>)
       return (
         <a
           {...restProps}
-          href={`${this.context.useHashHistory ? '#' : ''}${link.createUrl(this.props as any)}`}
+          href={`${this.context.useHashHistory ? '#' : ''}${routeComposer.createUrl(this.props as any)}`}
           onClick={this.navigate}
         >
           {this.props.children}
