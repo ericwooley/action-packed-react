@@ -410,7 +410,7 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps, combineRoutes, createLink } from 'action-packed-react';
 import {
   Parent as RouteParent,
   route as parentRoute,
@@ -419,6 +419,7 @@ import {
 
 export type RouteParams = ParentRouteParams & {};
 export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute'))
+export const TestRouteLink = createLink(route);
 export type RouteProps = IRouteComponentProps<RouteParams>
 const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
@@ -549,7 +550,7 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps, combineRoutes, createLink } from 'action-packed-react';
 import {
   Parent as RouteParent,
   route as parentRoute,
@@ -558,6 +559,7 @@ import {
 
 export type RouteParams = ParentRouteParams & {};
 export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute2'))
+export const TestRoute2Link = createLink(route);
 export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
@@ -651,7 +653,7 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps, combineRoutes, createLink } from 'action-packed-react';
 import {
   Parent as RouteParent,
   route as parentRoute,
@@ -660,6 +662,7 @@ import {
 
 export type RouteParams = ParentRouteParams & {};
 export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute3'))
+export const TestRoute3Link = createLink(route);
 export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
@@ -1233,7 +1236,7 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps, combineRoutes, createLink } from 'action-packed-react';
 import {
   Parent as RouteParent,
   route as parentRoute,
@@ -1242,6 +1245,7 @@ import {
 
 export type RouteParams = ParentRouteParams & {};
 export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute'))
+export const TestRouteLink = createLink(route);
 export type RouteProps = IRouteComponentProps<RouteParams>
 const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
@@ -1400,7 +1404,7 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps, combineRoutes, createLink } from 'action-packed-react';
 import {
   Parent as RouteParent,
   route as parentRoute,
@@ -1409,6 +1413,7 @@ import {
 
 export type RouteParams = ParentRouteParams & {};
 export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute2'))
+export const TestRoute2Link = createLink(route);
 export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
@@ -1502,7 +1507,7 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 `;
 
 exports[`generating duck should generate a new duck based on testRoutes2: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps, combineRoutes, createLink } from 'action-packed-react';
 import {
   Parent as RouteParent,
   route as parentRoute,
@@ -1511,6 +1516,7 @@ import {
 
 export type RouteParams = ParentRouteParams & {};
 export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute3'))
+export const TestRoute3Link = createLink(route);
 export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(
@@ -2058,7 +2064,7 @@ storiesOf(\\"app/testRoute\\", module)
 `;
 
 exports[`generating duck should generate a new duck: <project-root>playground/src/routes/testRoute/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps, combineRoutes, createLink } from 'action-packed-react';
 import {
   Parent as RouteParent,
   route as parentRoute,
@@ -2067,6 +2073,7 @@ import {
 
 export type RouteParams = ParentRouteParams & {};
 export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute'))
+export const TestRouteLink = createLink(route);
 export type RouteProps = IRouteComponentProps<RouteParams>
 const testRouteRoute = (app: RouteParent) => {
   const testRouteRoute = app.createSubRoute(
@@ -2197,7 +2204,7 @@ storiesOf(\\"apptestRoute/testRoute2\\", module)
 `;
 
 exports[`generating duck should generate a new duck: <project-root>playground/src/routes/testRoute/routes/testRoute2/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps, combineRoutes, createLink } from 'action-packed-react';
 import {
   Parent as RouteParent,
   route as parentRoute,
@@ -2206,6 +2213,7 @@ import {
 
 export type RouteParams = ParentRouteParams & {};
 export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute2'))
+export const TestRoute2Link = createLink(route);
 export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute2Route = (app: RouteParent) => {
   const testRoute2Route = app.createSubRoute(
@@ -2299,7 +2307,7 @@ storiesOf(\\"apptestRoute/testRoute2/testRoute3\\", module)
 `;
 
 exports[`generating duck should generate a new duck: <project-root>playground/src/routes/testRoute/routes/testRoute2/routes/testRoute3/route.ts 1`] = `
-"import { createRouteComposer, IRouteComponentProps, combineRoutes } from 'action-packed-react';
+"import { createRouteComposer, IRouteComponentProps, combineRoutes, createLink } from 'action-packed-react';
 import {
   Parent as RouteParent,
   route as parentRoute,
@@ -2308,6 +2316,7 @@ import {
 
 export type RouteParams = ParentRouteParams & {};
 export const route = combineRoutes(parentRoute, createRouteComposer<RouteParams>('testRoute3'))
+export const TestRoute3Link = createLink(route);
 export type RouteProps = IRouteComponentProps<RouteParams>
 const testRoute3Route = (app: RouteParent) => {
   const testRoute3Route = app.createSubRoute(

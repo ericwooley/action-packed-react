@@ -119,7 +119,8 @@ describe('routeMatcher', () => {
         params: {
           jobs: 'test',
           thing: 'test'
-        }
+        },
+        currentRoute: 'asdf'
       }
     })
   })
