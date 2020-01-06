@@ -15,6 +15,7 @@ log("alias", alias);
 
 module.exports = {
   entry,
+  target: 'web',
   mode,
   devServer: {
     historyApiFallback: {
