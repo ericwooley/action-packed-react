@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 yarn clean-pg;
-mkdir  playground || true;
+mkdir playground || true;
 pushd apr-cli
 yarn link
 popd

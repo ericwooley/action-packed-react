@@ -1,0 +1,142 @@
+{
+  "name": "action-packed-react",
+  "version": "0.0.2-alpha.26",
+  "description": "",
+  "keywords": [],
+  "main": "./dist/lib/index.js",
+  "browser": "./dist/lib/index.js",
+  "module": "./dist/lib/index.js",
+  "types": "./dist/types/index.d.ts",
+  "author": "Eric Wooley <ericwooley@gmail.com>",
+  "include": [
+    "./dist/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "prepublish": "yarn build",
+    "lint": "tslint  --project tsconfig.json",
+    "prebuild": "rimraf dist",
+    "build": "yarn tsc",
+    "start": "yarn tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
+    "semantic-release": "semantic-release",
+    "semantic-release-prepare": "ts-node tools/semantic-release-prepare"
+  },
+  "lint-staged": {
+    "{src,test}/**/*.tsx?": [
+      "tslint --fix",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "setupFilesAfterEnv": [
+      "./setupTests.ts"
+    ],
+    "testEnvironment": "jsdom",
+    "testRegex": "(.*\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "testPathIgnorePatterns": [
+      "dist",
+      "node_modules"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/",
+      "/rollup.config.ts",
+      "tools",
+      "dist"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 50,
+        "functions": 70,
+        "lines": 50,
+        "statements": 50
+      }
+    },
+    "collectCoverage": true
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@types/core-js": "^2.5.2",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.14",
+    "colors": "^1.4.0",
+    "commitizen": "^4.0.3",
+    "core-js": "^3.2.1",
+    "coveralls": "^3.0.9",
+    "cross-env": "^6.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "dtslint": "^2.0.2",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest-config": "^24.9.0",
+    "jest-dom": "^4.0.0",
+    "jsdom": "^15.2.1",
+    "lint-staged": "^9.5.0",
+    "lodash.camelcase": "^4.3.0",
+    "prettier": "^1.19.1",
+    "prompt": "^1.0.0",
+    "replace-in-file": "^4.2.0",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.2.0",
+    "ts-node": "^8.5.4",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^9.0.0",
+    "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "@types/enzyme": "^3.10.4",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/history": "^4.7.3",
+    "@types/jsdom": "^12.2.4",
+    "@types/lodash": "^4.14.149",
+    "@types/lodash.curry": "^4.1.6",
+    "@types/react": "^16.9.15",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-redux": "^7.1.5",
+    "history": "^4.10.1",
+    "jest": "^24.9.0",
+    "lodash": "^4.17.15",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.4",
+    "redux-saga": "^1.1.3",
+    "reselect": "^4.0.0",
+    "typescript": "^3.7.3"
+  },
+  "gitHead": "5f8b58101f096cef728a9a8f087fd723e90bc141"
+}

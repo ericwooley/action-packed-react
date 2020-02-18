@@ -7,6 +7,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "publish:alpha": "lerna publish --canary",
+    "publish:beta": "yarn publish:alpha --preid beta",
+    "test": "yarn workspaces run test",
     "clean-pg": "./scripts/clean-playground.sh",
     "playground-init": "./scripts/init-playground.sh"
   },
@@ -15,7 +18,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn workspaces run test || (cat playground.log && false)"
+      "pre-push": "yarn test || (cat playground.log && false)"
     }
   },
   "workspaces": {
@@ -25,9 +28,7 @@
       "**/playground/**/*"
     ],
     "packages": [
-      "action-packed-react",
-      "create-apr",
-      "apr-cli"
+      "packages/*"
     ]
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^3.1.0",
+    "lerna": "^3.19.0",
     "tslint-react": "^4.1.0"
   },
   "dependencies": {
